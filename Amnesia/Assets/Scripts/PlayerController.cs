@@ -13,13 +13,57 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Comma))
+        if (Input.GetKeyDown(KeyCode.Keypad0))
         {
-            SaveLoad.Save();
+            shiftSave(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Period))
+        else if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            SaveLoad.Load();
+            shiftSave(1);
         }
-	}
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            shiftSave(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            shiftSave(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            shiftSave(4);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            shiftSave(5);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            shiftSave(6);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            shiftSave(7);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            shiftSave(8);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad9))
+        {
+            shiftSave(9);
+        }
+    }
+
+    private void shiftSave (int slot)
+    {
+        if (Input.GetKey(KeyCode.S))
+        {
+            SaveLoad.Save(slot);
+        }
+        else
+        {
+            SaveLoad.Load(slot);
+        }
+    }
 }
