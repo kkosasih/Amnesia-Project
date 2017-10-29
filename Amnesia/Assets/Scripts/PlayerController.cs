@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public GameObject player;
+    public Tile currentTile;
 
 	// Use this for initialization
 	void Start ()
     {
-		
+        currentTile = GameController.map.tiles[GameController.map.playerLoc];
+        player.transform.position = currentTile.position;
 	}
 	
 	// Update is called once per frame
@@ -57,21 +59,20 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            player.transform.Translate(0, 1, 0);
+            movePlayer(GameController.map.tileAbove(GameController.map.playerLoc));
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            player.transform.Translate(0, -1, 0);
+            movePlayer(GameController.map.tileBelow(GameController.map.playerLoc));
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            player.transform.Translate(-1, 0, 0);
+            movePlayer(GameController.map.tileLeft(GameController.map.playerLoc));
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            player.transform.Translate(1, 0, 0);
+            movePlayer(GameController.map.tileRight(GameController.map.playerLoc));
         }
-            
     }
 
     private void shiftSave (int slot)
@@ -83,6 +84,16 @@ public class PlayerController : MonoBehaviour {
         else
         {
             SaveLoad.Load(slot);
+        }
+    }
+
+    private void movePlayer (int moveTo)
+    {
+        if (!GameController.map.tiles[moveTo].obstruct)
+        {
+            GameController.map.playerLoc = moveTo;
+            currentTile = GameController.map.tiles[moveTo];
+            player.transform.position = currentTile.position;
         }
     }
 }
