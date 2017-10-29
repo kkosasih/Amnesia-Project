@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    public GameObject player;
 
 	// Use this for initialization
 	void Start ()
@@ -53,6 +54,24 @@ public class PlayerController : MonoBehaviour {
         {
             shiftSave(9);
         }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            player.transform.Translate(0, 1, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            player.transform.Translate(0, -1, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            player.transform.Translate(-1, 0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            player.transform.Translate(1, 0, 0);
+        }
+            
     }
 
     private void shiftSave (int slot)
