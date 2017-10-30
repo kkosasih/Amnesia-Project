@@ -1,13 +1,7 @@
 ﻿
-<<<<<<< Updated upstream
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amnesia", "Amnesia.csproj", "{F5BCC2CD-8D15-83E8-7877-AE45229AA873}"
-=======
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amnesia", "Assembly-CSharp.csproj", "{8CB6677D-FEF1-E7E2-7FF2-E1FA07C90F1A}"
->>>>>>> Stashed changes
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
