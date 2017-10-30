@@ -1,51 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Map {
+public class Map : MonoBehaviour {
+    public string data;
     public int width;
     public int height;
-    public List<Tile> tiles;
+    public List<GameObject> tiles;
     public int playerLoc;
 
-    public Map (string data, int start)
+    // Use this for initialization
+    void Start()
     {
         string baseData = data.Replace("|", "");
         width = data.Contains("|") ? data.IndexOf('|') : baseData.Length;
         height = baseData.Length / width;
-        tiles = new List<Tile>(baseData.Length);
+        tiles = new List<GameObject>(baseData.Length);
         for (int i = 0; i < tiles.Capacity; ++i)
         {
             switch (baseData[i])
             {
                 case 'G':
-                    tiles.Add(new Tile(false, new Vector2((i % width) - (width - 1) / 2.0f, (height - 1) / 2.0f - (i / width))));
+                    tiles.Add(Instantiate((GameObject)Resources.Load("Ground Tile"), transform));
                     break;
                 case 'W':
-                    tiles.Add(new Tile(true, new Vector2((i % width) - (width - 1) / 2.0f, (height - 1) / 2.0f - (i / width))));
+                    tiles.Add(Instantiate((GameObject)Resources.Load("Wall Tile"), transform));
+                    break;
+                case 'E':
+                    tiles.Add(Instantiate((GameObject)Resources.Load("Entrance Tile"), transform));
                     break;
             }
-            
+            tiles[i].GetComponent<Tile>().UpdatePosition(new Vector2(i % width, -i / width));
         }
-        playerLoc = start;
     }
 
-    public int tileAbove (int pos)
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public int TileAbove(int pos)
     {
         return Mathf.Max(pos - width, pos % width);
     }
 
-    public int tileBelow (int pos)
+    public int TileBelow(int pos)
     {
         return Mathf.Min(pos + width, (height - 1) * width + pos % width);
     }
 
-    public int tileLeft (int pos)
+    public int TileLeft(int pos)
     {
         return Mathf.Max(pos - 1, pos / width * width);
     }
 
-    public int tileRight (int pos)
+    public int TileRight(int pos)
     {
         return Mathf.Min(pos + 1, (pos / width + 1) * width - 1);
     }

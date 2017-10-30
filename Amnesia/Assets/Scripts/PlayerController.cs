@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public GameObject player;
-    public Tile currentTile;
+    public GameObject currentTile;
+    public Map map;
 
 	// Use this for initialization
 	void Start ()
-    {
-        currentTile = GameController.map.tiles[GameController.map.playerLoc];
-        player.transform.position = currentTile.position;
+    { 
+        MovePlayer(map.playerLoc);
 	}
 	
 	// Update is called once per frame
@@ -18,64 +19,78 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
-            shiftSave(0);
+            ShiftSave(0);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            shiftSave(1);
+            ShiftSave(1);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            shiftSave(2);
+            ShiftSave(2);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-            shiftSave(3);
+            ShiftSave(3);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-            shiftSave(4);
+            ShiftSave(4);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad5))
         {
-            shiftSave(5);
+            ShiftSave(5);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad6))
         {
-            shiftSave(6);
+            ShiftSave(6);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad7))
         {
-            shiftSave(7);
+            ShiftSave(7);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad8))
         {
-            shiftSave(8);
+            ShiftSave(8);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad9))
         {
-            shiftSave(9);
+            ShiftSave(9);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            movePlayer(GameController.map.tileAbove(GameController.map.playerLoc));
+            MovePlayer(map.TileAbove(map.playerLoc));
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            movePlayer(GameController.map.tileBelow(GameController.map.playerLoc));
+            MovePlayer(map.TileBelow(map.playerLoc));
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            movePlayer(GameController.map.tileLeft(GameController.map.playerLoc));
+            MovePlayer(map.TileLeft(map.playerLoc));
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            movePlayer(GameController.map.tileRight(GameController.map.playerLoc));
+            MovePlayer(map.TileRight(map.playerLoc));
         }
     }
 
-    private void shiftSave (int slot)
+    public void MovePlayer(int moveTo)
+    {
+        if (map.tiles[moveTo].GetComponent<Tile>().type != 1)
+        {
+            map.playerLoc = moveTo;
+            currentTile = map.tiles[moveTo];
+            player.transform.position = currentTile.transform.position;
+            if (map.tiles[moveTo].GetComponent<Tile>().type == 2)
+            {
+                Entrance.TeleportPlayer();
+            }
+        }
+    }
+
+    private void ShiftSave (int slot)
     {
         if (Input.GetKey(KeyCode.S))
         {
@@ -84,16 +99,6 @@ public class PlayerController : MonoBehaviour {
         else
         {
             SaveLoad.Load(slot);
-        }
-    }
-
-    private void movePlayer (int moveTo)
-    {
-        if (!GameController.map.tiles[moveTo].obstruct)
-        {
-            GameController.map.playerLoc = moveTo;
-            currentTile = GameController.map.tiles[moveTo];
-            player.transform.position = currentTile.position;
         }
     }
 }
