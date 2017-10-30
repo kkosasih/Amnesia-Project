@@ -23,19 +23,20 @@ public class Inventory : MonoBehaviour {
         database = GameObject.FindGameObjectWithTag("Item Database").GetComponent<ItemDatabase>();
         //Starting Items
         inventory[0] = database.items[0];
+        print(database.items[0].itemName);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("i"))
+        /*if (Input.GetButtonDown("i"))
         {
 
         }
         if (Input.GetButtonDown("e"))
         {
 
-        }
+        }*/
     }
 
     void OnGUI()
