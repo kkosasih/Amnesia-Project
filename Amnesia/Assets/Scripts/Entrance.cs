@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Entrance {
-    public static void TeleportPlayer()
+public class Entrance : MonoBehaviour {
+    public int sceneTo;
+    public int tileTo;
+
+    // Use this for initialization
+    void Start()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Gameplay"))
-        {
-            SceneManager.LoadScene("Interior");
-            GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().MovePlayer(17);
-        }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Interior"))
-        {
-            SceneManager.LoadScene("Gameplay");
-            GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().MovePlayer(7);
-        }
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    // Teleport the player to the other side of the entrance
+    public void TeleportPlayer ()
+    {
+        PlayerController pc = GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>();
+        SceneManager.LoadScene(sceneTo);
+        pc.MovePlayer(tileTo);
     }
 }

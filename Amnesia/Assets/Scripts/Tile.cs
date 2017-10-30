@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Tile : MonoBehaviour {
     public int type;
     public Vector2 position;
-    public bool hasPlayer = false;
     private SpriteRenderer _spriteRenderer;
 
     void Awake()
@@ -38,14 +37,10 @@ public class Tile : MonoBehaviour {
 
     }
 
+    // Change position of the tile
     public void UpdatePosition (Vector2 positionP)
     {
         position = positionP;
         transform.localPosition = position;
-    }
-
-    public void SetPlayer (bool enter)
-    {
-        hasPlayer = enter;
     }
 }

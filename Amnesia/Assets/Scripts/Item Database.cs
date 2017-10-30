@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,4 +10,4 @@ public class ItemDatabase : MonoBehaviour {
         items[0] = new Item("vest", 0, "A basic vest", Item.ItemType.Tool);
     }
 
-}
+}*/

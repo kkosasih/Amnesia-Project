@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    void Awake ()
+    {
+        DontDestroyOnLoad(gameObject);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

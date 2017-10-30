@@ -14,7 +14,7 @@ public class SaveLoad {
         if (player != null)
         {
             PlayerPrefs.SetString(slotNum + "SceneNum", SceneManager.GetActiveScene().name);
-            PlayerPrefs.SetInt(slotNum + "PlayerTile", map.GetComponent<Map>().playerLoc);
+            PlayerPrefs.SetInt(slotNum + "PlayerTile", GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().currentTile);
         }
     }
 
@@ -25,7 +25,7 @@ public class SaveLoad {
         if (player != null)
         {
             SceneManager.LoadScene(PlayerPrefs.GetString(slotNum + "SceneNum"));
-            player.transform.position = GameObject.FindWithTag("Map").GetComponent<Map>().tiles[PlayerPrefs.GetInt(slotNum + "PlayerTile")].transform.position;
+            GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().MovePlayer(PlayerPrefs.GetInt(slotNum + "PlayerTile"));
         }
     }
 }

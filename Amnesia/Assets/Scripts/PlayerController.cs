@@ -5,18 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public GameObject player;
-    public GameObject currentTile;
+    public int currentTile;
     public Map map;
 
-	// Use this for initialization
-	void Start ()
-    { 
-        MovePlayer(map.playerLoc);
-	}
+    void Awake ()
+    {
+        DontDestroyOnLoad(gameObject);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        FindMap();
+        MovePlayer(currentTile);
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().FindMap();
+
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             ShiftSave(0);
@@ -60,36 +72,44 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            MovePlayer(map.TileAbove(map.playerLoc));
+            MovePlayer(map.TileAbove(currentTile));
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            MovePlayer(map.TileBelow(map.playerLoc));
+            MovePlayer(map.TileBelow(currentTile));
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            MovePlayer(map.TileLeft(map.playerLoc));
+            MovePlayer(map.TileLeft(currentTile));
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            MovePlayer(map.TileRight(map.playerLoc));
+            MovePlayer(map.TileRight(currentTile));
         }
     }
 
-    public void MovePlayer(int moveTo)
+    // Attach a map to the player to use
+    public void FindMap ()
+    {
+        map = GameObject.FindWithTag("Map").GetComponent<Map>();
+        Debug.Log(map);
+    }
+
+    // Move the player to a different tile
+    public void MovePlayer (int moveTo)
     {
         if (map.tiles[moveTo].GetComponent<Tile>().type != 1)
         {
-            map.playerLoc = moveTo;
-            currentTile = map.tiles[moveTo];
-            player.transform.position = currentTile.transform.position;
-            if (map.tiles[moveTo].GetComponent<Tile>().type == 2)
+            currentTile = moveTo;
+            player.transform.position = map.tiles[currentTile].transform.position;
+            if (map.tiles[currentTile].GetComponent<Tile>().type == 2)
             {
-                Entrance.TeleportPlayer();
+                map.tiles[currentTile].GetComponent<Entrance>().TeleportPlayer();
             }
         }
     }
 
+    // Save and load based on shift key
     private void ShiftSave (int slot)
     {
         if (Input.GetKey(KeyCode.S))
