@@ -15,6 +15,8 @@ public class SaveLoad {
         {
             PlayerPrefs.SetString(slotNum + "SceneNum", SceneManager.GetActiveScene().name);
             PlayerPrefs.SetInt(slotNum + "PlayerTile", GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().currentTile);
+            PlayerPrefs.SetInt(slotNum + "PlayerHealth", player.GetComponent<PlayerStats>().health);
+            PlayerPrefs.SetInt(slotNum + "PlayerStamina", player.GetComponent<PlayerStats>().stamina);
         }
     }
 
@@ -26,6 +28,8 @@ public class SaveLoad {
         {
             SceneManager.LoadScene(PlayerPrefs.GetString(slotNum + "SceneNum"));
             GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().MovePlayer(PlayerPrefs.GetInt(slotNum + "PlayerTile"));
+            player.GetComponent<PlayerStats>().ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
+            player.GetComponent<PlayerStats>().ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
         }
     }
 }

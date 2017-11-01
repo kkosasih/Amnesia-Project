@@ -107,12 +107,14 @@ public class PlayerController : MonoBehaviour {
                 map.tiles[currentTile].GetComponent<Entrance>().TeleportPlayer();
             }
         }
+
+        GameObject.FindWithTag("Player").GetComponent<PlayerStats>().ChangeStamina(Random.Range(0, 100));
     }
 
     // Save and load based on shift key
     private void ShiftSave (int slot)
     {
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.Z))
         {
             SaveLoad.Save(slot);
         }
