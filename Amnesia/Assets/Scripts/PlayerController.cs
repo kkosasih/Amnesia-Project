@@ -86,6 +86,23 @@ public class PlayerController : MonoBehaviour {
         {
             MovePlayer(map.TileRight(currentTile));
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Attack(map.TileAboveStrict(currentTile), 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            Attack(map.TileBelowStrict(currentTile), 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            Attack(map.TileLeftStrict(currentTile), 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            Attack(map.TileRightStrict(currentTile), 1);
+        }
     }
 
     // Attach a map to the player to use
@@ -109,6 +126,15 @@ public class PlayerController : MonoBehaviour {
         }
 
         GameObject.FindWithTag("Player").GetComponent<PlayerStats>().ChangeStamina(Random.Range(0, 100));
+    }
+
+    // Put an attack on a tile for a given time
+    public void Attack (int tile, float duration)
+    {
+        if (tile != -1)
+        {
+            StartCoroutine(map.tiles[tile].GetComponent<Tile>().GiveAttack(duration));
+        }
     }
 
     // Save and load based on shift key

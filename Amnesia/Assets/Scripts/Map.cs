@@ -69,4 +69,28 @@ public class Map : MonoBehaviour {
     {
         return Mathf.Min(pos + 1, (pos / width + 1) * width - 1);
     }
+
+    // Return the position of the tile above pos if possible
+    public int TileAboveStrict (int pos)
+    {
+        return pos - width < pos % width ? -1 : pos - width;
+    }
+
+    // Return the position of the tile below pos if possible
+    public int TileBelowStrict (int pos)
+    {
+        return pos + width > (height - 1) * width + pos % width ? -1 : pos + width;
+    }
+
+    // Return the position of the tile to the left of pos if possible
+    public int TileLeftStrict (int pos)
+    {
+        return pos - 1 < pos / width * width ? -1 : pos - 1;
+    }
+
+    // Return the position of the tile to the right of pos if possible
+    public int TileRightStrict (int pos)
+    {
+        return pos + 1 > (pos / width + 1) * width - 1 ? -1 : pos + 1;
+    }
 }
