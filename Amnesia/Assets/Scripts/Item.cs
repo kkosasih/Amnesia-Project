@@ -13,7 +13,12 @@ public class Item
 
     public enum ItemType
     {
-        Tool,
+        Equipable,
+        Tunic,
+        Boots,
+        Gautlets,
+        Pouch,
+        Helmet,
         Consumable,
         Quest
     }

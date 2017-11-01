@@ -7,8 +7,7 @@ public class ItemDatabase : MonoBehaviour {
 
     void Start()
     {
-        items.Add(new Item("vest", 0, "A basic vest", Item.ItemType.Tool));
-        items.Add(new Item("Short Sword", 1, "A tiny sword", Item.ItemType.Tool));
+        items.Add(new Item("vest", 0, "A basic vest", Item.ItemType.Tunic));
+        items.Add(new Item("Short Sword", 1, "A tiny sword", Item.ItemType.Equipable));
     }
-
 }
