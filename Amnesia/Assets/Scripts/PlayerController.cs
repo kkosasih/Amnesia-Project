@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public GameObject player;
+    public GameObject item;
+    public Inventory inventory;
     public int currentTile;
+    public string itemname; //Variable for getting specific item
+    private bool touching = false;
     public Map map;
+    public LayerMask ItemLayer; //Check if the object is an item
 
     void Awake ()
     {
@@ -20,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         FindMap();
         MovePlayer(currentTile);
     }
@@ -70,6 +76,20 @@ public class PlayerController : MonoBehaviour {
             ShiftSave(9);
         }
 
+        //Action button
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            //If object is on Object layer will add object to inventory
+            if ((touching == true) && (Physics2D.Raycast(transform.position, transform.forward, 1, ItemLayer)))
+            {
+                //Not tested
+                itemname = item.name;
+                inventory.AddItem(itemname);
+                DestroyObject(item);
+                touching = false;
+            }     
+        }
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             MovePlayer(map.TileAbove(currentTile));
@@ -102,6 +122,25 @@ public class PlayerController : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.L))
         {
             Attack(map.TileRightStrict(currentTile), 1);
+        }
+    }
+
+    //Detects pickupable object
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Item")
+        {
+            item = gameObject;
+            touching = true;
+        }
+    }
+
+    //Detects when leaving pickupable range of object
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            touching = false;
         }
     }
 

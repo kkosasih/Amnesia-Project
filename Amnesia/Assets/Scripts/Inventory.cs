@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < 25; i++) //remeber to increase based on database
         {
             slots.Add(new Item());
             inventory.Add(new Item());
@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetButtonDown("i"))
+        /*if (Input.GetKeyDown(KeyCode.M))
         {
             showinventory = !showinventory;
         }*/
@@ -52,15 +52,15 @@ public class Inventory : MonoBehaviour {
         }
     }*/
 
-    void AddItem(int id)
+    public void AddItem(string name)
     {
         for (int i = 0; i < 17; i++)
         {
             if (inventory[i].itemName == null)
             {
-                for (int j = 0; j < database.items.Count; j++)
+                for (int j = 0; j < 25; j++)// Remeber to increase depending on size of database
                 {
-                    if (id == database.items[j].itemId)
+                    if (name == database.items[j].itemName)
                     {
                         inventory[i] = database.items[j];
                         break;
