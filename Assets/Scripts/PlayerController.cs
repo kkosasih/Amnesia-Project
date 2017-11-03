@@ -12,15 +12,7 @@ public class PlayerController : MonoBehaviour {
     private bool touching = false;
     public Map map;
     public LayerMask ItemLayer; //Check if the object is an item
-
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-        if (FindObjectsOfType(GetType()).Length > 1)
-        {
-            Destroy(gameObject);
-        }
-    }
+    public bool movementEnabled = true;
 
     // Use this for initialization
     void Start ()
@@ -90,21 +82,24 @@ public class PlayerController : MonoBehaviour {
             }     
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (movementEnabled)
         {
-            MovePlayer(map.TileAbove(currentTile));
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            MovePlayer(map.TileBelow(currentTile));
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            MovePlayer(map.TileLeft(currentTile));
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            MovePlayer(map.TileRight(currentTile));
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                MovePlayer(map.TileAbove(currentTile));
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                MovePlayer(map.TileBelow(currentTile));
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                MovePlayer(map.TileLeft(currentTile));
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                MovePlayer(map.TileRight(currentTile));
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -151,19 +146,27 @@ public class PlayerController : MonoBehaviour {
         Debug.Log(map);
     }
 
-    // Move the player to a different tile
+    // Move the player to a different tile and activate tile properties if necessary
     public void MovePlayer (int moveTo)
     {
-        if (map.tiles[moveTo].GetComponent<Tile>().type != Tile.TileType.Wall)
+        switch (map.tiles[moveTo].GetComponent<Tile>().type)
         {
-            currentTile = moveTo;
-            player.transform.position = map.tiles[currentTile].transform.position;
-            if (map.tiles[currentTile].GetComponent<Tile>().type == Tile.TileType.Entrance)
-            {
-                map.tiles[currentTile].GetComponent<Entrance>().TeleportPlayer();
-            }
+            case Tile.TileType.Ground:
+                currentTile = moveTo;
+                player.transform.position = map.tiles[currentTile].transform.position;
+                break;
+            case Tile.TileType.Wall:
+                break;
+            case Tile.TileType.Entrance:
+                map.tiles[moveTo].GetComponent<Entrance>().TeleportPlayer();
+                break;
+            case Tile.TileType.Shop:
+                movementEnabled = true;
+                ShopUI s = GameObject.Find("Canvas").transform.Find("ShopWindow").GetComponent<ShopUI>();
+                s.SetShop(map.tiles[moveTo].GetComponent<Shop>());
+                s.isOpen = true;
+                break;
         }
-
         GameObject.FindWithTag("Player").GetComponent<PlayerStats>().ChangeStamina(Random.Range(0, 100));
     }
 

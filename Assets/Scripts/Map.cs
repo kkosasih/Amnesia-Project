@@ -24,15 +24,19 @@ public class Map : MonoBehaviour {
                 switch (line[j][0])
                 {
                     case 'G':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Ground Tile"), transform));
+                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Ground Tile"), transform));
                         break;
                     case 'W':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Wall Tile"), transform));
+                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Wall Tile"), transform));
                         break;
                     case 'E':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Entrance Tile"), transform));
+                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Entrance Tile"), transform));
                         tiles[tiles.Count - 1].GetComponent<Entrance>().sceneTo = int.Parse(line[j].Split(',')[1]);
                         tiles[tiles.Count - 1].GetComponent<Entrance>().tileTo = int.Parse(line[j].Split(',')[2]);
+                        break;
+                    case 'S':
+                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Shop Tile"), transform));
+                        tiles[tiles.Count - 1].GetComponent<Shop>().numOfItems = int.Parse(line[j].Split(',')[1]);
                         break;
                 }
                 tiles[tiles.Count - 1].GetComponent<Tile>().UpdatePosition(new Vector2(j, -i));

@@ -13,7 +13,8 @@ public class Tile : MonoBehaviour {
     {
         Ground,
         Wall,
-        Entrance
+        Entrance,
+        Shop
     }
 
     void Awake()
@@ -57,7 +58,14 @@ public class Tile : MonoBehaviour {
         switch (type)
         {
             case TileType.Ground:
-                _spriteRenderer.color = new Color(0, 1, 0);
+                if (GetComponent<Shop>() != null)
+                {
+                    _spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
+                }
+                else
+                {
+                    _spriteRenderer.color = new Color(0, 1, 0);
+                }
                 break;
             case TileType.Wall:
                 _spriteRenderer.color = new Color(1, 1, 0);

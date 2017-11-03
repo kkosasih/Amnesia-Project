@@ -11,23 +11,16 @@ public class PlayerStats : MonoBehaviour {
     public int maxStamina;
     private Slider staminaSlider;
 
-    void Awake ()
-    {
-        DontDestroyOnLoad(gameObject);
-        if (FindObjectsOfType(GetType()).Length > 1)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         
 	}
 

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SaveLoad {
     public static GameObject player = GameObject.FindWithTag("Player");
-    public static GameObject map = GameObject.FindWithTag("Map");
 
     // Saves the needed game info
     public static void Save (int slot)
@@ -36,6 +35,7 @@ public class SaveLoad {
     public static void Load (int slot)
     {
         string slotNum = slot.ToString();
+        GameObject.Find("Canvas").transform.Find("ShopWindow").GetComponent<ShopUI>().isOpen = false;
         if (player != null)
         {
             SceneManager.LoadScene(PlayerPrefs.GetString(slotNum + "SceneNum"));
