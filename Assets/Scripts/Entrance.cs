@@ -24,6 +24,7 @@ public class Entrance : MonoBehaviour {
     {
         PlayerController pc = GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>();
         SceneManager.LoadScene(sceneTo);
-        pc.MovePlayer(tileTo);
+        pc.currentTile = tileTo;
+        GameObject.FindWithTag("Player").transform.position = pc.map.tiles[tileTo].transform.position;
     }
 }

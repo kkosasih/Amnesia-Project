@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour {
                 map.tiles[moveTo].GetComponent<Entrance>().TeleportPlayer();
                 break;
             case Tile.TileType.Shop:
-                movementEnabled = true;
+                movementEnabled = false;
                 ShopUI s = GameObject.Find("Canvas").transform.Find("ShopWindow").GetComponent<ShopUI>();
                 s.SetShop(map.tiles[moveTo].GetComponent<Shop>());
                 s.isOpen = true;

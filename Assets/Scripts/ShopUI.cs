@@ -17,37 +17,31 @@ public class ShopUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if (isOpen && !window.activeSelf)
+        Image i = window.GetComponent<Image>();
+		if (isOpen && !i.IsActive())
         {
-            window.SetActive(true);
+            Helper.ChangeAllVisibility(window, true);
         }
-        else if (!isOpen && window.activeSelf)
+        else if (!isOpen && i.IsActive())
         {
-            window.SetActive(false);
+            Helper.ChangeAllVisibility(window, false);
         }
 	}
 
     // Set the items in the store
     public void SetShop (Shop shop)
     {
-        for (int itemsToKeep = 0; itemsToKeep < window.transform.childCount;)
+        for (int i = 0; i < window.transform.Find("Items").childCount; ++i)
         {
-            if (window.transform.GetChild(itemsToKeep).GetComponent<Button>() != null)
-            {
-                Destroy(window.transform.GetChild(itemsToKeep));
-            }
-            else
-            {
-                ++itemsToKeep;
-            }
+            Destroy(window.transform.Find("Items").GetChild(i).gameObject);
         }
         currentShop = shop;
         for (int i = 0; i < currentShop.items.Count; ++i)
         {
-            GameObject g = (GameObject)Instantiate(Resources.Load("ShopEntry"), window.transform);
+            GameObject g = (GameObject)Instantiate(Resources.Load("ShopEntry"), window.transform.Find("Items").transform);
             RectTransform rt = g.GetComponent<RectTransform>();
-            rt.anchorMin = new Vector2(0.1f, i * 0.9f / currentShop.items.Count);
-            rt.anchorMax = new Vector2(0.9f, (i + 1) * 0.9f / currentShop.items.Count);
+            rt.anchorMin = new Vector2(0.1f, i * 0.9f / currentShop.items.Count + 0.1f);
+            rt.anchorMax = new Vector2(0.9f, (i + 1) * 0.9f / currentShop.items.Count + 0.1f);
             g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Item Icons/" + currentShop.items[i].itemName);
             g.transform.GetChild(1).GetComponent<Text>().text = currentShop.items[i].itemName;
             g.transform.GetChild(2).GetComponent<Text>().text = currentShop.items[i].itemValue.ToString();
