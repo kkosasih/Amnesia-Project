@@ -58,7 +58,7 @@ public class Inventory : MonoBehaviour {
         {
             if (inventory[i].itemName == null)
             {
-                for (int j = 0; j < 25; j++)// Remeber to increase depending on size of database
+                for (int j = 0; j < 25; j++)// Remember to increase depending on size of database
                 {
                     if (name == database.items[j].itemName)
                     {

@@ -43,5 +43,10 @@ public class Item
     {
 
     }
+
+	public string getName(){
+		return this.itemName;
+	}
+		
 }
 
