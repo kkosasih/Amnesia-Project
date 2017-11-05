@@ -8,6 +8,7 @@ public class DrawInventory : MonoBehaviour {
 	//public GUISkin skin;
 	public GameObject Itemdata;
 	public Texture2D slot_texture;
+	public Texture2D equip_slot;
 	//private bool showinventory = true;
 	//private bool showtooltip = false;
 	private ItemDatabase database;
@@ -15,7 +16,7 @@ public class DrawInventory : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 25; i++) //remeber to increase based on database
+		for (int i = 0; i < 21; i++) //remeber to increase based on database
 		{
 			slots.Add(new Item());
 		}
@@ -31,27 +32,33 @@ public class DrawInventory : MonoBehaviour {
 	void Update ()
 	{
 		if (Input.GetKeyDown (KeyCode.I))
-			draw = true;
+			draw = !draw;
 		if (Input.GetKeyDown (KeyCode.Q) || Input.GetKeyDown (KeyCode.Escape))
 			draw = false;
 	}
 	private void OnGUI()
 	{
 		int shiftRight = 400;
+		int shiftDown = 50;
 		if (draw){
 			int x = 0;
 			int y = 0;
 			for (int i = 0; i < slots.Count; i++) {
-				if (x == 5) {
+				if (x == 3) {
 					x = 0;
 					y++;
 				}
 				x++;
 				if (i < inventory.Count)
-					GUI.Label (new Rect (25*x + shiftRight, 25*y, 50, 50), inventory[i].itemIcon);
+					GUI.Label (new Rect (25*x + shiftRight, 25*y + shiftDown, 50, 50), inventory[i].itemIcon);
 				else
-					GUI.Label (new Rect (25*x + shiftRight, 25*y, 50, 50), slot_texture);
-			
+					GUI.Label (new Rect (25*x + shiftRight, 25*y + shiftDown, 50, 50), slot_texture);
+			}
+			GUI.Label (new Rect (340, 25, 75, 50), "Equipment");
+			GUI.Label (new Rect (125 + shiftRight, 25, 75, 50), "Item Quicklist");
+			for (int i = 0; i < 3; i++) {
+				GUI.Label (new Rect (shiftRight - 50, 50 * i + shiftDown, 50, 50), equip_slot);
+				GUI.Label (new Rect (shiftRight + 125, 50 * i + shiftDown, 50, 50), equip_slot);
 			}
 		}
 
