@@ -1,5 +1,0 @@
-G G E,1,17 G G
-W G G G W
-W G G G W
-W G G G W
-G G G G G
