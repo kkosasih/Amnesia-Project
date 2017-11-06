@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
         GameObject.FindWithTag("Player").GetComponent<PlayerStats>().ChangeStamina(Random.Range(0, 100));
+        GameObject.Find("Monster").GetComponent<MonsterStats>().ChangeEnemyHealth(Random.Range(0, 100));
     }
 
     // Put an attack on a tile for a given time
