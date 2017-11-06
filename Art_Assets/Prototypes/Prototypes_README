@@ -1,0 +1,7 @@
+/*The files under the folder named "Prototypes" are just prototype assets for the game. They will not be used for the final version 
+of the game, but served as a way to test things that deal with art assets.
+The dimensions of the assets will vary, but for the most part, it goes as follows:
+  - Character Standing/Walking/Running/etc: 16 x 24 px
+  - Character Portraits: 100 x 100 px (for now)
+  - Tiles: 32 x 32 for 1 tile
+*/
