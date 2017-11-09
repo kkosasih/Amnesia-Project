@@ -98,6 +98,7 @@ public class PlayerCharacter : Character {
                 break;
         }
         ChangeStamina(Random.Range(0, 100));
+        GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().UpdatePos(new Vector3(transform.position.x, transform.position.y, -10));
     }
 
     public void ChangeStamina (int newStamina)
