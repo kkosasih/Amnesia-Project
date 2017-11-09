@@ -13,9 +13,9 @@ public class SaveLoad {
         if (player != null)
         {
             PlayerPrefs.SetString(slotNum + "SceneNum", SceneManager.GetActiveScene().name);
-            PlayerPrefs.SetInt(slotNum + "PlayerTile", GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().currentTile);
-            PlayerPrefs.SetInt(slotNum + "PlayerHealth", player.GetComponent<PlayerStats>().health);
-            PlayerPrefs.SetInt(slotNum + "PlayerStamina", player.GetComponent<PlayerStats>().stamina);
+            PlayerPrefs.SetInt(slotNum + "PlayerTile", player.GetComponent<PlayerCharacter>().currentTile);
+            PlayerPrefs.SetInt(slotNum + "PlayerHealth", player.GetComponent<PlayerCharacter>().health);
+            PlayerPrefs.SetInt(slotNum + "PlayerStamina", player.GetComponent<PlayerCharacter>().stamina);
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             for (int i = 0; i < inven.inventory.Count; ++i)
             {
@@ -39,9 +39,9 @@ public class SaveLoad {
         if (player != null)
         {
             SceneManager.LoadScene(PlayerPrefs.GetString(slotNum + "SceneNum"));
-            GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().MovePlayer(PlayerPrefs.GetInt(slotNum + "PlayerTile"));
-            player.GetComponent<PlayerStats>().ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
-            player.GetComponent<PlayerStats>().ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
+            player.GetComponent<PlayerCharacter>().Move(PlayerPrefs.GetInt(slotNum + "PlayerTile"));
+            player.GetComponent<PlayerCharacter>().ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
+            player.GetComponent<PlayerCharacter>().ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             inven.Clear();
             for (int i = 0; i < inven.inventory.Count; ++i)
