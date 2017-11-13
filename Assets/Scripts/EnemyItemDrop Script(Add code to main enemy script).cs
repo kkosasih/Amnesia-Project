@@ -38,4 +38,5 @@ public class EnemyItemDropScript : MonoBehaviour {
         }
         Item.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Item Icons/" + name); //To add an image to the dropped item
         Item.name = name; //Changes the name of the dropped object as to view and used for adding to inventory
+    }
 }

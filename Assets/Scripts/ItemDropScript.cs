@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemDropScript : MonoBehaviour {
     public int SlimeAmount;
+    public ItemDatabase database;
+    public List<Item> inventory;
 
 	// Use this for initialization
 	void Start ()
@@ -18,7 +20,7 @@ public class ItemDropScript : MonoBehaviour {
         {
             if (name == database.items[j].itemName)
             {
-                inventory[i] = database.items[j];
+                inventory[j] = database.items[j];
                 break;
             }
         }
