@@ -7,12 +7,16 @@ public class DrawInventory : MonoBehaviour {
 	public List<Item> slots = new List<Item>();
 	//public GUISkin skin;
 	public GameObject Itemdata;
+	public GameObject screen;
+	public GameObject inventorySlots;
+	public GameObject slot;
 	public Texture2D slot_texture;
 	public Texture2D equip_slot;
 	//private bool showinventory = true;
 	//private bool showtooltip = false;
 	private ItemDatabase database;
 	private bool draw = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -21,10 +25,18 @@ public class DrawInventory : MonoBehaviour {
 			slots.Add(new Item());
 		}
 
+
 		database = Itemdata.GetComponent<ItemDatabase>();
 		//Starting Items
 		for (int i = 0; i < database.items.Count; i++) {
 			inventory.Add (database.items [i]);
+		}
+		for (int i = 0; i < slots.Count; i++) {
+			GameObject newSlot = (GameObject)Instantiate (slot);
+			newSlot.transform.SetParent (inventorySlots.transform);
+			if (i < inventory.Count) {
+				newSlot.GetComponent <Texture2D> ().UpdateExternalTexture (inventory [i].itemIcon.GetNativeTexturePtr ());
+			}
 		}
 
 	}
@@ -35,11 +47,15 @@ public class DrawInventory : MonoBehaviour {
 			draw = !draw;
 		if (Input.GetKeyDown (KeyCode.Q) || Input.GetKeyDown (KeyCode.Escape))
 			draw = false;
+		screen.SetActive (draw);
+		inventorySlots.SetActive (draw);
 	}
+	/*
 	private void OnGUI()
 	{
 		int shiftRight = 400;
 		int shiftDown = 50;
+
 		if (draw){
 			int x = 0;
 			int y = 0;
@@ -62,6 +78,6 @@ public class DrawInventory : MonoBehaviour {
 			}
 		}
 
-	}
+	}*/
 	
 }
