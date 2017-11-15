@@ -21,9 +21,10 @@ public class PlayerCharacter : Character {
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    protected override void Update ()
     {
+        base.Update();
         if (movementEnabled)
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -46,19 +47,19 @@ public class PlayerCharacter : Character {
 
         if (Input.GetKeyDown(KeyCode.Keypad8))
         {
-            Attack(controller.map.TileAboveStrict(currentTile), 1);
+            Attack(controller.map.TileAboveStrict(currentTile), 1, 1);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            Attack(controller.map.TileBelowStrict(currentTile), 1);
+            Attack(controller.map.TileBelowStrict(currentTile), 1, 1);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-            Attack(controller.map.TileLeftStrict(currentTile), 1);
+            Attack(controller.map.TileLeftStrict(currentTile), 1, 1);
         }
         else if (Input.GetKeyDown(KeyCode.Keypad6))
         {
-            Attack(controller.map.TileRightStrict(currentTile), 1);
+            Attack(controller.map.TileRightStrict(currentTile), 1, 1);
         }
 
         //Action button
@@ -81,16 +82,21 @@ public class PlayerCharacter : Character {
     {
         switch (controller.map.tiles[moveTo].GetComponent<Tile>().type)
         {
-            case Tile.TileType.Ground:
+            case TileType.Ground:
                 currentTile = moveTo;
-                transform.position = controller.map.tiles[currentTile].transform.position;
+                GameObject tile = controller.map.tiles[currentTile];
+                transform.position = tile.transform.position;
+                if (tile.GetComponent<Tile>().attackID == 1)
+                {
+                    ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);
+                }
                 break;
-            case Tile.TileType.Wall:
+            case TileType.Wall:
                 break;
-            case Tile.TileType.Entrance:
+            case TileType.Entrance:
                 controller.map.tiles[moveTo].GetComponent<Entrance>().TeleportPlayer();
                 break;
-            case Tile.TileType.Shop:
+            case TileType.Shop:
                 movementEnabled = false;
                 ShopUI s = GameObject.Find("Canvas").transform.Find("ShopWindow").GetComponent<ShopUI>();
                 s.SetShop(controller.map.tiles[moveTo].GetComponent<Shop>());
@@ -101,6 +107,7 @@ public class PlayerCharacter : Character {
         GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().UpdatePos(new Vector3(transform.position.x, transform.position.y, -10));
     }
 
+    // Changes stamina to the given value
     public void ChangeStamina (int newStamina)
     {
         stamina = newStamina;

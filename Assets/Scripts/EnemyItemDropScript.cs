@@ -17,7 +17,7 @@ public class EnemyItemDropScript : MonoBehaviour {
         ItDatabase = GameObject.Find("Item Database");
     }
 
-    public void enemydied()
+    public void EnemyDied()
     {
         DroppingItems("slime"); //Slime or whatever the currency is this is where it's being dropped
         //Place Garanteed Drops here same as DroppingItems("*Put Item Here*");
