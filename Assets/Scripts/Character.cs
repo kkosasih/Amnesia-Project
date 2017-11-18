@@ -10,19 +10,11 @@ public class Character : MonoBehaviour {
     public bool movementEnabled = true;
     public int health;
     public int maxHealth;
-<<<<<<< HEAD
-    protected Slider healthSlider;
-
-    protected virtual void Awake ()
-    {
-        healthSlider = Instantiate((GameObject)Resources.Load("HealthSlider"), GameObject.Find("Canvas").transform).GetComponent<Slider>();
-=======
     protected GameObject healthSlider;
 
     protected virtual void Awake ()
     {
         healthSlider = Instantiate((GameObject)Resources.Load("CharHealthSlider"), GameObject.Find("Canvas").transform);
->>>>>>> decf1a3f1eb431e749b4d2868a34fb0731922732
         controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
     }
 
@@ -70,10 +62,6 @@ public class Character : MonoBehaviour {
     // Change the health of the character to the new value
     public void ChangeHealth (int newHealth)
     {
-<<<<<<< HEAD
-        health = newHealth;
-        healthSlider.value = (float)health / maxHealth * 100;
-=======
         if (health < newHealth)
         {
             StartCoroutine(LoseHealth(newHealth));
@@ -101,6 +89,5 @@ public class Character : MonoBehaviour {
         healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 1, 0);
         yield return new WaitForSeconds(1);
         healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
->>>>>>> decf1a3f1eb431e749b4d2868a34fb0731922732
     }
 }
