@@ -52,7 +52,7 @@ public class ShopUI : MonoBehaviour {
     // Exit the shop
     public void ExitShop ()
     {
-        GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>().movementEnabled = true;
+        GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementEnabled = true;
         isOpen = false;
     }
 }

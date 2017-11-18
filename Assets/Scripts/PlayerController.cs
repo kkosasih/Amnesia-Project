@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour {
                 s.isOpen = true;
                 break;
         }
-        GameObject.FindWithTag("Player").GetComponent<PlayerStats>().ChangeStamina(Random.Range(0, 100));
+        GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().ChangeStamina(Random.Range(0, 100));
         GameObject.Find("Monster").GetComponent<MonsterStats>().ChangeEnemyHealth(Random.Range(0, 100));
     }
 

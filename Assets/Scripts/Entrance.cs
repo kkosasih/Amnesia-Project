@@ -22,9 +22,8 @@ public class Entrance : MonoBehaviour {
     // Teleport the player to the other side of the entrance
     public void TeleportPlayer ()
     {
-        PlayerController pc = GameObject.FindWithTag("MainCamera").GetComponent<PlayerController>();
         SceneManager.LoadScene(sceneTo);
-        pc.currentTile = tileTo;
-        GameObject.FindWithTag("Player").transform.position = pc.map.tiles[tileTo].transform.position;
+        GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().currentTile = tileTo;
+        GameObject.FindWithTag("Player").transform.position = GameObject.FindWithTag("MainCamera").GetComponent<GameController>().map.tiles[tileTo].transform.position;
     }
 }
