@@ -6,9 +6,16 @@ public class Monster : Character {
     public PlayerCharacter player;
     public float delay;
     private float lastMove = 0;
-    
-	// Update is called once per frame
-	protected override void Update ()
+
+    protected override void Awake()
+    {
+        base.Awake();
+        healthSlider.GetComponent<UITracking>().obj = gameObject;
+        healthSlider.GetComponent<UITracking>().cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+    }
+
+    // Update is called once per frame
+    protected override void Update ()
     {
         base.Update();
 		if (lastMove >= delay)
