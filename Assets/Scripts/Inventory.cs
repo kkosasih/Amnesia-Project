@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i < 25; i++) //remeber to increase based on database
+        for (int i = 0; i < 25; i++) //remember to increase based on database
         {
             slots.Add(new Item());
             inventory.Add(new Item());
@@ -54,7 +54,7 @@ public class Inventory : MonoBehaviour {
 
     public void AddItem(string name)
     {
-        for (int i = 0; i < 17; i++)
+        for (int i = 0; i < 17; i++)// Remeber to increase based on inventory size (NOTE_TO_SELF make a variable later) ******** -W
         {
             if (inventory[i].itemName == null)
             {

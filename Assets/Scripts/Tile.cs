@@ -6,16 +6,11 @@ using UnityEngine.SceneManagement;
 public class Tile : MonoBehaviour {
     public TileType type;                            
     public Vector2 position;                    
-    public bool hasAttack = false;              
+    public int attackID = 0;
+    public int attackDamage = 0;
     private SpriteRenderer _spriteRenderer;     
 
-    public enum TileType
-    {
-        Ground,
-        Wall,
-        Entrance,
-        Shop
-    }
+    
 
     void Awake()
     {
@@ -43,36 +38,53 @@ public class Tile : MonoBehaviour {
     }
 
     // Switch the tile's attack state
-    public IEnumerator GiveAttack (float time)
+    public IEnumerator GiveAttack (int id, int damage, float time)
     {
-        hasAttack = true;
-        _spriteRenderer.color = new Color(1, 0, 0);
+        attackID = id;
+        attackDamage = damage;
+        UpdateColor();
         yield return new WaitForSeconds(time);
-        hasAttack = false;
+        attackID = 0;
+        attackDamage = 0;
         UpdateColor();
     }
 
     // Update the color of the tile
     private void UpdateColor ()
     {
-        switch (type)
+        if (attackID != 0)
         {
-            case TileType.Ground:
-                if (GetComponent<Shop>() != null)
-                {
-                    _spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
-                }
-                else
-                {
-                    _spriteRenderer.color = new Color(0, 1, 0);
-                }
-                break;
-            case TileType.Wall:
-                _spriteRenderer.color = new Color(1, 1, 0);
-                break;
-            case TileType.Entrance:
-                _spriteRenderer.color = new Color(0, 0, 1);
-                break;
+            _spriteRenderer.color = new Color(1, 0, 0);
+        }
+        else
+        {
+            switch (type)
+            {
+                case TileType.Ground:
+                    if (GetComponent<Shop>() != null)
+                    {
+                        _spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
+                    }
+                    else
+                    {
+                        _spriteRenderer.color = new Color(0, 1, 0);
+                    }
+                    break;
+                case TileType.Wall:
+                    _spriteRenderer.color = new Color(1, 1, 0);
+                    break;
+                case TileType.Entrance:
+                    _spriteRenderer.color = new Color(0, 0, 1);
+                    break;
+            }
         }
     }
+}
+
+public enum TileType
+{
+    Ground,
+    Wall,
+    Entrance,
+    Shop
 }
