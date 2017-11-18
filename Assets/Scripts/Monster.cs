@@ -52,19 +52,19 @@ public class Monster : Character {
         lastMove = 0;
         int horiDistance = currentTile % controller.map.width - player.currentTile % controller.map.width;
         int vertDistance = currentTile / controller.map.width - player.currentTile / controller.map.width;
-        if (Mathf.Abs(vertDistance) > Mathf.Abs(horiDistance) && vertDistance < 0)
+        if (Mathf.Abs(vertDistance) > Mathf.Abs(horiDistance) && vertDistance > 0)
         {
             Move(controller.map.TileAbove(currentTile));
         }
-        else if (Mathf.Abs(vertDistance) > Mathf.Abs(horiDistance) && vertDistance > 0)
+        else if (Mathf.Abs(vertDistance) > Mathf.Abs(horiDistance) && vertDistance < 0)
         {
             Move(controller.map.TileBelow(currentTile));
         }
-        else if (Mathf.Abs(horiDistance) >= Mathf.Abs(vertDistance) && horiDistance < 0)
+        else if (Mathf.Abs(horiDistance) >= Mathf.Abs(vertDistance) && horiDistance > 0)
         {
             Move(controller.map.TileLeft(currentTile));
         }
-        else if (Mathf.Abs(horiDistance) >= Mathf.Abs(vertDistance) && horiDistance > 0)
+        else if (Mathf.Abs(horiDistance) >= Mathf.Abs(vertDistance) && horiDistance < 0)
         {
             Move(controller.map.TileRight(currentTile));
         }
