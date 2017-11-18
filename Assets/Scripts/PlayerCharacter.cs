@@ -17,7 +17,7 @@ public class PlayerCharacter : Character {
     {
         base.Awake();
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-        healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+        healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
     }
 
