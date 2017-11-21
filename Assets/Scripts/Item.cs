@@ -11,6 +11,7 @@ public class Item
     public int itemOutput;              //The Defense, Damage, or Health Regain strength of the item
     public string itemDesc;             //The Description
     public int itemStack;               //Max stack amount of an item
+    public int itemStackAmount;
     public int itemValue;               //The monatery value of the item
     public Texture2D itemIcon;          //How it looks
     public ItemType itemtype;           //What type of item is it
@@ -27,13 +28,14 @@ public class Item
         Quest                           //Non-Discardable, Sellable, or Equipable items
     }
 
-    public Item(string name, int id, int output, string desc, int value, int stack, ItemType type)
+    public Item(string name, int id, int output, string desc, int value, int stack, int amount, ItemType type)
     {
         itemName = name;
         itemId = id;
         itemOutput = output;
         itemDesc = desc;
         itemStack = stack;
+        itemStackAmount = stack;
         itemValue = value;
         itemIcon = Resources.Load<Texture2D>("Item Icons/" + name);
         itemtype = type;
@@ -43,7 +45,7 @@ public class Item
     {
 
     }
-		
-		
+
+
 }
 

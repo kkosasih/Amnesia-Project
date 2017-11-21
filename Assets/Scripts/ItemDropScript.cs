@@ -2,26 +2,77 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDropScript : MonoBehaviour {
+public class ItemDropScript : MonoBehaviour
+{
     public int SlimeAmount;
     public ItemDatabase database;
-    public List<Item> inventory;
+    public List<Item> bagitems = new List<Item>();
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-		
-	}
+
+    }
 
     // Update is called once per frame
     void Update()
     {
-        for (int j = 0; j < 25; j++)// Remember to increase depending on size of database
+
+    }
+
+    public void AddItem(string name, int total)
+    {
+        for (int i = 0; i < 99; i++)
         {
-            if (name == database.items[j].itemName)
+            if (bagitems[i].itemName == name)
             {
-                inventory[j] = database.items[j];
-                break;
+                for (int j = 0; j < 25; j++)//Remember to increase depending on size of database
+                {
+                    if (name == database.items[j].itemName)
+                    {
+                        while (total > 0)
+                        {
+                            if (database.items[j].itemStack < bagitems[i].itemStackAmount)
+                            {
+                                bagitems[i].itemStackAmount += 1;
+                                total -= 1;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < 99; i++)
+        {
+            if (bagitems[i].itemName == null)
+            {
+                for (int j = 0; j < 25; j++)// Remember to increase depending on size of database
+                {
+                    if (name == database.items[j].itemName)
+                    {
+                        bagitems[i] = database.items[j];
+                    }
+
+                    while (total > 0)
+                    {
+                        if (database.items[j].itemStack < bagitems[i].itemStackAmount)
+                        {
+                            bagitems[i].itemStackAmount += 1;
+                            total -= 1;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
         }
     }
