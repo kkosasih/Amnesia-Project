@@ -61,6 +61,15 @@ public class PlayerCharacter : Character {
         {
             Attack(controller.map.TileRightStrict(currentTile), 1, 1);
         }
+        if (controller.map.tiles[currentTile].GetComponent<Tile>().attackID == 2 && !attacked)
+        {
+            ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+            attacked = true;
+        }
+        else if (controller.map.tiles[currentTile].GetComponent<Tile>().attackID == 0)
+        {
+            attacked = false;
+        }
 
         //Action button
         if (Input.GetKeyDown(KeyCode.E))
@@ -86,7 +95,7 @@ public class PlayerCharacter : Character {
                 currentTile = moveTo;
                 GameObject tile = controller.map.tiles[currentTile];
                 transform.position = tile.transform.position;
-                if (tile.GetComponent<Tile>().attackID == 1)
+                if (tile.GetComponent<Tile>().attackID == 2)
                 {
                     ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);
                 }

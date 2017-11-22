@@ -11,6 +11,7 @@ public class Character : MonoBehaviour {
     public int health;
     public int maxHealth;
     public GameObject healthSlider;
+    protected bool attacked = false;
 
     protected virtual void Awake ()
     {
@@ -27,7 +28,16 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	protected virtual void Update ()
     {
-		if (health <= 0)
+        if (TileHurts() && !attacked)
+        {
+            ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+            attacked = true;
+        }
+        else if (!TileHurts())
+        {
+            attacked = false;
+        }
+        if (health <= 0)
         {
             Die();
         }
@@ -39,7 +49,13 @@ public class Character : MonoBehaviour {
         if (controller.map.tiles[moveTo].GetComponent<Tile>().type == TileType.Ground)
         {
             currentTile = moveTo;
-            transform.position = controller.map.tiles[currentTile].transform.position;
+            GameObject tile = controller.map.tiles[currentTile];
+            transform.position = tile.transform.position;
+            if (TileHurts())
+            {
+                ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);
+                attacked = true;
+            }
         }
     }
 
@@ -62,7 +78,7 @@ public class Character : MonoBehaviour {
     // Change the health of the character to the new value
     public void ChangeHealth (int newHealth)
     {
-        if (health < newHealth)
+        if (newHealth < health)
         {
             StartCoroutine(LoseHealth(newHealth));
         }
@@ -76,7 +92,7 @@ public class Character : MonoBehaviour {
     // Has the health bar react to gaining health
     private IEnumerator GainHealth (int newHealth)
     {
-        healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
+        healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<Image>().color = new Color(0, 1, 0);
         healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
         yield return new WaitForSeconds(1);
         healthSlider.transform.GetChild(1).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
@@ -86,8 +102,14 @@ public class Character : MonoBehaviour {
     private IEnumerator LoseHealth (int newHealth)
     {
         healthSlider.transform.GetChild(1).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
-        healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 1, 0);
+        healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<Image>().color = new Color(0.5f, 0, 0);
         yield return new WaitForSeconds(1);
         healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
+    }
+
+    // Checks if the tile is harmful to the character
+    protected bool TileHurts ()
+    {
+        return controller.map.tiles[currentTile].GetComponent<Tile>().attackID != 0 && controller.map.tiles[currentTile].GetComponent<Tile>().attackID != teamID;
     }
 }

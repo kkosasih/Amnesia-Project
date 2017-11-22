@@ -29,22 +29,11 @@ public class Monster : Character {
         }
 	}
 
-    // Move and be attacked if needed
-    public override void Move (int moveTo)
-    {
-        base.Move(moveTo);
-        GameObject tile = controller.map.tiles[currentTile];
-        if (tile.GetComponent<Tile>().attackID == 1)
-        {
-            ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);
-        }
-    }
-
     // Kill this character and drop an item
     public override void Die ()
     {
+        base.Die();
         GetComponent<EnemyItemDropScript>().EnemyDied();
-        Destroy(gameObject);
     }
 
     // Move closer to the player and reset the timing of movement to 0
