@@ -21,14 +21,14 @@ public class EnemyItemDropScript : MonoBehaviour
 
     public void EnemyDied()
     {
-        GameObject Item = (GameObject)Instantiate(Resources.Load("Prefab"), transform.position, transform.rotation); //Creates the Object
+        GameObject Item = (GameObject)Instantiate(Resources.Load("Prefab")); //Creates the Object
         Item.name = "Lootbag";
         Item.GetComponent<ItemDropScript>().SlimeAmount = Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
         //Place Garanteed Drops here same as DroppingItems("*Put Item Here*");
         for (int i = 0; i < dropamount; i++)
         {
             tempname = ItDatabase.GetComponent<ItemDatabase>().randomdrop(this.name);
-            for (int j = 0; j < 25; j++)//Remember to increase depending on size of database
+            for (int j = 0; j < ItDatabase.GetComponent<ItemDatabase>().items.Count; j++)//Remember to increase depending on size of database
             {
                 if (tempname == ItDatabase.GetComponent<ItemDatabase>().items[j].itemName)
                 {

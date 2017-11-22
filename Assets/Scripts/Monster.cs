@@ -7,9 +7,10 @@ public class Monster : Character {
     public float delay;
     private float lastMove = 0;
 
-    protected override void Awake()
-    {
-        base.Awake();
+    // Use this for initialization
+    protected override void Start ()
+    {   
+        base.Start();
         healthSlider.GetComponent<UITracking>().obj = gameObject;
         healthSlider.GetComponent<UITracking>().cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
@@ -40,7 +41,7 @@ public class Monster : Character {
     }
 
     // Kill this character and drop an item
-    public override void Die()
+    public override void Die ()
     {
         GetComponent<EnemyItemDropScript>().EnemyDied();
         Destroy(gameObject);

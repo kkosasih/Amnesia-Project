@@ -10,7 +10,7 @@ public class Character : MonoBehaviour {
     public bool movementEnabled = true;
     public int health;
     public int maxHealth;
-    protected GameObject healthSlider;
+    public GameObject healthSlider;
 
     protected virtual void Awake ()
     {
@@ -19,7 +19,7 @@ public class Character : MonoBehaviour {
     }
 
     // Use this for initialization
-    protected void Start ()
+    protected virtual void Start ()
     {
         Move(currentTile);
     }
