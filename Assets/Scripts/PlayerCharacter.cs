@@ -15,7 +15,7 @@ public class PlayerCharacter : Character {
 
     protected override void Awake ()
     {
-        base.Awake();
+        controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
