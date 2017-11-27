@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Monster : Character {
     public PlayerCharacter player;
-    public float delay;
-    private float lastMove = 0;
 
     // Use this for initialization
     protected override void Start ()
@@ -19,13 +17,9 @@ public class Monster : Character {
     protected override void Update ()
     {
         base.Update();
-		if (lastMove >= delay)
+        if (lastMove >= delay)
         {
             MoveToPlayer();
-        }
-        else
-        {
-            lastMove += Time.deltaTime;
         }
 	}
 
@@ -39,7 +33,6 @@ public class Monster : Character {
     // Move closer to the player and reset the timing of movement to 0
     private void MoveToPlayer ()
     {
-        lastMove = 0;
         int horiDistance = currentTile % controller.map.width - player.currentTile % controller.map.width;
         int vertDistance = currentTile / controller.map.width - player.currentTile / controller.map.width;
         if (Mathf.Abs(vertDistance) > Mathf.Abs(horiDistance) && vertDistance > 0)

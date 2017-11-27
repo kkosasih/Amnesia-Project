@@ -8,6 +8,9 @@ public class Character : MonoBehaviour {
     public int teamID;
     public int currentTile;
     public bool movementEnabled = true;
+    public float delay;
+    public float lastMove = 0;
+    public int movementType = 0;
     public int health;
     public int maxHealth;
     public GameObject healthSlider;
@@ -28,6 +31,10 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	protected virtual void Update ()
     {
+        if (lastMove < delay)
+        {
+            lastMove += Time.deltaTime;
+        }
         if (TileHurts() && !attacked)
         {
             ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
@@ -46,11 +53,12 @@ public class Character : MonoBehaviour {
     // Move the character to another tile
     public virtual void Move (int moveTo)
     {
+        lastMove = 0;
         if (controller.map.tiles[moveTo].GetComponent<Tile>().type == TileType.Ground)
         {
             currentTile = moveTo;
             GameObject tile = controller.map.tiles[currentTile];
-            transform.position = tile.transform.position;
+            StartCoroutine(Helper.LerpMovement(gameObject, tile.transform.position, delay));
             if (TileHurts())
             {
                 ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);

@@ -36,4 +36,16 @@ public class Helper {
             ChangeAllVisibility(obj.transform.GetChild(i).gameObject, visible);
         }
     }
+
+    // Move an object to a position over a set time
+    public static IEnumerator LerpMovement (GameObject obj, Vector3 newPos, float time)
+    {
+        Vector3 oldPos = obj.transform.position;
+        for (float timePassed = 0; timePassed < time; timePassed += Time.deltaTime)
+        {
+            obj.transform.position = Vector3.Lerp(oldPos, newPos, timePassed / time);
+            yield return new WaitForEndOfFrame();
+        }
+        obj.transform.position = newPos;
+    }
 }

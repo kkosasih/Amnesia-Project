@@ -25,26 +25,26 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
-        if (movementEnabled)
+        if (movementEnabled && lastMove >= delay)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 Move(controller.map.TileAbove(currentTile));
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S))
             {
                 Move(controller.map.TileBelow(currentTile));
             }
-            else if (Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A))
             {
                 Move(controller.map.TileLeft(currentTile));
             }
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D))
             {
                 Move(controller.map.TileRight(currentTile));
             }
         }
-
+        
         if (Input.GetKeyDown(KeyCode.Keypad8))
         {
             Attack(controller.map.TileAboveStrict(currentTile), 1, 1);
@@ -89,17 +89,9 @@ public class PlayerCharacter : Character {
     // Move the player to another tile and actiate it
     public override void Move (int moveTo)
     {
+        base.Move(moveTo);
         switch (controller.map.tiles[moveTo].GetComponent<Tile>().type)
         {
-            case TileType.Ground:
-                currentTile = moveTo;
-                GameObject tile = controller.map.tiles[currentTile];
-                transform.position = tile.transform.position;
-                if (tile.GetComponent<Tile>().attackID == 2)
-                {
-                    ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);
-                }
-                break;
             case TileType.Wall:
                 break;
             case TileType.Entrance:
@@ -113,7 +105,6 @@ public class PlayerCharacter : Character {
                 break;
         }
         ChangeStamina(Random.Range(0, 100));
-        GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().UpdatePos(new Vector3(transform.position.x, transform.position.y, -10));
     }
 
     // Changes stamina to the given value

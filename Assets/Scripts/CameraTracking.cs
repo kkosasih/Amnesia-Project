@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraTracking : MonoBehaviour {
+    public Transform track;
 
 	// Use this for initialization
 	void Start ()
@@ -13,12 +14,6 @@ public class CameraTracking : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
-    }
-
-    // Moves the camera to the player
-    public void UpdatePos (Vector3 newPos)
-    {
-        transform.position = newPos;
+        transform.position = new Vector3(track.position.x, track.position.y, -10);
     }
 }
