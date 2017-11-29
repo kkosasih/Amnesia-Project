@@ -31,8 +31,11 @@ public class Map : MonoBehaviour {
                         break;
                     case 'E':
                         tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Entrance Tile"), transform));
-                        tiles[tiles.Count - 1].GetComponent<Entrance>().sceneTo = int.Parse(line[j].Split(',')[1]);
-                        tiles[tiles.Count - 1].GetComponent<Entrance>().tileTo = int.Parse(line[j].Split(',')[2]);
+                        Entrance e = tiles[tiles.Count - 1].GetComponent<Entrance>();
+                        string[] args = line[j].Split(',');
+                        e.sceneTo = int.Parse(args[1]);
+                        e.tileFrom = int.Parse(args[2]);
+                        e.tileTo = int.Parse(args[3]);
                         break;
                     case 'S':
                         tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Shop Tile"), transform));

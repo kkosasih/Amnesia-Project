@@ -25,7 +25,7 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
-        if (movementEnabled && lastMove >= delay)
+        if (movementEnabled && lastTile != currentTile)
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -90,21 +90,24 @@ public class PlayerCharacter : Character {
     public override void Move (int moveTo)
     {
         base.Move(moveTo);
-        switch (controller.map.tiles[moveTo].GetComponent<Tile>().type)
+        ChangeStamina(Random.Range(0, 100));
+    }
+
+    // Performs all special actions that a tile would perform
+    protected override void HandleTile()
+    {
+        switch (controller.map.tiles[currentTile].GetComponent<Tile>().type)
         {
-            case TileType.Wall:
-                break;
             case TileType.Entrance:
-                controller.map.tiles[moveTo].GetComponent<Entrance>().TeleportPlayer();
+                controller.map.tiles[currentTile].GetComponent<Entrance>().TeleportPlayer();
                 break;
             case TileType.Shop:
                 movementEnabled = false;
                 ShopUI s = GameObject.Find("Canvas").transform.Find("ShopWindow").GetComponent<ShopUI>();
-                s.SetShop(controller.map.tiles[moveTo].GetComponent<Shop>());
+                s.SetShop(controller.map.tiles[currentTile].GetComponent<Shop>());
                 s.isOpen = true;
                 break;
         }
-        ChangeStamina(Random.Range(0, 100));
     }
 
     // Changes stamina to the given value

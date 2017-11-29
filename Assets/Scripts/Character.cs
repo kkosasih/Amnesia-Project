@@ -9,7 +9,7 @@ public class Character : MonoBehaviour {
     public int currentTile;
     public bool movementEnabled = true;
     public float delay;
-    public float lastMove = 0;
+    public int lastTile = -1;
     public int movementType = 0;
     public int health;
     public int maxHealth;
@@ -26,16 +26,12 @@ public class Character : MonoBehaviour {
     // Use this for initialization
     protected virtual void Start ()
     {
-        Move(currentTile);
+        transform.position = controller.map.tiles[currentTile].transform.position;
     }
 	
 	// Update is called once per frame
 	protected virtual void Update ()
     {
-        if (lastMove < delay)
-        {
-            lastMove += Time.deltaTime;
-        }
         if (TileHurts() && !attacked)
         {
             ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
@@ -54,22 +50,15 @@ public class Character : MonoBehaviour {
     // Move the character to another tile
     public virtual void Move (int moveTo)
     {
-        lastMove = 0;
-        if (controller.map.tiles[moveTo].GetComponent<Tile>().type == TileType.Ground)
+        if (controller.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall)
         {
-            currentTile = moveTo;
-            GameObject tile = controller.map.tiles[currentTile];
-            StartCoroutine(Helper.LerpMovement(gameObject, tile.transform.position, delay));
+            lastTile = currentTile;
+            StartCoroutine(ChangeTile(moveTo));
             if (movementRoutine != null)
             {
                 StopCoroutine(movementRoutine);
             }
             movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moveType", 1, 0, delay));
-            if (TileHurts())
-            {
-                ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);
-                attacked = true;
-            }
         }
     }
 
@@ -119,6 +108,32 @@ public class Character : MonoBehaviour {
         healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<Image>().color = new Color(0.5f, 0, 0);
         yield return new WaitForSeconds(1);
         healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
+    }
+
+    // Performs all of the movement to another tile
+    private IEnumerator ChangeTile (int moveTo)
+    {
+        Vector3 oldPos = transform.position;
+        Vector3 newPos = controller.map.tiles[moveTo].transform.position;
+        for (float timePassed = 0; timePassed < delay; timePassed += Time.deltaTime)
+        {
+            transform.position = Vector3.Lerp(oldPos, newPos, timePassed / delay);
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = newPos;
+        currentTile = moveTo;
+        if (TileHurts())
+        {
+            ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+            attacked = true;
+        }
+        HandleTile();
+    }
+
+    // Performs all special actions that a tile would perform
+    protected virtual void HandleTile()
+    {
+
     }
 
     // Checks if the tile is harmful to the character

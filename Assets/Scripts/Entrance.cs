@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Entrance : MonoBehaviour {
     public int sceneTo;
+    public int tileFrom;
     public int tileTo;
 
     // Use this for initialization
@@ -23,7 +24,9 @@ public class Entrance : MonoBehaviour {
     public void TeleportPlayer ()
     {
         SceneManager.LoadScene(sceneTo);
-        GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().currentTile = tileTo;
-        GameObject.FindWithTag("Player").transform.position = GameObject.FindWithTag("MainCamera").GetComponent<GameController>().map.tiles[tileTo].transform.position;
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<PlayerCharacter>().currentTile = tileFrom;
+        player.transform.position = GameObject.FindWithTag("MainCamera").GetComponent<GameController>().map.tiles[tileFrom].transform.position;
+        player.GetComponent<PlayerCharacter>().Move(tileTo);
     }
 }

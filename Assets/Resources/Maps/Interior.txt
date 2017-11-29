@@ -2,4 +2,4 @@ W W W W W
 W G S,3 G W
 W G G G W
 W G G G W
-W W E,0,7 W W
+W W E,0,2,7 W W

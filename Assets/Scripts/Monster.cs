@@ -17,7 +17,7 @@ public class Monster : Character {
     protected override void Update ()
     {
         base.Update();
-        if (lastMove >= delay)
+        if (lastTile != currentTile)
         {
             MoveToPlayer();
         }
