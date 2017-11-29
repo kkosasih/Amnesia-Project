@@ -15,6 +15,7 @@ public class Character : MonoBehaviour {
     public int maxHealth;
     public GameObject healthSlider;
     protected bool attacked = false;
+    protected Coroutine movementRoutine;
 
     protected virtual void Awake ()
     {
@@ -59,6 +60,11 @@ public class Character : MonoBehaviour {
             currentTile = moveTo;
             GameObject tile = controller.map.tiles[currentTile];
             StartCoroutine(Helper.LerpMovement(gameObject, tile.transform.position, delay));
+            if (movementRoutine != null)
+            {
+                StopCoroutine(movementRoutine);
+            }
+            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moveType", 1, 0, delay));
             if (TileHurts())
             {
                 ChangeHealth(health - tile.GetComponent<Tile>().attackDamage);
