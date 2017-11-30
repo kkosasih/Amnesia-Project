@@ -5,12 +5,12 @@ using UnityEngine;
 public class Monster : Character {
     public PlayerCharacter player;
 
-    // Use this for initialization
-    protected override void Start ()
-    {   
-        base.Start();
-        healthSlider.GetComponent<UITracking>().obj = gameObject;
-        healthSlider.GetComponent<UITracking>().cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+    protected override void Awake()
+    {
+        base.Awake();
+        UITracking uit = healthSlider.GetComponent<UITracking>();
+        uit.obj = gameObject;
+        uit.offset = new Vector3(0, 40, 0);
     }
 
     // Update is called once per frame

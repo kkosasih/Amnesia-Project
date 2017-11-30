@@ -19,7 +19,7 @@ public class Character : MonoBehaviour {
 
     protected virtual void Awake ()
     {
-        healthSlider = Instantiate((GameObject)Resources.Load("CharHealthSlider"), GameObject.Find("Canvas").transform);
+        healthSlider = Instantiate((GameObject)Resources.Load("GUI/CharHealthSlider"), GameObject.Find("DynamicCanvas").transform);
         controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
     }
 
