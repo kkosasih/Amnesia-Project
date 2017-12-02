@@ -37,6 +37,6 @@ public class EnemyItemDropScript : MonoBehaviour
             }
             Item.GetComponent<ItemDropScript>().AddItem(tempname, randomamount);
         }
-        //Insert code for getting rid of the enemy GameObject and etc. of when he dies
+        //Item.GetComponent<Transform>().position = new Vector3(0, currentTile % controller.map.width, currentTile / controller.map.width);
     }
 }
