@@ -58,21 +58,19 @@ public class Monster : Character {
     // Move closer to the player and reset the timing of movement to 0
     private void MoveToPlayer ()
     {
-        int horiDistance = currentTile % controller.map.width - player.currentTile % controller.map.width;
-        int vertDistance = currentTile / controller.map.width - player.currentTile / controller.map.width;
-        if (Mathf.Abs(vertDistance) > Mathf.Abs(horiDistance) && vertDistance > 0)
+        if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() > 0)
         {
             Move(controller.map.TileAbove(currentTile));
         }
-        else if (Mathf.Abs(vertDistance) > Mathf.Abs(horiDistance) && vertDistance < 0)
+        else if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() < 0)
         {
             Move(controller.map.TileBelow(currentTile));
         }
-        else if (Mathf.Abs(horiDistance) >= Mathf.Abs(vertDistance) && horiDistance > 0)
+        else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() > 0)
         {
             Move(controller.map.TileLeft(currentTile));
         }
-        else if (Mathf.Abs(horiDistance) >= Mathf.Abs(vertDistance) && horiDistance < 0)
+        else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() < 0)
         {
             Move(controller.map.TileRight(currentTile));
         }
