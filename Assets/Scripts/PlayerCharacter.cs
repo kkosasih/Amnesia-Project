@@ -25,7 +25,7 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
-        if (movementEnabled && lastTile != currentTile)
+        if (movementEnabled && lastMove >= delay)
         {
             if (Input.GetKey(KeyCode.W))
             {

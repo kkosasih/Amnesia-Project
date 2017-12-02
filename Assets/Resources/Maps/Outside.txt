@@ -1,5 +1,1 @@
-G G E,1,22,17 G G
-W G G G W
-W G G G W
-W G G G W
-G G S,3 G G
+G G E,1,22,17 G G...W G G G W...W G G G W...W G G G W...G G S,3 G G

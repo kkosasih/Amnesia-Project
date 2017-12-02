@@ -9,6 +9,7 @@ public class Character : MonoBehaviour {
     public int currentTile;
     public bool movementEnabled = true;
     public float delay;
+    public float lastMove = 0.0f;
     public int lastTile = -1;
     public int movementType = 0;
     public int health;
@@ -32,6 +33,10 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	protected virtual void Update ()
     {
+        if (lastMove < delay)
+        {
+            lastMove += Time.deltaTime;
+        }
         if (TileHurts() && !attacked)
         {
             ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
@@ -52,13 +57,14 @@ public class Character : MonoBehaviour {
     {
         if (controller.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall)
         {
+            lastMove = 0.0f;
             lastTile = currentTile;
             StartCoroutine(ChangeTile(moveTo));
             if (movementRoutine != null)
             {
                 StopCoroutine(movementRoutine);
             }
-            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moveType", 1, 0, delay));
+            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moveType", 1, 0, Mathf.Min(0.5f, delay)));
         }
     }
 
@@ -115,9 +121,9 @@ public class Character : MonoBehaviour {
     {
         Vector3 oldPos = transform.position;
         Vector3 newPos = controller.map.tiles[moveTo].transform.position;
-        for (float timePassed = 0; timePassed < delay; timePassed += Time.deltaTime)
+        for (float timePassed = 0; timePassed < Mathf.Min(0.5f, delay); timePassed += Time.deltaTime)
         {
-            transform.position = Vector3.Lerp(oldPos, newPos, timePassed / delay);
+            transform.position = Vector3.Lerp(oldPos, newPos, timePassed / Mathf.Min(0.5f, delay));
             yield return new WaitForEndOfFrame();
         }
         transform.position = newPos;

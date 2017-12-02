@@ -12,7 +12,7 @@ public class Map : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        string[] data = Resources.Load<TextAsset>("Maps/" + path).text.Split(new string[] { System.Environment.NewLine }, System.StringSplitOptions.None);
+        string[] data = Resources.Load<TextAsset>("Maps/" + path).text.Split(new string[] { "..." }, System.StringSplitOptions.None);
         width = data[0].Split(' ').Length;
         height = data.Length;
         tiles = new List<GameObject>(width * height);
