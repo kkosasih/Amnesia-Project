@@ -19,7 +19,6 @@ public class ItemDropScript : MonoBehaviour
     {
         bag = this.gameObject;
         controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
-        ui = GameObject.Find("InteractionIndicator");
     }
 
     // Update is called once per frame
