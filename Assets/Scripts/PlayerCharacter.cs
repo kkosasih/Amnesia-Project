@@ -8,6 +8,7 @@ public class PlayerCharacter : Character {
     public int maxStamina;
     private Slider staminaSlider;
     public GameObject item;
+    public GameObject interactionbutton;
     public Inventory inventory;
     public string itemname; //Variable for getting specific item
     private bool touching = false;
@@ -17,6 +18,7 @@ public class PlayerCharacter : Character {
     {
         controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        interactionbutton = GameObject.Find("InteractionIndicator");
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
     }
@@ -83,6 +85,7 @@ public class PlayerCharacter : Character {
                 DestroyObject(item);
                 touching = false;
             }
+            //
         }
     }
 

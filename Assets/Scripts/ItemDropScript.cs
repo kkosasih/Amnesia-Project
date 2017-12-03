@@ -5,19 +5,36 @@ using UnityEngine;
 public class ItemDropScript : MonoBehaviour
 {
     public int SlimeAmount;
+    public float xdis = 0;
+    public float ydis = 0;
+    public PlayerCharacter player;
     public ItemDatabase database;
+    public GameController controller;
+    public GameObject bag;
+    public GameObject ui;
     public List<Item> bagitems = new List<Item>();
 
     // Use this for initialization
     void Start()
     {
-
+        bag = this.gameObject;
+        controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
+        ui = GameObject.Find("InteractionIndicator");
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        xdis = HoriDistance();
+        ydis = VertDistance();
+        if(((xdis >= -100) && (xdis <= 100)) && ((ydis >= -100) && (ydis <= 100)))
+        {
+            ui.SetActive(true);
+        }
+        else
+        {
+            ui.SetActive(false);
+        }
     }
 
     public void AddItem(string name, int total)
@@ -75,5 +92,17 @@ public class ItemDropScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Get the horizontal distance from player; negative is player to right, positive is player to left
+    private float HoriDistance()
+    {
+        return this.GetComponent<Rigidbody2D>().transform.position.x - player.GetComponent<Rigidbody2D>().transform.position.x ;
+    }
+
+    // Get the vertical distance from player; negative is player below, positive is player above
+    private float VertDistance()
+    {
+        return this.GetComponent<Rigidbody2D>().transform.position.y - player.GetComponent<Rigidbody2D>().transform.position.y;
     }
 }
