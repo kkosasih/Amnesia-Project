@@ -10,22 +10,20 @@ public class Tile : MonoBehaviour {
     public int attackDamage = 0;
     private SpriteRenderer _spriteRenderer;     
 
-    
-
-    void Awake()
+    void Awake ()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
         UpdatePosition(position);
         UpdateColor();
     }
-
+    
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
 
     }
@@ -61,20 +59,19 @@ public class Tile : MonoBehaviour {
             switch (type)
             {
                 case TileType.Ground:
-                    if (GetComponent<Shop>() != null)
-                    {
-                        _spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
-                    }
-                    else
-                    {
-                        _spriteRenderer.color = new Color(0, 1, 0);
-                    }
+                    _spriteRenderer.color = new Color(0, 1, 0);
+                    break;
+                case TileType.Shop:
+                    _spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
                     break;
                 case TileType.Wall:
                     _spriteRenderer.color = new Color(1, 1, 0);
                     break;
                 case TileType.Entrance:
                     _spriteRenderer.color = new Color(0, 0, 1);
+                    break;
+                case TileType.Sign:
+                    _spriteRenderer.color = new Color(0.5f, 0.375f, 0.25f);
                     break;
             }
         }
@@ -86,5 +83,6 @@ public enum TileType
     Ground,
     Wall,
     Entrance,
-    Shop
+    Shop,
+    Sign
 }

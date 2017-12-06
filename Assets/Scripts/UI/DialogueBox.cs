@@ -31,6 +31,7 @@ public class DialogueBox : MonoBehaviour {
     // Change the conversation
     public void ChangeConversation (List<Statement> newConvo)
     {
+        transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Next";
         conversation = newConvo;
         convoIndex = 0;
         ChangeStatement(conversation[0]);
@@ -39,6 +40,14 @@ public class DialogueBox : MonoBehaviour {
     // Move the conversation along
     public void AdvanceConversation()
     {
+        if (convoIndex >= conversation.Count - 1)
+        {
+            transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Close";
+        }
+        else
+        {
+            transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Next";
+        }
         if (++convoIndex >= conversation.Count)
         {
             isOpen = false;

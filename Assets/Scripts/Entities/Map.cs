@@ -41,6 +41,9 @@ public class Map : MonoBehaviour {
                         tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Shop Tile"), transform));
                         tiles[tiles.Count - 1].GetComponent<Shop>().numOfItems = int.Parse(line[j].Split(',')[1]);
                         break;
+                    case 'N':
+                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Sign Tile"), transform));
+                        break;
                 }
                 tiles[tiles.Count - 1].GetComponent<Tile>().UpdatePosition(new Vector2(j, -i));
             }
