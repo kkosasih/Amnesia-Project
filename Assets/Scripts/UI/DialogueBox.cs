@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueBox : MonoBehaviour {
+    public bool isOpen = false;
+    public List<Statement> conversation;
+    private int convoIndex = 0;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 
     }
@@ -14,8 +17,37 @@ public class DialogueBox : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        Image i = GetComponent<Image>();
+        if (isOpen && !i.IsActive())
+        {
+            Helper.ChangeAllVisibility(gameObject, true);
+        }
+        else if (!isOpen && i.IsActive())
+        {
+            Helper.ChangeAllVisibility(gameObject, false);
+        }
+    }
+    
+    // Change the conversation
+    public void ChangeConversation (List<Statement> newConvo)
+    {
+        conversation = newConvo;
+        convoIndex = 0;
+        ChangeStatement(conversation[0]);
+    }
+
+    // Move the conversation along
+    public void AdvanceConversation()
+    {
+        if (++convoIndex >= conversation.Count)
+        {
+            isOpen = false;
+        }
+        else
+        {
+            ChangeStatement(conversation[convoIndex]);
+        }
+    }
 
     // Apply a new statement to the dialogue box
     public void ChangeStatement (Statement newStatement)

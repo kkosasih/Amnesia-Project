@@ -6,39 +6,38 @@ using UnityEngine.UI;
 public class ShopUI : MonoBehaviour {
     public Shop currentShop = null;
     public bool isOpen = false;
-    private GameObject window;
 
 	// Use this for initialization
 	void Start ()
     {
-        window = GameObject.FindWithTag("ShopWindow");
+
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Image i = window.GetComponent<Image>();
+        Image i = GetComponent<Image>();
 		if (isOpen && !i.IsActive())
         {
-            Helper.ChangeAllVisibility(window, true);
+            Helper.ChangeAllVisibility(gameObject, true);
         }
         else if (!isOpen && i.IsActive())
         {
-            Helper.ChangeAllVisibility(window, false);
+            Helper.ChangeAllVisibility(gameObject, false);
         }
 	}
 
     // Set the items in the store
     public void SetShop (Shop shop)
     {
-        for (int i = 0; i < window.transform.Find("Items").childCount; ++i)
+        for (int i = 0; i < transform.Find("Items").childCount; ++i)
         {
-            Destroy(window.transform.Find("Items").GetChild(i).gameObject);
+            Destroy(transform.Find("Items").GetChild(i).gameObject);
         }
         currentShop = shop;
         for (int i = 0; i < currentShop.items.Count; ++i)
         {
-            GameObject g = (GameObject)Instantiate(Resources.Load("ShopEntry"), window.transform.Find("Items").transform);
+            GameObject g = (GameObject)Instantiate(Resources.Load("ShopEntry"), transform.Find("Items").transform);
             RectTransform rt = g.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(0.1f, i * 0.9f / currentShop.items.Count + 0.1f);
             rt.anchorMax = new Vector2(0.9f, (i + 1) * 0.9f / currentShop.items.Count + 0.1f);
