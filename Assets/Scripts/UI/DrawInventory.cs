@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DrawInventory : MonoBehaviour {
 	public List<Item> inventory = new List<Item>();
@@ -32,10 +33,13 @@ public class DrawInventory : MonoBehaviour {
 			inventory.Add (database.items [i]);
 		}
 		for (int i = 0; i < slots.Count; i++) {
-			GameObject newSlot = (GameObject)Instantiate (slot);
-			newSlot.transform.SetParent (inventorySlots.transform);
+			//GameObject newSlot = (GameObject)Instantiate (slot);
+			//newSlot.transform.SetParent (inventorySlots.transform);
+			GameObject newSlot = (GameObject) Instantiate (Resources.Load ("Slot"), GameObject.Find("Screen").transform);
 			if (i < inventory.Count) {
-				newSlot.GetComponent <Texture2D> ().UpdateExternalTexture (inventory [i].itemIcon.GetNativeTexturePtr ());
+				newSlot.transform.GetChild (0).gameObject.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Item Icons/" + inventory [i].itemName);
+				newSlot.transform.GetChild (0).gameObject.GetComponent<RectTransform> ().offsetMin = newSlot.GetComponent<RectTransform> ().offsetMin;
+				newSlot.transform.GetChild (0).gameObject.GetComponent<RectTransform> ().offsetMax = newSlot.GetComponent<RectTransform> ().offsetMax;
 			}
 		}
 
@@ -50,34 +54,6 @@ public class DrawInventory : MonoBehaviour {
 		screen.SetActive (draw);
 		inventorySlots.SetActive (draw);
 	}
-	/*
-	private void OnGUI()
-	{
-		int shiftRight = 400;
-		int shiftDown = 50;
 
-		if (draw){
-			int x = 0;
-			int y = 0;
-			for (int i = 0; i < slots.Count; i++) {
-				if (x == 3) {
-					x = 0;
-					y++;
-				}
-				x++;
-				if (i < inventory.Count)
-					GUI.Label (new Rect (25*x + shiftRight, 25*y + shiftDown, 50, 50), inventory[i].itemIcon);
-				else
-					GUI.Label (new Rect (25*x + shiftRight, 25*y + shiftDown, 50, 50), slot_texture);
-			}
-			GUI.Label (new Rect (340, 25, 75, 50), "Equipment");
-			GUI.Label (new Rect (125 + shiftRight, 25, 75, 50), "Item Quicklist");
-			for (int i = 0; i < 3; i++) {
-				GUI.Label (new Rect (shiftRight - 50, 50 * i + shiftDown, 50, 50), equip_slot);
-				GUI.Label (new Rect (shiftRight + 125, 50 * i + shiftDown, 50, 50), equip_slot);
-			}
-		}
-
-	}*/
 	
 }
