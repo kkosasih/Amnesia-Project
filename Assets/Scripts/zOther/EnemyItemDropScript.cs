@@ -26,21 +26,29 @@ public class EnemyItemDropScript : MonoBehaviour
 
     public void EnemyDied()
     {
-        GameObject Item = (GameObject)Instantiate(Resources.Load("Prefab")); //Creates the Object
-        Item.name = "Lootbag";
-        Item.GetComponent<ItemDropScript>().SlimeAmount = Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
-        for (int i = 0; i < dropamount; i++)
-        {
-            tempname = ItDatabase.GetComponent<ItemDatabase>().randomdrop(this.name);
-            for (int j = 0; j < ItDatabase.GetComponent<ItemDatabase>().items.Count; j++)//Remember to increase depending on size of database
+        // if(controller.map.tiles[currentTile].GetComponent<Tile>().type != TileType.Pickup)
+        ///{
+            GameObject Item = Instantiate(Resources.Load<GameObject>("Prefab")); //Creates the Object
+            Item.name = "Lootbag";
+            Item.GetComponent<ItemDropScript>().SlimeAmount = Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
+            for (int i = 0; i < dropamount; i++)
             {
-                if (tempname == ItDatabase.GetComponent<ItemDatabase>().items[j].itemName)
+                tempname = ItDatabase.GetComponent<ItemDatabase>().randomdrop(this.name);
+                for (int j = 0; j < ItDatabase.GetComponent<ItemDatabase>().items.Count; j++)//Remember to increase depending on size of database
                 {
-                    randomamount = Random.Range(1, ItDatabase.GetComponent<ItemDatabase>().items[j].itemStack);
+                    if (tempname == ItDatabase.GetComponent<ItemDatabase>().items[j].itemName)
+                    {
+                        randomamount = Random.Range(1, ItDatabase.GetComponent<ItemDatabase>().items[j].itemStack);
+                    }
                 }
+                Item.GetComponent<ItemDropScript>().AddItem(tempname, randomamount);
             }
-            Item.GetComponent<ItemDropScript>().AddItem(tempname, randomamount);
-        }
-        Item.GetComponent<Transform>().position = new Vector3(0, monster.GetComponent<Monster>().currentTile % controller.map.width, monster.GetComponent<Monster>().currentTile / controller.map.width);
+            Item.GetComponent<Transform>().position = this.GetComponent<Monster>().Mlocation();
+            Item.GetComponent<ItemDropScript>().currentTile = this.GetComponent<Monster>().currentTile;
+       // }
+       // else
+       // {
+            
+       // }
     }
 }

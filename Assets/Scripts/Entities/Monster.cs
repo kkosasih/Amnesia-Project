@@ -87,4 +87,9 @@ public class Monster : Character {
     {
         return currentTile / controller.map.width - player.currentTile / controller.map.width;
     }
+
+    public Vector3 Mlocation()
+    {
+        return controller.map.tiles[currentTile].transform.position;
+    }
 }

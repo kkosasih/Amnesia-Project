@@ -2,37 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDropScript : MonoBehaviour
+public class ItemDropScript : Character
 {
     public int SlimeAmount;
-    public float xdis = 0;
-    public float ydis = 0;
     public PlayerCharacter player;
     public ItemDatabase database;
-    public GameController controller;
     public GameObject bag;
     public GameObject ui;
     public List<Item> bagitems = new List<Item>();
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
         bag = this.gameObject;
-        controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
+        //Destroy(healthSlider.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        xdis = HoriDistance();
-        ydis = VertDistance();
-        if(((xdis >= -100) && (xdis <= 100)) && ((ydis >= -100) && (ydis <= 100)))
+        base.Update();
+        if (HoriDistance() + VertDistance() <= 1)
         {
-            ui.SetActive(true);
-        }
-        else
-        {
-            ui.SetActive(false);
+            player.item = bag;
         }
     }
 
@@ -94,14 +85,14 @@ public class ItemDropScript : MonoBehaviour
     }
 
     // Get the horizontal distance from player; negative is player to right, positive is player to left
-    private float HoriDistance()
+    private int HoriDistance()
     {
-        return this.GetComponent<Rigidbody2D>().transform.position.x - player.GetComponent<Rigidbody2D>().transform.position.x ;
+        return currentTile % controller.map.width - player.currentTile % controller.map.width;
     }
 
     // Get the vertical distance from player; negative is player below, positive is player above
-    private float VertDistance()
+    private int VertDistance()
     {
-        return this.GetComponent<Rigidbody2D>().transform.position.y - player.GetComponent<Rigidbody2D>().transform.position.y;
+        return currentTile / controller.map.width - player.currentTile / controller.map.width;
     }
 }

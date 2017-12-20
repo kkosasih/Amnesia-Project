@@ -57,7 +57,7 @@ public class DialogueBox : MonoBehaviour {
             ChangeStatement(conversation[convoIndex]);
         }
     }
-
+    
     // Apply a new statement to the dialogue box
     public void ChangeStatement (Statement newStatement)
     {

@@ -9,6 +9,7 @@ public class PlayerCharacter : Character {
     private Slider staminaSlider;
     public GameObject item;
     public GameObject interactionbutton;
+    public GameObject pickupui;
     public Inventory inventory;
     public string itemname; //Variable for getting specific item
     private bool touching = false;
@@ -47,7 +48,7 @@ public class PlayerCharacter : Character {
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad8))
+        if (Input.GetKeyDown(KeyCode.M))//Keypad8))
         {
             Attack(controller.map.TileAboveStrict(currentTile), 1, 1);
         }
@@ -76,16 +77,30 @@ public class PlayerCharacter : Character {
         //Action button
         if (Input.GetKeyDown(KeyCode.E))
         {
-            //If object is on Object layer will add object to inventory
-            if ((touching == true) && (Physics2D.Raycast(transform.position, transform.forward, 1, ItemLayer)))
+            switch(controller.map.tiles[currentTile].GetComponent<Tile>().type)
             {
-                //Not tested
-                itemname = item.name;
-                inventory.AddItem(itemname);
-                DestroyObject(item);
-                touching = false;
+                case TileType.Sign:
+
+                    break;
+                case TileType.Pickup:
+                    pickupui.SetActive(true);
+                    break;
+                default:
+                    break;
             }
-            //
+        }
+
+        switch(controller.map.tiles[currentTile].GetComponent<Tile>().type)
+        {
+            case TileType.Sign:
+                interactionbutton.gameObject.SetActive(true);
+                break;
+            case TileType.Pickup:
+                interactionbutton.gameObject.SetActive(true);
+                break;
+            default:
+                interactionbutton.gameObject.SetActive(false);
+                break;
         }
     }
 
@@ -118,25 +133,6 @@ public class PlayerCharacter : Character {
     {
         stamina = newStamina;
         staminaSlider.value = (float)stamina / maxStamina * 100;
-    }
-
-    //Detects pickupable object
-    public void OnCollisionEnter2D (Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Item")
-        {
-            item = gameObject;
-            touching = true;
-        }
-    }
-
-    //Detects when leaving pickupable range of object
-    public void OnCollisionExit2D (Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Item")
-        {
-            touching = false;
-        }
     }
 }
 
