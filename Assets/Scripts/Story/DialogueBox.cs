@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueBox : MonoBehaviour {
     public bool isOpen = false;
-    public List<Statement> conversation;
+    public Conversation conversation;
     private int convoIndex = 0;
 
     // Use this for initialization
@@ -29,7 +29,7 @@ public class DialogueBox : MonoBehaviour {
     }
     
     // Change the conversation
-    public void ChangeConversation (List<Statement> newConvo)
+    public void ChangeConversation (Conversation newConvo)
     {
         transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Next";
         conversation = newConvo;

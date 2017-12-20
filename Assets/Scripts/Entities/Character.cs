@@ -68,6 +68,30 @@ public class Character : MonoBehaviour {
         }
     }
 
+    // Move the character by multiple tiles automatically
+    public IEnumerator AutoMove (List<MoveOptions> path)
+    {
+        foreach (MoveOptions o in path)
+        {
+            switch (o)
+            {
+                case MoveOptions.up:
+                    ChangeTile(controller.map.TileAbove(currentTile));
+                    break;
+                case MoveOptions.down:
+                    ChangeTile(controller.map.TileBelow(currentTile));
+                    break;
+                case MoveOptions.left:
+                    ChangeTile(controller.map.TileLeft(currentTile));
+                    break;
+                case MoveOptions.right:
+                    ChangeTile(controller.map.TileRight(currentTile));
+                    break;
+            }
+        }
+        yield return new WaitForEndOfFrame();
+    }
+
     // Put an attack on a tile for a given time
     public void Attack (int tile, int damage, float duration)
     {
@@ -128,18 +152,17 @@ public class Character : MonoBehaviour {
         }
         transform.position = newPos;
         currentTile = moveTo;
+        HandleTile();
+    }
+
+    // Performs all special actions that a tile would perform if moved to
+    protected virtual void HandleTile ()
+    {
         if (TileHurts())
         {
             ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
             attacked = true;
         }
-        HandleTile();
-    }
-
-    // Performs all special actions that a tile would perform
-    protected virtual void HandleTile()
-    {
-
     }
 
     // Checks if the tile is harmful to the character
@@ -147,4 +170,12 @@ public class Character : MonoBehaviour {
     {
         return controller.map.tiles[currentTile].GetComponent<Tile>().attackID != 0 && controller.map.tiles[currentTile].GetComponent<Tile>().attackID != teamID;
     }
+}
+
+public enum MoveOptions
+{
+    up,
+    down,
+    left,
+    right
 }
