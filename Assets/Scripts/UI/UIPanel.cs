@@ -18,11 +18,16 @@ public class UIPanel : MonoBehaviour {
         if (isOpen && !GetComponent<Image>().IsActive())
         {
             Helper.ChangeAllVisibility(gameObject, true);
-            
         }
         else if (!isOpen && GetComponent<Image>().IsActive())
         {
             Helper.ChangeAllVisibility(gameObject, false);
         }
+    }
+
+    // Close the panel
+    public void Close ()
+    {
+        isOpen = false;
     }
 }

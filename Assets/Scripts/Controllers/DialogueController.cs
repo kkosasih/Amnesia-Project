@@ -10,13 +10,13 @@ public class DialogueController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-		
+        conversation = new List<DialoguePart>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (!conversation[convoIndex].isRunning && convoIndex < conversation.Count)
+        if (convoIndex < conversation.Count && !conversation[convoIndex].isRunning)
         {
             AdvanceConversation();
         }
@@ -27,17 +27,17 @@ public class DialogueController : MonoBehaviour {
     {
         conversation = newConvo;
         convoIndex = -1;
-        GameObject.FindWithTag("MainCamera").GetComponent<UITracking>().enabled = false;
+        GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = false;
         ++GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
         AdvanceConversation();
     }
 
     // Move the conversation along
-    public void AdvanceConversation()
+    public void AdvanceConversation ()
     {
         if (++convoIndex >= conversation.Count)
         {
-            GameObject.FindWithTag("MainCamera").GetComponent<UITracking>().enabled = true;
+            GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = true;
             --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
         }
         else
@@ -45,11 +45,11 @@ public class DialogueController : MonoBehaviour {
             ChangeStatement(conversation[convoIndex]);
             if (convoIndex >= conversation.Count - 1)
             {
-                transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Close";
+                GameObject.Find("DialogueBox").transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Close";
             }
             else
             {
-                transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Next";
+                GameObject.Find("DialogueBox").transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Next";
             }
         }
     }
@@ -61,29 +61,34 @@ public class DialogueController : MonoBehaviour {
     }
 
     // Test dialogue
-    public void Test()
+    public void Test ()
     {
-        ChangeConversation(MakeDialogue(Resources.Load<TextAsset>("Conversations/Test.txt").text));
+        ChangeConversation(MakeDialogue(Resources.Load<TextAsset>("Conversations/Test").text));
     }
 
     // Make a list of dialogue options from text
-    public static List<DialoguePart> MakeDialogue (string data)
+    public List<DialoguePart> MakeDialogue (string data)
     {
+        foreach (DialoguePart p in conversation)
+        {
+            Destroy(p.gameObject);
+        }
         List<DialoguePart> result = new List<DialoguePart>();
         foreach (string s in data.Split(new string[] { "||" }, System.StringSplitOptions.None))
         {
             switch (s.Split(':')[0])
             {
                 case "Statement":
-                    result.Add(new Statement(s.Split(':')[1]));
+                    result.Add(((GameObject)Instantiate(Resources.Load("Conversations/StatementObject"), transform)).GetComponent<Statement>());
                     break;
                 case "Camera":
-                    result.Add(new MoveCam(s.Split(':')[1]));
+                    result.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCamObject"), transform)).GetComponent<MoveCam>());
                     break;
                 case "Character":
-                    result.Add(new MoveChar(s.Split(':')[1]));
+                    result.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCharObject"), transform)).GetComponent<MoveChar>());
                     break;
             }
+            result[result.Count - 1].ChangeSettings(s.Split(':')[1]);
         }
         return result;
     }

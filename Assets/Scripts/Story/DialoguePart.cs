@@ -2,20 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguePart {
+public class DialoguePart : MonoBehaviour {
     public bool isRunning = false;
     protected float time1;
     protected float time2;
 
-    // Constructor taking in the time it takes to perform the action
-    public DialoguePart (float t1, float t2)
-    {
-        time1 = t1;
-        time2 = t2;
-    }
-
-    // Constructor taking in a string
-    public DialoguePart (string data)
+    // Change the variables based on a string
+    public virtual void ChangeSettings (string data)
     {
         string[] parameters = data.Split('|');
         time1 = float.Parse(parameters[0]);

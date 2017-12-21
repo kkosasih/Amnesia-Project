@@ -8,17 +8,10 @@ public class Statement : DialoguePart {
     private Sprite portrait;
     private string speech;
 
-    // Constructor taking in the time it takes to perform the action
-    public Statement (float t1, float t2, string sr, Sprite p, string sh) : base(t1, t2)
+    // Change the variables based on a string
+    public override void ChangeSettings (string data)
     {
-        speaker = sr;
-        portrait = p;
-        speech = sh;
-    }
-
-    // Constructor taking in a string
-    public Statement (string data) : base(data)
-    {
+        base.ChangeSettings(data);
         string[] parameters = data.Split('|');
         speaker = parameters[2];
         portrait = Resources.Load<Sprite>("Character Portraits/" + speaker + "/" + parameters[3]);

@@ -6,16 +6,10 @@ public class MoveChar : DialoguePart {
     private Character charToMove;
     private List<MoveOptions> moveTo;
 
-    // Constructor taking in the time it takes to perform the action
-    public MoveChar (float t1, float t2, Character toMove, List<MoveOptions> mt) : base(t1, t2)
+    // Change the variables based on a string
+    public override void ChangeSettings (string data)
     {
-        charToMove = toMove;
-        moveTo = mt;
-    }
-
-    // Constructor taking in a string
-    public MoveChar (string data) : base(data)
-    {
+        base.ChangeSettings(data);
         string[] parameters = data.Split('|');
         charToMove = GameObject.Find(parameters[2]).GetComponent<Character>();
         moveTo = new List<MoveOptions>();
@@ -44,7 +38,7 @@ public class MoveChar : DialoguePart {
     {
         isRunning = true;
         yield return new WaitForSeconds(time1);
-        charToMove.AutoMove(moveTo);
+        yield return StartCoroutine(charToMove.AutoMove(moveTo));
         yield return new WaitForSeconds(time2);
         isRunning = false;
     }

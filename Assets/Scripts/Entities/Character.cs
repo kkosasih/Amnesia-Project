@@ -71,25 +71,29 @@ public class Character : MonoBehaviour {
     // Move the character by multiple tiles automatically
     public IEnumerator AutoMove (List<MoveOptions> path)
     {
-        foreach (MoveOptions o in path)
+        for (int i = 0; i < path.Count; ++i)
         {
-            switch (o)
+            switch (path[i])
             {
                 case MoveOptions.Up:
-                    ChangeTile(controller.map.TileAbove(currentTile));
+                    Move(controller.map.TileAbove(currentTile));
                     break;
                 case MoveOptions.Down:
-                    ChangeTile(controller.map.TileBelow(currentTile));
+                    Move(controller.map.TileBelow(currentTile));
                     break;
                 case MoveOptions.Left:
-                    ChangeTile(controller.map.TileLeft(currentTile));
+                    Move(controller.map.TileLeft(currentTile));
                     break;
                 case MoveOptions.Right:
-                    ChangeTile(controller.map.TileRight(currentTile));
+                    Move(controller.map.TileRight(currentTile));
                     break;
             }
+            if (i < path.Count - 1)
+            {
+                yield return new WaitForSeconds(delay);
+            }
         }
-        yield return new WaitForEndOfFrame();
+        
     }
 
     // Put an attack on a tile for a given time

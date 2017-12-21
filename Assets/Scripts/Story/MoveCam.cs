@@ -6,16 +6,10 @@ public class MoveCam : DialoguePart {
     private float time3;
     private Vector3 moveTo;
 
-    // Constructor taking in the time it takes to perform the action
-    public MoveCam (float t1, float t2, float t3, Vector3 mt) : base(t1, t2)
+    // Change the variables based on a string
+    public override void ChangeSettings (string data)
     {
-        time3 = t3;
-        moveTo = mt;
-    }
-
-    // Constructor taking in a string
-    public MoveCam (string data) : base(data)
-    {
+        base.ChangeSettings(data);
         string[] parameters = data.Split('|');
         time3 = float.Parse(parameters[2]);
         string[] vectorPoints = parameters[3].Split(',');
@@ -27,7 +21,7 @@ public class MoveCam : DialoguePart {
     {
         isRunning = true;
         yield return new WaitForSeconds(time1);
-        Helper.LerpMovement(GameObject.FindWithTag("MainCamera"), GameObject.FindWithTag("MainCamera").transform.position + moveTo, time3);
+        yield return StartCoroutine(Helper.LerpMovement(GameObject.FindWithTag("MainCamera"), GameObject.FindWithTag("MainCamera").transform.position + moveTo, time3));
         yield return new WaitForSeconds(time2);
         isRunning = false;
     }
