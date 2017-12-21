@@ -35,7 +35,8 @@ public class SaveLoad {
     public static void Load (int slot)
     {
         string slotNum = slot.ToString();
-        GameObject.Find("Canvas").transform.Find("ShopWindow").GetComponent<ShopUI>().isOpen = false;
+        GameObject.Find("ShopWindow").GetComponent<UIPanel>().isOpen = false;
+        GameObject.Find("DialogueBox").GetComponent<UIPanel>().isOpen = false;
         if (player != null)
         {
             SceneManager.LoadScene(PlayerPrefs.GetString(slotNum + "SceneNum"));

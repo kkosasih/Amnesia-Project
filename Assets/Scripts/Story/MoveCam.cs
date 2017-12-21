@@ -13,11 +13,22 @@ public class MoveCam : DialoguePart {
         moveTo = mt;
     }
 
+    // Constructor taking in a string
+    public MoveCam (string data) : base(data)
+    {
+        string[] parameters = data.Split('|');
+        time3 = float.Parse(parameters[2]);
+        string[] vectorPoints = parameters[3].Split(',');
+        moveTo = new Vector3(float.Parse(vectorPoints[0]), float.Parse(vectorPoints[1]), float.Parse(vectorPoints[2]));
+    }
+
     // Wait for time1, move the camera for time3 seconds, then wait for time2
     public override IEnumerator PerformPart ()
     {
+        isRunning = true;
         yield return new WaitForSeconds(time1);
-        Helper.LerpMovement(GameObject.FindWithTag("MainCamera"), moveTo, time3);
+        Helper.LerpMovement(GameObject.FindWithTag("MainCamera"), GameObject.FindWithTag("MainCamera").transform.position + moveTo, time3);
         yield return new WaitForSeconds(time2);
+        isRunning = false;
     }
 }

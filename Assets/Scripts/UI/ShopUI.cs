@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour {
     public Shop currentShop = null;
-    public bool isOpen = false;
 
 	// Use this for initialization
 	void Start ()
@@ -16,15 +15,7 @@ public class ShopUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Image i = GetComponent<Image>();
-		if (isOpen && !i.IsActive())
-        {
-            Helper.ChangeAllVisibility(gameObject, true);
-        }
-        else if (!isOpen && i.IsActive())
-        {
-            Helper.ChangeAllVisibility(gameObject, false);
-        }
+
 	}
 
     // Set the items in the store
@@ -47,13 +38,20 @@ public class ShopUI : MonoBehaviour {
             g.transform.GetChild(3).GetComponent<Text>().text = currentShop.items[i].itemDesc;
         }
     }
+    
+    // Enter the shop
+    public void EnterShop ()
+    {
+        ++GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
+        GetComponent<UIPanel>().isOpen = true;
+    }
 
     // Exit the shop
     public void ExitShop ()
     {
         PlayerCharacter player = GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>();
-        player.movementEnabled = true;
+        --player.movementPreventions;
         player.Move(player.lastTile);
-        isOpen = false;
+        GetComponent<UIPanel>().isOpen = false;
     }
 }

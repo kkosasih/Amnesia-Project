@@ -28,7 +28,7 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
-        if (movementEnabled && lastMove >= delay)
+        if (movementPreventions == 0 && lastMove >= delay)
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -120,10 +120,9 @@ public class PlayerCharacter : Character {
                 controller.map.tiles[currentTile].GetComponent<Entrance>().TeleportPlayer();
                 break;
             case TileType.Shop:
-                movementEnabled = false;
-                ShopUI s = GameObject.Find("Canvas").transform.Find("ShopWindow").GetComponent<ShopUI>();
+                ShopUI s = GameObject.Find("ShopWindow").GetComponent<ShopUI>();
                 s.SetShop(controller.map.tiles[currentTile].GetComponent<Shop>());
-                s.isOpen = true;
+                s.EnterShop();
                 break;
         }
     }

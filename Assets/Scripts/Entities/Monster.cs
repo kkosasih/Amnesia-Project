@@ -42,12 +42,6 @@ public class Monster : Character {
         }
     }
 
-    // Use this for initialization
-    protected override void Start ()
-    {
-        base.Start();
-    }
-
     // Kill this character and drop an item
     public override void Die ()
     {
@@ -83,12 +77,12 @@ public class Monster : Character {
     }
 
     // Get the vertical distance from player; negative is player below, positive is player above
-    private int VertDistance()
+    private int VertDistance ()
     {
         return currentTile / controller.map.width - player.currentTile / controller.map.width;
     }
 
-    public Vector3 Mlocation()
+    public Vector3 Mlocation ()
     {
         return controller.map.tiles[currentTile].transform.position;
     }

@@ -7,7 +7,7 @@ public class Character : MonoBehaviour {
     public static GameController controller;
     public int teamID;
     public int currentTile;
-    public bool movementEnabled = true;
+    public int movementPreventions = 0;
     public float delay;
     public float lastMove = 0.0f;
     public int lastTile = -1;
@@ -75,16 +75,16 @@ public class Character : MonoBehaviour {
         {
             switch (o)
             {
-                case MoveOptions.up:
+                case MoveOptions.Up:
                     ChangeTile(controller.map.TileAbove(currentTile));
                     break;
-                case MoveOptions.down:
+                case MoveOptions.Down:
                     ChangeTile(controller.map.TileBelow(currentTile));
                     break;
-                case MoveOptions.left:
+                case MoveOptions.Left:
                     ChangeTile(controller.map.TileLeft(currentTile));
                     break;
-                case MoveOptions.right:
+                case MoveOptions.Right:
                     ChangeTile(controller.map.TileRight(currentTile));
                     break;
             }
@@ -174,8 +174,8 @@ public class Character : MonoBehaviour {
 
 public enum MoveOptions
 {
-    up,
-    down,
-    left,
-    right
+    Up,
+    Down,
+    Left,
+    Right
 }

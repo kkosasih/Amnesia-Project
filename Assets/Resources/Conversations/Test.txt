@@ -1,0 +1,1 @@
+Statement:0|0|John|Alert|Wait a minute, what was that?||Character:0|2|Player|D,L,R,R,L,D||Statement:0|1|John|Prepared|I can't seem to find it....||Camera:0|0|5|0,10,0||Camera:0|1|0.5|0,-10,0||Statement:0|0|John|Neutral|I guess it was nothing.
