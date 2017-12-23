@@ -45,6 +45,6 @@ public class QuestTracking
     public void FinishQuest()
     {
         questinc += mainquestprogress;
-        Inventory.AddItem();
+        //Inventory.AddItem();
     }
 }

@@ -47,7 +47,7 @@ public class PlayerCharacter : Character {
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.M))//Keypad8))
+        if (Input.GetKeyDown(KeyCode.Keypad8))
         {
             Attack(controller.map.TileAboveStrict(currentTile), 1, 1);
         }
