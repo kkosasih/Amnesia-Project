@@ -30,6 +30,8 @@ public class EnemyItemDropScript : MonoBehaviour
         ///{
             GameObject Item = Instantiate(Resources.Load<GameObject>("Prefab")); //Creates the Object
             Item.name = "Lootbag";
+            Item.GetComponent<Transform>().position = this.GetComponent<Monster>().Mlocation();
+            Item.GetComponent<ItemDropScript>().currentTile = this.GetComponent<Monster>().currentTile;
             Item.GetComponent<ItemDropScript>().SlimeAmount = Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
             for (int i = 0; i < dropamount; i++)
             {
@@ -43,12 +45,11 @@ public class EnemyItemDropScript : MonoBehaviour
                 }
                 Item.GetComponent<ItemDropScript>().AddItem(tempname, randomamount);
             }
-            Item.GetComponent<Transform>().position = this.GetComponent<Monster>().Mlocation();
-            Item.GetComponent<ItemDropScript>().currentTile = this.GetComponent<Monster>().currentTile;
+
        // }
        // else
        // {
-            
-       // }
+
+        // }
     }
 }

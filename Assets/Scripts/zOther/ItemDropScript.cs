@@ -21,6 +21,7 @@ public class ItemDropScript : Character
     protected override void Update()
     {
         base.Update();
+        controller.map.tiles[currentTile].GetComponent<Tile>().type = TileType.Pickup;
         if (HoriDistance() + VertDistance() <= 1)
         {
             player.item = bag;

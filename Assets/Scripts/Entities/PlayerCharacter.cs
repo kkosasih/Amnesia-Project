@@ -19,7 +19,6 @@ public class PlayerCharacter : Character {
     {
         controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-        interactionbutton = GameObject.Find("InteractionIndicator");
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
     }

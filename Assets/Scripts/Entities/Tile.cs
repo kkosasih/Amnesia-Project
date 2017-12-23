@@ -73,6 +73,9 @@ public class Tile : MonoBehaviour {
                 case TileType.Sign:
                     _spriteRenderer.color = new Color(0.5f, 0.375f, 0.25f);
                     break;
+                case TileType.Pickup:
+                    _spriteRenderer.color = new Color(0.5f, 0.375f, 0.25f);
+                    break;
             }
         }
     }
