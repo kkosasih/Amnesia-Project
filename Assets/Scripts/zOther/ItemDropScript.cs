@@ -88,12 +88,12 @@ public class ItemDropScript : Character
     // Get the horizontal distance from player; negative is player to right, positive is player to left
     private int HoriDistance()
     {
-        return currentTile % controller.map.width - player.currentTile % controller.map.width;
+        return this.currentTile % controller.map.width - player.currentTile % controller.map.width;
     }
 
     // Get the vertical distance from player; negative is player below, positive is player above
     private int VertDistance()
     {
-        return currentTile / controller.map.width - player.currentTile / controller.map.width;
+        return this.currentTile / controller.map.width - player.currentTile / controller.map.width;
     }
 }
