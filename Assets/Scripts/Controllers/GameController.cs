@@ -23,7 +23,6 @@ public class GameController : MonoBehaviour {
 	void Update ()
     {
         FindMap();
-        Debug.Log(map.path);
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             ShiftSave(0);
