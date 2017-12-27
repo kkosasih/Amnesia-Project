@@ -18,7 +18,7 @@ public class Map : MonoBehaviour {
         tiles = new List<GameObject>(width * height);
         for (int i = 0; i < data.Length; ++i)
         {
-            string[] line = data[i].Split(' ');
+            string[] line = data[i].Trim().Split(' ');
             for (int j = 0; j < line.Length; ++j)
             {
                 switch (line[j][0])

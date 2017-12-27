@@ -32,8 +32,9 @@ public class DialogueController : MonoBehaviour {
             Destroy(p.gameObject);
         }
         List<DialoguePart> newConvo = new List<DialoguePart>();
-        foreach (string s in data.Split(new string[] { "||" }, System.StringSplitOptions.None))
+        foreach (string str in data.Split(new string[] { "||" }, System.StringSplitOptions.None))
         {
+            string s = str.Trim();
             switch (s.Split(':')[0])
             {
                 case "Statement":
