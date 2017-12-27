@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Monster : Character {
     public PlayerCharacter player;
+    public bool pickuptile = false;
 
     protected override void Awake()
     {
@@ -46,7 +47,11 @@ public class Monster : Character {
     public override void Die ()
     {
         base.Die();
-        GetComponent<EnemyItemDropScript>().EnemyDied();
+        if(controller.map.tiles[currentTile].GetComponent<Tile>().type != TileType.Pickup)
+        {
+            pickuptile = true;
+        }
+        GetComponent<EnemyItemDropScript>().EnemyDied(pickuptile);
     }
 
     // Move closer to the player and reset the timing of movement to 0

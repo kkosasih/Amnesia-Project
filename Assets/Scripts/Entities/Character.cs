@@ -27,7 +27,7 @@ public class Character : MonoBehaviour {
     // Use this for initialization
     protected virtual void Start ()
     {
-        transform.position = controller.map.tiles[currentTile].transform.position;
+        transform.position = controller.map.tiles[currentTile].transform.position + new Vector3(0, 0, -1);
     }
 	
 	// Update is called once per frame
@@ -148,7 +148,7 @@ public class Character : MonoBehaviour {
     private IEnumerator ChangeTile (int moveTo)
     {
         Vector3 oldPos = transform.position;
-        Vector3 newPos = controller.map.tiles[moveTo].transform.position;
+        Vector3 newPos = controller.map.tiles[moveTo].transform.position + new Vector3(0, 0, -1);
         for (float timePassed = 0; timePassed < Mathf.Min(0.5f, delay); timePassed += Time.deltaTime)
         {
             transform.position = Vector3.Lerp(oldPos, newPos, timePassed / Mathf.Min(0.5f, delay));

@@ -48,10 +48,11 @@ public class Map : MonoBehaviour {
                 tiles[tiles.Count - 1].GetComponent<Tile>().UpdatePosition(new Vector2(j, -i));
             }
         }
+        transform.Find("MapSprite").transform.position = new Vector3((float)width / 2 - 0.5f, (float)-height / 2 + 0.5f, 0);
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
 
     }
