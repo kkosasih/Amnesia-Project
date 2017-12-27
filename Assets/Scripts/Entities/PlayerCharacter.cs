@@ -17,7 +17,6 @@ public class PlayerCharacter : Character {
 
     protected override void Awake ()
     {
-        controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
@@ -26,80 +25,90 @@ public class PlayerCharacter : Character {
     // Update is called once per frame
     protected override void Update ()
     {
-        base.Update();
-        if (movementPreventions == 0 && lastMove >= delay)
+        if (!GameController.loading)
         {
-            if (Input.GetKey(KeyCode.W))
+            base.Update();
+            if (movementPreventions == 0 && lastMove >= delay)
             {
-                Move(controller.map.TileAbove(currentTile));
+                if (Input.GetKey(KeyCode.W))
+                {
+                    Move(GameController.map.TileAbove(currentTile));
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    Move(GameController.map.TileBelow(currentTile));
+                }
+                else if (Input.GetKey(KeyCode.A))
+                {
+                    Move(GameController.map.TileLeft(currentTile));
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    Move(GameController.map.TileRight(currentTile));
+                }
             }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                Move(controller.map.TileBelow(currentTile));
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                Move(controller.map.TileLeft(currentTile));
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                Move(controller.map.TileRight(currentTile));
-            }
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Keypad8))
-        {
-            Attack(controller.map.TileAboveStrict(currentTile), 1, 1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            Attack(controller.map.TileBelowStrict(currentTile), 1, 1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-            Attack(controller.map.TileLeftStrict(currentTile), 1, 1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Keypad6))
-        {
-            Attack(controller.map.TileRightStrict(currentTile), 1, 1);
-        }
-        if (controller.map.tiles[currentTile].GetComponent<Tile>().attackID == 2 && !attacked)
-        {
-            ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
-            attacked = true;
-        }
-        else if (controller.map.tiles[currentTile].GetComponent<Tile>().attackID == 0)
-        {
-            attacked = false;
-        }
 
-        //Action button
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            switch(controller.map.tiles[currentTile].GetComponent<Tile>().type)
+            if (Input.GetKeyDown(KeyCode.Keypad8))
             {
-                case TileType.Sign:
-
-                    break;
-                case TileType.Pickup:
-                    pickupui.SetActive(true);
-                    break;
-                default:
-                    break;
+                Attack(GameController.map.TileAboveStrict(currentTile), 1, 1);
             }
-        }
+            else if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                Attack(GameController.map.TileBelowStrict(currentTile), 1, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Keypad4))
+            {
+                Attack(GameController.map.TileLeftStrict(currentTile), 1, 1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Keypad6))
+            {
+                Attack(GameController.map.TileRightStrict(currentTile), 1, 1);
+            }
+            if (GameController.map.tiles[currentTile].GetComponent<Tile>().attackID == 2 && !attacked)
+            {
+                ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+                attacked = true;
+            }
+            else if (GameController.map.tiles[currentTile].GetComponent<Tile>().attackID == 0)
+            {
+                attacked = false;
+            }
 
-        switch(controller.map.tiles[currentTile].GetComponent<Tile>().type)
-        {
-            case TileType.Sign:
-                interactionbutton.gameObject.SetActive(true);
-                break;
-            case TileType.Pickup:
-                interactionbutton.gameObject.SetActive(true);
-                break;
-            default:
+            //Action button
+            if (Input.GetKeyDown(KeyCode.E) && movementPreventions == 0)
+            {
+                switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
+                {
+                    case TileType.Sign:
+                        GameController.map.tiles[currentTile].GetComponent<Sign>().ReadSign();
+                        break;
+                    case TileType.Pickup:
+                        pickupui.SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (movementPreventions == 0)
+            {
+                switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
+                {
+                    case TileType.Sign:
+                        interactionbutton.gameObject.SetActive(true);
+                        break;
+                    case TileType.Pickup:
+                        interactionbutton.gameObject.SetActive(true);
+                        break;
+                    default:
+                        interactionbutton.gameObject.SetActive(false);
+                        break;
+                }
+            }
+            else
+            {
                 interactionbutton.gameObject.SetActive(false);
-                break;
+            }
         }
     }
 
@@ -111,16 +120,16 @@ public class PlayerCharacter : Character {
     }
 
     // Performs all special actions that a tile would perform
-    protected override void HandleTile()
+    protected override void HandleTile ()
     {
-        switch (controller.map.tiles[currentTile].GetComponent<Tile>().type)
+        switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
         {
             case TileType.Entrance:
-                controller.map.tiles[currentTile].GetComponent<Entrance>().TeleportPlayer();
+                StartCoroutine(GameController.map.tiles[currentTile].GetComponent<Entrance>().TeleportPlayer());
                 break;
             case TileType.Shop:
                 ShopUI s = GameObject.Find("ShopWindow").GetComponent<ShopUI>();
-                s.SetShop(controller.map.tiles[currentTile].GetComponent<Shop>());
+                s.SetShop(GameController.map.tiles[currentTile].GetComponent<Shop>());
                 s.EnterShop();
                 break;
         }

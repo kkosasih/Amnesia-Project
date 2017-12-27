@@ -21,7 +21,7 @@ public class ItemDropScript : Character
     protected override void Update()
     {
         base.Update();
-        controller.map.tiles[currentTile].GetComponent<Tile>().type = TileType.Pickup;
+        GameController.map.tiles[currentTile].GetComponent<Tile>().type = TileType.Pickup;
         if (HoriDistance() + VertDistance() <= 1)
         {
             player.item = bag;
@@ -88,12 +88,12 @@ public class ItemDropScript : Character
     // Get the horizontal distance from player; negative is player to right, positive is player to left
     private int HoriDistance()
     {
-        return this.currentTile % controller.map.width - player.currentTile % controller.map.width;
+        return this.currentTile % GameController.map.width - player.currentTile % GameController.map.width;
     }
 
     // Get the vertical distance from player; negative is player below, positive is player above
     private int VertDistance()
     {
-        return this.currentTile / controller.map.width - player.currentTile / controller.map.width;
+        return this.currentTile / GameController.map.width - player.currentTile / GameController.map.width;
     }
 }

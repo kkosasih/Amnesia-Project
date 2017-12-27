@@ -22,19 +22,19 @@ public class Monster : Character {
         {
             if (HoriDistance() > 0)
             {
-                Attack(controller.map.TileLeftStrict(currentTile), 1, 1.0f);
+                Attack(GameController.map.TileLeftStrict(currentTile), 1, 1.0f);
             }
             else if (HoriDistance() < 0)
             {
-                Attack(controller.map.TileRightStrict(currentTile), 1, 1.0f);
+                Attack(GameController.map.TileRightStrict(currentTile), 1, 1.0f);
             }
             else if (VertDistance() > 0)
             {
-                Attack(controller.map.TileAboveStrict(currentTile), 1, 1.0f);
+                Attack(GameController.map.TileAboveStrict(currentTile), 1, 1.0f);
             }
             else if (VertDistance() < 0)
             {
-                Attack(controller.map.TileBelowStrict(currentTile), 1, 1.0f);
+                Attack(GameController.map.TileBelowStrict(currentTile), 1, 1.0f);
             }
         }
         if (lastMove >= delay)
@@ -47,7 +47,7 @@ public class Monster : Character {
     public override void Die ()
     {
         base.Die();
-        if(controller.map.tiles[currentTile].GetComponent<Tile>().type != TileType.Pickup)
+        if(GameController.map.tiles[currentTile].GetComponent<Tile>().type != TileType.Pickup)
         {
             pickuptile = true;
         }
@@ -59,36 +59,36 @@ public class Monster : Character {
     {
         if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() > 0)
         {
-            Move(controller.map.TileAbove(currentTile));
+            Move(GameController.map.TileAbove(currentTile));
         }
         else if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() < 0)
         {
-            Move(controller.map.TileBelow(currentTile));
+            Move(GameController.map.TileBelow(currentTile));
         }
         else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() > 0)
         {
-            Move(controller.map.TileLeft(currentTile));
+            Move(GameController.map.TileLeft(currentTile));
         }
         else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() < 0)
         {
-            Move(controller.map.TileRight(currentTile));
+            Move(GameController.map.TileRight(currentTile));
         }
     }
 
     // Get the horizontal distance from player; negative is player to right, positive is player to left
     private int HoriDistance ()
     {
-        return currentTile % controller.map.width - player.currentTile % controller.map.width;
+        return currentTile % GameController.map.width - player.currentTile % GameController.map.width;
     }
 
     // Get the vertical distance from player; negative is player below, positive is player above
     private int VertDistance ()
     {
-        return currentTile / controller.map.width - player.currentTile / controller.map.width;
+        return currentTile / GameController.map.width - player.currentTile / GameController.map.width;
     }
 
     public Vector3 Mlocation ()
     {
-        return controller.map.tiles[currentTile].transform.position;
+        return GameController.map.tiles[currentTile].transform.position;
     }
 }

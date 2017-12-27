@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour {
-    public static GameController controller;
     public int teamID;
     public int currentTile;
     public int movementPreventions = 0;
@@ -21,25 +20,24 @@ public class Character : MonoBehaviour {
     protected virtual void Awake ()
     {
         healthSlider = Instantiate((GameObject)Resources.Load("GUI/CharHealthSlider"), GameObject.Find("DynamicCanvas").transform);
-        controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
     }
 
     // Use this for initialization
     protected virtual void Start ()
     {
-        transform.position = controller.map.tiles[currentTile].transform.position + new Vector3(0, 0, -1);
+        transform.position = GameController.map.tiles[currentTile].transform.position + new Vector3(0, 0, -1);
     }
 	
 	// Update is called once per frame
 	protected virtual void Update ()
-    {
+    { 
         if (lastMove < delay)
         {
             lastMove += Time.deltaTime;
         }
         if (TileHurts() && !attacked)
         {
-            ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+            ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
             attacked = true;
         }
         else if (!TileHurts())
@@ -55,7 +53,7 @@ public class Character : MonoBehaviour {
     // Move the character to another tile
     public virtual void Move (int moveTo)
     {
-        if (controller.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall)
+        if (GameController.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall)
         {
             lastMove = 0.0f;
             lastTile = currentTile;
@@ -76,16 +74,16 @@ public class Character : MonoBehaviour {
             switch (path[i])
             {
                 case MoveOptions.Up:
-                    Move(controller.map.TileAbove(currentTile));
+                    Move(GameController.map.TileAbove(currentTile));
                     break;
                 case MoveOptions.Down:
-                    Move(controller.map.TileBelow(currentTile));
+                    Move(GameController.map.TileBelow(currentTile));
                     break;
                 case MoveOptions.Left:
-                    Move(controller.map.TileLeft(currentTile));
+                    Move(GameController.map.TileLeft(currentTile));
                     break;
                 case MoveOptions.Right:
-                    Move(controller.map.TileRight(currentTile));
+                    Move(GameController.map.TileRight(currentTile));
                     break;
             }
             if (i < path.Count - 1)
@@ -101,7 +99,7 @@ public class Character : MonoBehaviour {
     {
         if (tile != -1)
         {
-            StartCoroutine(controller.map.tiles[tile].GetComponent<Tile>().GiveAttack(teamID, damage, duration));
+            StartCoroutine(GameController.map.tiles[tile].GetComponent<Tile>().GiveAttack(teamID, damage, duration));
         }
     }
 
@@ -148,7 +146,7 @@ public class Character : MonoBehaviour {
     private IEnumerator ChangeTile (int moveTo)
     {
         Vector3 oldPos = transform.position;
-        Vector3 newPos = controller.map.tiles[moveTo].transform.position + new Vector3(0, 0, -1);
+        Vector3 newPos = GameController.map.tiles[moveTo].transform.position + new Vector3(0, 0, -1);
         for (float timePassed = 0; timePassed < Mathf.Min(0.5f, delay); timePassed += Time.deltaTime)
         {
             transform.position = Vector3.Lerp(oldPos, newPos, timePassed / Mathf.Min(0.5f, delay));
@@ -164,7 +162,7 @@ public class Character : MonoBehaviour {
     {
         if (TileHurts())
         {
-            ChangeHealth(health - controller.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+            ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
             attacked = true;
         }
     }
@@ -172,7 +170,7 @@ public class Character : MonoBehaviour {
     // Checks if the tile is harmful to the character
     protected bool TileHurts ()
     {
-        return controller.map.tiles[currentTile].GetComponent<Tile>().attackID != 0 && controller.map.tiles[currentTile].GetComponent<Tile>().attackID != teamID;
+        return GameController.map.tiles[currentTile].GetComponent<Tile>().attackID != 0 && GameController.map.tiles[currentTile].GetComponent<Tile>().attackID != teamID;
     }
 }
 

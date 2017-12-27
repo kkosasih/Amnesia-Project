@@ -17,16 +17,23 @@ public class Entrance : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        
+
     }
 
     // Teleport the player to the other side of the entrance
-    public void TeleportPlayer ()
+    public IEnumerator TeleportPlayer ()
     {
+        string currentPath = GameController.map.path;
+        GameController.loading = true;
         SceneManager.LoadScene(sceneTo);
+        while (GameController.map.path == currentPath)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        GameController.loading = false;
         GameObject player = GameObject.Find("Player");
         player.GetComponent<PlayerCharacter>().currentTile = tileFrom;
-        player.transform.position = GameObject.FindWithTag("MainCamera").GetComponent<GameController>().map.tiles[tileFrom].transform.position;
+        player.transform.position = GameController.map.tiles[tileFrom].transform.position;
         player.GetComponent<PlayerCharacter>().Move(tileTo);
     }
 }

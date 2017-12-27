@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour {
+    public static DialogueController instance;
     public List<DialoguePart> conversation;
     private int convoIndex = 0;
 
 	// Use this for initialization
 	void Start ()
     {
+        instance = this;
         conversation = new List<DialoguePart>();
 	}
 	
@@ -22,9 +24,30 @@ public class DialogueController : MonoBehaviour {
         }
     }
 
-    // Change the conversation
-    public void ChangeConversation (List<DialoguePart> newConvo)
+    // Change the conversation with conversation data from a file
+    public void ChangeConversation (string data)
     {
+        foreach (DialoguePart p in conversation)
+        {
+            Destroy(p.gameObject);
+        }
+        List<DialoguePart> newConvo = new List<DialoguePart>();
+        foreach (string s in data.Split(new string[] { "||" }, System.StringSplitOptions.None))
+        {
+            switch (s.Split(':')[0])
+            {
+                case "Statement":
+                    newConvo.Add(((GameObject)Instantiate(Resources.Load("Conversations/StatementObject"), transform)).GetComponent<Statement>());
+                    break;
+                case "Camera":
+                    newConvo.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCamObject"), transform)).GetComponent<MoveCam>());
+                    break;
+                case "Character":
+                    newConvo.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCharObject"), transform)).GetComponent<MoveChar>());
+                    break;
+            }
+            newConvo[newConvo.Count - 1].ChangeSettings(s.Split(':')[1]);
+        }
         conversation = newConvo;
         convoIndex = -1;
         GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = false;
@@ -63,33 +86,6 @@ public class DialogueController : MonoBehaviour {
     // Test dialogue
     public void Test ()
     {
-        ChangeConversation(MakeDialogue(Resources.Load<TextAsset>("Conversations/Test").text));
-    }
-
-    // Make a list of dialogue options from text
-    public List<DialoguePart> MakeDialogue (string data)
-    {
-        foreach (DialoguePart p in conversation)
-        {
-            Destroy(p.gameObject);
-        }
-        List<DialoguePart> result = new List<DialoguePart>();
-        foreach (string s in data.Split(new string[] { "||" }, System.StringSplitOptions.None))
-        {
-            switch (s.Split(':')[0])
-            {
-                case "Statement":
-                    result.Add(((GameObject)Instantiate(Resources.Load("Conversations/StatementObject"), transform)).GetComponent<Statement>());
-                    break;
-                case "Camera":
-                    result.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCamObject"), transform)).GetComponent<MoveCam>());
-                    break;
-                case "Character":
-                    result.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCharObject"), transform)).GetComponent<MoveChar>());
-                    break;
-            }
-            result[result.Count - 1].ChangeSettings(s.Split(':')[1]);
-        }
-        return result;
+        ChangeConversation(Resources.Load<TextAsset>("Conversations/Test").text);
     }
 }

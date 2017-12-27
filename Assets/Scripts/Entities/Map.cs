@@ -43,6 +43,7 @@ public class Map : MonoBehaviour {
                         break;
                     case 'N':
                         tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Sign Tile"), transform));
+                        tiles[tiles.Count - 1].GetComponent<Sign>().path = line[j].Split(',')[1];
                         break;
                 }
                 tiles[tiles.Count - 1].GetComponent<Tile>().UpdatePosition(new Vector2(j, -i));

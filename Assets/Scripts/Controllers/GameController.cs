@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-    public GameObject player;  
-    public Map map;
+    public static bool loading = false;
+    public static GameObject player;  
+    public static Map map;
   
     void Awake ()
     {
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour {
 	void Update ()
     {
         FindMap();
+        Debug.Log(map.path);
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             ShiftSave(0);
@@ -64,15 +66,14 @@ public class GameController : MonoBehaviour {
         }
     }
 
-
     // Attach a map to the player to use
-    public void FindMap ()
+    public static void FindMap ()
     {
         map = GameObject.FindWithTag("Map").GetComponent<Map>();
     }
 
     // Save and load based on shift key
-    private void ShiftSave (int slot)
+    private static void ShiftSave (int slot)
     {
         if (Input.GetKey(KeyCode.Z))
         {
