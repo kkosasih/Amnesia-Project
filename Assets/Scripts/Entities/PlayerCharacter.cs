@@ -19,7 +19,6 @@ public class PlayerCharacter : Character {
     {
         controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-        interactionbutton = GameObject.Find("InteractionIndicator");
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
     }
@@ -48,7 +47,7 @@ public class PlayerCharacter : Character {
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.M))//Keypad8))
+        if (Input.GetKeyDown(KeyCode.Keypad8))
         {
             Attack(controller.map.TileAboveStrict(currentTile), 1, 1);
         }
