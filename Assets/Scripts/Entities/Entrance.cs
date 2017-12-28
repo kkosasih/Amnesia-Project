@@ -23,15 +23,14 @@ public class Entrance : MonoBehaviour {
     // Teleport the player to the other side of the entrance
     public IEnumerator TeleportPlayer ()
     {
-        string currentPath = GameController.map.path;
-        GameController.loading = true;
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<PlayerCharacter>().enabled = false;
         SceneManager.LoadScene(sceneTo);
-        while (GameController.map.path == currentPath)
+        for (string cp = GameController.map.path; cp == GameController.map.path;)
         {
             yield return new WaitForEndOfFrame();
         }
-        GameController.loading = false;
-        GameObject player = GameObject.Find("Player");
+        player.GetComponent<PlayerCharacter>().enabled = true;
         player.GetComponent<PlayerCharacter>().currentTile = tileFrom;
         player.transform.position = GameController.map.tiles[tileFrom].transform.position;
         player.GetComponent<PlayerCharacter>().Move(tileTo);

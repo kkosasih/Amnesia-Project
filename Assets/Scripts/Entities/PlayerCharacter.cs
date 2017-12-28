@@ -25,90 +25,87 @@ public class PlayerCharacter : Character {
     // Update is called once per frame
     protected override void Update ()
     {
-        if (!GameController.loading)
+        base.Update();
+        if (movementPreventions == 0 && lastMove >= delay)
         {
-            base.Update();
-            if (movementPreventions == 0 && lastMove >= delay)
+            if (Input.GetKey(KeyCode.W))
             {
-                if (Input.GetKey(KeyCode.W))
-                {
-                    Move(GameController.map.TileAbove(currentTile));
-                }
-                else if (Input.GetKey(KeyCode.S))
-                {
-                    Move(GameController.map.TileBelow(currentTile));
-                }
-                else if (Input.GetKey(KeyCode.A))
-                {
-                    Move(GameController.map.TileLeft(currentTile));
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    Move(GameController.map.TileRight(currentTile));
-                }
+                Move(GameController.map.TileAbove(currentTile));
             }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                Move(GameController.map.TileBelow(currentTile));
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                Move(GameController.map.TileLeft(currentTile));
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                Move(GameController.map.TileRight(currentTile));
+            }
+        }
 
-            if (Input.GetKeyDown(KeyCode.Keypad8))
-            {
-                Attack(GameController.map.TileAboveStrict(currentTile), 1, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                Attack(GameController.map.TileBelowStrict(currentTile), 1, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad4))
-            {
-                Attack(GameController.map.TileLeftStrict(currentTile), 1, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad6))
-            {
-                Attack(GameController.map.TileRightStrict(currentTile), 1, 1);
-            }
-            if (GameController.map.tiles[currentTile].GetComponent<Tile>().attackID == 2 && !attacked)
-            {
-                ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
-                attacked = true;
-            }
-            else if (GameController.map.tiles[currentTile].GetComponent<Tile>().attackID == 0)
-            {
-                attacked = false;
-            }
+        if (Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            Attack(GameController.map.TileAboveStrict(currentTile), 1, 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            Attack(GameController.map.TileBelowStrict(currentTile), 1, 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            Attack(GameController.map.TileLeftStrict(currentTile), 1, 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            Attack(GameController.map.TileRightStrict(currentTile), 1, 1);
+        }
+        if (GameController.map.tiles[currentTile].GetComponent<Tile>().attackID == 2 && !attacked)
+        {
+            ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+            attacked = true;
+        }
+        else if (GameController.map.tiles[currentTile].GetComponent<Tile>().attackID == 0)
+        {
+            attacked = false;
+        }
 
-            //Action button
-            if (Input.GetKeyDown(KeyCode.E) && movementPreventions == 0)
+        //Action button
+        if (Input.GetKeyDown(KeyCode.E) && movementPreventions == 0)
+        {
+            switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
             {
-                switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
-                {
-                    case TileType.Sign:
-                        GameController.map.tiles[currentTile].GetComponent<Sign>().ReadSign();
-                        break;
-                    case TileType.Pickup:
-                        pickupui.SetActive(true);
-                        break;
-                    default:
-                        break;
-                }
+                case TileType.Sign:
+                    GameController.map.tiles[currentTile].GetComponent<Sign>().ReadSign();
+                    break;
+                case TileType.Pickup:
+                    pickupui.SetActive(true);
+                    break;
+                default:
+                    break;
             }
+        }
 
-            if (movementPreventions == 0)
+        if (movementPreventions == 0)
+        {
+            switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
             {
-                switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
-                {
-                    case TileType.Sign:
-                        interactionbutton.gameObject.SetActive(true);
-                        break;
-                    case TileType.Pickup:
-                        interactionbutton.gameObject.SetActive(true);
-                        break;
-                    default:
-                        interactionbutton.gameObject.SetActive(false);
-                        break;
-                }
+                case TileType.Sign:
+                    interactionbutton.gameObject.SetActive(true);
+                    break;
+                case TileType.Pickup:
+                    interactionbutton.gameObject.SetActive(true);
+                    break;
+                default:
+                    interactionbutton.gameObject.SetActive(false);
+                    break;
             }
-            else
-            {
-                interactionbutton.gameObject.SetActive(false);
-            }
+        }
+        else
+        {
+            interactionbutton.gameObject.SetActive(false);
         }
     }
 
