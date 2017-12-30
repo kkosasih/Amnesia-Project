@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestTracking
+public class QuestTracking : MonoBehaviour
 {
     public List<QuestTracking> mainquest = new List<QuestTracking>();
+    public List<List<string>> mainquestloot = new List<List<string>>();
     public List<QuestTracking> questList = new List<QuestTracking>();
+    public List<List<string>> questListloot = new List<List<string>>();
     public List<QuestTracking> fquests = new List<QuestTracking>();
     public GameObject Inventory;
+
     public string description;
     public string objective;
     public Text mainquestdescription;
@@ -19,10 +22,11 @@ public class QuestTracking
 
     void Start()
     {
-        mainquest.Add(new TalkQuest("Find your father.", "You've arrive at the island, but you crashed. Go find you father in the wreckage.", 1));
+        mainquestloot = new List<List<string>>();
+        questListloot = new List<List<string>>();
+        Inventory.GetComponent<TalkQuest>().MainQuest1();
+        //mainquest.Add(new KillQuest("Defend against the monsters.", "Monsters are attacking you.", 5));
         /*More MainQuests*/
-        questList.Add(null);
-        fquests.Add(null);
     }
 
     // Update is called once per frame
@@ -30,6 +34,16 @@ public class QuestTracking
     {
         mainquestdescription.text = mainquest[questinc].description;
         mainquestobjective.text = mainquest[questinc].objective;
+        /********************************************************************************/
+        /*if()
+        {
+            
+        }
+
+        if()
+        {
+
+        }*/
         /********************************************************************************/
         /*if()
         {
@@ -42,9 +56,20 @@ public class QuestTracking
         }*/
     }
 
-    public void FinishQuest()
+    public void FinishQuest(int x)
     {
-        questinc += mainquestprogress;
-        //Inventory.AddItem();
+        for(int y = 0; y < 999; y++)
+        {
+            Inventory.GetComponent<Inventory>().AddItem(questListloot[x][y]);
+        }
+    }
+
+    public void FinishMainQuest()
+    {
+        for(int y = 0; y < 999; y++)
+        {
+            Inventory.GetComponent<Inventory>().AddItem(mainquestloot[questinc][y]);
+        }
+        questinc += 1;
     }
 }
