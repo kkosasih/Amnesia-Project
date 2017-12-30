@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectQuest : QuestTracking {
+public class CollectQuest : QuestTracking
+{
     List<string> items;
     private int collectamount = 0;
+    List<string> objectives;
 
     public CollectQuest(string newDescription, string newObjective, int ca)
     {

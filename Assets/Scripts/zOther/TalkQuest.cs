@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TalkQuest : QuestTracking {
+public class TalkQuest : QuestTracking
+{
     List<string> items;
+    List<string> objectives;
 
     public TalkQuest(string newDescription, string newObjective)
     {
