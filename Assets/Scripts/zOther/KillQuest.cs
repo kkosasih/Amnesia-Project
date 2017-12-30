@@ -1,4 +1,8 @@
-﻿public class KillQuest : QuestTracking
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class KillQuest : QuestTracking
 {
     List<string> items;
     List<string> objectives;
