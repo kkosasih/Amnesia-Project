@@ -13,6 +13,7 @@ public class DialogueController : MonoBehaviour {
     {
         instance = this;
         conversation = new List<DialoguePart>();
+        ChangeConversation("Opening");
 	}
 	
 	// Update is called once per frame
@@ -25,13 +26,14 @@ public class DialogueController : MonoBehaviour {
     }
 
     // Change the conversation with conversation data from a file
-    public void ChangeConversation (string data)
+    public void ChangeConversation (string path)
     {
         foreach (DialoguePart p in conversation)
         {
             Destroy(p.gameObject);
         }
         List<DialoguePart> newConvo = new List<DialoguePart>();
+        string data = Resources.Load<TextAsset>("Conversations/" + path).text;
         foreach (string str in data.Split(new string[] { "||" }, System.StringSplitOptions.None))
         {
             string s = str.Trim();
@@ -45,6 +47,9 @@ public class DialogueController : MonoBehaviour {
                     break;
                 case "Character":
                     newConvo.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCharObject"), transform)).GetComponent<MoveChar>());
+                    break;
+                case "Mask":
+                    newConvo.Add(((GameObject)Instantiate(Resources.Load("Conversations/ChangeMaskObject"), transform)).GetComponent<ChangeMask>());
                     break;
             }
             newConvo[newConvo.Count - 1].ChangeSettings(s.Split(':')[1]);
@@ -87,6 +92,6 @@ public class DialogueController : MonoBehaviour {
     // Test dialogue
     public void Test ()
     {
-        ChangeConversation(Resources.Load<TextAsset>("Conversations/Test").text);
+        ChangeConversation("Test");
     }
 }

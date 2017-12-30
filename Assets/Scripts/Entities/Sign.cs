@@ -20,6 +20,6 @@ public class Sign : MonoBehaviour {
     // Have the player read the sign
     public void ReadSign ()
     {
-        DialogueController.instance.ChangeConversation(Resources.Load<TextAsset>("Conversations/Signs/" + path).text);
+        DialogueController.instance.ChangeConversation("Signs/" + path);
     }
 }
