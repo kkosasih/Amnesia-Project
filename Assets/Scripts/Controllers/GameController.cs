@@ -6,22 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour {
     public static GameObject player;  
     public static Map map;
-  
-    void Awake ()
-    {
-        FindMap();
-    }
 
     // Use this for initialization
     void Start ()
     {
-
+        player = GameObject.FindWithTag("Player");
+        StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        FindMap();
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             ShiftSave(0);
@@ -66,8 +61,27 @@ public class GameController : MonoBehaviour {
 
     // Attach a map to the player to use
     public static void FindMap ()
-    {
+    { 
         map = GameObject.FindWithTag("Map").GetComponent<Map>();
+    }
+
+    // Load a scene and set up necessary parts
+    public static IEnumerator SetUpScene (int index)
+    {
+        if (SceneManager.GetActiveScene().buildIndex != index)
+        {
+            AsyncOperation a = SceneManager.LoadSceneAsync(index);
+            while (!a.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        FindMap();
+        player.GetComponent<PlayerCharacter>().PlaceOnMap();
+        foreach (Character c in GameObject.Find("Characters").transform.GetComponentsInChildren<Character>())
+        {
+            c.PlaceOnMap();
+        }
     }
 
     // Save and load based on shift key

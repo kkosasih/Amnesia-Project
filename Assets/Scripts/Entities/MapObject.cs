@@ -15,7 +15,10 @@ public class MapObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        transform.position = new Vector3(GameController.map.tiles[tile].transform.position.x, GameController.map.tiles[tile].transform.position.y, BehindPlayer() ? -2 : -0.5f);
+        if (GameController.map != null)
+        {
+            transform.position = new Vector3(GameController.map.tiles[tile].transform.position.x, GameController.map.tiles[tile].transform.position.y, BehindPlayer() ? -2 : -0.5f);
+        }
     }
 
     // Returns true if the player is behind the object

@@ -6,14 +6,6 @@ public class Monster : Character {
     public PlayerCharacter player;
     public bool pickuptile = false;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        UITracking uit = healthSlider.GetComponent<UITracking>();
-        uit.obj = gameObject;
-        uit.offset = new Vector3(0, 40, 0);
-    }
-
     // Update is called once per frame
     protected override void Update()
     {

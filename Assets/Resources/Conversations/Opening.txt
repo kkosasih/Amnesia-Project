@@ -1,9 +1,10 @@
 Mask:0|0|0|0,0,0,1||
-Mask:0|0|3|0,0,0,0||
-Character:0|1|Player|R,R,R,R,R||
+Camera:0|0|0|6,-22,-10||
+Mask:0|0|2|0,0,0,0||
+Character:0|1|Player|R,R,R,R,R,R||
 Statement:0|1|John|Happy|I can't believe that we finally made it to a town!||
 Statement:0|0.5|John|Alert|Wait, what is that over there?||
-Camera:0|2|3|20,0,0||
-Statement:0|1|John|Alert|Those look like monsters!||
-Camera:0|0|0|-20,0,0||
+Camera:0|1|2|26,-22,-10||
+Statement:0|0|John|Alert|Those look like monsters!||
+Camera:0|0|0|6,-22,-10||
 Statement:0|0|John|Prepared|I need to stop them before they hurt people!

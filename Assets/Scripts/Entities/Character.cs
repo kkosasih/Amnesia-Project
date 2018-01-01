@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour {
     public int teamID;
+    public bool onMap = false;
     public int currentTile;
     public int movementPreventions = 0;
     public float delay;
     public float lastMove = 0.0f;
     public int lastTile = -1;
-    public int movementType = 0;
     public int health;
     public int maxHealth;
     public GameObject healthSlider;
@@ -20,29 +20,35 @@ public class Character : MonoBehaviour {
     protected virtual void Awake ()
     {
         healthSlider = Instantiate((GameObject)Resources.Load("GUI/CharHealthSlider"), GameObject.Find("DynamicCanvas").transform);
+        UITracking uit = healthSlider.GetComponent<UITracking>();
+        uit.obj = gameObject;
+        uit.offset = new Vector3(0, 40, 0);
     }
 
     // Use this for initialization
     protected virtual void Start ()
     {
-        transform.position = GameController.map.tiles[currentTile].transform.position + new Vector3(0, 0, -1);
+        
     }
 	
 	// Update is called once per frame
 	protected virtual void Update ()
-    { 
-        if (lastMove < delay)
+    {
+        if (onMap)
         {
-            lastMove += Time.deltaTime;
-        }
-        if (TileHurts() && !attacked)
-        {
-            ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
-            attacked = true;
-        }
-        else if (!TileHurts())
-        {
-            attacked = false;
+            if (lastMove < delay)
+            {
+                lastMove += Time.deltaTime;
+            }
+            if (TileHurts() && !attacked)
+            {
+                ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+                attacked = true;
+            }
+            else if (!TileHurts())
+            {
+                attacked = false;
+            }
         }
         if (health <= 0)
         {
@@ -122,6 +128,16 @@ public class Character : MonoBehaviour {
             StartCoroutine(GainHealth(newHealth));
         }
         health = newHealth;
+    }
+
+    // Find the tile on the map to go to
+    public void PlaceOnMap ()
+    {
+        if (GameController.map != null)
+        {
+            transform.position = GameController.map.tiles[currentTile].transform.position + new Vector3(0, 0, -1);
+            onMap = true;
+        }
     }
 
     // Has the health bar react to gaining health

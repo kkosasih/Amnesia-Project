@@ -21,15 +21,8 @@ public class ChangeMask : DialoguePart {
     public override IEnumerator PerformPart ()
     {
         isRunning = true;
-        Image mask = GameObject.FindWithTag("UIMask").GetComponent<Image>();
         yield return new WaitForSeconds(time1);
-        Color oldColor = mask.color;
-        for (float timePassed = 0; timePassed < time3; timePassed += Time.deltaTime)
-        {
-            mask.color = Color.Lerp(oldColor, color, timePassed / time3);
-            yield return new WaitForEndOfFrame();
-        }
-        mask.color = color;
+        yield return StartCoroutine(Helper.ChangeColorInTime(GameObject.FindWithTag("UIMask").GetComponent<Image>(), color, time3));
         yield return new WaitForSeconds(time2);
         isRunning = false;
     }

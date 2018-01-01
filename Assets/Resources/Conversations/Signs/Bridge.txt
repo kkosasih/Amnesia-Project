@@ -1,2 +1,1 @@
-Statement:0|0|Sign|Neutral|This is a sign.||
-Statement:0|0|John|Neutral|What's the point of a sign that just says this?
+Statement:0|0|Sign|Neutral|To move, use WASD. To attack, use the arrow keys.

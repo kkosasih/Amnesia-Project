@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Entrance : MonoBehaviour {
     public int sceneTo;
@@ -23,16 +24,19 @@ public class Entrance : MonoBehaviour {
     // Teleport the player to the other side of the entrance
     public IEnumerator TeleportPlayer ()
     {
-        GameObject player = GameObject.Find("Player");
-        player.GetComponent<PlayerCharacter>().enabled = false;
-        SceneManager.LoadScene(sceneTo);
-        for (string cp = GameController.map.path; cp == GameController.map.path;)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        player.GetComponent<PlayerCharacter>().enabled = true;
+        transform.parent = null;
+        DontDestroyOnLoad(gameObject);
+        GameObject player = GameObject.FindWithTag("Player");
+        Image mask = GameObject.FindWithTag("UIMask").GetComponent<Image>();
+        player.GetComponent<PlayerCharacter>().onMap = false;
+        yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
         player.GetComponent<PlayerCharacter>().currentTile = tileFrom;
-        player.transform.position = GameController.map.tiles[tileFrom].transform.position;
-        player.GetComponent<PlayerCharacter>().Move(tileTo);
+        yield return StartCoroutine(GameController.SetUpScene(sceneTo));
+        if (!DialogueTracking.CheckConversation())
+        {
+            yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 0), 0.5f));
+            player.GetComponent<PlayerCharacter>().Move(tileTo);
+        }
+        Destroy(gameObject);
     }
 }

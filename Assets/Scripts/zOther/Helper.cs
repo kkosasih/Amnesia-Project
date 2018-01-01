@@ -50,11 +50,35 @@ public class Helper {
     }
 
     // Play an animation completely within a time frame for an int
-    public static IEnumerator PlayInTime(Animator anim, string name, int firstValue, int secondValue, float time)
+    public static IEnumerator PlayInTime (Animator anim, string name, int firstValue, int secondValue, float time)
     {
         anim.SetInteger(name, firstValue);
         anim.speed = 1.0f / time;
         yield return new WaitForSeconds(time);
         anim.SetInteger(name, secondValue);
+    }
+
+    // Change the color of an image over a given time
+    public static IEnumerator ChangeColorInTime (Image i, Color newColor, float time)
+    {
+        Color oldColor = i.color;
+        for (float timePassed = 0; timePassed < time; timePassed += Time.deltaTime)
+        {
+            i.color = Color.Lerp(oldColor, newColor, timePassed / time);
+            yield return new WaitForEndOfFrame();
+        }
+        i.color = newColor;
+    }
+
+    // Change the color of a sprite over a given time
+    public static IEnumerator ChangeColorInTime (SpriteRenderer i, Color newColor, float time)
+    {
+        Color oldColor = i.color;
+        for (float timePassed = 0; timePassed < time; timePassed += Time.deltaTime)
+        {
+            i.color = Color.Lerp(oldColor, newColor, timePassed / time);
+            yield return new WaitForEndOfFrame();
+        }
+        i.color = newColor;
     }
 }
