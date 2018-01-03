@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Entrance : MonoBehaviour {
     public int sceneTo;
     public int tileFrom;
-    public int tileTo;
+    public Direction moveTo;
 
     // Use this for initialization
     void Start ()
@@ -35,7 +35,23 @@ public class Entrance : MonoBehaviour {
         if (!DialogueTracking.CheckConversation())
         {
             yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 0), 0.5f));
-            player.GetComponent<PlayerCharacter>().Move(tileTo);
+            int tileTo = 0;
+            switch (moveTo)
+            {
+                case Direction.Up:
+                    tileTo = GameController.map.TileAbove(player.GetComponent<PlayerCharacter>().currentTile);
+                    break;
+                case Direction.Down:
+                    tileTo = GameController.map.TileBelow(player.GetComponent<PlayerCharacter>().currentTile);
+                    break;
+                case Direction.Left:
+                    tileTo = GameController.map.TileLeft(player.GetComponent<PlayerCharacter>().currentTile);
+                    break;
+                case Direction.Right:
+                    tileTo = GameController.map.TileRight(player.GetComponent<PlayerCharacter>().currentTile);
+                    break;
+            }
+            player.GetComponent<PlayerCharacter>().Move(tileTo, moveTo);
         }
         Destroy(gameObject);
     }

@@ -49,13 +49,31 @@ public class Helper {
         obj.transform.position = newPos;
     }
 
-    // Play an animation completely within a time frame for an int
+    // Play an animation completely within a time frame for an int vale
     public static IEnumerator PlayInTime (Animator anim, string name, int firstValue, int secondValue, float time)
     {
         anim.SetInteger(name, firstValue);
         anim.speed = 1.0f / time;
         yield return new WaitForSeconds(time);
         anim.SetInteger(name, secondValue);
+    }
+
+    // Play an animation completely within a time frame for a float vale
+    public static IEnumerator PlayInTime (Animator anim, string name, float firstValue, float secondValue, float time)
+    {
+        anim.SetFloat(name, firstValue);
+        anim.speed = 1.0f / time;
+        yield return new WaitForSeconds(time);
+        anim.SetFloat(name, secondValue);
+    }
+
+    // Play an animation completely within a time frame for a bool vale
+    public static IEnumerator PlayInTime (Animator anim, string name, bool firstValue, bool secondValue, float time)
+    {
+        anim.SetBool(name, firstValue);
+        anim.speed = 1.0f / time;
+        yield return new WaitForSeconds(time);
+        anim.SetBool(name, secondValue);
     }
 
     // Change the color of an image over a given time

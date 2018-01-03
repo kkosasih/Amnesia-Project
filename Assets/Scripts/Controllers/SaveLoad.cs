@@ -12,7 +12,7 @@ public class SaveLoad {
         string slotNum = slot.ToString();
         if (player != null)
         {
-            PlayerPrefs.SetString(slotNum + "SceneNum", SceneManager.GetActiveScene().name);
+            PlayerPrefs.SetInt(slotNum + "SceneNum", SceneManager.GetActiveScene().buildIndex);
             PlayerPrefs.SetInt(slotNum + "PlayerTile", player.GetComponent<PlayerCharacter>().currentTile);
             PlayerPrefs.SetInt(slotNum + "PlayerHealth", player.GetComponent<PlayerCharacter>().health);
             PlayerPrefs.SetInt(slotNum + "PlayerStamina", player.GetComponent<PlayerCharacter>().stamina);
@@ -39,8 +39,8 @@ public class SaveLoad {
         GameObject.Find("DialogueBox").GetComponent<UIPanel>().isOpen = false;
         if (player != null)
         {
-            SceneManager.LoadScene(PlayerPrefs.GetString(slotNum + "SceneNum"));
-            player.GetComponent<PlayerCharacter>().Move(PlayerPrefs.GetInt(slotNum + "PlayerTile"));
+            player.GetComponent<PlayerCharacter>().currentTile = PlayerPrefs.GetInt(slotNum + "PlayerTile");
+            GameController.SetUpScene(PlayerPrefs.GetInt(slotNum + "SceneNum"));
             player.GetComponent<PlayerCharacter>().ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
             player.GetComponent<PlayerCharacter>().ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();

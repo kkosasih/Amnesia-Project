@@ -7,17 +7,29 @@ public class Monster : Character {
     public bool pickuptile = false;
 
     // Update is called once per frame
-    protected override void Update()
+    protected override void Update ()
     {
         base.Update();
-        if (Mathf.Min(HoriDistance(), VertDistance()) <= 2)
+        if (movementPreventions == 0)
         {
-            AttackController.instance.BurstAttack(new Attack(teamID, 1, 1), currentTile, 2, 4);
+            if (Mathf.Max(HoriDistance(), VertDistance()) <= 2)
+            {
+                StartCoroutine(Attack(Direction.Up));
+            }
+            if (lastMove >= delay)
+            {
+                MoveToPlayer();
+            }
         }
-        if (lastMove >= delay)
-        {
-            MoveToPlayer();
-        }
+    }
+
+    // Attack in a given direction dir
+    public override IEnumerator Attack (Direction dir)
+    {
+        ++movementPreventions;
+        yield return new WaitForSeconds(1);
+        AttackController.instance.BurstAttack(new Attack(teamID, 1, 0.5f), currentTile, 2, 2);
+        --movementPreventions;
     }
 
     // Kill this character and drop an item
@@ -36,19 +48,19 @@ public class Monster : Character {
     {
         if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() > 0)
         {
-            Move(GameController.map.TileAbove(currentTile));
+            Move(GameController.map.TileAbove(currentTile), Direction.Up);
         }
         else if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() < 0)
         {
-            Move(GameController.map.TileBelow(currentTile));
+            Move(GameController.map.TileBelow(currentTile), Direction.Down);
         }
         else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() > 0)
         {
-            Move(GameController.map.TileLeft(currentTile));
+            Move(GameController.map.TileLeft(currentTile), Direction.Left);
         }
         else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() < 0)
         {
-            Move(GameController.map.TileRight(currentTile));
+            Move(GameController.map.TileRight(currentTile), Direction.Right);
         }
     }
 

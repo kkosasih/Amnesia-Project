@@ -35,7 +35,7 @@ public class Map : MonoBehaviour {
                         string[] args = line[j].Split(',');
                         e.sceneTo = int.Parse(args[1]);
                         e.tileFrom = int.Parse(args[2]);
-                        e.tileTo = int.Parse(args[3]);
+                        e.moveTo = (Direction)int.Parse(args[3]);
                         break;
                     case 'S':
                         tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Shop Tile"), transform));

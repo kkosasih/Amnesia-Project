@@ -113,6 +113,28 @@ public class AttackController : MonoBehaviour {
                 }
                 break;
         }
+        int baseProjTile = GameController.map.TileRightStrict(tile);
+        int projTile = baseProjTile;
+        if (projTile >= 0)
+        {
+            Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.tiles[projTile].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
+            p.direction = dir;
+            p.speed = speed;
+            p.duration = length / speed;
+        }
+        for (int j = 1; j < width; ++j)
+        {
+            projTile = GameController.map.TileAboveStrict(baseProjTile, j);
+            Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.tiles[GameController.map.TileRight(tile)].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
+            p.direction = dir;
+            p.speed = speed;
+            p.duration = length / speed;
+            projTile = GameController.map.TileBelowStrict(baseProjTile, j);
+            p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.tiles[GameController.map.TileRight(tile)].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
+            p.direction = dir;
+            p.speed = speed;
+            p.duration = length / speed;
+        }
     }
 
     // Template for a burst attack
@@ -161,6 +183,16 @@ public class AttackController : MonoBehaviour {
             {
                 StartCoroutine(GiveAttack(tileToHit, a, (i + 1) / speed));
             }
+        }
+        GameObject g = Instantiate(Resources.Load<GameObject>("Attacks/FireWalls"), GameController.map.tiles[tile].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity);
+        foreach (Projectile p in g.GetComponentsInChildren<Projectile>())
+        {
+            p.speed = speed;
+            p.duration = length / speed;
+        }
+        foreach (Expansion e in g.GetComponentsInChildren<Expansion>())
+        {
+            e.speed = speed;
         }
     }
 

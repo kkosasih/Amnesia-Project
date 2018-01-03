@@ -49,9 +49,7 @@ public class ShopUI : MonoBehaviour {
     // Exit the shop
     public void ExitShop ()
     {
-        PlayerCharacter player = GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>();
-        --player.movementPreventions;
-        player.Move(player.lastTile);
+        --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
         GetComponent<UIPanel>().isOpen = false;
     }
 }

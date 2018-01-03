@@ -16,6 +16,7 @@ public class Character : MonoBehaviour {
     public GameObject healthSlider;
     protected bool attacked = false;
     protected Coroutine movementRoutine;
+    protected Animator _animator;
 
     protected virtual void Awake ()
     {
@@ -28,7 +29,7 @@ public class Character : MonoBehaviour {
     // Use this for initialization
     protected virtual void Start ()
     {
-        
+        _animator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -56,9 +57,10 @@ public class Character : MonoBehaviour {
         }
 	}
 
-    // Move the character to another tile
-    public virtual void Move (int moveTo)
+    // Move the character to another tile with an animation
+    public virtual void Move (int moveTo, Direction dir)
     {
+        _animator.SetInteger("direction", (int)dir);
         if (GameController.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall)
         {
             lastMove = 0.0f;
@@ -68,7 +70,7 @@ public class Character : MonoBehaviour {
             {
                 StopCoroutine(movementRoutine);
             }
-            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moveType", 1, 0, Mathf.Min(0.5f, delay)));
+            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moving", true, false, Mathf.Min(0.5f, delay)));
         }
     }
 
@@ -80,16 +82,16 @@ public class Character : MonoBehaviour {
             switch (path[i])
             {
                 case Direction.Up:
-                    Move(GameController.map.TileAbove(currentTile));
+                    Move(GameController.map.TileAbove(currentTile), path[i]);
                     break;
                 case Direction.Down:
-                    Move(GameController.map.TileBelow(currentTile));
+                    Move(GameController.map.TileBelow(currentTile), path[i]);
                     break;
                 case Direction.Left:
-                    Move(GameController.map.TileLeft(currentTile));
+                    Move(GameController.map.TileLeft(currentTile), path[i]);
                     break;
                 case Direction.Right:
-                    Move(GameController.map.TileRight(currentTile));
+                    Move(GameController.map.TileRight(currentTile), path[i]);
                     break;
             }
             if (i < path.Count - 1)
@@ -97,7 +99,12 @@ public class Character : MonoBehaviour {
                 yield return new WaitForSeconds(delay);
             }
         }
-        
+    }
+
+    // Attack in a given direction dir
+    public virtual IEnumerator Attack (Direction dir)
+    {
+        yield return null;
     }
 
     // Kill this character

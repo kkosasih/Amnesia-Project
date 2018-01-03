@@ -26,41 +26,44 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
-        if (movementPreventions == 0 && lastMove >= delay)
+        if (movementPreventions == 0)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (lastMove >= delay)
             {
-                Move(GameController.map.TileAbove(currentTile));
+                if (Input.GetKey(KeyCode.W))
+                {
+                    Move(GameController.map.TileAbove(currentTile), Direction.Up);
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    Move(GameController.map.TileBelow(currentTile), Direction.Down);
+                }
+                else if (Input.GetKey(KeyCode.A))
+                {
+                    Move(GameController.map.TileLeft(currentTile), Direction.Left);
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    Move(GameController.map.TileRight(currentTile), Direction.Right);
+                }
             }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                Move(GameController.map.TileBelow(currentTile));
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                Move(GameController.map.TileLeft(currentTile));
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                Move(GameController.map.TileRight(currentTile));
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Up, currentTile, 5, 2, 5);
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Down, currentTile, 5, 2, 5);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Left, currentTile, 5, 2, 5);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Right, currentTile, 5, 2, 5);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                StartCoroutine(Attack(Direction.Up));
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                StartCoroutine(Attack(Direction.Down));
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                StartCoroutine(Attack(Direction.Left));
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                StartCoroutine(Attack(Direction.Right));
+            }
         }
 
         //Action button
@@ -100,11 +103,20 @@ public class PlayerCharacter : Character {
         }
     }
 
-    // Move the player to another tile and actiate it
-    public override void Move (int moveTo)
+    // Move the character to another tile with an animation
+    public override void Move (int moveTo, Direction dir)
     {
-        base.Move(moveTo);
+        base.Move(moveTo, dir);
         ChangeStamina(Random.Range(0, 100));
+    }
+
+    // Attack in a given direction dir
+    public override IEnumerator Attack (Direction dir)
+    {
+        ++movementPreventions;
+        yield return new WaitForSeconds(0.5f);
+        AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), dir, currentTile, 5, 2, 5);
+        --movementPreventions;
     }
 
     // Performs all special actions that a tile would perform

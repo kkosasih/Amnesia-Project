@@ -7,17 +7,12 @@ public class Tile : MonoBehaviour {
     public TileType type;                            
     public Vector2 position;
     public List<Attack> attacks;
-    private SpriteRenderer _spriteRenderer;     
-
-    void Awake ()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
 
     // Use this for initialization
     void Start ()
     {
         UpdatePosition(position);
+        attacks = new List<Attack>();
     }
     
     // Update is called once per frame
