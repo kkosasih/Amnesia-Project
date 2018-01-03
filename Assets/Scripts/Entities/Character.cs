@@ -42,7 +42,7 @@ public class Character : MonoBehaviour {
             }
             if (TileHurts() && !attacked)
             {
-                ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
+                ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().Damage(teamID));
                 attacked = true;
             }
             else if (!TileHurts())
@@ -73,22 +73,22 @@ public class Character : MonoBehaviour {
     }
 
     // Move the character by multiple tiles automatically
-    public IEnumerator AutoMove (List<MoveOptions> path)
+    public IEnumerator AutoMove (List<Direction> path)
     {
         for (int i = 0; i < path.Count; ++i)
         {
             switch (path[i])
             {
-                case MoveOptions.Up:
+                case Direction.Up:
                     Move(GameController.map.TileAbove(currentTile));
                     break;
-                case MoveOptions.Down:
+                case Direction.Down:
                     Move(GameController.map.TileBelow(currentTile));
                     break;
-                case MoveOptions.Left:
+                case Direction.Left:
                     Move(GameController.map.TileLeft(currentTile));
                     break;
-                case MoveOptions.Right:
+                case Direction.Right:
                     Move(GameController.map.TileRight(currentTile));
                     break;
             }
@@ -98,15 +98,6 @@ public class Character : MonoBehaviour {
             }
         }
         
-    }
-
-    // Put an attack on a tile for a given time
-    public void Attack (int tile, int damage, float duration)
-    {
-        if (tile != -1)
-        {
-            StartCoroutine(GameController.map.tiles[tile].GetComponent<Tile>().GiveAttack(teamID, damage, duration));
-        }
     }
 
     // Kill this character
@@ -123,7 +114,7 @@ public class Character : MonoBehaviour {
         {
             StartCoroutine(LoseHealth(newHealth));
         }
-        else
+        else if (newHealth > health)
         {
             StartCoroutine(GainHealth(newHealth));
         }
@@ -176,21 +167,17 @@ public class Character : MonoBehaviour {
     // Performs all special actions that a tile would perform if moved to
     protected virtual void HandleTile ()
     {
-        if (TileHurts())
-        {
-            ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().attackDamage);
-            attacked = true;
-        }
+
     }
 
     // Checks if the tile is harmful to the character
     protected bool TileHurts ()
     {
-        return GameController.map.tiles[currentTile].GetComponent<Tile>().attackID != 0 && GameController.map.tiles[currentTile].GetComponent<Tile>().attackID != teamID;
+        return GameController.map.tiles[currentTile].GetComponent<Tile>().Damage(teamID) > 0;
     }
 }
 
-public enum MoveOptions
+public enum Direction
 {
     Up,
     Down,

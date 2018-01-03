@@ -10,24 +10,9 @@ public class Monster : Character {
     protected override void Update()
     {
         base.Update();
-        if (HoriDistance() + VertDistance() <= 1)
+        if (Mathf.Min(HoriDistance(), VertDistance()) <= 2)
         {
-            if (HoriDistance() > 0)
-            {
-                Attack(GameController.map.TileLeftStrict(currentTile), 1, 1.0f);
-            }
-            else if (HoriDistance() < 0)
-            {
-                Attack(GameController.map.TileRightStrict(currentTile), 1, 1.0f);
-            }
-            else if (VertDistance() > 0)
-            {
-                Attack(GameController.map.TileAboveStrict(currentTile), 1, 1.0f);
-            }
-            else if (VertDistance() < 0)
-            {
-                Attack(GameController.map.TileBelowStrict(currentTile), 1, 1.0f);
-            }
+            AttackController.instance.BurstAttack(new Attack(teamID, 1, 1), currentTile, 2, 4);
         }
         if (lastMove >= delay)
         {

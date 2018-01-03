@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Tile : MonoBehaviour {
     public TileType type;                            
-    public Vector2 position;                    
-    public int attackID = 0;
-    public int attackDamage = 0;
+    public Vector2 position;
+    public List<Attack> attacks;
     private SpriteRenderer _spriteRenderer;     
 
     void Awake ()
@@ -19,13 +18,25 @@ public class Tile : MonoBehaviour {
     void Start ()
     {
         UpdatePosition(position);
-        UpdateColor();
     }
     
     // Update is called once per frame
     void Update ()
     {
-
+        for (int i = 0; i < attacks.Count;)
+        {
+            Attack a = new Attack(attacks[i]);
+            a.duration -= Time.deltaTime;
+            if (a.duration >= 0)
+            {
+                attacks[i] = a;
+                ++i;
+            }
+            else
+            {
+                attacks.RemoveAt(i);
+            }
+        }
     }
 
     // Change position of the tile
@@ -35,49 +46,18 @@ public class Tile : MonoBehaviour {
         transform.localPosition = position;
     }
 
-    // Switch the tile's attack state
-    public IEnumerator GiveAttack (int id, int damage, float time)
+    // See how much damage would be done to a given team
+    public int Damage (int team)
     {
-        attackID = id;
-        attackDamage = damage;
-        UpdateColor();
-        yield return new WaitForSeconds(time);
-        attackID = 0;
-        attackDamage = 0;
-        UpdateColor();
-    }
-
-    // Update the color of the tile
-    private void UpdateColor ()
-    {
-        if (attackID != 0)
+        int result = 0;
+        foreach (Attack a in attacks)
         {
-            _spriteRenderer.color = new Color(1, 0, 0);
-        }
-        else
-        {
-            switch (type)
+            if (a.id != team)
             {
-                case TileType.Ground:
-                    _spriteRenderer.color = new Color(0, 1, 0);
-                    break;
-                case TileType.Shop:
-                    _spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
-                    break;
-                case TileType.Wall:
-                    _spriteRenderer.color = new Color(1, 1, 0);
-                    break;
-                case TileType.Entrance:
-                    _spriteRenderer.color = new Color(0, 0, 1);
-                    break;
-                case TileType.Sign:
-                    _spriteRenderer.color = new Color(0.5f, 0.375f, 0.25f);
-                    break;
-                case TileType.Pickup:
-                    _spriteRenderer.color = new Color(0.5f, 0.375f, 0.25f);
-                    break;
+                result = Mathf.Max(result, a.damage);
             }
         }
+        return result;
     }
 }
 

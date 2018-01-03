@@ -46,21 +46,21 @@ public class PlayerCharacter : Character {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad8))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Attack(GameController.map.TileAboveStrict(currentTile), 1, 1);
+            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Up, currentTile, 5, 2, 5);
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Attack(GameController.map.TileBelowStrict(currentTile), 1, 1);
+            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Down, currentTile, 5, 2, 5);
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Attack(GameController.map.TileLeftStrict(currentTile), 1, 1);
+            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Left, currentTile, 5, 2, 5);
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad6))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Attack(GameController.map.TileRightStrict(currentTile), 1, 1);
+            AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), Direction.Right, currentTile, 5, 2, 5);
         }
 
         //Action button

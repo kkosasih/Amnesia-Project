@@ -64,10 +64,34 @@ public class Map : MonoBehaviour {
         return Mathf.Max(pos - width, pos % width);
     }
 
+    // Return the position of the tile above pos if possible
+    public int TileAboveStrict (int pos)
+    {
+        return pos < 0 || pos - width < pos % width ? -1 : pos - width;
+    }
+
+    // Return the position of the tile dis number of tiles above pos if applicable
+    public int TileAboveStrict (int pos, int dis)
+    {
+        return pos < 0 || pos - dis * width < pos % width ? -1 : pos - dis * width;
+    }
+
     // Return the position of the tile below pos if applicable
     public int TileBelow (int pos)
     {
         return Mathf.Min(pos + width, (height - 1) * width + pos % width);
+    }
+
+    // Return the position of the tile below pos if possible
+    public int TileBelowStrict (int pos)
+    {
+        return pos < 0 || pos + width > (height - 1) * width + pos % width ? -1 : pos + width;
+    }
+
+    // Return the position of the tile dis number of tiles below pos if applicable
+    public int TileBelowStrict (int pos, int dis)
+    {
+        return pos < 0 || pos + dis * width > (height - 1) * width + pos % width ? -1 : pos + dis * width;
     }
 
     // Return the position of the tile to the left of pos if applicable
@@ -76,33 +100,33 @@ public class Map : MonoBehaviour {
         return Mathf.Max(pos - 1, pos / width * width);
     }
 
+    // Return the position of the tile to the left of pos if possible
+    public int TileLeftStrict (int pos)
+    {
+        return pos < 0 || pos - 1 < pos / width * width ? -1 : pos - 1;
+    }
+
+    // Return the position of the tile dis number of tiles to the left of pos if applicable
+    public int TileLeftStrict (int pos, int dis)
+    {
+        return pos < 0 || pos - dis < pos / width * width ? -1 : pos - dis;
+    }
+
     // Return the position of the tile to the right of pos if applicable
     public int TileRight (int pos)
     {
         return Mathf.Min(pos + 1, (pos / width + 1) * width - 1);
     }
 
-    // Return the position of the tile above pos if possible
-    public int TileAboveStrict (int pos)
-    {
-        return pos - width < pos % width ? -1 : pos - width;
-    }
-
-    // Return the position of the tile below pos if possible
-    public int TileBelowStrict (int pos)
-    {
-        return pos + width > (height - 1) * width + pos % width ? -1 : pos + width;
-    }
-
-    // Return the position of the tile to the left of pos if possible
-    public int TileLeftStrict (int pos)
-    {
-        return pos - 1 < pos / width * width ? -1 : pos - 1;
-    }
-
     // Return the position of the tile to the right of pos if possible
     public int TileRightStrict (int pos)
     {
-        return pos + 1 > (pos / width + 1) * width - 1 ? -1 : pos + 1;
+        return pos < 0 || pos + 1 > (pos / width + 1) * width - 1 ? -1 : pos + 1;
+    }
+
+    // Return the position of the tile dis number of tiles to the right of pos if applicable
+    public int TileRightStrict (int pos, int dis)
+    {
+        return pos < 0 || pos + dis > (pos / width + 1) * width - dis ? -1 : pos + dis;
     }
 }
