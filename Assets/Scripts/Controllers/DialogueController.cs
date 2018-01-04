@@ -13,7 +13,7 @@ public class DialogueController : MonoBehaviour {
     {
         instance = this;
         conversation = new List<DialoguePart>();
-        ChangeConversation("Opening");
+        //ChangeConversation("Opening");
 	}
 	
 	// Update is called once per frame

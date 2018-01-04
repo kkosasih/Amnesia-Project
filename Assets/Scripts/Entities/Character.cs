@@ -110,7 +110,7 @@ public class Character : MonoBehaviour {
     // Kill this character
     public virtual void Die ()
     {
-        Destroy(healthSlider.gameObject);
+        Destroy(healthSlider);
         Destroy(gameObject);
     }
 

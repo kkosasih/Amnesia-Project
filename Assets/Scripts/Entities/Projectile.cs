@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour {
                 transform.rotation = Quaternion.Euler(0, 0, 180);
                 break;
             case Direction.Right:
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                transform.rotation = Quaternion.Euler(0, 0, 0);
                 break;
         }
 	}
@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        transform.Translate(0, Time.deltaTime * speed, 0);
+        transform.Translate(Time.deltaTime * speed, 0, 0);
         duration -= Time.deltaTime;
         if (duration <= 0)
         {

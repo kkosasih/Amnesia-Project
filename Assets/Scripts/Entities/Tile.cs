@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Tile : MonoBehaviour {
+    public static bool debug = false;
+    private GameObject debugText;
     public TileType type;                            
     public Vector2 position;
     public List<Attack> attacks;
@@ -13,11 +16,20 @@ public class Tile : MonoBehaviour {
     {
         UpdatePosition(position);
         attacks = new List<Attack>();
+        if (debug)
+        {
+            debugText = Instantiate(Resources.Load<GameObject>("GUI/DebugText"), GameObject.Find("DynamicCanvas").transform);
+            debugText.GetComponent<UITracking>().obj = gameObject;
+        }
     }
     
     // Update is called once per frame
     void Update ()
     {
+        if (debug)
+        {
+            debugText.GetComponent<Text>().text = attacks.Count.ToString();
+        }
         for (int i = 0; i < attacks.Count;)
         {
             Attack a = new Attack(attacks[i]);

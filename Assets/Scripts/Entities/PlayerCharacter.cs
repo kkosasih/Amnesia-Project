@@ -26,6 +26,7 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
+        Debug.Log(GameController.map.tiles[currentTile].GetComponent<Tile>().attacks.Count);
         if (movementPreventions == 0)
         {
             if (lastMove >= delay)
@@ -115,7 +116,7 @@ public class PlayerCharacter : Character {
     {
         ++movementPreventions;
         yield return new WaitForSeconds(0.5f);
-        AttackController.instance.StraightAttack(new Attack(teamID, 1, 1), dir, currentTile, 5, 2, 5);
+        AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, currentTile, 5, 2, 5);
         --movementPreventions;
     }
 
