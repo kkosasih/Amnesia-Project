@@ -29,7 +29,7 @@ public class PlayerCharacter : Character {
         Debug.Log(GameController.map.tiles[currentTile].GetComponent<Tile>().attacks.Count);
         if (movementPreventions == 0)
         {
-            if (lastMove >= delay)
+            if (lastMove >= delay && !moving)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
@@ -115,6 +115,7 @@ public class PlayerCharacter : Character {
     public override IEnumerator Attack (Direction dir)
     {
         ++movementPreventions;
+        _animator.SetInteger("direction", (int)dir);
         yield return new WaitForSeconds(0.5f);
         AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, currentTile, 5, 2, 5);
         --movementPreventions;

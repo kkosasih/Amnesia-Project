@@ -8,6 +8,7 @@ public class Character : MonoBehaviour {
     public bool onMap = false;
     public int currentTile;
     public int movementPreventions = 0;
+    public bool moving = false;
     public float delay;
     public float lastMove = 0.0f;
     public int lastTile = -1;
@@ -159,6 +160,7 @@ public class Character : MonoBehaviour {
     // Performs all of the movement to another tile
     private IEnumerator ChangeTile (int moveTo)
     {
+        moving = true;
         Vector3 oldPos = transform.position;
         Vector3 newPos = GameController.map.tiles[moveTo].transform.position + new Vector3(0, 0, -1);
         for (float timePassed = 0; timePassed < Mathf.Min(0.5f, delay); timePassed += Time.deltaTime)
@@ -169,6 +171,7 @@ public class Character : MonoBehaviour {
         transform.position = newPos;
         currentTile = moveTo;
         HandleTile();
+        moving = false;
     }
 
     // Performs all special actions that a tile would perform if moved to

@@ -16,7 +16,7 @@ public class Monster : Character {
             {
                 StartCoroutine(Attack(Direction.Up));
             }
-            else if (lastMove >= delay)
+            else if (lastMove >= delay && !moving)
             {
                 MoveToPlayer();
             }
