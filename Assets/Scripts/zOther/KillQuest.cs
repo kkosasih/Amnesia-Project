@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KillQuest : QuestTracking
+public class KillQuest : QuestTypes
 {
-    List<string> items;
-    List<string> objectives;
-    private int killamount = 0;
-
-    public KillQuest(string newDescription, string newObjective, int ka)
+    public KillQuest(string newqn, List<string> newListloot, List<string> newobjectives, List<int> ka, List<int> kta, int newcharacter, string newDescription, string newObjective, bool main, bool fin)
     {
+        questname = newqn;
+        questListloot = newListloot;
+        kncquest = newobjectives;
+        kncamount = ka;
+        knctotalamount = kta;
+        character = newcharacter;
         description = newDescription;
         objective = newObjective;
-    }
-
-    public void MainQuest2()
-    {
-        mainquest.Add(new KillQuest("Defend against the monsters.", "Monsters are attacking you.", 5));
-        items = new List<string>();
-        items.Add("vest");
-        mainquestloot.Add(items);
+        mainquest = main;
+        finished = fin;
     }
 }

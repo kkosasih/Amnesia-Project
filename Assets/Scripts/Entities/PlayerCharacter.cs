@@ -10,6 +10,7 @@ public class PlayerCharacter : Character {
     public GameObject item;
     public GameObject interactionbutton;
     public GameObject pickupui;
+    public GameObject Questtracking;
     public Inventory inventory;
     public string itemname; //Variable for getting specific item
     private bool touching = false;
@@ -74,6 +75,7 @@ public class PlayerCharacter : Character {
             {
                 case TileType.Sign:
                     GameController.map.tiles[currentTile].GetComponent<Sign>().ReadSign();
+                    Questtracking.GetComponent<QuestTracking>().speakobj();
                     break;
                 case TileType.Pickup:
                     pickupui.SetActive(true);

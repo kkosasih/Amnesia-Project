@@ -37,11 +37,11 @@ public class Monster : Character {
     public override void Die ()
     {
         base.Die();
-        if(GameController.map.tiles[currentTile].GetComponent<Tile>().type != TileType.Pickup)
+        if (GameController.map.tiles[currentTile].GetComponent<Tile>().type != TileType.Pickup)
         {
             pickuptile = true;
         }
-        GetComponent<EnemyItemDropScript>().EnemyDied(pickuptile);
+        GetComponent<EnemyItemDropScript>().EnemyDied(pickuptile,this.name);
     }
 
     // Move closer to the player and reset the timing of movement to 0

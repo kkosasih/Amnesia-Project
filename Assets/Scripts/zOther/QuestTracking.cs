@@ -5,81 +5,90 @@ using UnityEngine.UI;
 
 public class QuestTracking : MonoBehaviour
 {
-    public List<QuestTracking> mainquest;
-    public List<List<string>> mainquestloot;
-    public List<QuestTracking> questList;
-    public List<List<string>> questListloot;
-    public List<List<string>> killncollectquest;
-    public List<QuestTracking> fquests;
+    public List<QuestTypes> availablequests;
+    public List<QuestTypes> mainList;
+    public List<QuestTypes> questList;
     public int[,] character;
     public GameObject Inventory;
-    public string description;
-    public string objective;
-    public Text mainquestdescription;
-    public Text mainquestobjective;
+    public GameObject Speaker;
+    public GameObject FinUI;
+    public Text Title;
+    public Text speaker;
     public int questinc = 0;
 
     void Start()
     {
-        //Keeps track of the main quest and loot rewards
-        mainquest = new List<QuestTracking>();
-        mainquestloot = new List<List<string>>();
-        //Keeps track of general quests
-        questList = new List<QuestTracking>();
-        questListloot = new List<List<string>>();
-        //Keeps track of what is suppose to be kill and/or collected also people/person to be talked to
-        killncollectquest = new List<List<string>>();
-        //A list that keeps track of what lists have been completed
-        fquests = new List<QuestTracking>();
-        //Keeps track of progress and relationship with characters
-        character = new int[9, 3]; //Note the array size should change from nine depending on how many characters
-        //Adds the main quests to the dynamic array (Since main quest is linear may make a set array...Also reason why is added straight)
-        Inventory.GetComponent<TalkQuest>().MainQuest1();
-        Inventory.GetComponent<KillQuest>().MainQuest2();
-        /*More MainQuests*/
+        mainList = new List<QuestTypes>();
+        questList = new List<QuestTypes>();
+        character = new int[10, 2];
+        mainList.Add(QuestDatabase.MainQuest1());
+        mainList.Add(QuestDatabase.MainQuest2());
+        //questList.Add(QuestDatabase.MainQuest1());
     }
 
     // Update is called once per frame
     void Update()
     {
-        mainquestdescription.text = mainquest[questinc].description;
-        mainquestobjective.text = mainquest[questinc].objective;
-        /********************************************************************************/
-        /*if()
-        {
-            
-        }
+        mainList[questinc].updatedprog();
+        if (mainList[questinc].finished == true)
+       {
+            FinishQuest(questinc);// May want to add something that waits until the ui has disappeared then brings it back
+        }        
 
-        if()
+        /*for (int z = 0; z < questList.Count; z++)
         {
-
-        }*/
-        /********************************************************************************/
-        /*if()
-        {
-            questList.Add(new );
-        }
-
-        if()
-        {
-
+            if (questList[z].finished == false)
+            {
+                questList[z].updatedprog();
+                if (questList[z].finished == true)
+                {
+                    FinishQuest(z);
+                }
+            }
         }*/
     }
 
     public void FinishQuest(int x)
     {
-        for (int y = 0; y < 999; y++)
+        FinUI.SetActive(true);
+        if (mainList[x].mainquest == true)
         {
-            Inventory.GetComponent<Inventory>().AddItem(questListloot[x][y]);
+            Title.text = mainList[x].questname;
+            for (int y = 0; y < mainList[x].questListloot.Count; y++)
+            {
+                Inventory.GetComponent<Inventory>().AddItem(mainList[x].questListloot[y]);
+            }
+            character[mainList[x].character,0] += 1;
+            character[mainList[x].character, mainList[x].characterprog] += 1;
+            questinc += 1;
+        }
+        else
+        {
+            Title.text  = questList[x].questname;
+            for (int y = 0; y < questList[x].questListloot.Count; y++)
+            {
+                Inventory.GetComponent<Inventory>().AddItem(questList[x].questListloot[y]);
+            }
+            character[questList[x].character, 0] += 1;
+            character[questList[x].character, questList[x].characterprog] += 1;
         }
     }
 
-    public void FinishMainQuest()
+    public void questobj(string target)
     {
-        for (int y = 0; y < 999; y++)
+        mainList[questinc].obj(target);
+        for (int z = 0; z < questList.Count; z++)
         {
-            Inventory.GetComponent<Inventory>().AddItem(mainquestloot[questinc][y]);
+            if (questList[z].finished == false)
+            {
+                questList[z].obj(target);
+            }
         }
-        questinc += 1;
+    }
+
+    public void speakobj()
+    {
+        // Something checking you wanted to turn in the quest (put here)
+        questobj(speaker.text);
     }
 }

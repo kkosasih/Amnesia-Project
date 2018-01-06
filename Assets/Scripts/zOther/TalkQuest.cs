@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TalkQuest : QuestTracking
+public class TalkQuest : QuestTypes
 {
-    List<string> items;
-    List<string> objectives;
-
-    public TalkQuest(string newDescription, string newObjective)
+    public TalkQuest(string newqn, List<string> newListloot, List<string> newobjectives, List<int> ka, List<int> kta, int newcharacter, string newDescription, string newObjective, bool main, bool fin)
     {
+        questname = newqn;
+        questListloot = newListloot;
+        kncquest = newobjectives;
+        kncamount = ka;
+        knctotalamount = kta;
+        character = newcharacter;
         description = newDescription;
         objective = newObjective;
-    }
-
-    public void MainQuest1()
-    {
-        mainquest.Add(new TalkQuest("Find your father.", "You've arrive at the island, but you crashed. Go find you father in the wreckage."));
-        items = new List<string>();
-        items.Add("vest");
-        mainquestloot.Add(items);
+        mainquest = main;
+        finished = fin;
     }
 }
