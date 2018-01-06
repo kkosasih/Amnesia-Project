@@ -12,7 +12,7 @@ public class Monster : Character {
         base.Update();
         if (movementPreventions == 0)
         {
-            if (Mathf.Max(HoriDistance(), VertDistance()) <= 2)
+            if (Mathf.Max(Mathf.Abs(HoriDistance()), Mathf.Abs(VertDistance())) <= 2)
             {
                 StartCoroutine(Attack(Direction.Up));
             }
