@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour {
+    public int size;
     public List<Item> inventory = new List<Item>();
-    public List<Item> slots = new List<Item>();
+    public List<GameObject> slots;
     //public GUISkin skin;
     public GameObject Itemdata;
     //private bool showinventory = true;
@@ -18,10 +19,10 @@ public class Inventory : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i < 25; i++) //remember to increase based on database
+        for (int i = 0; i < size; i++) //remember to increase based on database
         {
-            slots.Add(new Item());
             inventory.Add(new Item());
+            slots.Add(MakePanel(i));
         }
         database = Itemdata.GetComponent<ItemDatabase>();
         //Starting Items
@@ -107,6 +108,14 @@ public class Inventory : MonoBehaviour {
         {
             inventory[i] = new Item();
         }
+    }
+
+    // Make and return an inventory slot
+    private GameObject MakeSlot (int index)
+    {
+        GameObject result = Instantiate(Resources.Load<GameObject>("GUI/ItemPanel"), transform);
+
+        return result;
     }
 
     /*void DrawInventory()

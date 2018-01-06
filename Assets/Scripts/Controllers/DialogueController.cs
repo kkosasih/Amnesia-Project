@@ -33,7 +33,7 @@ public class DialogueController : MonoBehaviour {
 
     // Change the conversation with conversation data from a file
     public void ChangeConversation (string path)
-    {
+    {  
         foreach (DialoguePart p in conversation)
         {
             Destroy(p.gameObject);
