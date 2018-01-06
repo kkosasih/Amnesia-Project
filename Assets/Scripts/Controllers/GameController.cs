@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-    public static GameObject player;  
+    public static GameObject player;
+    public static GameObject inventory;
     public static Map map;
 
     // Use this for initialization
     void Start ()
     {
         player = GameObject.FindWithTag("Player");
+        inventory = GameObject.Find("Inventory");
         StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
     }
 	
@@ -56,6 +58,11 @@ public class GameController : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             ShiftSave(9);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            inventory.GetComponent<UIPanel>().isOpen = !inventory.GetComponent<UIPanel>().isOpen;
         }
     }
 

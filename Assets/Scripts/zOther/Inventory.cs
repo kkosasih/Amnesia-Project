@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
     public int size;
@@ -22,7 +23,7 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < size; i++) //remember to increase based on database
         {
             inventory.Add(new Item());
-            slots.Add(MakePanel(i));
+            slots.Add(MakeSlot(i));
         }
         database = Itemdata.GetComponent<ItemDatabase>();
         //Starting Items
@@ -114,7 +115,9 @@ public class Inventory : MonoBehaviour {
     private GameObject MakeSlot (int index)
     {
         GameObject result = Instantiate(Resources.Load<GameObject>("GUI/ItemPanel"), transform);
-
+        RectTransform r = result.GetComponent<RectTransform>();
+        r.anchorMin = new Vector2(0.08f * (index % 10) + 0.1f, 1 - (0.08f * (index / 10 + 1) + 0.1f));
+        r.anchorMax = new Vector2(0.08f * (index % 10 + 1) + 0.1f, 1 - (0.08f * (index / 10) + 0.1f));
         return result;
     }
 
