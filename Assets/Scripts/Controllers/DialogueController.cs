@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DialogueController : MonoBehaviour {
     public static DialogueController instance;
     public List<DialoguePart> conversation;
+    private UIPanel dialoguePanel;
     private int convoIndex = 0;
 
 	// Use this for initialization
@@ -13,6 +14,7 @@ public class DialogueController : MonoBehaviour {
     {
         instance = this;
         conversation = new List<DialoguePart>();
+        dialoguePanel = GameObject.Find("DialogueBox").GetComponent<UIPanel>();
         //ChangeConversation("Opening");
 	}
 	
@@ -22,6 +24,10 @@ public class DialogueController : MonoBehaviour {
         if (convoIndex < conversation.Count && !conversation[convoIndex].isRunning)
         {
             AdvanceConversation();
+        }
+        if (dialoguePanel.isOpen && Input.GetKeyDown(KeyCode.E))
+        {
+            dialoguePanel.Close();
         }
     }
 
