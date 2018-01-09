@@ -12,8 +12,8 @@ public class Consumable : Item
         itemOutput = output;
         itemDesc = desc;
         itemStack = stack;
-        itemStackAmount = stack;
+        itemStackAmount = 1;
         itemValue = value;
-        itemIcon = Resources.Load<Texture2D>("Item Icons/" + name);
+        itemIcon = Resources.Load<Sprite>("Item Icons/" + name);
     }
 }

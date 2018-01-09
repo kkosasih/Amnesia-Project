@@ -6,11 +6,11 @@ using UnityEngine;
 public class Looks
 {
     public string itemName;
-    public Texture2D looks;
+    public Sprite looks;
 
     public Looks(string name)
     {
         itemName = name;
-        looks = Resources.Load<Texture2D>("CharacterParts/" + name);
+        looks = Resources.Load<Sprite>("CharacterParts/" + name);
     }
 }

@@ -13,7 +13,7 @@ public class Item
     public int itemStack;               //Max stack amount of an item
     public int itemStackAmount;
     public int itemValue;               //The monatery value of the item
-    public Texture2D itemIcon;          //How it looks
+    public Sprite itemIcon;          //How it looks
 
     /*public enum ItemType
     {
@@ -27,6 +27,12 @@ public class Item
         Quest                           //Non-Discardable, Sellable, or Equipable items
     }*/
 
+    public Item()
+    {
+        itemId = -1;
+        itemIcon = null;
+    }
+
     public Item(string name, int id, int output, string desc, int value, int stack, int amount)
     {
         itemName = name;
@@ -35,13 +41,21 @@ public class Item
 
         itemDesc = desc;
         itemStack = stack;
-        itemStackAmount = stack;
+        itemStackAmount = 1;
         itemValue = value;
-        itemIcon = Resources.Load<Texture2D>("Item Icons/" + name);
+        itemIcon = Resources.Load<Sprite>("Item Icons/" + name);
     }
 
-    public Item()
+    // Copy constructor
+    public Item (Item copy)
     {
-
+        itemName = copy.itemName;
+        itemId = copy.itemId;
+        itemOutput = copy.itemOutput;
+        itemDesc = copy.itemDesc;
+        itemStack = copy.itemStack;
+        itemStackAmount = copy.itemStackAmount;
+        itemValue = copy.itemValue;
+        itemIcon = copy.itemIcon;
     }
 }

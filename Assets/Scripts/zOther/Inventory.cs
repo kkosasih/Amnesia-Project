@@ -27,7 +27,11 @@ public class Inventory : MonoBehaviour {
         }
         database = Itemdata.GetComponent<ItemDatabase>();
         //Starting Items
-        inventory[0] = database.items[0];
+        AddItemByID(0);
+        for (int i = 0; i < 5; ++i)
+        {
+            AddItemByID(2);
+        }
         //inventory[1] = database.items[1];
     }
 
@@ -85,27 +89,41 @@ public class Inventory : MonoBehaviour {
     // Add items by ID
     public void AddItemByID (int id)
     {
-        for (int i = 0; i < 17; ++i)
+        if (id >= database.items.Count)
         {
-            if (inventory[i].itemName == null)
+            Debug.Log("The Id is not in the database");
+            return;
+        }
+        for (int i = 0; i < size; ++i)
+        {
+            if (inventory[i].itemId == id && inventory[i].itemStackAmount < inventory[i].itemStack)
             {
-                if (database.items.Count > id)
-                {
-                    inventory[i] = database.items[id];
-                }
-                else
-                {
-                    Debug.Log("The Id is not in the database");
-                }
-                return;
+                ++inventory[i].itemStackAmount;
+                UpdateImages();
+                break;
+            }
+            else if (inventory[i].itemId == -1)
+            {
+                inventory[i] = database.items[id];
+                UpdateImages();
+                break;
             }
         }
+    }
+
+    // Switch two items in the inventory
+    public void SwitchItems (int index1, int index2)
+    {
+        Item tempItem = new Item(inventory[index1]);
+        inventory[index1] = inventory[index2];
+        inventory[index2] = tempItem;
+        UpdateImages();
     }
 
     // Clears items in the inventory
     public void Clear ()
     {
-        for (int i = 0; i < 17; ++i)
+        for (int i = 0; i < size; ++i)
         {
             inventory[i] = new Item();
         }
@@ -115,10 +133,28 @@ public class Inventory : MonoBehaviour {
     private GameObject MakeSlot (int index)
     {
         GameObject result = Instantiate(Resources.Load<GameObject>("GUI/ItemPanel"), transform);
+        result.GetComponent<ItemPanel>().invIndex = index;
         RectTransform r = result.GetComponent<RectTransform>();
-        r.anchorMin = new Vector2(0.08f * (index % 10) + 0.1f, 1 - (0.08f * (index / 10 + 1) + 0.1f));
-        r.anchorMax = new Vector2(0.08f * (index % 10 + 1) + 0.1f, 1 - (0.08f * (index / 10) + 0.1f));
+        r.anchorMin = new Vector2(0.08f * (index % 10) + 0.1f, 1 - (0.267f * (index / 10 + 1) + 0.1f));
+        r.anchorMax = new Vector2(0.08f * (index % 10 + 1) + 0.1f, 1 - (0.267f * (index / 10) + 0.1f));
         return result;
+    }
+
+    // Update the visual slots
+    private void UpdateImages ()
+    {
+        for (int i = 0; i < size; ++i)
+        {
+            transform.GetChild(i).Find("ItemImage").GetComponent<Image>().sprite = inventory[i].itemIcon;
+            if (inventory[i].itemStack > 1)
+            {
+                transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = inventory[i].itemStackAmount.ToString();
+            }
+            else
+            {
+                transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = "";
+            }
+        }
     }
 
     /*void DrawInventory()
