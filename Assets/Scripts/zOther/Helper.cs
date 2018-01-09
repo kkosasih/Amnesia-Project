@@ -100,33 +100,35 @@ public class Helper {
         i.color = newColor;
     }
 
-    // Get the offset anchorMin of a gameObject
-    public static Vector2 FixedAnchorMin (Transform t)
+    // Get the offset anchorMin and anchorMax of an object
+    public static List<Vector2> FixedAnchorMinMax (Transform t)
     {
-        RectTransform rt = t.GetComponent<RectTransform>();
-        float xResult = 1 - rt.anchorMin.x;
-        float yResult = 1 - rt.anchorMin.y;
-        for (Transform nt = t.parent; nt != null && nt.GetComponent<RectTransform>() != null; nt = nt.parent)
+        List<Transform> tree = GetAncestors(t);
+        Vector2 tempMin = new Vector2(0, 0);
+        Vector2 tempMax = new Vector2(1, 1);
+        foreach (Transform ti in tree)
         {
-            rt = nt.GetComponent<RectTransform>();
-            xResult *= 1 - rt.anchorMin.x;
-            yResult *= 1 - rt.anchorMin.y;
+            RectTransform rt = ti.GetComponent<RectTransform>();
+            if (rt != null && !ti.CompareTag("Canvas"))
+            {
+                Vector2 tempMin2 = new Vector2((tempMax.x - tempMin.x) * rt.anchorMin.x + tempMin.x, (tempMax.y - tempMin.y) * rt.anchorMin.y + tempMin.y);
+                Vector2 tempMax2 = new Vector2((tempMax.x - tempMin.x) * rt.anchorMax.x + tempMin.x, (tempMax.y - tempMin.y) * rt.anchorMax.y + tempMin.y);
+                tempMin = tempMin2;
+                tempMax = tempMax2;
+            }
         }
-        return new Vector2(1 - xResult, 1 - yResult);
+        return new List<Vector2> { tempMin, tempMax };
     }
 
-    // Get the offset anchorMax of a gameObject
-    public static Vector2 FixedAnchorMax (Transform t)
+    // Return the ancestors of the object's transform in chronological order
+    public static List<Transform> GetAncestors (Transform t)
     {
-        RectTransform rt = t.GetComponent<RectTransform>();
-        float xResult = rt.anchorMax.x;
-        float yResult = rt.anchorMax.y;
-        for (Transform nt = t.parent; nt != null && nt.GetComponent<RectTransform>() != null; nt = nt.parent)
+        List<Transform> result = new List<Transform>();
+        for (Transform ti = t; ti != null; ti = ti.parent)
         {
-            rt = nt.GetComponent<RectTransform>();
-            xResult *= rt.anchorMax.x;
-            yResult *= rt.anchorMax.y;
+            result.Add(ti);
         }
-        return new Vector2(xResult, yResult);
+        result.Reverse();
+        return result;
     }
 }

@@ -27,7 +27,6 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
-        Debug.Log(GameController.map.tiles[currentTile].GetComponent<Tile>().attacks.Count);
         if (movementPreventions == 0)
         {
             if (lastMove >= delay && !moving)
