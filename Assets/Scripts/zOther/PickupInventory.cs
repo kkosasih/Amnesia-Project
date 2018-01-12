@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PickupInventory : Inventory {
+    public bool emptyAfterTransfer = false;
+
     // Use this for initialization
     protected override void Start ()
     {
@@ -15,6 +17,18 @@ public class PickupInventory : Inventory {
         //Starting Items
 
         //inventory[1] = database.items[1];
+    }
+
+    // Transfer an item to another inventory
+    public override void TransferItem (Inventory other, int toTransfer)
+    {
+        other.AddItemByItem(inventory[toTransfer]);
+        inventory[toTransfer] = new Item();
+        UpdateImages();
+        if (IsEmpty())
+        {
+            emptyAfterTransfer = true;
+        }
     }
 
     // Checks if the inventory is empty
@@ -33,17 +47,16 @@ public class PickupInventory : Inventory {
     // Update the pickup inventory
     public override void UpdateImages ()
     {
-        Transform pickupInv = GameObject.Find("PickupInventory").transform;
         for (int i = 0; i < size; ++i)
         {
-            pickupInv.GetChild(i).Find("ItemImage").GetComponent<Image>().sprite = inventory[i].itemIcon;
+            slots[i].transform.Find("ItemImage").GetComponent<Image>().sprite = inventory[i].itemIcon;
             if (inventory[i].itemStack > 1)
             {
-                pickupInv.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = inventory[i].itemStackAmount.ToString();
+                slots[i].transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = inventory[i].itemStackAmount.ToString();
             }
             else
             {
-                pickupInv.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = "";
+                slots[i].transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = "";
             }
         }
     }

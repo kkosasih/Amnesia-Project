@@ -169,20 +169,20 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < size; ++i)
         {
-            transform.GetChild(i).Find("ItemImage").GetComponent<Image>().sprite = inventory[i].itemIcon;
+            slots[i].transform.Find("ItemImage").GetComponent<Image>().sprite = inventory[i].itemIcon;
             if (inventory[i].itemStack > 1)
             {
-                transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = inventory[i].itemStackAmount.ToString();
+                slots[i].transform.Find("ItemAmount").GetComponent<Text>().text = inventory[i].itemStackAmount.ToString();
             }
             else
             {
-                transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = "";
+                slots[i].transform.Find("ItemAmount").GetComponent<Text>().text = "";
             }
         }
     }
 
     // Transfer an item to another inventory
-    public void TransferItem (Inventory other, int toTransfer)
+    public virtual void TransferItem (Inventory other, int toTransfer)
     {
         other.AddItemByItem(inventory[toTransfer]);
         inventory[toTransfer] = new Item();

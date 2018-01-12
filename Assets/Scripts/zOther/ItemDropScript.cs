@@ -11,6 +11,7 @@ public class ItemDropScript : Character
     public GameObject bag;
     public GameObject ui;
     public PickupInventory bagItems;
+    public bool empty = false;
 
     // Use this for initialization
     protected override void Start()
@@ -27,9 +28,8 @@ public class ItemDropScript : Character
     protected override void Update()
     {
         base.Update();
-        if (bagItems.IsEmpty())
+        if (bagItems.emptyAfterTransfer)
         {
-            GameController.map.tiles[currentTile].GetComponent<Tile>().type = priorType;
             Destroy(gameObject);
         }
     }
