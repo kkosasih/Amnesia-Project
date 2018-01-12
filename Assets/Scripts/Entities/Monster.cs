@@ -10,6 +10,10 @@ public class Monster : Character {
     protected override void Update ()
     {
         base.Update();
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>();
+        }
         if (movementPreventions == 0)
         {
             if (Mathf.Max(Mathf.Abs(HoriDistance()), Mathf.Abs(VertDistance())) <= 2)

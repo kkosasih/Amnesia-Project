@@ -5,29 +5,35 @@ using UnityEngine;
 public class ItemDropScript : Character
 {
     public int SlimeAmount;
+    public TileType priorType;
     public PlayerCharacter player;
-    public ItemDatabase database;
+    //public ItemDatabase database;
     public GameObject bag;
     public GameObject ui;
-    public List<Item> bagitems = new List<Item>();
+    public PickupInventory bagItems;
 
     // Use this for initialization
     protected override void Start()
     {
+        ui = GameObject.Find("PickupInventory");
         bag = this.gameObject;
-        //Destroy(healthSlider.gameObject);
+        bagItems = GetComponent<PickupInventory>();
+        Destroy(healthSlider);
+        bagItems.AddItemByID(2);
+        GameController.map.tiles[currentTile].GetComponent<Tile>().type = TileType.Pickup;
+        GameController.map.tiles[currentTile].GetComponent<Tile>().drops = this;
     }
 
     protected override void Update()
     {
         base.Update();
-        GameController.map.tiles[currentTile].GetComponent<Tile>().type = TileType.Pickup;
-        if (HoriDistance() + VertDistance() <= 1)
+        if (bagItems.IsEmpty())
         {
-            player.item = bag;
+            GameController.map.tiles[currentTile].GetComponent<Tile>().type = priorType;
+            Destroy(gameObject);
         }
     }
-
+    /*
     public void AddItem(string name, int total)
     {
         for (int i = 0; i < 99; i++)
@@ -36,11 +42,11 @@ public class ItemDropScript : Character
             {
                 for (int j = 0; j < 25; j++)//Remember to increase depending on size of database
                 {
-                    if (name == database.items[j].itemName)
+                    if (name == ItemDatabase.items[j].itemName)
                     {
                         while (total > 0)
                         {
-                            if (database.items[j].itemStack < bagitems[i].itemStackAmount)
+                            if (ItemDatabase.items[j].itemStack < bagitems[i].itemStackAmount)
                             {
                                 bagitems[i].itemStackAmount += 1;
                                 total -= 1;
@@ -62,14 +68,14 @@ public class ItemDropScript : Character
             {
                 for (int j = 0; j < 25; j++)// Remember to increase depending on size of database
                 {
-                    if (name == database.items[j].itemName)
+                    if (name == ItemDatabase.items[j].itemName)
                     {
-                        bagitems[i] = database.items[j];
+                        bagitems[i] = ItemDatabase.items[j];
                     }
 
                     while (total > 0)
                     {
-                        if (database.items[j].itemStack < bagitems[i].itemStackAmount)
+                        if (ItemDatabase.items[j].itemStack < bagitems[i].itemStackAmount)
                         {
                             bagitems[i].itemStackAmount += 1;
                             total -= 1;
@@ -85,6 +91,12 @@ public class ItemDropScript : Character
         }
     }
 
+    // Remove an item from the bag
+    public void RemoveItem (int index)
+    {
+        bagitems.RemoveAt(index);
+    }
+    */
     // Get the horizontal distance from player; negative is player to right, positive is player to left
     private int HoriDistance()
     {

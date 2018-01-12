@@ -5,33 +5,30 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
     public int size;
+    public int columns;
+    public float margin;
     public List<Item> inventory = new List<Item>();
     public List<GameObject> slots;
     //public GUISkin skin;
-    public GameObject Itemdata;
+    //public GameObject Itemdata;
     //private bool showinventory = true;
     //private bool showtooltip = false;
-    private ItemDatabase database;
+    //protected static ItemDatabase database;
     //private int slotsx = 7, slotsy = 4;
     //private string tooltip;
 
     //NOTE Most Commented out stuff are UI based
 
     // Use this for initialization
-    void Start()
+    protected virtual void Start()
     {
         for (int i = 0; i < size; i++) //remember to increase based on database
         {
             inventory.Add(new Item());
             slots.Add(MakeSlot(i));
         }
-        database = Itemdata.GetComponent<ItemDatabase>();
         //Starting Items
-        AddItemByID(0);
-        for (int i = 0; i < 5; ++i)
-        {
-            AddItemByID(2);
-        }
+        
         //inventory[1] = database.items[1];
     }
 
@@ -64,51 +61,78 @@ public class Inventory : MonoBehaviour {
         {
             if (inventory[i].itemName == null)
             {
-                for (int j = 0; j < 25; j++)// Remember to increase depending on size of database
+                for (int j = 0; j < ItemDatabase.items.Count; j++)// Remember to increase depending on size of database
                 {
-                    if (name == database.items[j].itemName)
+                    if (name == ItemDatabase.items[j].itemName)
                     {
-                        inventory[i] = database.items[j];
-                        break;
+                        inventory[i] = ItemDatabase.items[j];
+                        return;
                     }
-                    else //Debug else statement
+                    /*else //Debug else statement
                     {
-                        Debug.Log("The Id is not in the database");
-                        break;
-                    }
+
+                    }*/
                 }
+                Debug.Log("The Id is not in the database");
+                return;
             }
-            else
+            /*else
             {
                 //Possible text saying no inventory space
                 break;
-            }
+            }*/
         }
     }
 
     // Add items by ID
     public void AddItemByID (int id)
     {
-        if (id >= database.items.Count)
+        if (id >= ItemDatabase.items.Count)
         {
             Debug.Log("The Id is not in the database");
             return;
         }
-        for (int i = 0; i < size; ++i)
+        for (int i = 0; i < inventory.Count; ++i)
         {
             if (inventory[i].itemId == id && inventory[i].itemStackAmount < inventory[i].itemStack)
             {
                 ++inventory[i].itemStackAmount;
-                UpdateImages();
                 break;
             }
             else if (inventory[i].itemId == -1)
             {
-                inventory[i] = database.items[id];
-                UpdateImages();
+                inventory[i] = ItemDatabase.items[id];
                 break;
             }
         }
+        UpdateImages();
+    }
+
+    // Add items by raw items
+    public void AddItemByItem (Item toAdd)
+    {
+        for (int i = 0; i < size; ++i)
+        {
+            if (inventory[i].itemId == toAdd.itemId)
+            {
+                if (inventory[i].itemStack - inventory[i].itemStackAmount >= toAdd.itemStackAmount)
+                {
+                    inventory[i].itemStackAmount += toAdd.itemStackAmount;
+                    break;
+                }
+                else
+                {
+                    toAdd.itemStackAmount -= inventory[i].itemStackAmount - inventory[i].itemStack;
+                    inventory[i].itemStackAmount = inventory[i].itemStack;
+                }
+            }
+            else if (inventory[i].itemId == -1)
+            {
+                inventory[i] = toAdd;
+                break;
+            }
+        }
+        UpdateImages();
     }
 
     // Switch two items in the inventory
@@ -130,18 +154,18 @@ public class Inventory : MonoBehaviour {
     }
 
     // Make and return an inventory slot
-    private GameObject MakeSlot (int index)
+    protected virtual GameObject MakeSlot (int index)
     {
         GameObject result = Instantiate(Resources.Load<GameObject>("GUI/ItemPanel"), transform);
         result.GetComponent<ItemPanel>().invIndex = index;
         RectTransform r = result.GetComponent<RectTransform>();
-        r.anchorMin = new Vector2(0.08f * (index % 10) + 0.1f, 1 - (0.267f * (index / 10 + 1) + 0.1f));
-        r.anchorMax = new Vector2(0.08f * (index % 10 + 1) + 0.1f, 1 - (0.267f * (index / 10) + 0.1f));
+        r.anchorMin = new Vector2((1 - 2 * margin) / columns * (index % columns) + margin, 1 - ((1 - 2 * margin) / (size / columns) * (index / columns + 1) + margin));
+        r.anchorMax = new Vector2((1 - 2 * margin) / columns * (index % columns + 1) + margin, 1 - ((1 - 2 * margin) / (size / columns) * (index / columns) + margin));
         return result;
     }
 
     // Update the visual slots
-    private void UpdateImages ()
+    public virtual void UpdateImages ()
     {
         for (int i = 0; i < size; ++i)
         {
@@ -155,6 +179,28 @@ public class Inventory : MonoBehaviour {
                 transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = "";
             }
         }
+    }
+
+    // Transfer an item to another inventory
+    public void TransferItem (Inventory other, int toTransfer)
+    {
+        other.AddItemByItem(inventory[toTransfer]);
+        inventory[toTransfer] = new Item();
+        UpdateImages();
+    }
+
+    // Transfer all items to another inventory
+    public void TransferAllItems (Inventory other)
+    {
+        foreach (Item i in inventory)
+        {
+            if (i.itemId >= 0)
+            {
+                other.AddItemByItem(i);
+            }
+        }
+        Clear();
+        UpdateImages();
     }
 
     /*void DrawInventory()

@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour {
     public TileType type;                            
     public Vector2 position;
     public List<Attack> attacks;
+    public ItemDropScript drops;
 
     // Use this for initialization
     void Start ()
@@ -65,6 +66,15 @@ public class Tile : MonoBehaviour {
             }
         }
         return result;
+    }
+
+    // Pick up the items if available
+    public void PickupItems ()
+    {
+        drops.bagItems.UpdateImages();
+        GameObject pui = GameObject.Find("PickupInventory");
+        pui.GetComponent<PickupItemScreen>().inventory = drops.bagItems;
+        pui.GetComponent<UIPanel>().isOpen = true;
     }
 }
 

@@ -15,7 +15,7 @@ public class DrawInventory : MonoBehaviour {
 	public Texture2D equip_slot;
 	//private bool showinventory = true;
 	//private bool showtooltip = false;
-	private ItemDatabase database;
+	//private ItemDatabase database;
 	private bool draw = false;
 
 
@@ -25,12 +25,10 @@ public class DrawInventory : MonoBehaviour {
 		{
 			slots.Add(new Item());
 		}
-
-
-		database = Itemdata.GetComponent<ItemDatabase>();
+        
 		//Starting Items
-		for (int i = 0; i < database.items.Count; i++) {
-			inventory.Add (database.items [i]);
+		for (int i = 0; i < ItemDatabase.items.Count; i++) {
+			inventory.Add (ItemDatabase.items [i]);
 		}
 		for (int i = 0; i < slots.Count; i++) {
 			//GameObject newSlot = (GameObject)Instantiate (slot);
