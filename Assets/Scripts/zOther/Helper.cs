@@ -131,4 +131,26 @@ public class Helper {
         result.Reverse();
         return result;
     }
+
+    // Reverses a list in chunks
+    public static List<T> ReverseInChunks<T> (List<T> list, int chunkSize)
+    {
+        List<T> result = new List<T>();
+        List<List<T>> chunkedResult = new List<List<T>>();
+        for (int i = 0; i < list.Count; i += chunkSize)
+        {
+            List<T> toAdd = new List<T>();
+            for (int j = i; j < i + chunkSize && j < list.Count; ++j)
+            {
+                toAdd.Add(list[j]);
+            }
+            chunkedResult.Add(toAdd);
+        }
+        chunkedResult.Reverse();
+        foreach (List<T> l in chunkedResult)
+        {
+            result.AddRange(l);
+        }
+        return result;
+    }
 }

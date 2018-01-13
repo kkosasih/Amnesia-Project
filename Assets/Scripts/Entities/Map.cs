@@ -12,41 +12,68 @@ public class Map : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        string[] data = Resources.Load<TextAsset>("Maps/" + path).text.Split(new string[] { "..." }, System.StringSplitOptions.None);
-        width = data[0].Split(' ').Length;
-        height = data.Length;
+        Texture2D mapLayout = Resources.Load<Texture2D>("Maps/Textures/" + path);
+        List<Color> data = Helper.ReverseInChunks(new List<Color>(mapLayout.GetPixels()), mapLayout.width);
+        string[] entries = Resources.Load<TextAsset>("Maps/Tiles/" + path).text.Split(new string[] { "..." }, System.StringSplitOptions.None);
+        Debug.Log(entries.Length);
+        width = mapLayout.width;
+        height = mapLayout.height;
         tiles = new List<GameObject>(width * height);
-        for (int i = 0; i < data.Length; ++i)
+        List<int> entrances = new List<int>();
+        List<int> shops = new List<int>();
+        List<int> signs = new List<int>();
+        for (int i = 0; i < data.Count; ++i)
         {
-            string[] line = data[i].Trim().Split(' ');
-            for (int j = 0; j < line.Length; ++j)
+            if (data[i] == new Color(0, 1, 0))
             {
-                switch (line[j][0])
-                {
-                    case 'G':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Ground Tile"), transform));
-                        break;
-                    case 'W':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Wall Tile"), transform));
-                        break;
-                    case 'E':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Entrance Tile"), transform));
-                        Entrance e = tiles[tiles.Count - 1].GetComponent<Entrance>();
-                        string[] args = line[j].Split(',');
-                        e.sceneTo = int.Parse(args[1]);
-                        e.tileFrom = int.Parse(args[2]);
-                        e.moveTo = (Direction)int.Parse(args[3]);
-                        break;
-                    case 'S':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Shop Tile"), transform));
-                        tiles[tiles.Count - 1].GetComponent<Shop>().numOfItems = int.Parse(line[j].Split(',')[1]);
-                        break;
-                    case 'N':
-                        tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Sign Tile"), transform));
-                        tiles[tiles.Count - 1].GetComponent<Sign>().path = line[j].Split(',')[1];
-                        break;
-                }
-                tiles[tiles.Count - 1].GetComponent<Tile>().UpdatePosition(new Vector2(j, -i));
+                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Ground Tile"), transform));
+            }
+            else if (data[i] == new Color(1, 0, 0))
+            {
+                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Wall Tile"), transform));
+            }
+            else if (data[i] == new Color(0, 0, 1))
+            {
+                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Entrance Tile"), transform));
+                entrances.Add(i);
+            }
+            else if (data[i] == new Color(1, 1, 0))
+            {
+                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Shop Tile"), transform));
+                shops.Add(i);
+            } 
+            else if (data[i] == new Color(1, 0, 1))
+            {
+                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Sign Tile"), transform));
+                signs.Add(i);
+            }     
+            else
+            {
+                Debug.Log("Tile at (" + (i % width).ToString() + ", " + (i / width).ToString() + ") is not valid. Color is " + data[i].ToString());
+            }
+            tiles[i].GetComponent<Tile>().UpdatePosition(new Vector2(i % width, -i / width));
+        }
+        int entrancesI = 0, shopsI = 0, signsI = 0;
+        for (int i = 0; i < entries.Length; ++i)
+        {
+            switch (entries[i].Trim()[0])
+            {
+                case 'E':
+                    Entrance e = tiles[entrances[entrancesI++]].GetComponent<Entrance>();
+                    string[] args = entries[i].Split(':')[1].Split(',');
+                    e.sceneTo = int.Parse(args[0]);
+                    e.tileFrom = int.Parse(args[1]);
+                    e.moveTo = (Direction)int.Parse(args[2]);
+                    break;
+                case 'S':
+                    tiles[shops[shopsI++]].GetComponent<Shop>().numOfItems = int.Parse(entries[i].Split(':')[1]);
+                    break;
+                case 'N':
+                    tiles[signs[signsI++]].GetComponent<Sign>().path = entries[i].Split(':')[1];
+                    break;
+                default:
+                    Debug.Log("Invalid entry type");
+                    break;
             }
         }
         transform.Find("MapSprite").transform.position = new Vector3((float)width / 2 - 0.5f, (float)-height / 2 + 0.5f, 0);
