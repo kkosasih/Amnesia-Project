@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Tile : MonoBehaviour {
     public static bool debug = false;
     private GameObject debugText;
-    public TileType type;                            
+    public TileType type;
+    public TileType startType;
     public Vector2 position;
     public List<Attack> attacks;
     public ItemDropScript drops;
@@ -15,6 +16,7 @@ public class Tile : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        startType = type;
         UpdatePosition(position);
         attacks = new List<Attack>();
         if (debug)
@@ -66,15 +68,6 @@ public class Tile : MonoBehaviour {
             }
         }
         return result;
-    }
-
-    // Pick up the items if available
-    public void PickupItems ()
-    {
-        drops.bagItems.UpdateImages();
-        GameObject pui = GameObject.Find("PickupInventory");
-        pui.GetComponent<PickupItemScreen>().inventory = drops.bagItems;
-        pui.GetComponent<UIPanel>().isOpen = true;
     }
 }
 

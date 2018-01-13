@@ -98,7 +98,7 @@ public class Character : MonoBehaviour {
             if (i < path.Count - 1)
             {
                 yield return new WaitForSeconds(delay);
-            }
+            } 
         }
     }
 

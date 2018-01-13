@@ -27,49 +27,6 @@ public class EnemyItemDropScript : MonoBehaviour
 
     public void EnemyDied(bool pickuptile, string name)
     {
-        inventory.GetComponent<QuestTracking>().questobj(name);
-        if (GameController.map.tiles[GetComponent<Monster>().currentTile].GetComponent<Tile>().type != TileType.Pickup)
-        {
-            GameObject Item = Instantiate(Resources.Load<GameObject>("Prefab")); //Creates the Object
-            Item.name = "Lootbag";
-            Item.GetComponent<Transform>().position = this.GetComponent<Monster>().Mlocation();
-            Item.GetComponent<ItemDropScript>().currentTile = this.GetComponent<Monster>().currentTile;
-            Item.GetComponent<ItemDropScript>().SlimeAmount = Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
-            for (int i = 0; i < dropamount; i++)
-            {
-                tempname = ItemDatabase.randomdrop(this.name);
-                for (int j = 0; j < ItemDatabase.items.Count; j++)//Remember to increase depending on size of database
-                {
-                    if (tempname == ItemDatabase.items[j].itemName)
-                    {
-                        randomamount = Random.Range(1, ItemDatabase.items[j].itemStack);
-                    }
-                }
-                for (int j = 0; j < randomamount; ++i)
-                {
-                    Item.GetComponent<ItemDropScript>().bagItems.AddItem(tempname);
-                }
-            }
-        }
-        else
-        {
-            //Something that gets the a reference to a the lootbag;
-            Item.GetComponent<ItemDropScript>().SlimeAmount += Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
-            for (int i = 0; i < dropamount; i++)
-            {
-                tempname = ItemDatabase.randomdrop(this.name);
-                for (int j = 0; j < ItemDatabase.items.Count; j++)//Remember to increase depending on size of database
-                {
-                    if (tempname == ItemDatabase.items[j].itemName)
-                    {
-                        randomamount = Random.Range(1, ItemDatabase.items[j].itemStack);
-                    }
-                }
-                for (int j = 0; j < randomamount; ++i)
-                {
-                    Item.GetComponent<ItemDropScript>().bagItems.AddItem(tempname);
-                }
-            }
-        }
+        
     }
 }

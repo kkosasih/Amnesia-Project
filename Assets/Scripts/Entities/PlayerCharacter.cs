@@ -83,7 +83,8 @@ public class PlayerCharacter : Character {
                     Questtracking.GetComponent<QuestTracking>().speakobj();
                     break;
                 case TileType.Pickup:
-                    GameController.map.tiles[currentTile].GetComponent<Tile>().PickupItems();
+                    pickupui.GetComponent<PickupItemScreen>().ChangeInventory(GameController.map.tiles[currentTile].GetComponent<PickupInventory>());
+                    pickupui.GetComponent<PickupItemScreen>().Open();
                     break;
                 default:
                     break;

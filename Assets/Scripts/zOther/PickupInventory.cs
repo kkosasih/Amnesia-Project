@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PickupInventory : Inventory {
     public bool emptyAfterTransfer = false;
@@ -9,55 +8,47 @@ public class PickupInventory : Inventory {
     // Use this for initialization
     protected override void Start ()
     {
-        for (int i = 0; i < size; i++) //remember to increase based on database
-        {
-            inventory.Add(new Item());
-            slots.Add(GameObject.Find("PickupInventory").transform.GetChild(i).gameObject);
-        }
         //Starting Items
 
         //inventory[1] = database.items[1];
     }
 
-    // Transfer an item to another inventory
-    public override void TransferItem (Inventory other, int toTransfer)
+    // Set up the number of items
+    public void SetSize (int newSize)
     {
-        other.AddItemByItem(inventory[toTransfer]);
-        inventory[toTransfer] = new Item();
-        UpdateImages();
-        if (IsEmpty())
+        for (int i = 0; i < newSize; i++) //remember to increase based on database
         {
-            emptyAfterTransfer = true;
+            inventory.Add(new Item());
+            slots.Add(GameObject.Find("PickupInventory").transform.GetChild(i).gameObject);
         }
     }
 
-    // Checks if the inventory is empty
-    public bool IsEmpty ()
+    // Transfer an item to another inventory
+    public override void TransferItem (Inventory other, int toTransfer)
+    {
+        base.TransferItem(other, toTransfer);
+        DeleteIfEmpty();
+    }
+
+    // Transfer all items to another inventory
+    public override void TransferAllItems(Inventory other)
+    {
+        base.TransferAllItems(other);
+        DeleteIfEmpty();
+    }
+
+    // Deletes self if the inventory is empty
+    private void DeleteIfEmpty ()
     {
         foreach (Item i in inventory)
         {
             if (i.itemId != -1)
             {
-                return false;
+                return;
             }
         }
-        return true;
-    }
-
-    // Update the pickup inventory
-    public override void UpdateImages ()
-    {
-        for (int i = 0; i < size; ++i)
-        {
-            slots[i].transform.Find("ItemImage").GetComponent<Image>().sprite = inventory[i].itemIcon;
-            if (inventory[i].itemStack > 1)
-            {
-                slots[i].transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = inventory[i].itemStackAmount.ToString();
-            }
-            else
-            {
-                slots[i].transform.GetChild(i).Find("ItemAmount").GetComponent<Text>().text = "";
-            }
-        }
+        Destroy(GetComponent<SpriteRenderer>());
+        GetComponent<Tile>().type = GetComponent<Tile>().startType;
+        Destroy(this);
     }
 }

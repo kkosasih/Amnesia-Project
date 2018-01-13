@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour {
     public int columns;
     public float margin;
     public List<Item> inventory = new List<Item>();
-    public List<GameObject> slots;
+    public List<GameObject> slots = new List<GameObject>();
     //public GUISkin skin;
     //public GameObject Itemdata;
     //private bool showinventory = true;
@@ -190,7 +190,7 @@ public class Inventory : MonoBehaviour {
     }
 
     // Transfer all items to another inventory
-    public void TransferAllItems (Inventory other)
+    public virtual void TransferAllItems (Inventory other)
     {
         foreach (Item i in inventory)
         {
@@ -201,6 +201,19 @@ public class Inventory : MonoBehaviour {
         }
         Clear();
         UpdateImages();
+    }
+
+    // Checks if the inventory is empty
+    public bool IsEmpty ()
+    {
+        foreach (Item i in inventory)
+        {
+            if (i.itemId >= 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*void DrawInventory()
