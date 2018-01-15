@@ -16,6 +16,7 @@ public class PickupInventory : Inventory {
     // Set up the number of items
     public void SetSize (int newSize)
     {
+        size = newSize;
         for (int i = 0; i < newSize; i++) //remember to increase based on database
         {
             inventory.Add(new Item());

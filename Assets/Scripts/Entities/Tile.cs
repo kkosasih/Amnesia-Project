@@ -11,7 +11,6 @@ public class Tile : MonoBehaviour {
     public TileType startType;
     public Vector2 position;
     public List<Attack> attacks;
-    public ItemDropScript drops;
 
     // Use this for initialization
     void Start ()

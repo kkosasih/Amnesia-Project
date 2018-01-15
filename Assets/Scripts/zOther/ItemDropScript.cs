@@ -22,7 +22,6 @@ public class ItemDropScript : Character
         Destroy(healthSlider);
         bagItems.AddItemByID(2);
         GameController.map.tiles[currentTile].GetComponent<Tile>().type = TileType.Pickup;
-        GameController.map.tiles[currentTile].GetComponent<Tile>().drops = this;
     }
 
     protected override void Update()

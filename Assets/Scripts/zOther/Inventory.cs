@@ -165,7 +165,7 @@ public class Inventory : MonoBehaviour {
     }
 
     // Update the visual slots
-    public virtual void UpdateImages ()
+    public void UpdateImages ()
     {
         for (int i = 0; i < size; ++i)
         {
