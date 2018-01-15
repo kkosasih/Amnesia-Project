@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCharacter : Character {
+    public static PlayerCharacter instance;
     public int stamina;
     public int maxStamina;
     private Slider staminaSlider;
-    public GameObject item;
     public GameObject interactionbutton;
     public GameObject pickupui;
     public GameObject Questtracking;
@@ -21,6 +21,12 @@ public class PlayerCharacter : Character {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+    }
+
+    protected override void Start ()
+    {
+        base.Start();
+        instance = this;
     }
 
     // Update is called once per frame
@@ -77,7 +83,8 @@ public class PlayerCharacter : Character {
                     Questtracking.GetComponent<QuestTracking>().speakobj();
                     break;
                 case TileType.Pickup:
-                    pickupui.SetActive(true);
+                    pickupui.GetComponent<PickupItemScreen>().ChangeInventory(GameController.map.tiles[currentTile].GetComponent<PickupInventory>());
+                    pickupui.GetComponent<PickupItemScreen>().Open();
                     break;
                 default:
                     break;

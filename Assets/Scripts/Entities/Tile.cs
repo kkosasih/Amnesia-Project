@@ -7,13 +7,15 @@ using UnityEngine.UI;
 public class Tile : MonoBehaviour {
     public static bool debug = false;
     private GameObject debugText;
-    public TileType type;                            
+    public TileType type;
+    public TileType startType;
     public Vector2 position;
     public List<Attack> attacks;
 
     // Use this for initialization
     void Start ()
     {
+        startType = type;
         UpdatePosition(position);
         attacks = new List<Attack>();
         if (debug)

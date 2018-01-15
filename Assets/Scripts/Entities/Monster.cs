@@ -10,6 +10,10 @@ public class Monster : Character {
     protected override void Update ()
     {
         base.Update();
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>();
+        }
         if (movementPreventions == 0)
         {
             if (Mathf.Max(Mathf.Abs(HoriDistance()), Mathf.Abs(VertDistance())) <= 2)
@@ -36,12 +40,19 @@ public class Monster : Character {
     // Kill this character and drop an item
     public override void Die ()
     {
-        base.Die();
-        if (GameController.map.tiles[currentTile].GetComponent<Tile>().type != TileType.Pickup)
+        //inventory.GetComponent<QuestTracking>().questobj(name);
+        GameObject tile = GameController.map.tiles[currentTile];
+        tile.GetComponent<Tile>().type = TileType.Pickup;
+        if (tile.GetComponent<PickupInventory>() == null)
         {
-            pickuptile = true;
+            tile.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Item Icons/vest");
+            tile.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            tile.AddComponent<PickupInventory>();
+            tile.GetComponent<PickupInventory>().SetSize(4);
         }
-        GetComponent<EnemyItemDropScript>().EnemyDied(pickuptile,this.name);
+        // Add items here
+        tile.GetComponent<PickupInventory>().AddItemByID(2);
+        base.Die();
     }
 
     // Move closer to the player and reset the timing of movement to 0

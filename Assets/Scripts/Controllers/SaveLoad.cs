@@ -50,7 +50,7 @@ public class SaveLoad {
                 int idToAdd = PlayerPrefs.GetInt(slotNum + "Inventory" + i.ToString());
                 if (idToAdd != -1)
                 {
-                    inven.inventory[i] = GameObject.Find("Item Database").GetComponent<ItemDatabase>().items[idToAdd];
+                    inven.inventory[i] = ItemDatabase.items[idToAdd];
                 }
             }
         }

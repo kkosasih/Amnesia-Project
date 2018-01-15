@@ -98,7 +98,7 @@ public class Character : MonoBehaviour {
             if (i < path.Count - 1)
             {
                 yield return new WaitForSeconds(delay);
-            }
+            } 
         }
     }
 
@@ -134,7 +134,7 @@ public class Character : MonoBehaviour {
     {
         if (GameController.map != null)
         {
-            transform.position = GameController.map.tiles[currentTile].transform.position + new Vector3(0, 0, -1);
+            transform.position = GameController.map.tiles[currentTile].transform.position;
             onMap = true;
         }
     }
@@ -162,7 +162,7 @@ public class Character : MonoBehaviour {
     {
         moving = true;
         Vector3 oldPos = transform.position;
-        Vector3 newPos = GameController.map.tiles[moveTo].transform.position + new Vector3(0, 0, -1);
+        Vector3 newPos = GameController.map.tiles[moveTo].transform.position;
         for (float timePassed = 0; timePassed < Mathf.Min(0.5f, delay); timePassed += Time.deltaTime)
         {
             transform.position = Vector3.Lerp(oldPos, newPos, timePassed / Mathf.Min(0.5f, delay));

@@ -41,7 +41,7 @@ public class ItemPanel : MonoBehaviour {
     private bool MouseIsTouching ()
     {
         List<Vector2> bounds = Helper.FixedAnchorMinMax(transform);
-        return Input.mousePosition.x >= Screen.width * bounds[0].x && Input.mousePosition.x < Screen.width * bounds[1].x
+        return GetComponent<Image>().enabled && Input.mousePosition.x >= Screen.width * bounds[0].x && Input.mousePosition.x < Screen.width * bounds[1].x
             && Input.mousePosition.y >= Screen.height * bounds[0].y && Input.mousePosition.y < Screen.height * bounds[1].y;
     }
 }

@@ -14,6 +14,13 @@ public class GameController : MonoBehaviour {
         player = GameObject.FindWithTag("Player");
         inventory = GameObject.Find("Inventory");
         StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
+
+        Inventory inv = inventory.GetComponent<Inventory>();
+        inv.AddItemByID(0);
+        for (int i = 0; i < 5; ++i)
+        {
+            inv.AddItemByID(2);
+        }
     }
 	
 	// Update is called once per frame

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
 {
-    public List<Item> items = new List<Item>();
+    public static List<Item> items = new List<Item>();
     public string tempname;
-    public int var1;
-    public int var2;
-    public int var3;
+    public static int var1;
+    public static int var2;
+    public static int var3;
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Helmet("Stained Pot", 7, 255, "Label on side: \"Now made with stainless steel!!\"", 20, 1, 1));
     }
 
-    public string randomdrop(string tempname)
+    public static string randomdrop(string tempname)
     {
         var1 = Random.Range(1, 100);
         var2 = Random.Range(1, 10);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyItemDropScript : MonoBehaviour
 {
     public GameObject Item;         //Temporary name of the instatiated GameObject
-    public GameObject ItDatabase;   //Gameobject refering to the ItemDatabase
+    //public GameObject ItDatabase;   //Gameobject refering to the ItemDatabase
     public GameObject monster;
     public GameObject inventory;
     public GameController controller;
@@ -20,7 +20,6 @@ public class EnemyItemDropScript : MonoBehaviour
 
     void Start()
     {
-        ItDatabase = GameObject.Find("Item Database");
         controller = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
         inventory = GameObject.Find("Canvas");
         monster = this.gameObject;
@@ -28,43 +27,6 @@ public class EnemyItemDropScript : MonoBehaviour
 
     public void EnemyDied(bool pickuptile, string name)
     {
-        inventory.GetComponent<QuestTracking>().questobj(name);
-        if (pickuptile)
-        {
-            GameObject Item = Instantiate(Resources.Load<GameObject>("Prefab")); //Creates the Object
-            Item.name = "Lootbag";
-            Item.GetComponent<Transform>().position = this.GetComponent<Monster>().Mlocation();
-            Item.GetComponent<ItemDropScript>().currentTile = this.GetComponent<Monster>().currentTile;
-            Item.GetComponent<ItemDropScript>().SlimeAmount = Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
-            for (int i = 0; i < dropamount; i++)
-            {
-                tempname = ItDatabase.GetComponent<ItemDatabase>().randomdrop(this.name);
-                for (int j = 0; j < ItDatabase.GetComponent<ItemDatabase>().items.Count; j++)//Remember to increase depending on size of database
-                {
-                    if (tempname == ItDatabase.GetComponent<ItemDatabase>().items[j].itemName)
-                    {
-                        randomamount = Random.Range(1, ItDatabase.GetComponent<ItemDatabase>().items[j].itemStack);
-                    }
-                }
-                Item.GetComponent<ItemDropScript>().AddItem(tempname, randomamount);
-            }
-        }
-        else
-        {
-            //Something that gets the a reference to a the lootbag;
-            Item.GetComponent<ItemDropScript>().SlimeAmount += Random.Range(lowmoney, highmoney); //Where it changes how much currency was dropped
-            for (int i = 0; i < dropamount; i++)
-            {
-                tempname = ItDatabase.GetComponent<ItemDatabase>().randomdrop(this.name);
-                for (int j = 0; j < ItDatabase.GetComponent<ItemDatabase>().items.Count; j++)//Remember to increase depending on size of database
-                {
-                    if (tempname == ItDatabase.GetComponent<ItemDatabase>().items[j].itemName)
-                    {
-                        randomamount = Random.Range(1, ItDatabase.GetComponent<ItemDatabase>().items[j].itemStack);
-                    }
-                }
-                Item.GetComponent<ItemDropScript>().AddItem(tempname, randomamount);
-            }
-        }
+        
     }
 }
