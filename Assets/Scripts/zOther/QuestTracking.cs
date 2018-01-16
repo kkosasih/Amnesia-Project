@@ -48,7 +48,6 @@ public class QuestTracking : MonoBehaviour
         //For getting the started quest menu
         if(((questinc2 - 1) != questinc || (questinc == 0 && questinc2 == 0)) && (finuiup == false))
         {
-            Debug.Log("And");
             stfin.text = "Quest Start";
             FinUI2.alpha = 0;
             FinUI.SetActive(true);
@@ -62,7 +61,6 @@ public class QuestTracking : MonoBehaviour
         {
             if (finuiup == false && questList[z] != null && questList[z].mainquest != true)
             {
-                Debug.Log("Here");
                 stfin.text = "Quest Start";
                 FinUI2.alpha = 0;
                 finuiup = true;
