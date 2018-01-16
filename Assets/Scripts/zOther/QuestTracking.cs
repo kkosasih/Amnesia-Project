@@ -46,8 +46,9 @@ public class QuestTracking : MonoBehaviour
         }
 
         //For getting the started quest menu
-        if((questinc2 != questinc) && (finuiup == false))
+        if(((questinc2 - 1) != questinc || (questinc == 0 && questinc2 == 0)) && (finuiup == false))
         {
+            Debug.Log("And");
             stfin.text = "Quest Start";
             FinUI2.alpha = 0;
             FinUI.SetActive(true);
@@ -61,6 +62,7 @@ public class QuestTracking : MonoBehaviour
         {
             if (finuiup == false && questList[z] != null && questList[z].mainquest != true)
             {
+                Debug.Log("Here");
                 stfin.text = "Quest Start";
                 FinUI2.alpha = 0;
                 finuiup = true;
@@ -103,7 +105,7 @@ public class QuestTracking : MonoBehaviour
             Title.text = mainList[x].questname;
             for (int y = 0; y < mainList[x].questListloot.Count; y++)
             {
-                Inventory.GetComponent<Inventory>().AddItem(mainList[x].questListloot[y]);
+                //Inventory.GetComponent<Inventory>().AddItem(mainList[x].questListloot[y]);
             }
             fquestList.Add(mainList[x]);
             character[mainList[x].character,0] += 1;
@@ -115,7 +117,7 @@ public class QuestTracking : MonoBehaviour
             Title.text  = questList[x].questname;
             for (int y = 0; y < questList[x].questListloot.Count; y++)
             {
-                Inventory.GetComponent<Inventory>().AddItem(questList[x].questListloot[y]);
+                //Inventory.GetComponent<Inventory>().AddItem(questList[x].questListloot[y]);
             }
             character[questList[x].character, 0] += 1;
             character[questList[x].character, questList[x].characterprog] += 1;
