@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour {
     public static DialogueController instance;
+    public char branch = 'A';
     public List<DialoguePart> conversation;
     private UIPanel dialoguePanel;
     private int convoIndex = 0;
@@ -47,6 +48,9 @@ public class DialogueController : MonoBehaviour {
             {
                 case "Statement":
                     newConvo.Add(((GameObject)Instantiate(Resources.Load("Conversations/StatementObject"), transform)).GetComponent<Statement>());
+                    break;
+                case "Question":
+                    newConvo.Add((Instantiate(Resources.Load<GameObject>("Conversations/QuestionObject"), transform)).GetComponent<Question>());
                     break;
                 case "Camera":
                     newConvo.Add(((GameObject)Instantiate(Resources.Load("Conversations/MoveCamObject"), transform)).GetComponent<MoveCam>());
