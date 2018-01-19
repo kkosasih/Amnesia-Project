@@ -74,7 +74,7 @@ public class DialogueController : MonoBehaviour {
     // Move the conversation along
     public void AdvanceConversation ()
     {
-        if (++convoIndex >= conversation.Count)
+        if (convoIndex >= conversation.Count)
         {
             GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = true;
             --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
@@ -91,6 +91,7 @@ public class DialogueController : MonoBehaviour {
                 GameObject.Find("DialogueBox").transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Next";
             }
         }
+        Debug.Log(branch.ToString());
     }
 
     // Apply a new statement to the dialogue box

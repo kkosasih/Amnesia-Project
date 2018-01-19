@@ -33,7 +33,6 @@ public class Question : DialoguePart {
         {
             yield return new WaitForEndOfFrame();
         }
-        DialogueController.instance.branch = optionChosen;
         yield return new WaitForSeconds(time2);
         isRunning = false;
     }

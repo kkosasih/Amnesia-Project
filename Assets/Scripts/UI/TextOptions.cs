@@ -31,6 +31,7 @@ public class TextOptions : MonoBehaviour {
             rt.anchorMin = new Vector2(0.2f, 0.35f + 0.1f * options.Count - 0.2f * i);
             rt.anchorMax = new Vector2(0.8f, 0.45f + 0.1f * options.Count - 0.2f * i);
             g.transform.Find("Text").GetComponent<Text>().text = options[i];
+            g.GetComponent<ChoiceButton>().choice = (char)(i + 'A');
         }
     }
 }
