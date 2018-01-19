@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour {
     public static DialogueController instance;
-    public char branch = 'A';
+    public char branch = '*';
     public List<DialoguePart> conversation;
+    private string tree;
     private UIPanel dialoguePanel;
     private int convoIndex = 0;
 
@@ -68,16 +69,22 @@ public class DialogueController : MonoBehaviour {
         convoIndex = -1;
         GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = false;
         ++GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
+        tree = path;
+        branch = '*';
         AdvanceConversation();
     }
 
     // Move the conversation along
     public void AdvanceConversation ()
     {
-        if (convoIndex >= conversation.Count)
+        if (++convoIndex >= conversation.Count)
         {
             GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = true;
             --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
+            if (branch != '*')
+            {
+                ChangeConversation(tree + branch);
+            }
         }
         else
         {

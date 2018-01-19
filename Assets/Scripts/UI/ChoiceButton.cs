@@ -10,5 +10,6 @@ public class ChoiceButton : MonoBehaviour {
     public void SetChoice ()
     {
         DialogueController.instance.branch = choice;
+        GameObject.Find("ChoiceBox").GetComponent<UIPanel>().isOpen = false;
     }
 }

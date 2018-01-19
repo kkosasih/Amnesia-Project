@@ -15,7 +15,6 @@ public class Map : MonoBehaviour {
         Texture2D mapLayout = Resources.Load<Texture2D>("Maps/Textures/" + path);
         List<Color> data = Helper.ReverseInChunks(new List<Color>(mapLayout.GetPixels()), mapLayout.width);
         string[] entries = Resources.Load<TextAsset>("Maps/Tiles/" + path).text.Split(new string[] { "..." }, System.StringSplitOptions.None);
-        Debug.Log(entries.Length);
         width = mapLayout.width;
         height = mapLayout.height;
         tiles = new List<GameObject>(width * height);

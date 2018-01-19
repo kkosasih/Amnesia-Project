@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class Question : DialoguePart {
     public char optionChosen = 'A';
-    private List<string> options;
+    private List<string> options = new List<string>();
 
     // Change the variables based on a string
     public override void ChangeSettings (string data)
     {
         base.ChangeSettings(data);
         string[] parameters = data.Split('|');
-        options.AddRange(parameters[5].Split(','));
+        for (int i = 2; i < parameters.Length; ++i)
+        {
+            options.Add(parameters[i]);
+        }
     }
 
     // Changes the option chosen
