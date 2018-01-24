@@ -4,20 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCharacter : Character {
-    public static PlayerCharacter instance;
-    public int stamina;
-    public int maxStamina;
-    private Slider staminaSlider;
+    public static PlayerCharacter instance; // The instance script to reference
+    public int stamina;                     // The current stamina of the player
+    public int maxStamina;                  // The max stamina of the player
+    private Slider staminaSlider;           // The slider object to reference for stamina
     public GameObject interactionbutton;
     public GameObject pickupui;
     public GameObject Questtracking;
-    public Inventory inventory;
-    public string itemname; //Variable for getting specific item
-    private bool touching = false;
-    public LayerMask ItemLayer; //Check if the object is an item
+    public Inventory inventory;             // The inventory of the player
+    public string itemname;                 // Variable for getting specific item
+    //private bool touching = false;
+    public LayerMask ItemLayer;             // Check if the object is an item
 
     protected override void Awake ()
     {
+        // Set up other scripts
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
@@ -33,10 +34,13 @@ public class PlayerCharacter : Character {
     protected override void Update ()
     {
         base.Update();
+        // If not in a cutscene
         if (movementPreventions == 0)
         {
+            // If not moving at the moment
             if (lastMove >= delay && !moving)
             {
+                // Move controls
                 if (Input.GetKey(KeyCode.W))
                 {
                     Move(GameController.map.TileAbove(currentTile), Direction.Up);
@@ -54,7 +58,7 @@ public class PlayerCharacter : Character {
                     Move(GameController.map.TileRight(currentTile), Direction.Right);
                 }
             }
-
+            // Attack controls
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 StartCoroutine(Attack(Direction.Up));
@@ -73,7 +77,7 @@ public class PlayerCharacter : Character {
             }
         }
 
-        //Action button
+        //Action button uses
         if (Input.GetKeyDown(KeyCode.E) && movementPreventions == 0)
         {
             switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
@@ -90,7 +94,7 @@ public class PlayerCharacter : Character {
                     break;
             }
         }
-
+        // Interaction button situations
         if (onMap && movementPreventions == 0)
         {
             switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)
@@ -129,7 +133,7 @@ public class PlayerCharacter : Character {
         --movementPreventions;
     }
 
-    // Performs all special actions that a tile would perform
+    // Performs all special actions that a tile would perform when walking on it
     protected override void HandleTile ()
     {
         switch (GameController.map.tiles[currentTile].GetComponent<Tile>().type)

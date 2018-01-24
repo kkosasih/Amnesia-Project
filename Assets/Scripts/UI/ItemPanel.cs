@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class ItemPanel : MonoBehaviour {
-    public static ItemHolder holder;
-    public int invIndex;
+    public static ItemHolder holder;    // The holder assigned
+    public int invIndex;                // The index assigned to the panel
 
 	// Use this for initialization
 	void Start ()
@@ -27,6 +27,7 @@ public class ItemPanel : MonoBehaviour {
             GameObject.Find("Inventory").GetComponent<Inventory>().SwitchItems(ItemHolder.invIndex, invIndex);
         }
         */
+        // If clicked, update holder to this item
         if (Input.GetMouseButtonDown(0) && MouseIsTouching())
         {
             StartCoroutine(holder.UpdateItem(invIndex));

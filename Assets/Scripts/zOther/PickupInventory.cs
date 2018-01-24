@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupInventory : Inventory {
-    public bool emptyAfterTransfer = false;
+    public bool emptyAfterTransfer = false; // True only if the inventory is empty
 
     // Use this for initialization
     protected override void Start ()

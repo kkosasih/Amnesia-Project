@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DialoguePart : MonoBehaviour {
-    public bool isRunning = false;
-    protected float time1;
-    protected float time2;
+    public bool isRunning = false;  // Whether the part is active
+    protected float time1;          // The time to take before starting the part
+    protected float time2;          // The time to take after ending the part
 
     // Change the variables based on a string
     public virtual void ChangeSettings (string data)

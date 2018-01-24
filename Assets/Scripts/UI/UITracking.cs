@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UITracking : MonoBehaviour {
-    public GameObject obj;
-    public Vector3 offset;
+    public GameObject obj;  // The object to track
+    public Vector3 offset;  // The offset in screen pixels
 
 	// Use this for initialization
 	void Start ()

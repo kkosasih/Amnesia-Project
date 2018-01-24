@@ -5,19 +5,21 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Tile : MonoBehaviour {
-    public static bool debug = false;
-    private GameObject debugText;
-    public TileType type;
-    public TileType startType;
-    public Vector2 position;
-    public List<Attack> attacks;
+    public static bool debug = false;   // Whether the tiles show debug data
+    private GameObject debugText;       // The text put for tiles during debug
+    public TileType type;               // The type of the tile
+    public TileType startType;          // The beginning type of tile (to revert to it later)
+    public Vector2 position;            // The position of the tile in the world
+    public List<Attack> attacks;        // The attack values that are stored in the tile
 
     // Use this for initialization
     void Start ()
     {
+        // Initialize tile
         startType = type;
         UpdatePosition(position);
         attacks = new List<Attack>();
+        // Debugging
         if (debug)
         {
             debugText = Instantiate(Resources.Load<GameObject>("GUI/DebugText"), GameObject.Find("DynamicCanvas").transform);
@@ -28,10 +30,12 @@ public class Tile : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        // Debugging
         if (debug)
         {
             debugText.GetComponent<Text>().text = attacks.Count.ToString();
         }
+        // Update the attacks in the tile
         for (int i = 0; i < attacks.Count;)
         {
             Attack a = new Attack(attacks[i]);
@@ -59,6 +63,7 @@ public class Tile : MonoBehaviour {
     public int Damage (int team)
     {
         int result = 0;
+        // Iterate through attacks to find most damaging one
         foreach (Attack a in attacks)
         {
             if (a.id != team)
@@ -70,6 +75,7 @@ public class Tile : MonoBehaviour {
     }
 }
 
+// The tile types
 public enum TileType
 {
     Ground,

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour {
-    public Shop currentShop = null;
+    public Shop currentShop = null; // The shop attached to the ui
 
 	// Use this for initialization
 	void Start ()
@@ -21,10 +21,12 @@ public class ShopUI : MonoBehaviour {
     // Set the items in the store
     public void SetShop (Shop shop)
     {
+        // Remove past items
         for (int i = 0; i < transform.Find("Items").childCount; ++i)
         {
             Destroy(transform.Find("Items").GetChild(i).gameObject);
         }
+        // Set the shop and ui depending on number of items
         currentShop = shop;
         for (int i = 0; i < currentShop.items.Count; ++i)
         {

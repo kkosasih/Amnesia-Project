@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupItemScreen : MonoBehaviour {
-    private PickupInventory inventory;
+    private PickupInventory inventory;  // The inventory attached to the UI
 
     // Change the inventory that is shown
     public void ChangeInventory(PickupInventory newInv)
@@ -15,6 +15,7 @@ public class PickupItemScreen : MonoBehaviour {
     public void TakeItem (int index)
     {
         inventory.TransferItem(GameObject.Find("Inventory").GetComponent<Inventory>(), index);
+        // Close if no items left
         if (inventory.IsEmpty())
         {
             Close();

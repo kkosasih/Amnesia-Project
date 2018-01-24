@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Question : DialoguePart {
-    public char optionChosen = 'A';
-    private List<string> options = new List<string>();
+    public char optionChosen = 'A';                     // The option that was selected from choices
+    private List<string> options = new List<string>();  // The text of the given options
 
     // Change the variables based on a string
     public override void ChangeSettings (string data)

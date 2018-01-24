@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Statement : DialoguePart {
-    private string speaker;
-    private Sprite portrait;
-    private string speech;
+    private string speaker;     // The name of the speaker
+    private Sprite portrait;    // The portrait of the speaker
+    private string speech;      // What the speaker says
 
     // Change the variables based on a string
     public override void ChangeSettings (string data)

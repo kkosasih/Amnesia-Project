@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-    public static GameObject player;
-    public static GameObject inventory;
-    public static Map map;
+    public static GameObject player;    // The player object to track
+    public static GameObject inventory; // The player inventory to track
+    public static Map map;              // The game map to track
 
     // Use this for initialization
     void Start ()
@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour {
     {
         if (SceneManager.GetActiveScene().buildIndex != index)
         {
+            // Wait for scene to fully load
             AsyncOperation a = SceneManager.LoadSceneAsync(index);
             while (!a.isDone)
             {
@@ -92,6 +93,7 @@ public class GameController : MonoBehaviour {
         }
         FindMap();
         player.GetComponent<PlayerCharacter>().PlaceOnMap();
+        // Place static characters on map
         foreach (Character c in GameObject.Find("Characters").transform.GetComponentsInChildren<Character>())
         {
             c.PlaceOnMap();

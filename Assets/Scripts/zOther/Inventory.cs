@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
-    public int size;
-    public int columns;
-    public float margin;
-    public List<Item> inventory = new List<Item>();
-    public List<GameObject> slots = new List<GameObject>();
+    public int size;                                            // The number of items in the inventory
+    public int columns;                                         // The number of columns to use in the UI
+    public float margin;                                        // The margin for anchors to use in the UI
+    public List<Item> inventory = new List<Item>();             // The actual items
+    public List<GameObject> slots = new List<GameObject>();     // The UI items to manipulate
     //public GUISkin skin;
     //public GameObject Itemdata;
     //private bool showinventory = true;
@@ -55,12 +55,14 @@ public class Inventory : MonoBehaviour {
         }
     }*/
 
+    // Adds item from the database by name
     public void AddItem(string name)
     {
         for (int i = 0; i < 17; i++)// Remeber to increase based on inventory size (NOTE_TO_SELF make a variable later) ******** -W
         {
             if (inventory[i].itemName == null)
             {
+                // Search database by name
                 for (int j = 0; j < ItemDatabase.items.Count; j++)// Remember to increase depending on size of database
                 {
                     if (name == ItemDatabase.items[j].itemName)
@@ -84,7 +86,7 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    // Add items by ID
+    // Add items from database by ID
     public void AddItemByID (int id)
     {
         if (id >= ItemDatabase.items.Count)
@@ -92,8 +94,10 @@ public class Inventory : MonoBehaviour {
             Debug.Log("The Id is not in the database");
             return;
         }
+        // Search database by ID
         for (int i = 0; i < inventory.Count; ++i)
         {
+            // Item stacks
             if (inventory[i].itemId == id && inventory[i].itemStackAmount < inventory[i].itemStack)
             {
                 ++inventory[i].itemStackAmount;
@@ -113,6 +117,7 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < size; ++i)
         {
+            // Item stacks
             if (inventory[i].itemId == toAdd.itemId)
             {
                 if (inventory[i].itemStack - inventory[i].itemStackAmount >= toAdd.itemStackAmount)
@@ -164,7 +169,7 @@ public class Inventory : MonoBehaviour {
         return result;
     }
 
-    // Update the visual slots
+    // Update the visual slots to the images of the items
     public void UpdateImages ()
     {
         for (int i = 0; i < size; ++i)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraTracking : MonoBehaviour {
-    public Transform track;
+    public Transform track; // The transform to track
 
 	// Use this for initialization
 	void Start ()

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DialogueTracking {
-    public static bool innA = true;
+    public static bool innA = true; // Whether the first inn cutscene has played
 
     // Check for and play a cutscene if needed, returns whether a cutscene played
     public static bool CheckConversation ()

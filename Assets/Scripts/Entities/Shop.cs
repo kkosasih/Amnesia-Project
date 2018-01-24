@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shop : MonoBehaviour {
-    public int numOfItems;
-    public List<Item> items;
+    public int numOfItems;      // Number of items the shop has
+    public List<Item> items;    // The items that the shop has
     //private ItemDatabase database;
 
 	// Use this for initialization

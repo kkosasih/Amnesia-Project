@@ -20,10 +20,12 @@ public class TextOptions : MonoBehaviour {
     // Destroy current objects and create new ones
     public void CreateOptions (List<string> options)
     {
+        // Destroy past objects
         while (transform.childCount > 0)
         {
             Destroy(transform.GetChild(0).gameObject);
         }
+        // Make options buttons on screen depending on number assigned
         for (int i = 0; i < options.Count; ++i)
         {
             GameObject g = Instantiate(Resources.Load<GameObject>("GUI/ChoicePanel"), transform);

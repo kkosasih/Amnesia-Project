@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sign : MonoBehaviour {
-    public string path;
+    public string path; // The name of the text file to reference
 
 	// Use this for initialization
 	void Start ()

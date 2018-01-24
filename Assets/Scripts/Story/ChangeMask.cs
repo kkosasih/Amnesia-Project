@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChangeMask : DialoguePart {
-    private float time3;
-    private Color color;
+    private float time3;    // The time spent changing the mask
+    private Color color;    // The color to change the mask to
 
     // Change the variables based on a string
     public override void ChangeSettings (string data)

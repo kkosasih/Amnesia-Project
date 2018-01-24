@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : Character {
-    public PlayerCharacter player;
-    public bool pickuptile = false;
+    public PlayerCharacter player;  // The player script to track
+    //public bool pickuptile = false;
 
     // Update is called once per frame
     protected override void Update ()
     {
         base.Update();
+        // Find the player
         if (player == null)
         {
             player = GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>();
         }
+        // If not in a cutscene
         if (movementPreventions == 0)
         {
             if (Mathf.Max(Mathf.Abs(HoriDistance()), Mathf.Abs(VertDistance())) <= 2)
@@ -43,6 +45,7 @@ public class Monster : Character {
         //inventory.GetComponent<QuestTracking>().questobj(name); //It's here.
         GameObject tile = GameController.map.tiles[currentTile];
         tile.GetComponent<Tile>().type = TileType.Pickup;
+        // If the tile isn't already a pickup tile
         if (tile.GetComponent<PickupInventory>() == null)
         {
             tile.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Item Icons/vest");

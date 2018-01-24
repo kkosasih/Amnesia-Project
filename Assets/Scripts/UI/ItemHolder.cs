@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemHolder : MonoBehaviour {
-    public static int invIndex;
+    public static int invIndex; // The index that the holder has a "hold" of
 
 	// Use this for initialization
 	void Start ()
@@ -16,6 +16,7 @@ public class ItemHolder : MonoBehaviour {
 	void Update ()
     {
         GetComponent<RectTransform>().position = Input.mousePosition;
+        // Abandon item if not holding button
         if (Input.GetMouseButtonUp(0))
         {
             StartCoroutine(UpdateItem(-1));
@@ -27,6 +28,7 @@ public class ItemHolder : MonoBehaviour {
     {
         yield return new WaitForEndOfFrame();
         invIndex = index;
+        // Update the image to match the item held
         Image i = GetComponent<Image>();
         if (index >= 0)
         {

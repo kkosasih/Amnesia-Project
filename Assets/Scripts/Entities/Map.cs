@@ -4,23 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour {
-    public string path;
-    public int width;
-    public int height;
-    public List<GameObject> tiles;
+    public string path;             // The name of the map in resources
+    public int width;               // The width of the map in tiles
+    public int height;              // The height of the map in tiles
+    public List<GameObject> tiles;  // The list of tiles to reference
 
     // Use this for initialization
     void Start()
     {
+        // Find and read the mapping image
         Texture2D mapLayout = Resources.Load<Texture2D>("Maps/Textures/" + path);
         List<Color> data = Helper.ReverseInChunks(new List<Color>(mapLayout.GetPixels()), mapLayout.width);
         string[] entries = Resources.Load<TextAsset>("Maps/Tiles/" + path).text.Split(new string[] { "..." }, System.StringSplitOptions.None);
         width = mapLayout.width;
         height = mapLayout.height;
         tiles = new List<GameObject>(width * height);
+        // Set up special tiles
         List<int> entrances = new List<int>();
         List<int> shops = new List<int>();
         List<int> signs = new List<int>();
+        // Match colors in the picture to tile type
         for (int i = 0; i < data.Count; ++i)
         {
             if (data[i] == new Color(0, 1, 0))
@@ -52,6 +55,7 @@ public class Map : MonoBehaviour {
             }
             tiles[i].GetComponent<Tile>().UpdatePosition(new Vector2(i % width, -i / width));
         }
+        // Add in the special tiles to the given locations
         int entrancesI = 0, shopsI = 0, signsI = 0;
         for (int i = 0; i < entries.Length; ++i)
         {
@@ -75,6 +79,7 @@ public class Map : MonoBehaviour {
                     break;
             }
         }
+        // Place the map background sprite
         transform.Find("MapSprite").transform.position = new Vector3((float)width / 2 - 0.5f, (float)-height / 2 + 0.5f, 0);
     }
 

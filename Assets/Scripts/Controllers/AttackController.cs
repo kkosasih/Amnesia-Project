@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackController : MonoBehaviour {
-    public static AttackController instance;
+    public static AttackController instance;    // The instance to reference in other scripts
 
     // Use this for initialization
     void Start ()
@@ -16,6 +16,7 @@ public class AttackController : MonoBehaviour {
     {
         for (int i = 0; i < length; ++i)
         {
+            // Set the start tile
             int baseTile = -1;
             switch (dir)
             {
@@ -44,6 +45,7 @@ public class AttackController : MonoBehaviour {
                     p.duration = (length - 1) / speed;
                 }
             }
+            // Use width to make more projectiles
             for (int j = 1; j < width; ++j)
             {
                 if (dir == Direction.Up || dir == Direction.Down)
@@ -103,6 +105,7 @@ public class AttackController : MonoBehaviour {
                 }
             }
         }
+        // Make the walls
         GameObject g = Instantiate(Resources.Load<GameObject>("Attacks/FireWalls"), GameController.map.tiles[tile].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity);
         g.GetComponent<Projectile>().duration = length / speed;
         foreach (Projectile p in g.GetComponentsInChildren<Projectile>())

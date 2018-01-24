@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SaveLoad {
-    public static GameObject player = GameObject.FindWithTag("Player");
+    public static GameObject player = GameObject.FindWithTag("Player"); // The player object to keep track of
 
     // Saves the needed game info
     public static void Save (int slot)
     {
         string slotNum = slot.ToString();
+        // Save player data
         if (player != null)
         {
             PlayerPrefs.SetInt(slotNum + "SceneNum", SceneManager.GetActiveScene().buildIndex);
@@ -35,8 +36,10 @@ public class SaveLoad {
     public static void Load (int slot)
     {
         string slotNum = slot.ToString();
+        // Set scene for loading
         GameObject.Find("ShopWindow").GetComponent<UIPanel>().isOpen = false;
         GameObject.Find("DialogueBox").GetComponent<UIPanel>().isOpen = false;
+        // Load player data
         if (player != null)
         {
             player.GetComponent<PlayerCharacter>().currentTile = PlayerPrefs.GetInt(slotNum + "PlayerTile");

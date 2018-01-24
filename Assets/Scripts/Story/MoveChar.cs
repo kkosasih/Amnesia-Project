@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveChar : DialoguePart {
-    private Character charToMove;
-    private List<Direction> moveTo;
+    private Character charToMove;   // The character script to act upon
+    private List<Direction> moveTo; // The list of movement inputs for the character to move in
 
     // Change the variables based on a string
     public override void ChangeSettings (string data)

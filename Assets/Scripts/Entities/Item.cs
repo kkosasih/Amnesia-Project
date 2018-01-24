@@ -11,7 +11,7 @@ public class Item
     public int itemOutput;              //The Defense, Damage, or Health Regain strength of the item
     public string itemDesc;             //The Description
     public int itemStack;               //Max stack amount of an item
-    public int itemStackAmount;
+    public int itemStackAmount;         //Current stack amount of item
     public int itemValue;               //The monatery value of the item
     public Sprite itemIcon;          //How it looks
 

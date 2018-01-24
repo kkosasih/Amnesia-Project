@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveCam : DialoguePart {
-    private float time3;
-    private Vector3 moveTo;
+    private float time3;    // The time spend moving the camera
+    private Vector3 moveTo; // The position to move the camera t
 
     // Change the variables based on a string
     public override void ChangeSettings (string data)

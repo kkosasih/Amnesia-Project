@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    public Direction direction;
-    public float speed;
-    public float duration = 1;
+    public Direction direction; // The direction that it travels in
+    public float speed;         // How quickly it travels in units per second
+    public float duration = 1;  // How long the projectile lasts before death
 
 	// Use this for initialization
 	void Start ()
     {
+        // Rotate based on chosen direction
 		switch(direction)
         {
             case Direction.Up:
@@ -32,6 +33,7 @@ public class Projectile : MonoBehaviour {
     {
         transform.Translate(Time.deltaTime * speed, 0, 0);
         duration -= Time.deltaTime;
+        // Check for death
         if (duration <= 0)
         {
             Destroy(gameObject);

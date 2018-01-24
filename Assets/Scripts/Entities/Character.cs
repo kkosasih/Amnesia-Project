@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Character : MonoBehaviour {
-    public int teamID;
-    public bool onMap = false;
-    public int currentTile;
-    public int movementPreventions = 0;
-    public bool moving = false;
-    public float delay;
-    public float lastMove = 0.0f;
-    public int lastTile = -1;
-    public int health;
-    public int maxHealth;
-    public GameObject healthSlider;
-    protected bool attacked = false;
-    protected Coroutine movementRoutine;
-    protected Animator _animator;
+    public int teamID;                      // The team that the character belongs to; no friendly fire
+    public bool onMap = false;              // Whether the character is placed on the map  
+    public int currentTile;                 // The tile number that the character is on
+    public int movementPreventions = 0;     // 0 if not in a cutscene, a number otherwise
+    public bool moving = false;             // Whether the character is moving
+    public float delay;                     // How long it takes to move between tiles
+    public float lastMove = 0.0f;           // Time since the last movement
+    public int lastTile = -1;               // The last tile the character was on
+    public int health;                      // The health of the character
+    public int maxHealth;                   // The maximum health of the character
+    public GameObject healthSlider;         // The slider to reference for health
+    protected bool attacked = false;        // Whether the character has been hit recently
+    protected Coroutine movementRoutine;    // The animation coroutine to play/stop
+    protected Animator _animator;           // The Animator component attached
 
     protected virtual void Awake ()
     {

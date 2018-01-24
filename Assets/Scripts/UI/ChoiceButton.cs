@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChoiceButton : MonoBehaviour {
-    public char choice = 'A';
+    public char choice = 'A';   // The choice that is accompanied with the button
 
     // Change the dialogueController option
     public void SetChoice ()
