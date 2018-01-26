@@ -94,22 +94,8 @@ public class Inventory : MonoBehaviour {
             Debug.Log("The Id is not in the database");
             return;
         }
-        // Search database by ID
-        for (int i = 0; i < inventory.Count; ++i)
-        {
-            // Item stacks
-            if (inventory[i].itemId == id && inventory[i].itemStackAmount < inventory[i].itemStack)
-            {
-                ++inventory[i].itemStackAmount;
-                break;
-            }
-            else if (inventory[i].itemId == -1)
-            {
-                inventory[i] = ItemDatabase.items[id];
-                break;
-            }
-        }
-        UpdateImages();
+        // Add a new item (so the database doesn't change)
+        AddItemByItem(new Item(ItemDatabase.items[id]));
     }
 
     // Add items by raw items
