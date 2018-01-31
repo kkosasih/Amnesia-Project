@@ -7,6 +7,7 @@ public class PlayerCharacter : Character {
     public static PlayerCharacter instance; // The instance script to reference
     public int stamina;                     // The current stamina of the player
     public int maxStamina;                  // The max stamina of the player
+	public int staminaDepletionAttack;      // How much stamina is depleted when player attacks
     private Slider staminaSlider;           // The slider object to reference for stamina
     public GameObject interactionbutton;
     public GameObject pickupui;
@@ -59,22 +60,28 @@ public class PlayerCharacter : Character {
                 }
             }
             // Attack controls
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                StartCoroutine(Attack(Direction.Up));
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                StartCoroutine(Attack(Direction.Down));
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                StartCoroutine(Attack(Direction.Left));
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                StartCoroutine(Attack(Direction.Right));
-            }
+			if (stamina >= staminaDepletionAttack)
+			{
+				if (Input.GetKeyDown (KeyCode.UpArrow))
+				{
+					StartCoroutine (Attack (Direction.Up));
+				}
+				else
+				if (Input.GetKeyDown (KeyCode.DownArrow))
+				{
+					StartCoroutine (Attack (Direction.Down));
+				}
+				else
+				if (Input.GetKeyDown (KeyCode.LeftArrow))
+				{
+					StartCoroutine (Attack (Direction.Left));
+				}
+				else
+				if (Input.GetKeyDown (KeyCode.RightArrow))
+				{
+					StartCoroutine (Attack (Direction.Right));
+				}
+			}
         }
 
         //Action button uses
@@ -120,7 +127,7 @@ public class PlayerCharacter : Character {
     public override void Move (int moveTo, Direction dir)
     {
         base.Move(moveTo, dir);
-        ChangeStamina(Random.Range(0, 100));
+        //ChangeStamina(Random.Range(0, 100));
     }
 
     // Attack in a given direction dir
@@ -131,6 +138,7 @@ public class PlayerCharacter : Character {
         yield return new WaitForSeconds(0.5f);
         AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, currentTile, 5, 2, 5);
         --movementPreventions;
+		ChangeStamina (stamina - staminaDepletionAttack);
     }
 
     // Performs all special actions that a tile would perform when walking on it
