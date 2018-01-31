@@ -89,7 +89,7 @@ public class QuestTracking : MonoBehaviour
                 finuiup = true;
                 fquestList.Add(questList[z]);
                 FinishQuest(z);
-                questList[z] = null;
+                questList.Remove(questList[z]);
             }
         }
     }

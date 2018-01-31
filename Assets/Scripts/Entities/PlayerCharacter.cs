@@ -91,7 +91,6 @@ public class PlayerCharacter : Character {
             {
                 case TileType.Sign:
                     GameController.map.tiles[currentTile].GetComponent<Sign>().ReadSign();
-                    //Questtracking.GetComponent<QuestTracking>().speakobj();
                     break;
                 case TileType.Pickup:
                     pickupui.GetComponent<PickupItemScreen>().ChangeInventory(GameController.map.tiles[currentTile].GetComponent<PickupInventory>());

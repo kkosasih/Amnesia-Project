@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SaveLoad {
-    public static GameObject player = GameObject.FindWithTag("Player"); // The player object to keep track of
+    public static GameObject player = GameObject.FindWithTag("Player");
+    public static GameObject ccreation = GameObject.Find("Character Creation");
 
     // Saves the needed game info
     public static void Save (int slot)
@@ -17,6 +18,9 @@ public class SaveLoad {
             PlayerPrefs.SetInt(slotNum + "PlayerTile", player.GetComponent<PlayerCharacter>().currentTile);
             PlayerPrefs.SetInt(slotNum + "PlayerHealth", player.GetComponent<PlayerCharacter>().health);
             PlayerPrefs.SetInt(slotNum + "PlayerStamina", player.GetComponent<PlayerCharacter>().stamina);
+            PlayerPrefs.SetString(slotNum + "Head", ccreation.GetComponent<CharacterLooks>().headc);
+            PlayerPrefs.SetString(slotNum + "Cloth", ccreation.GetComponent<CharacterLooks>().clothec);
+            PlayerPrefs.SetString(slotNum + "Shoe", ccreation.GetComponent<CharacterLooks>().shoec);
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             for (int i = 0; i < inven.inventory.Count; ++i)
             {
@@ -46,6 +50,9 @@ public class SaveLoad {
             GameController.SetUpScene(PlayerPrefs.GetInt(slotNum + "SceneNum"));
             player.GetComponent<PlayerCharacter>().ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
             player.GetComponent<PlayerCharacter>().ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
+            //GameObject.Find("Headp").GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterTemp/" + PlayerPrefs.GetInt(slotNum + "Head"));
+            //GameObject.Find("Clothp").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("CharacterTemp/" + PlayerPrefs.GetInt(slotNum + "Cloth"));
+            //GameObject.Find("Shoep").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("CharacterTemp/" + PlayerPrefs.GetInt(slotNum + "Shoe"));
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             inven.Clear();
             for (int i = 0; i < inven.inventory.Count; ++i)

@@ -5,12 +5,15 @@ using UnityEngine;
 public class Monster : Character {
     public PlayerCharacter player;  // The player script to track
     //public bool pickuptile = false;
+    public GameObject canvas;
 
     // Update is called once per frame
     protected override void Update ()
     {
         base.Update();
         // Find the player
+
+        canvas = GameObject.Find("Canvas");
         if (player == null)
         {
             player = GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>();
@@ -42,7 +45,7 @@ public class Monster : Character {
     // Kill this character and drop an item
     public override void Die ()
     {
-        //inventory.GetComponent<QuestTracking>().questobj(name); //It's here.
+        canvas.GetComponent<QuestTracking>().questobj(name);
         GameObject tile = GameController.map.tiles[currentTile];
         tile.GetComponent<Tile>().type = TileType.Pickup;
         // If the tile isn't already a pickup tile

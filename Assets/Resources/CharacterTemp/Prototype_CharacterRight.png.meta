@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 3ac429dda0ee0334883a91f95048d13e
-timeCreated: 1512406378
+guid: 81bf6cf87161faf4aa5b591e43765ffa
+timeCreated: 1515005708
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Prototype_Character_1_0
-    21300002: Prototype_Character_1_1
-    21300004: Prototype_Character_1_2
-    21300006: Prototype_Character_1_3
-    21300008: Prototype_Character_1_4
-    21300010: Prototype_Character_1_5
-    21300012: Prototype_Character_1_6
+    21300000: Prototype_CharacterRight_0
+    21300002: Prototype_CharacterRight_1
+    21300004: Prototype_CharacterRight_2
+    21300006: Prototype_CharacterRight_3
+    21300008: Prototype_CharacterRight_4
+    21300010: Prototype_CharacterRight_5
+    21300012: Prototype_CharacterRight_6
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -107,7 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Prototype_Character_1_0
+      name: Prototype_CharacterRight_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,7 +121,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Prototype_Character_1_1
+      name: Prototype_CharacterRight_1
       rect:
         serializedVersion: 2
         x: 16
@@ -135,7 +135,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Prototype_Character_1_2
+      name: Prototype_CharacterRight_2
       rect:
         serializedVersion: 2
         x: 32
@@ -149,7 +149,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Prototype_Character_1_3
+      name: Prototype_CharacterRight_3
       rect:
         serializedVersion: 2
         x: 48
@@ -163,7 +163,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Prototype_Character_1_4
+      name: Prototype_CharacterRight_4
       rect:
         serializedVersion: 2
         x: 64
@@ -177,7 +177,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Prototype_Character_1_5
+      name: Prototype_CharacterRight_5
       rect:
         serializedVersion: 2
         x: 80
@@ -191,7 +191,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Prototype_Character_1_6
+      name: Prototype_CharacterRight_6
       rect:
         serializedVersion: 2
         x: 96
