@@ -16,6 +16,7 @@ public class PlayerCharacter : Character {
     public string itemname;                 // Variable for getting specific item
     //private bool touching = false;
     public LayerMask ItemLayer;             // Check if the object is an item
+    private AudioSource footstepsAudio;     // The audio played when the player moves
 
     protected override void Awake ()
     {
@@ -23,6 +24,7 @@ public class PlayerCharacter : Character {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+        footstepsAudio = GetComponent<AudioSource>();
     }
 
     protected override void Start ()
@@ -82,6 +84,15 @@ public class PlayerCharacter : Character {
 					StartCoroutine (Attack (Direction.Right));
 				}
 			}
+            if (moving && !footstepsAudio.isPlaying)
+            {
+                footstepsAudio.time = 0.5f;
+                footstepsAudio.Play();
+            }
+            else if (!moving && footstepsAudio.isPlaying)
+            {
+                footstepsAudio.Stop();
+            }
         }
 
         //Action button uses
