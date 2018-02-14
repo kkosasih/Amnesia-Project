@@ -22,11 +22,12 @@ public class PlayerCharacter : Character {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+        _animator = GetComponent<Animator>();
     }
 
-    protected override void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        base.Start();
         instance = this;
     }
 
@@ -43,19 +44,19 @@ public class PlayerCharacter : Character {
                 // Move controls
                 if (Input.GetKey(KeyCode.W))
                 {
-                    Move(GameController.map.TileAbove(currentTile), Direction.Up);
+                    Move(Direction.Up);
                 }
                 else if (Input.GetKey(KeyCode.S))
                 {
-                    Move(GameController.map.TileBelow(currentTile), Direction.Down);
+                    Move(Direction.Down);
                 }
                 else if (Input.GetKey(KeyCode.A))
                 {
-                    Move(GameController.map.TileLeft(currentTile), Direction.Left);
+                    Move(Direction.Left);
                 }
                 else if (Input.GetKey(KeyCode.D))
                 {
-                    Move(GameController.map.TileRight(currentTile), Direction.Right);
+                    Move(Direction.Right);
                 }
             }
             // Attack controls
@@ -114,6 +115,13 @@ public class PlayerCharacter : Character {
         {
             interactionbutton.gameObject.SetActive(false);
         }
+    }
+
+    // Move the character to an adjacent tile with an animation
+    public override void Move(Direction dir)
+    {
+        base.Move(dir);
+        ChangeStamina(Random.Range(0, 100));
     }
 
     // Move the character to another tile with an animation

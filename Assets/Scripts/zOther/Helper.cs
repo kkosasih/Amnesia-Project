@@ -153,4 +153,10 @@ public class Helper {
         }
         return result;
     }
+
+    // Gives a random color
+    public static Color RandomColor (bool useAlpha)
+    {
+        return new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), useAlpha ? Random.Range(0f, 1f) : 1);
+    }
 }

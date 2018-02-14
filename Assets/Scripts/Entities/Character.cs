@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour {
     public int teamID;                      // The team that the character belongs to; no friendly fire
     public bool onMap = false;              // Whether the character is placed on the map  
+    public MapNode node;                    // The current node that the character is in
     public int currentTile;                 // The tile number that the character is on
     public int movementPreventions = 0;     // 0 if not in a cutscene, a number otherwise
     public bool moving = false;             // Whether the character is moving
@@ -25,14 +26,9 @@ public class Character : MonoBehaviour {
         UITracking uit = healthSlider.GetComponent<UITracking>();
         uit.obj = gameObject;
         uit.offset = new Vector3(0, 40, 0);
-    }
-
-    // Use this for initialization
-    protected virtual void Start ()
-    {
         _animator = GetComponent<Animator>();
     }
-	
+
 	// Update is called once per frame
 	protected virtual void Update ()
     {
@@ -58,6 +54,39 @@ public class Character : MonoBehaviour {
         }
 	}
 
+    // Move the character to an adjacent tile with an animation
+    public virtual void Move (Direction dir)
+    {
+        _animator.SetInteger("direction", (int)dir);
+        int moveTo = -1;
+        switch (dir)
+        {
+            case Direction.Up:
+                moveTo = GameController.map.TileAboveStrict(currentTile);
+                break;
+            case Direction.Down:
+                moveTo = GameController.map.TileBelowStrict(currentTile);
+                break;
+            case Direction.Left:
+                moveTo = GameController.map.TileLeftStrict(currentTile);
+                break;
+            case Direction.Right:
+                moveTo = GameController.map.TileRightStrict(currentTile);
+                break;
+        }
+        if (GameController.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall)
+        {
+            lastMove = 0.0f;
+            lastTile = currentTile;
+            StartCoroutine(ChangeTile(moveTo));
+            if (movementRoutine != null)
+            {
+                StopCoroutine(movementRoutine);
+            }
+            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moving", true, false, Mathf.Min(0.5f, delay)));
+        }
+    }
+
     // Move the character to another tile with an animation
     public virtual void Move (int moveTo, Direction dir)
     {
@@ -79,27 +108,63 @@ public class Character : MonoBehaviour {
     public IEnumerator AutoMove (List<Direction> path)
     {
         for (int i = 0; i < path.Count; ++i)
-        {
-            switch (path[i])
-            {
-                case Direction.Up:
-                    Move(GameController.map.TileAbove(currentTile), path[i]);
-                    break;
-                case Direction.Down:
-                    Move(GameController.map.TileBelow(currentTile), path[i]);
-                    break;
-                case Direction.Left:
-                    Move(GameController.map.TileLeft(currentTile), path[i]);
-                    break;
-                case Direction.Right:
-                    Move(GameController.map.TileRight(currentTile), path[i]);
-                    break;
-            }
+        {   
+            // Move for each step
+            Move(path[i]);
             if (i < path.Count - 1)
             {
                 yield return new WaitForSeconds(delay);
             } 
         }
+    }
+
+    // Move the character to a specific tile automatically
+    public IEnumerator AutoMove (int destination)
+    {
+        List<MapNode> path = GameController.map.FindPath(node, GameController.map.NodeTileIn(destination));
+        // Move to the correct node
+        for (int i = 1; i < path.Count; ++i)
+        { 
+            int step = node.GateToNode(path[i], currentTile);
+            while (currentTile != step)
+            {
+                Move(DirectionToward(step));
+                yield return new WaitForSeconds(delay + 0.05f);
+            }
+            Move(node.adjacentNodes[path[i]]);
+            yield return new WaitForSeconds(delay + 0.05f);
+        }
+        // Move to the correct tile within the node
+        while (currentTile != destination)
+        {
+            Move(DirectionToward(destination));
+            yield return new WaitForSeconds(delay + 0.05f);
+        }
+    }
+
+    // Move the character to a destination by one step
+    public IEnumerator AutoMoveOneStep (int destination)
+    {
+        List<MapNode> path = GameController.map.FindPath(node, GameController.map.NodeTileIn(destination));
+        // Move toward correct node
+        if (path.Count > 1)
+        {
+            int gateNode = node.GateToNode(path[1], currentTile);
+            if (currentTile != gateNode)
+            {
+                Move(DirectionToward(node.GateToNode(path[1], currentTile)));
+            }
+            else
+            {
+                Move(node.adjacentNodes[path[1]]);
+            }
+        }
+        // Or move to the tile directly
+        else
+        {
+            Move(DirectionToward(destination));
+        }
+        yield return new WaitForSeconds(delay);
     }
 
     // Attack in a given direction dir
@@ -135,6 +200,7 @@ public class Character : MonoBehaviour {
         if (GameController.map != null)
         {
             transform.position = GameController.map.tiles[currentTile].transform.position;
+            node = GameController.map.NodeTileIn(currentTile);
             onMap = true;
         }
     }
@@ -170,6 +236,7 @@ public class Character : MonoBehaviour {
         }
         transform.position = newPos;
         currentTile = moveTo;
+        node = GameController.map.NodeTileIn(currentTile);
         HandleTile();
         moving = false;
     }
@@ -185,6 +252,45 @@ public class Character : MonoBehaviour {
     {
         return GameController.map.tiles[currentTile].GetComponent<Tile>().Damage(teamID) > 0;
     }
+
+    // Get the horizontal distance from a tile; negative is tile to right, positive is tile to left
+    protected int HoriDistance (int tile)
+    {
+        return currentTile % GameController.map.width - tile % GameController.map.width;
+    }
+
+    // Get the vertical distance from a tile; negative is tile below, positive is tile above
+    protected int VertDistance (int tile)
+    {
+        return currentTile / GameController.map.width - tile / GameController.map.width;
+    }
+
+    // Get the direction to move in towards a certain tile
+    protected Direction DirectionToward (int destination)
+    {
+        int hDis = HoriDistance(destination);
+        int vDis = VertDistance(destination);
+        if (Mathf.Abs(vDis) > Mathf.Abs(hDis) && vDis > 0)
+        {
+            return Direction.Up;
+        }
+        else if (Mathf.Abs(vDis) > Mathf.Abs(hDis) && vDis < 0)
+        {
+            return Direction.Down;
+        }
+        else if (Mathf.Abs(hDis) >= Mathf.Abs(vDis) && hDis > 0)
+        {
+            return Direction.Left;
+        }
+        else if (Mathf.Abs(hDis) >= Mathf.Abs(vDis) && hDis < 0)
+        {
+            return Direction.Right;
+        }
+        else
+        {
+            return Direction.Invalid;
+        }
+    }
 }
 
 public enum Direction
@@ -192,5 +298,6 @@ public enum Direction
     Up,
     Down,
     Left,
-    Right
+    Right,
+    Invalid
 }

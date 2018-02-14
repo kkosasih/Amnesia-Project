@@ -14,7 +14,7 @@ public class ItemDropScript : Character
     public bool empty = false;
 
     // Use this for initialization
-    protected override void Start()
+    void Start ()
     {
         ui = GameObject.Find("PickupInventory");
         bag = this.gameObject;

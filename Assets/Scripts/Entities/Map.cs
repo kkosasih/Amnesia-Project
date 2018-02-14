@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class Map : MonoBehaviour {
     public string path;             // The name of the map in resources
     public int width;               // The width of the map in tiles
     public int height;              // The height of the map in tiles
     public List<GameObject> tiles;  // The list of tiles to reference
+    public List<MapNode> nodes;     // The list of nodes for pathfinding
 
     // Use this for initialization
     void Start()
@@ -19,6 +21,7 @@ public class Map : MonoBehaviour {
         width = mapLayout.width;
         height = mapLayout.height;
         tiles = new List<GameObject>(width * height);
+        List<int> badNodeTiles = new List<int>();
         // Set up special tiles
         List<int> entrances = new List<int>();
         List<int> shops = new List<int>();
@@ -33,6 +36,7 @@ public class Map : MonoBehaviour {
             else if (data[i] == new Color(1, 0, 0))
             {
                 tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Wall Tile"), transform));
+                badNodeTiles.Add(i);
             }
             else if (data[i] == new Color(0, 0, 1))
             {
@@ -55,6 +59,7 @@ public class Map : MonoBehaviour {
             }
             tiles[i].GetComponent<Tile>().UpdatePosition(new Vector2(i % width, -i / width));
         }
+        SetUpNodes(badNodeTiles);
         // Add in the special tiles to the given locations
         int entrancesI = 0, shopsI = 0, signsI = 0;
         for (int i = 0; i < entries.Length; ++i)
@@ -158,6 +163,97 @@ public class Map : MonoBehaviour {
     // Return the position of the tile dis number of tiles to the right of pos if applicable
     public int TileRightStrict (int pos, int dis)
     {
-        return pos < 0 || pos + dis > (pos / width + 1) * width - dis ? -1 : pos + dis;
+        return pos < 0 || pos + dis > (pos / width + 1) * width - 1 ? -1 : pos + dis;
+    }
+
+    // Return the node that the given tile is in
+    public MapNode NodeTileIn(int tile)
+    {
+        foreach (MapNode m in nodes)
+        {
+            if (m.TileIsIn(tile))
+            {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    // Return the list of nodes that make a path from start to end
+    public List<MapNode> FindPath (MapNode start, MapNode end)
+    {
+        List<MapNode> result = new List<MapNode> { start };
+        if (start == end)
+        {
+            return result;
+        }
+        // See if end is adjacent to start
+        foreach (MapNode mn in start.adjacentNodes.Keys)
+        {
+            if (mn == end)
+            {
+                result.Add(mn);
+                return result;
+            }
+        }
+        // Perform an A* search based on distance
+        foreach (MapNode m in start.GetSortedKeys(end))
+        {
+            // To prevent infinite back-and-forth searches
+            List<MapNode> search = FindPath(m, end, new List<MapNode> { start });
+            if (search[search.Count - 1] == end)
+            {
+                result.AddRange(search);
+                return result;
+            }
+        }
+        return result;
+    }
+
+    // A private version of FindPath for recursive calls
+    private List<MapNode> FindPath (MapNode start, MapNode end, List<MapNode> noSearch)
+    {
+        List<MapNode> result = new List<MapNode> { start };
+        // See if end is adjacent to start
+        foreach (MapNode mn in start.adjacentNodes.Keys)
+        {
+            if (mn == end)
+            {
+                result.Add(mn);
+                return result;
+            }
+        }
+        // Perform an A* search based on distance
+        foreach (MapNode m in start.GetSortedKeys(end))
+        {
+            // To prevent infinite back-and-forth searches
+            if (!noSearch.Contains(m))
+            {
+                List<MapNode> newNoSearch = new List<MapNode>(noSearch);
+                newNoSearch.Add(m);
+                List<MapNode> search = FindPath(m, end, newNoSearch);
+                if (search[search.Count - 1] == end)
+                {
+                    result.AddRange(search);
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+
+    // Set up the nodes that are needed for pathfinding
+    private void SetUpNodes (List<int> badTiles)
+    {
+        nodes = new List<MapNode>();
+        for (int i = 0; i < tiles.Count; ++i)
+        {
+            if (NodeTileIn(i) == null && tiles[i].GetComponent<Tile>().type != TileType.Wall)
+            {
+                nodes.Add(new MapNode(this, i, badTiles));
+                nodes[nodes.Count - 1].FindAdjacents(nodes);
+                badTiles.AddRange(nodes[nodes.Count - 1].TilesCovered());
+            }
+        }
     }
 }

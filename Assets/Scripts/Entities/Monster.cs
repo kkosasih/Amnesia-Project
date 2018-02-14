@@ -18,13 +18,13 @@ public class Monster : Character {
         // If not in a cutscene
         if (movementPreventions == 0)
         {
-            if (Mathf.Max(Mathf.Abs(HoriDistance()), Mathf.Abs(VertDistance())) <= 2)
+            if (Mathf.Max(Mathf.Abs(HoriDistance(player.currentTile)), Mathf.Abs(player.currentTile)) <= 2)
             {
                 StartCoroutine(Attack(Direction.Up));
             }
             else if (lastMove >= delay && !moving)
             {
-                MoveToPlayer();
+                StartCoroutine(AutoMoveOneStep(player.currentTile));
             }
         }
     }
@@ -56,39 +56,6 @@ public class Monster : Character {
         // Add items here
         tile.GetComponent<PickupInventory>().AddItemByID(2);
         base.Die();
-    }
-
-    // Move closer to the player and reset the timing of movement to 0
-    private void MoveToPlayer ()
-    {
-        if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() > 0)
-        {
-            Move(GameController.map.TileAbove(currentTile), Direction.Up);
-        }
-        else if (Mathf.Abs(VertDistance()) > Mathf.Abs(HoriDistance()) && VertDistance() < 0)
-        {
-            Move(GameController.map.TileBelow(currentTile), Direction.Down);
-        }
-        else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() > 0)
-        {
-            Move(GameController.map.TileLeft(currentTile), Direction.Left);
-        }
-        else if (Mathf.Abs(HoriDistance()) >= Mathf.Abs(VertDistance()) && HoriDistance() < 0)
-        {
-            Move(GameController.map.TileRight(currentTile), Direction.Right);
-        }
-    }
-
-    // Get the horizontal distance from player; negative is player to right, positive is player to left
-    private int HoriDistance ()
-    {
-        return currentTile % GameController.map.width - player.currentTile % GameController.map.width;
-    }
-
-    // Get the vertical distance from player; negative is player below, positive is player above
-    private int VertDistance ()
-    {
-        return currentTile / GameController.map.width - player.currentTile / GameController.map.width;
     }
 
     public Vector3 Mlocation ()
