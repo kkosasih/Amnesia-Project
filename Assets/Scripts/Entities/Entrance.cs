@@ -8,6 +8,12 @@ public class Entrance : MonoBehaviour {
     public int sceneTo;         // The scene index to load
     public int tileFrom;        // The tile to enter at
     public Direction moveTo;    // The direction to automatically move when entering
+    private AudioSource entranceAudio; // The audio played when an entrance is used
+
+    private void Awake()
+    {
+        entranceAudio = GetComponent<AudioSource>();
+    }
 
     // Use this for initialization
     void Start ()
@@ -30,6 +36,8 @@ public class Entrance : MonoBehaviour {
         GameObject player = GameObject.FindWithTag("Player");
         Image mask = GameObject.FindWithTag("UIMask").GetComponent<Image>();
         player.GetComponent<PlayerCharacter>().onMap = false;
+        entranceAudio.time = 0.5f;
+        entranceAudio.Play();
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
         player.GetComponent<PlayerCharacter>().currentTile = tileFrom;
         yield return StartCoroutine(GameController.SetUpScene(sceneTo));

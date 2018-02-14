@@ -7,6 +7,7 @@ public class PlayerCharacter : Character {
     public static PlayerCharacter instance; // The instance script to reference
     public int stamina;                     // The current stamina of the player
     public int maxStamina;                  // The max stamina of the player
+	public int staminaDepletionAttack;      // How much stamina is depleted when player attacks
     private Slider staminaSlider;           // The slider object to reference for stamina
     public GameObject interactionbutton;
     public GameObject pickupui;
@@ -15,6 +16,7 @@ public class PlayerCharacter : Character {
     public string itemname;                 // Variable for getting specific item
     //private bool touching = false;
     public LayerMask ItemLayer;             // Check if the object is an item
+    private AudioSource footstepsAudio;     // The audio played when the player moves
 
     protected override void Awake ()
     {
@@ -22,6 +24,7 @@ public class PlayerCharacter : Character {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+        footstepsAudio = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
     }
 
@@ -60,21 +63,36 @@ public class PlayerCharacter : Character {
                 }
             }
             // Attack controls
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+			if (stamina >= staminaDepletionAttack)
+			{
+				if (Input.GetKeyDown (KeyCode.UpArrow))
+				{
+					StartCoroutine (Attack (Direction.Up));
+				}
+				else
+				if (Input.GetKeyDown (KeyCode.DownArrow))
+				{
+					StartCoroutine (Attack (Direction.Down));
+				}
+				else
+				if (Input.GetKeyDown (KeyCode.LeftArrow))
+				{
+					StartCoroutine (Attack (Direction.Left));
+				}
+				else
+				if (Input.GetKeyDown (KeyCode.RightArrow))
+				{
+					StartCoroutine (Attack (Direction.Right));
+				}
+			}
+            if (moving && !footstepsAudio.isPlaying)
             {
-                StartCoroutine(Attack(Direction.Up));
+                footstepsAudio.time = 0.5f;
+                footstepsAudio.Play();
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (!moving && footstepsAudio.isPlaying)
             {
-                StartCoroutine(Attack(Direction.Down));
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                StartCoroutine(Attack(Direction.Left));
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                StartCoroutine(Attack(Direction.Right));
+                footstepsAudio.Stop();
             }
         }
 
@@ -85,7 +103,6 @@ public class PlayerCharacter : Character {
             {
                 case TileType.Sign:
                     GameController.map.tiles[currentTile].GetComponent<Sign>().ReadSign();
-                    //Questtracking.GetComponent<QuestTracking>().speakobj();
                     break;
                 case TileType.Pickup:
                     pickupui.GetComponent<PickupItemScreen>().ChangeInventory(GameController.map.tiles[currentTile].GetComponent<PickupInventory>());
@@ -128,7 +145,7 @@ public class PlayerCharacter : Character {
     public override void Move (int moveTo, Direction dir)
     {
         base.Move(moveTo, dir);
-        ChangeStamina(Random.Range(0, 100));
+        //ChangeStamina(Random.Range(0, 100));
     }
 
     // Attack in a given direction dir
@@ -139,6 +156,7 @@ public class PlayerCharacter : Character {
         yield return new WaitForSeconds(0.5f);
         AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, currentTile, 5, 2, 5);
         --movementPreventions;
+		ChangeStamina (stamina - staminaDepletionAttack);
     }
 
     // Performs all special actions that a tile would perform when walking on it
