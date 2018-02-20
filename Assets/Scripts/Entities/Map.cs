@@ -62,26 +62,29 @@ public class Map : MonoBehaviour {
         SetUpNodes(badNodeTiles);
         // Add in the special tiles to the given locations
         int entrancesI = 0, shopsI = 0, signsI = 0;
-        for (int i = 0; i < entries.Length; ++i)
+        if (entries[0].Trim().Length != 0)
         {
-            switch (entries[i].Trim()[0])
+            for (int i = 0; i < entries.Length; ++i)
             {
-                case 'E':
-                    Entrance e = tiles[entrances[entrancesI++]].GetComponent<Entrance>();
-                    string[] args = entries[i].Split(':')[1].Split(',');
-                    e.sceneTo = int.Parse(args[0]);
-                    e.tileFrom = int.Parse(args[1]);
-                    e.moveTo = (Direction)int.Parse(args[2]);
-                    break;
-                case 'S':
-                    tiles[shops[shopsI++]].GetComponent<Shop>().numOfItems = int.Parse(entries[i].Split(':')[1]);
-                    break;
-                case 'N':
-                    tiles[signs[signsI++]].GetComponent<Sign>().path = entries[i].Split(':')[1];
-                    break;
-                default:
-                    Debug.Log("Invalid entry type");
-                    break;
+                switch (entries[i].Trim()[0])
+                {
+                    case 'E':
+                        Entrance e = tiles[entrances[entrancesI++]].GetComponent<Entrance>();
+                        string[] args = entries[i].Split(':')[1].Split(',');
+                        e.sceneTo = int.Parse(args[0]);
+                        e.tileFrom = int.Parse(args[1]);
+                        e.moveTo = (Direction)int.Parse(args[2]);
+                        break;
+                    case 'S':
+                        tiles[shops[shopsI++]].GetComponent<Shop>().numOfItems = int.Parse(entries[i].Split(':')[1]);
+                        break;
+                    case 'N':
+                        tiles[signs[signsI++]].GetComponent<Sign>().path = entries[i].Split(':')[1];
+                        break;
+                    default:
+                        Debug.Log("Invalid entry type");
+                        break;
+                }
             }
         }
         // Place the map background sprite

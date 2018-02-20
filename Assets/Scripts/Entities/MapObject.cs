@@ -2,33 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class MapObject : MonoBehaviour {
-    public int tile;                        // The tile that the object is placed on
-    public Vector3 spriteOffset;            // The offest of the sprite compared to the tile
-    private SpriteRenderer _spriteRenderer; // The Sprite Renderer component attached to child
+    private SpriteRenderer _spriteRenderer;     // The Sprite Renderer component attached to child
+    private static SpriteRenderer playerSprite; // The player's sprite to use for effect
 
 	// Use this for initialization
 	void Start ()
     {
-        transform.Find("Sprite").localPosition = spriteOffset;
-        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (playerSprite == null)
+        {
+            playerSprite = GameObject.Find("Player").GetComponent<SpriteRenderer>();
+        }
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        // Place the object
-        if (GameController.map != null)
-        {
-            transform.position = GameController.map.tiles[tile].transform.position;
-        }
         // Move in front of player if player is behind it
-        _spriteRenderer.sortingOrder = BehindPlayer() ? 200 : 50;
+        _spriteRenderer.sortingOrder = playerSprite.sortingOrder - PlayerDist();
     }
 
     // Returns true if the player is behind the object
-    private bool BehindPlayer ()
+    private int PlayerDist ()
     {
-        return tile > GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().currentTile;
+        return (int)(transform.position.y - playerSprite.transform.position.y);
     }
 }
