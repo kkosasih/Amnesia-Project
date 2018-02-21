@@ -108,6 +108,9 @@ public class PlayerCharacter : Character {
                     pickupui.GetComponent<PickupItemScreen>().ChangeInventory(GameController.map.tiles[currentTile].GetComponent<PickupInventory>());
                     pickupui.GetComponent<PickupItemScreen>().Open();
                     break;
+				case TileType.Bed:
+				StartCoroutine(GameController.map.tiles [currentTile].GetComponent<Bed> ().sleep ());
+					break;
                 default:
                     break;
             }
@@ -123,6 +126,9 @@ public class PlayerCharacter : Character {
                 case TileType.Pickup:
                     interactionbutton.gameObject.SetActive(true);
                     break;
+				case TileType.Bed:
+					interactionbutton.gameObject.SetActive(true);
+					break;
                 default:
                     interactionbutton.gameObject.SetActive(false);
                     break;
@@ -138,7 +144,6 @@ public class PlayerCharacter : Character {
     public override void Move(Direction dir)
     {
         base.Move(dir);
-        ChangeStamina(Random.Range(0, 100));
     }
 
     // Move the character to another tile with an animation

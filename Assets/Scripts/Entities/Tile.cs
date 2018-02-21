@@ -83,5 +83,6 @@ public enum TileType
     Entrance,
     Shop,
     Sign,
-    Pickup
+    Pickup,
+	Bed
 }

@@ -29,30 +29,39 @@ public class Map : MonoBehaviour {
         // Match colors in the picture to tile type
         for (int i = 0; i < data.Count; ++i)
         {
-            if (data[i] == new Color(0, 1, 0))
-            {
-                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Ground Tile"), transform));
-            }
-            else if (data[i] == new Color(1, 0, 0))
-            {
-                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Wall Tile"), transform));
-                badNodeTiles.Add(i);
-            }
-            else if (data[i] == new Color(0, 0, 1))
-            {
-                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Entrance Tile"), transform));
-                entrances.Add(i);
-            }
-            else if (data[i] == new Color(1, 1, 0))
-            {
-                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Shop Tile"), transform));
-                shops.Add(i);
-            } 
-            else if (data[i] == new Color(1, 0, 1))
-            {
-                tiles.Add((GameObject)Instantiate(Resources.Load("Tiles/Sign Tile"), transform));
-                signs.Add(i);
-            }     
+			if (data [i] == new Color (0, 1, 0))
+			{
+				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Ground Tile"), transform));
+			}
+			else
+			if (data [i] == new Color (1, 0, 0))
+			{
+				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Wall Tile"), transform));
+				badNodeTiles.Add (i);
+			}
+			else
+			if (data [i] == new Color (0, 0, 1))
+			{
+				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Entrance Tile"), transform));
+				entrances.Add (i);
+			}
+			else
+			if (data [i] == new Color (1, 1, 0))
+			{
+				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Shop Tile"), transform));
+				shops.Add (i);
+			}
+			else
+			if (data [i] == new Color (1, 0, 1))
+			{
+				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Sign Tile"), transform));
+				signs.Add (i);
+			}
+			else
+			if (data [i] == new Color (0, 1, 1))
+			{
+				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Bed Tile"), transform));
+			}
             else
             {
                 Debug.Log("Tile at (" + (i % width).ToString() + ", " + (i / width).ToString() + ") is not valid. Color is " + data[i].ToString());
