@@ -120,6 +120,12 @@ public class AttackController : MonoBehaviour {
         }
     }
 
+    // Template for a point attack
+    public void PointAttack(Attack a, int tile)
+    {
+        StartCoroutine(GiveAttack(tile, a, 0));
+    }
+
     // Give a delay on an attack
     private static IEnumerator GiveAttack (int tile, Attack a, float before)
     {
