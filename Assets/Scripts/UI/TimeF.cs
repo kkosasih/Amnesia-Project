@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Time : MonoBehaviour {
+public class TimeF : MonoBehaviour {
 
 	public int fullDay = 1800;
-	public int timeIncrement = 
+    public int timeIncrement;
 	// Use this for initialization
 	void Start () {
 		

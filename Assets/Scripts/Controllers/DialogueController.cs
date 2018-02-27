@@ -104,7 +104,6 @@ public class DialogueController : MonoBehaviour {
                 GameObject.Find("DialogueBox").transform.Find("NextButton").Find("Text").gameObject.GetComponent<Text>().text = "Next";
             }
         }
-        Debug.Log(branch.ToString());
     }
 
     // Apply a new statement to the dialogue box
