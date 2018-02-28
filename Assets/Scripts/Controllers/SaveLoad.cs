@@ -18,9 +18,9 @@ public class SaveLoad {
             PlayerPrefs.SetInt(slotNum + "PlayerTile", player.GetComponent<PlayerCharacter>().currentTile);
             PlayerPrefs.SetInt(slotNum + "PlayerHealth", player.GetComponent<PlayerCharacter>().health);
             PlayerPrefs.SetInt(slotNum + "PlayerStamina", player.GetComponent<PlayerCharacter>().stamina);
-            PlayerPrefs.SetString(slotNum + "Head", ccreation.GetComponent<CharacterLooks>().headc);
-            PlayerPrefs.SetString(slotNum + "Cloth", ccreation.GetComponent<CharacterLooks>().clothec);
-            PlayerPrefs.SetString(slotNum + "Shoe", ccreation.GetComponent<CharacterLooks>().shoec);
+            //PlayerPrefs.SetString(slotNum + "Head", ccreation.GetComponent<CharacterLooks>().headc);
+            //PlayerPrefs.SetString(slotNum + "Cloth", ccreation.GetComponent<CharacterLooks>().clothec);
+            //PlayerPrefs.SetString(slotNum + "Shoe", ccreation.GetComponent<CharacterLooks>().shoec);
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             for (int i = 0; i < inven.inventory.Count; ++i)
             {
