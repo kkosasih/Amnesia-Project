@@ -7,12 +7,18 @@ public class TimeTracker : MonoBehaviour {
 
 	public int startHour = 6;
 	public int startMinute = 0;
+	public List<byte> earlyMorning;
+	public List<byte> noon;
+	public List<byte> sunSet;
+	public List<byte> night;
+	public List<byte> lateNight;
 	private int hour = 0;
 	private int minute = 0;
 	public float howLongTillIncrement = 10f; //seconds, to finish a full day = 24 minutes.
 	private float previousCounter = 0f;
 	private float counter = 0f;
 	private Text clock;
+	private Image DayNight;
 
 	// Use this for initialization
 	void Start () 
@@ -20,6 +26,8 @@ public class TimeTracker : MonoBehaviour {
 		hour = startHour;
 		minute = startMinute;
 		clock = GameObject.Find ("Clock").GetComponent<Text>();	
+		DayNight = GameObject.Find ("DayNightPanel").GetComponent<Image> ();
+
 	}
 	
 	// Update is called once per frame
@@ -54,6 +62,31 @@ public class TimeTracker : MonoBehaviour {
 		else
 		{
 			clock.text = hour + ":" + minute + "0";
+		}
+
+		if (hour >= 6)
+		{
+			DayNight.color = new Color32 (earlyMorning [0], earlyMorning [1], earlyMorning [2], earlyMorning [3]);
+		}
+		else
+		if (hour >= 12)
+		{
+			DayNight.color = new Color32 (noon [0], noon [1], noon [2], noon [3]);
+		}
+		else
+		if (hour >= 17)
+		{
+			DayNight.color = new Color32 (sunSet [0], sunSet [1], sunSet [2], sunSet [3]);
+		}
+		else
+		if (hour >= 21)
+		{
+			DayNight.color = new Color32 (night [0], night [1], night [2], night [3]);
+		}
+		else
+		if (hour >= 0)
+		{
+			DayNight.color = new Color32 (lateNight [0], lateNight [1], lateNight [2], lateNight [3]);
 		}
 	}
 
