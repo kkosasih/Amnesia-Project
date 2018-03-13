@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class CharacterLooks : MonoBehaviour {
     public GameObject savemenu, ccmenu, creation;
-    public Animator _hair, _clothes, _pants, _Background;
-    public int x = 0, y = 0, z = 0, animanum = 0, arbitrarynum = 10;
+    public Animator _hair, _head,_clothes, _pants, _Background;
+    public int x = 0, y = 0, z = 0,h = 0, animanum = 0, arbitrarynum = 10;
     public bool saving = false;
 
     void Start()
     {
         _hair.SetInteger("Movement", 0);
         _hair.SetInteger("Image", 0);
+        _head.SetInteger("Movement", 0);
+        _head.SetInteger("Image", 0);
         _clothes.SetInteger("Movement", 0);
         _clothes.SetInteger("Image", 0);
         _pants.SetInteger("Movement", 0);
@@ -102,7 +104,7 @@ public class CharacterLooks : MonoBehaviour {
         {
             x = 0;
         }
-        _hair.SetInteger("Image", x);
+        _head.SetInteger("Image", x);
     }
 
     public void clothe(int input)
@@ -139,6 +141,23 @@ public class CharacterLooks : MonoBehaviour {
         _pants.SetInteger("Image", z);
     }
 
+    public void hair(int input)
+    {
+        if ((h + input >= 0) && (z + input < 3))
+        {
+            h += input;
+        }
+        else if (h + input < 0)
+        {
+            h = 2;
+        }
+        else
+        {
+            h = 0;
+        }
+        _hair.SetInteger("Image", h);
+    }
+
     public void anima(int increment)
     {
         if ((animanum + increment >= 0) && (animanum + increment < 4))
@@ -155,6 +174,7 @@ public class CharacterLooks : MonoBehaviour {
         }
 
         _hair.SetInteger("Movement", animanum);
+        _head.SetInteger("Movement", animanum);
         _clothes.SetInteger("Movement", animanum);
         _pants.SetInteger("Movement", animanum);    
     }

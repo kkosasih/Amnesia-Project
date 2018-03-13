@@ -93,12 +93,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 25
-        width: 28
-        height: 19
+        x: 0
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -107,12 +107,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_1
       rect:
         serializedVersion: 2
-        x: 34
-        y: 25
-        width: 28
-        height: 19
+        x: 32
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -121,12 +121,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_2
       rect:
         serializedVersion: 2
-        x: 65
-        y: 25
-        width: 28
-        height: 19
+        x: 64
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -135,12 +135,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_3
       rect:
         serializedVersion: 2
-        x: 97
-        y: 25
-        width: 28
-        height: 19
+        x: 96
+        y: 0
+        width: 32
+        height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -149,12 +149,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_4
       rect:
         serializedVersion: 2
-        x: 130
-        y: 25
-        width: 28
-        height: 19
+        x: 128
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,12 +163,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_5
       rect:
         serializedVersion: 2
-        x: 162
-        y: 25
-        width: 28
-        height: 19
+        x: 160
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -177,12 +177,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_6
       rect:
         serializedVersion: 2
-        x: 195
-        y: 25
-        width: 28
-        height: 19
+        x: 192
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_7
       rect:
         serializedVersion: 2
-        x: 227
-        y: 25
-        width: 28
-        height: 19
+        x: 224
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -205,12 +205,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_8
       rect:
         serializedVersion: 2
-        x: 257
-        y: 25
-        width: 28
-        height: 19
+        x: 256
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -219,12 +219,12 @@ TextureImporter:
       name: 5.HAIR 32 64 Walk Down Extra_9
       rect:
         serializedVersion: 2
-        x: 290
-        y: 25
-        width: 28
-        height: 19
+        x: 288
+        y: 0
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
