@@ -4,185 +4,187 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterLooks : MonoBehaviour {
-    public List<Sprite> heads = new List<Sprite>();
-    public List<Sprite> clothes = new List<Sprite>();
-    public List<Sprite> shoes = new List<Sprite>();
-    public GameObject character,heado, clotho, shoeo, savemenu, ccmenu, creation;
-    public Animator _animator,_animator2,_animator3;
-    public int x = 0, y = 0, z = 0, arbitrarynum = 10;
-    public Text text1, text2, text3;
-    public string headc, clothec, shoec;
+    public GameObject savemenu, ccmenu, creation;
+    public Animator _hair, _head,_clothes, _pants, _Background;
+    public int x = 0, y = 0, z = 0,h = 0, animanum = 0, arbitrarynum = 10;
     public bool saving = false;
 
     void Start()
     {
-        _animator.SetInteger("Headgear", 1);
-        //character = GameObject.Find("Character");
-        heado = GameObject.Find("Head");
-        clotho = GameObject.Find("Body");
-        shoeo = GameObject.Find("Shoe");
-        ccmenu = GameObject.Find("Character Creation");
-
-        heads.Add(Resources.Load<Sprite>("Item Icons/Apple"));
-        heads.Add(Resources.Load<Sprite>("Item Icons/vest"));
-        heads.Add(Resources.Load<Sprite>("CharacterTemp/Prototype_CharacterFront"));
-
-        clothes.Add(Resources.Load<Sprite>("Item Icons/Apple"));
-        clothes.Add(Resources.Load<Sprite>("Item Icons/vest"));
-        clothes.Add(Resources.Load<Sprite>("CharacterTemp/Prototype_CharacterFront"));
-
-        shoes.Add(Resources.Load<Sprite>("Item Icons/Apple"));
-        shoes.Add(Resources.Load<Sprite>("Item Icons/vest"));
-        shoes.Add(Resources.Load<Sprite>("CharacterTemp/Prototype_CharacterFront"));
-
-        heado.GetComponent<Image>().sprite = heads[0];
-        clotho.GetComponent<Image>().sprite = clothes[0];
-        shoeo.GetComponent<Image>().sprite = shoes[0];
-
-        text1.text = heads[0].name;
-        text2.text = clothes[0].name;
-        text3.text = shoes[0].name;
+        _hair.SetInteger("Movement", 0);
+        _hair.SetInteger("Image", 0);
+        _head.SetInteger("Movement", 0);
+        _head.SetInteger("Image", 0);
+        _clothes.SetInteger("Movement", 0);
+        _clothes.SetInteger("Image", 0);
+        _pants.SetInteger("Movement", 0);
+        _pants.SetInteger("Image", 0);
+        _Background.SetBool("Saving",saving);
     }
 
     public void Update()
-    {
-        heado.GetComponent<Image>().sprite = heads[x];
-        clotho.GetComponent<Image>().sprite = clothes[y];
-        shoeo.GetComponent<Image>().sprite = shoes[z];
-        //_animator.SetInteger("Headgear",x);
-        //_animator2.SetInteger("Clothgear",y);
-       //_animator3.SetInteger("Shoegear",z);
-        if(saving)
+    {  
+        if (saving)
         {
-            character.SetActive(false);
+            //character.SetActive(false);
             if (Input.GetKeyDown(KeyCode.Keypad0) || arbitrarynum == 0)
             {
                 SaveLoad.Save(0);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha1) || arbitrarynum == 1)
             {
                 SaveLoad.Save(1);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2) || arbitrarynum == 2)
             {
                 SaveLoad.Save(2);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3) || arbitrarynum == 3)
             {
                 SaveLoad.Save(3);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha4) || arbitrarynum == 4)
             {
                 SaveLoad.Save(4);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5) || arbitrarynum == 5)
             {
                 SaveLoad.Save(5);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha6) || arbitrarynum == 6)
             {
                 SaveLoad.Save(6);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha7) || arbitrarynum == 7)
             {
                 SaveLoad.Save(7);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha8) || arbitrarynum == 8)
             {
                 SaveLoad.Save(8);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha9) || arbitrarynum == 9)
             {
                 SaveLoad.Save(9);
-                savemenu.SetActive(false);
+                //savemenu.SetActive(false);
                 ccmenu.SetActive(false);
             }
         }
-
-        //if(clothes[y].name == "Prototype_CharacterFront")
-        //{
-        //    _animator2.SetInteger("direction", 1);
-        //    _animator2.moving = true;
-        //}
     }
 
-    public void head(int a)
+    public void head(int input)
     {
-        if ((x + a >= 0) && (x + a < heads.Count))
+        if ((x + input >= 0) && (x + input < 3))
         {
-            x += a;
+            x += input;
         }
-        else if(x+a < 0)
+        else if (x + input < 0)
         {
-            x = heads.Count - 1;
+            x = 2;
         }
         else
         {
             x = 0;
         }
-        text1.text = heads[x].name;
-        headc = heads[x].name;
+        _head.SetInteger("Image", x);
     }
 
-    public void clothe(int b)
+    public void clothe(int input)
     {
-        if ((y+b >= 0) && (y+b < clothes.Count))
+        if ((y + input >= 0) && (y + input < 3))
         {
-            y += b;
+            y += input;
         }
-        else if(y+b < 0)
+        else if (y + input < 0)
         {
-            y = clothes.Count - 1;
+            y = 2;
         }
         else
         {
             y = 0;
         }
-        text2.text = clothes[y].name;
-        clothec = clothes[y].name;
+        _clothes.SetInteger("Image", y);
     }
 
-    public void shoe(int c)
+    public void shoe(int input)
     {
-        if ((z + c >= 0) && (z + c < shoes.Count))
+        if ((z + input >= 0) && (z + input < 3))
         {
-            z += c;
+            z += input;
         }
-        else if(z+c < 0)
+        else if (z + input < 0)
         {
-            z = shoes.Count - 1;
+            z = 2;
         }
         else
         {
             z = 0;
         }
-        text3.text = shoes[z].name;
-        shoec = shoes[z].name;
+        _pants.SetInteger("Image", z);
     }
 
-    public void save(bool open)
+    public void hair(int input)
     {
-        creation.SetActive(open);
-        savemenu.SetActive(!open);
-        saving = !open;
+        if ((h + input >= 0) && (z + input < 3))
+        {
+            h += input;
+        }
+        else if (h + input < 0)
+        {
+            h = 2;
+        }
+        else
+        {
+            h = 0;
+        }
+        _hair.SetInteger("Image", h);
+    }
+
+    public void anima(int increment)
+    {
+        if ((animanum + increment >= 0) && (animanum + increment < 4))
+        {
+            animanum += increment;
+        }
+        else if (animanum == 0)
+        {
+            animanum = 4 - 1;
+        }
+        else
+        {
+            animanum = 0;
+        }
+
+        _hair.SetInteger("Movement", animanum);
+        _head.SetInteger("Movement", animanum);
+        _clothes.SetInteger("Movement", animanum);
+        _pants.SetInteger("Movement", animanum);    
+    }
+
+    public void save()
+    {
+        saving = !saving;
+        creation.SetActive(!saving);
+        _Background.SetBool("Saving", saving);
+        savemenu.SetActive(saving);
     }
 
     public void saveslot(int input)
