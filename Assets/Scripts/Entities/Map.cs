@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 using System.IO;
 
 public class Map : MonoBehaviour {
-    public string path;             // The name of the map in resources
-    public int width;               // The width of the map in tiles
-    public int height;              // The height of the map in tiles
-    public List<GameObject> tiles;  // The list of tiles to reference
-    public List<MapNode> nodes;     // The list of nodes for pathfinding
+    public static bool debug = false;   // Whether to debug the maps or not
+    public string path;                 // The name of the map in resources
+    public int width;                   // The width of the map in tiles
+    public int height;                  // The height of the map in tiles
+    public List<GameObject> tiles;      // The list of tiles to reference
+    public List<MapNode> nodes;         // The list of nodes for pathfinding
 
     // Use this for initialization
     void Start()
@@ -36,31 +37,31 @@ public class Map : MonoBehaviour {
 			else
 			if (data [i] == new Color (1, 0, 0))
 			{
-				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Wall Tile"), transform));
-				badNodeTiles.Add (i);
+				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Wall Tile"), transform));
+				badNodeTiles.Add(i);
 			}
 			else
 			if (data [i] == new Color (0, 0, 1))
 			{
-				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Entrance Tile"), transform));
-				entrances.Add (i);
+				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Entrance Tile"), transform));
+				entrances.Add(i);
 			}
 			else
 			if (data [i] == new Color (1, 1, 0))
 			{
-				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Shop Tile"), transform));
-				shops.Add (i);
+				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Shop Tile"), transform));
+				shops.Add(i);
 			}
 			else
 			if (data [i] == new Color (1, 0, 1))
 			{
-				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Sign Tile"), transform));
-				signs.Add (i);
+				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Sign Tile"), transform));
+				signs.Add(i);
 			}
 			else
 			if (data [i] == new Color (0, 1, 1))
 			{
-				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Bed Tile"), transform));
+				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Bed Tile"), transform));
 			}
             else
             {
@@ -179,7 +180,7 @@ public class Map : MonoBehaviour {
     }
 
     // Return the node that the given tile is in
-    public MapNode NodeTileIn(int tile)
+    public MapNode NodeTileIn (int tile)
     {
         foreach (MapNode m in nodes)
         {
@@ -209,13 +210,25 @@ public class Map : MonoBehaviour {
             }
         }
         // Perform an A* search based on distance
+        List<MapNode> noSearch = new List<MapNode> { start };
         foreach (MapNode m in start.GetSortedKeys(end))
         {
             // To prevent infinite back-and-forth searches
-            List<MapNode> search = FindPath(m, end, new List<MapNode> { start });
+            List<MapNode> search = FindPath(m, end, noSearch);
             if (search[search.Count - 1] == end)
             {
                 result.AddRange(search);
+                // Remove any unnecessary movements
+                for (int i = 0; i < result.Count; ++i)
+                {
+                    for (int j = i + 2; j < result.Count; ++j)
+                    {
+                        if (result[i].adjacentNodes.ContainsKey(result[j]))
+                        {
+                            result.RemoveRange(i + 1, j - (i + 1));
+                        }
+                    }
+                }
                 return result;
             }
         }
@@ -225,6 +238,7 @@ public class Map : MonoBehaviour {
     // A private version of FindPath for recursive calls
     private List<MapNode> FindPath (MapNode start, MapNode end, List<MapNode> noSearch)
     {
+        noSearch.Add(start);
         List<MapNode> result = new List<MapNode> { start };
         // See if end is adjacent to start
         foreach (MapNode mn in start.adjacentNodes.Keys)
@@ -241,9 +255,7 @@ public class Map : MonoBehaviour {
             // To prevent infinite back-and-forth searches
             if (!noSearch.Contains(m))
             {
-                List<MapNode> newNoSearch = new List<MapNode>(noSearch);
-                newNoSearch.Add(m);
-                List<MapNode> search = FindPath(m, end, newNoSearch);
+                List<MapNode> search = FindPath(m, end, noSearch);
                 if (search[search.Count - 1] == end)
                 {
                     result.AddRange(search);
@@ -266,6 +278,22 @@ public class Map : MonoBehaviour {
                 nodes[nodes.Count - 1].FindAdjacents(nodes);
                 badTiles.AddRange(nodes[nodes.Count - 1].TilesCovered());
             }
+        }
+        if (debug)
+        {
+            Texture2D nodePic = Resources.Load<Texture2D>("Maps/Textures/" + path + "Nodes");
+            List<Color> data = Helper.ReverseInChunks(new List<Color>(nodePic.GetPixels()), nodePic.width);
+            nodePic.SetPixels(data.ToArray());
+            foreach (MapNode mn in nodes)
+            {
+                Color[] colors = Helper.FillList(width * height, Helper.RandomColor(false)).ToArray();
+                nodePic.SetPixels(mn.start % width, mn.start / width, mn.width, mn.height, colors);
+            }
+            nodePic.Apply();
+            data = Helper.ReverseInChunks(new List<Color>(nodePic.GetPixels()), nodePic.width);
+            nodePic.SetPixels(data.ToArray());
+            nodePic.Apply();
+            File.WriteAllBytes(Application.dataPath + "/Resources/Maps/Textures/" + path + "Nodes.png", nodePic.EncodeToPNG());
         }
     }
 }

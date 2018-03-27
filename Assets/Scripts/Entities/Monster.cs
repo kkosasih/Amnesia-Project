@@ -19,7 +19,7 @@ public class Monster : Character {
             player = GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>();
         }
         // If not in a cutscene
-        if (movementPreventions == 0)
+        if (movementPreventions == 0 && onMap)
         {
             if (Mathf.Max(Mathf.Abs(HoriDistance(player.currentTile)), Mathf.Abs(player.currentTile)) <= 2)
             {
