@@ -5,12 +5,24 @@ using UnityEngine;
 public class PickupInventory : Inventory {
     public bool emptyAfterTransfer = false; // True only if the inventory is empty
 
+    void Awake ()
+    {
+        GetComponent<Interactible>().interact = OpenThis;
+    }
+
     // Use this for initialization
     protected override void Start ()
     {
         //Starting Items
 
         //inventory[1] = database.items[1];
+    }
+
+    // Open the pickup window using this inventory
+    public void OpenThis ()
+    {
+        PickupItemScreen.instance.ChangeInventory(this);
+        PickupItemScreen.instance.Open();
     }
 
     // Set up the number of items
@@ -48,8 +60,6 @@ public class PickupInventory : Inventory {
                 return;
             }
         }
-        Destroy(GetComponent<SpriteRenderer>());
-        GetComponent<Tile>().type = GetComponent<Tile>().startType;
-        Destroy(this);
+        GetComponent<StaticObject>().Die();
     }
 }

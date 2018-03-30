@@ -1,1 +1,1 @@
-Statement:0|0|Sign|Neutral|To move, use WASD. To attack, use the arrow keys.
+Statement:0|0|Sign|Neutral|To move, use the WASD keys.

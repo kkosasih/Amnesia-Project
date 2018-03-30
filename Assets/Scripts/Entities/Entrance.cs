@@ -4,27 +4,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Entrance : MonoBehaviour {
-    public int sceneTo;         // The scene index to load
-    public int tileFrom;        // The tile to enter at
-    public Direction moveTo;    // The direction to automatically move when entering
-    private AudioSource entranceAudio; // The audio played when an entrance is used
+public class Entrance : StaticObject {
+    public int sceneTo;                 // The scene index to load
+    public int tileFrom;                // The tile to enter at
+    public Direction moveTo;            // The direction to automatically move when entering
+    private AudioSource entranceAudio;  // The audio played when an entrance is used
 
-    private void Awake()
+    void Awake ()
     {
         entranceAudio = GetComponent<AudioSource>();
+        GetComponent<Interactible>().interact = StartTeleport;
     }
 
-    // Use this for initialization
-    void Start ()
+    // Function to start the teleportation
+    public void StartTeleport ()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update ()
-    {
-
+        StartCoroutine(TeleportPlayer());
     }
 
     // Teleport the player to the other side of the entrance
@@ -33,13 +28,13 @@ public class Entrance : MonoBehaviour {
         // Set up object for its coroutine and start it
         transform.parent = null;
         DontDestroyOnLoad(gameObject);
-        GameObject player = GameObject.FindWithTag("Player");
         Image mask = GameObject.FindWithTag("UIMask").GetComponent<Image>();
-        player.GetComponent<PlayerCharacter>().onMap = false;
+        PlayerCharacter.instance.onMap = false;
+        PlayerCharacter.instance.startTile = tileFrom;
         entranceAudio.time = 0.5f;
         entranceAudio.Play();
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
-        player.GetComponent<PlayerCharacter>().currentTile = tileFrom;
+        GameController.map.takenTiles[PlayerCharacter.instance] = tileFrom;
         yield return StartCoroutine(GameController.SetUpScene(sceneTo));
         // Check if there's no cutscene playing upon entering
         if (!DialogueTracking.CheckConversation())
@@ -50,19 +45,19 @@ public class Entrance : MonoBehaviour {
             switch (moveTo)
             {
                 case Direction.Up:
-                    tileTo = GameController.map.TileAbove(player.GetComponent<PlayerCharacter>().currentTile);
+                    tileTo = GameController.map.TileAbove(GameController.map.takenTiles[PlayerCharacter.instance]);
                     break;
                 case Direction.Down:
-                    tileTo = GameController.map.TileBelow(player.GetComponent<PlayerCharacter>().currentTile);
+                    tileTo = GameController.map.TileBelow(GameController.map.takenTiles[PlayerCharacter.instance]);
                     break;
                 case Direction.Left:
-                    tileTo = GameController.map.TileLeft(player.GetComponent<PlayerCharacter>().currentTile);
+                    tileTo = GameController.map.TileLeft(GameController.map.takenTiles[PlayerCharacter.instance]);
                     break;
                 case Direction.Right:
-                    tileTo = GameController.map.TileRight(player.GetComponent<PlayerCharacter>().currentTile);
+                    tileTo = GameController.map.TileRight(GameController.map.takenTiles[PlayerCharacter.instance]);
                     break;
             }
-            player.GetComponent<PlayerCharacter>().Move(tileTo, moveTo);
+            PlayerCharacter.instance.Move(tileTo, moveTo);
         }
         Destroy(gameObject);
     }

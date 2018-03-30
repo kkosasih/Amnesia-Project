@@ -15,7 +15,7 @@ public class SaveLoad {
         if (player != null)
         {
             PlayerPrefs.SetInt(slotNum + "SceneNum", SceneManager.GetActiveScene().buildIndex);
-            PlayerPrefs.SetInt(slotNum + "PlayerTile", player.GetComponent<PlayerCharacter>().currentTile);
+            PlayerPrefs.SetInt(slotNum + "PlayerTile", GameController.map.takenTiles[PlayerCharacter.instance]);
             PlayerPrefs.SetInt(slotNum + "PlayerHealth", player.GetComponent<PlayerCharacter>().health);
             PlayerPrefs.SetInt(slotNum + "PlayerStamina", player.GetComponent<PlayerCharacter>().stamina);
             PlayerPrefs.SetInt(slotNum + "Head", ccreation.GetComponent<CharacterLooks>().x);
@@ -47,7 +47,7 @@ public class SaveLoad {
         // Load player data
         if (player != null)
         {
-            player.GetComponent<PlayerCharacter>().currentTile = PlayerPrefs.GetInt(slotNum + "PlayerTile");
+            GameController.map.takenTiles[PlayerCharacter.instance] = PlayerPrefs.GetInt(slotNum + "PlayerTile");
             GameController.SetUpScene(PlayerPrefs.GetInt(slotNum + "SceneNum"));
             player.GetComponent<PlayerCharacter>().ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
             player.GetComponent<PlayerCharacter>().ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));

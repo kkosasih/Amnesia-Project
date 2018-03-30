@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupItemScreen : MonoBehaviour {
-    private PickupInventory inventory;  // The inventory attached to the UI
+    public static PickupItemScreen instance;    // The instance to references
+    private PickupInventory inventory;          // The inventory attached to the UI
+
+    void Awake ()
+    {
+        instance = this;
+    }
 
     // Change the inventory that is shown
     public void ChangeInventory(PickupInventory newInv)
@@ -32,7 +38,7 @@ public class PickupItemScreen : MonoBehaviour {
     // Open the inventory and stop player movement
     public void Open ()
     {
-        ++GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
+        ++PlayerCharacter.instance.movementPreventions;
         GetComponent<UIPanel>().isOpen = true;
         inventory.UpdateImages();
     }
@@ -40,7 +46,7 @@ public class PickupItemScreen : MonoBehaviour {
     // Close the inventory and continue player movement
     public void Close ()
     {
-        --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
+        --PlayerCharacter.instance.movementPreventions;
         GetComponent<UIPanel>().isOpen = false;
     }
 }

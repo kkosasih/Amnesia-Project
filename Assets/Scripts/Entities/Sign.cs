@@ -2,23 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sign : MonoBehaviour {
+public class Sign : StaticObject {
     public string path; // The name of the text file to reference
 
-	// Use this for initialization
-	void Start ()
+    void Awake ()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+        GetComponent<Interactible>().interact = ReadSign;
+    }
 
-    // Have the player read the sign
-    public void ReadSign ()
+    // Read the sign
+    private void ReadSign ()
     {
         DialogueController.instance.ChangeConversation("Signs/" + path);
     }

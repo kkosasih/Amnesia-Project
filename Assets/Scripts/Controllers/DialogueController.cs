@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour {
     public static DialogueController instance;  // The instance to reference in other scripts
+    public int movementPreventions = 0;         // The movement preventions on the game (in cutscene)
     public char branch = '*';                   // The current branch of dialogue the player has
     public List<DialoguePart> conversation;     // The current cutscene to play
     private string tree;                        // The name of the current set of branches
@@ -36,7 +37,8 @@ public class DialogueController : MonoBehaviour {
 
     // Change the conversation with conversation data from a file
     public void ChangeConversation (string path)
-    {   
+    {
+        ++movementPreventions;
         // Remove old parts
         foreach (DialoguePart p in conversation)
         {
@@ -71,8 +73,8 @@ public class DialogueController : MonoBehaviour {
         conversation = newConvo;
         convoIndex = -1;
         GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = false;
-        // Stop the player's movement
-        ++GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
+        // Stop all characters' movement
+        
         tree = path;
         branch = '*';
         AdvanceConversation();
@@ -85,7 +87,7 @@ public class DialogueController : MonoBehaviour {
         if (++convoIndex >= conversation.Count)
         {
             GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = true;
-            --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
+            --movementPreventions;
             if (branch != '*')
             {
                 ChangeConversation(tree + branch);

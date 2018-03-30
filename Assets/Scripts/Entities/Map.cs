@@ -5,15 +5,16 @@ using UnityEngine.SceneManagement;
 using System.IO;
 
 public class Map : MonoBehaviour {
-    public static bool debug = false;   // Whether to debug the maps or not
-    public string path;                 // The name of the map in resources
-    public int width;                   // The width of the map in tiles
-    public int height;                  // The height of the map in tiles
-    public List<GameObject> tiles;      // The list of tiles to reference
-    public List<MapNode> nodes;         // The list of nodes for pathfinding
+    public static bool debug = false;                   // Whether to debug the maps or not
+    public string path;                                 // The name of the map in resources
+    public int width;                                   // The width of the map in tiles
+    public int height;                                  // The height of the map in tiles
+    public List<GameObject> tiles;                      // The list of tiles to reference
+    public List<MapNode> nodes;                         // The list of nodes for pathfinding
+    public Dictionary<StaticObject, int> takenTiles;    // The tiles that are occupied on the map
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
         // Find and read the mapping image
         Texture2D mapLayout = Resources.Load<Texture2D>("Maps/Textures/" + path);
@@ -23,6 +24,7 @@ public class Map : MonoBehaviour {
         height = mapLayout.height;
         tiles = new List<GameObject>(width * height);
         List<int> badNodeTiles = new List<int>();
+        takenTiles = new Dictionary<StaticObject, int>();
         // Set up special tiles
         List<int> entrances = new List<int>();
         List<int> shops = new List<int>();
@@ -32,36 +34,31 @@ public class Map : MonoBehaviour {
         {
 			if (data [i] == new Color (0, 1, 0))
 			{
-				tiles.Add ((GameObject)Instantiate (Resources.Load ("Tiles/Ground Tile"), transform));
+				tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Ground Tile"), transform));
 			}
-			else
-			if (data [i] == new Color (1, 0, 0))
+			else if (data [i] == new Color (1, 0, 0))
 			{
-				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Wall Tile"), transform));
+				tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Wall Tile"), transform));
 				badNodeTiles.Add(i);
 			}
-			else
-			if (data [i] == new Color (0, 0, 1))
+			else if (data [i] == new Color (0, 0, 1))
 			{
-				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Entrance Tile"), transform));
+                tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Entrance Tile"), transform));
 				entrances.Add(i);
 			}
-			else
-			if (data [i] == new Color (1, 1, 0))
+			/*else if (data [i] == new Color (1, 1, 0))
 			{
 				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Shop Tile"), transform));
 				shops.Add(i);
-			}
-			else
-			if (data [i] == new Color (1, 0, 1))
+			}*/
+			else if (data [i] == new Color (1, 0, 1))
 			{
-				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Sign Tile"), transform));
-				signs.Add(i);
+                tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Sign Tile"), transform));
+                signs.Add(i);
 			}
-			else
-			if (data [i] == new Color (0, 1, 1))
+			else if (data [i] == new Color (0, 1, 1))
 			{
-				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Bed Tile"), transform));
+				tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Bed Tile"), transform));
 			}
             else
             {
@@ -74,22 +71,30 @@ public class Map : MonoBehaviour {
         int entrancesI = 0, shopsI = 0, signsI = 0;
         if (entries[0].Trim().Length != 0)
         {
+            Tile t;
             for (int i = 0; i < entries.Length; ++i)
             {
                 switch (entries[i].Trim()[0])
                 {
                     case 'E':
-                        Entrance e = tiles[entrances[entrancesI++]].GetComponent<Entrance>();
+                        Entrance e = tiles[entrances[entrancesI]].GetComponent<Entrance>();
                         string[] args = entries[i].Split(':')[1].Split(',');
                         e.sceneTo = int.Parse(args[0]);
                         e.tileFrom = int.Parse(args[1]);
                         e.moveTo = (Direction)int.Parse(args[2]);
+                        t = tiles[entrances[entrancesI++]].GetComponent<Tile>();
+                        e.startTile = -(int)t.position.y * width + (int)t.position.x;
+                        e.PlaceOnMap(this);
                         break;
-                    case 'S':
+                    /*case 'S':
                         tiles[shops[shopsI++]].GetComponent<Shop>().numOfItems = int.Parse(entries[i].Split(':')[1]);
-                        break;
+                        break;*/
                     case 'N':
-                        tiles[signs[signsI++]].GetComponent<Sign>().path = entries[i].Split(':')[1];
+                        Sign s = tiles[signs[signsI]].GetComponent<Sign>();
+                        s.path = entries[i].Split(':')[1];
+                        t = tiles[signs[signsI++]].GetComponent<Tile>();
+                        s.startTile = -(int)t.position.y * width + (int)t.position.x;
+                        s.PlaceOnMap(this);
                         break;
                     default:
                         Debug.Log("Invalid entry type");
@@ -105,6 +110,41 @@ public class Map : MonoBehaviour {
     void Update ()
     {
 
+    }
+
+    // Returns an interactible object if applicable
+    public Interactible FindInteractible ()
+    {
+        foreach (StaticObject s in takenTiles.Keys)
+        {
+            Interactible result = s.gameObject.GetComponent<Interactible>();
+            if (result != null && s.TotalDistance(takenTiles[PlayerCharacter.instance]) <= result.range)
+            {
+                return result;
+            }
+        }
+        return null;
+    }
+
+    // Returns whether there is a solid object at a point
+    public bool TileIsTaken (int tile)
+    {
+        StaticObject obj = null;
+        foreach (StaticObject s in takenTiles.Keys)
+        {
+            if (takenTiles[s] == tile)
+            {
+                obj = s;
+                break;
+            }
+        }
+        return obj != null && obj.solid;
+    }
+
+    // Return the distance between two tiles
+    public int GetDistance (int t1, int t2)
+    {
+        return Mathf.Abs(t1 % width - t2 % width) + Mathf.Abs(t1 / width - t2 / width);
     }
 
     // Return the position of the tile above pos if applicable
