@@ -14,7 +14,7 @@ public class Monster : Character {
         // If not in a cutscene
         if (DialogueController.instance.movementPreventions + movementPreventions == 0 && onMap)
         {
-            if (Mathf.Max(Mathf.Abs(HoriDistance(GameController.map.takenTiles[PlayerCharacter.instance])), Mathf.Abs(GameController.map.takenTiles[PlayerCharacter.instance])) <= 2)
+            if (Mathf.Max(Mathf.Abs(HoriDistance(GameController.map.takenTiles[PlayerCharacter.instance])), Mathf.Abs(VertDistance(GameController.map.takenTiles[PlayerCharacter.instance]))) <= 2)
             {
                 StartCoroutine(Attack(Direction.Up));
             }

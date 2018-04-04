@@ -21,6 +21,7 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Boots("Neke Air Jordan's", 5, 1, "\"It's in the game\" - Spokesperson", 900, 1, 1));
         items.Add(new Gautlets("Oven Mitt", 6, 7, "It's one Lefty oven mitt \"Your gloveless hand feels cold\"", 50, 1, 1));
         items.Add(new Helmet("Stained Pot", 7, 255, "Label on side: \"Now made with stainless steel!!\"", 20, 1, 1));
+        items.Add(new Quest("Wood", 8, 0, "Lumber for building.", 5, 99, 1));
     }
 
     public static string randomdrop(string tempname)

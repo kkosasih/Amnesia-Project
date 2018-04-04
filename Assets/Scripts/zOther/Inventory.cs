@@ -194,6 +194,43 @@ public class Inventory : MonoBehaviour {
         UpdateImages();
     }
 
+    // Return the amount of slots not empty
+    public int SlotCount ()
+    {
+        int result = 0;
+        for (int i = 0; i < inventory.Count; ++i)
+        {
+            if (inventory[i] != new Item())
+            {
+                ++result;
+            }
+        }
+        return result;
+    }
+
+    // Move any items to fill in gaps
+    public void MoveSlots ()
+    {
+        for (int i = 0; i < inventory.Count; ++i)
+        {
+            if (inventory[i] == new Item())
+            {
+                for (int j = i + 1; j < inventory.Count; ++j)
+                {
+                    if (inventory[j] != new Item())
+                    {
+                        SwitchItems(i, j);
+                        break;
+                    }
+                    if (j == inventory.Count - 1)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     // Checks if the inventory is empty
     public bool IsEmpty ()
     {
@@ -206,6 +243,20 @@ public class Inventory : MonoBehaviour {
         }
         return true;
     }
+
+    // Deletes self if the inventory is empty
+    public void DeleteIfEmpty ()
+    {
+        foreach (Item i in inventory)
+        {
+            if (i.itemId != -1)
+            {
+                return;
+            }
+        }
+        GetComponent<StaticObject>().Die();
+    }
+
 
     /*void DrawInventory()
     {

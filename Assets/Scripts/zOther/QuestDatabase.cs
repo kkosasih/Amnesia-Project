@@ -27,23 +27,23 @@ public class QuestDatabase : MonoBehaviour
         items.Add("vest");
 
         objectives = new List<string>();    //List for who to talk to
-        objectives.Add("Sign");
+        objectives.Add("Wood");
 
         amount = new List<int>();           //Just to fill it in
-        amount.Add(1);
+        amount.Add(5);
 
         tamount = new List<int>();
         tamount.Add(0);
 
-        return new TalkQuest(
-            "Learning to Talk",
+        return new CollectQuest(
+            "Collecting Lumber",
             items,                          //Loot
             objectives,                     //Monsters
             amount,                         //How many Monsters
             tamount,
             0,                              //Which Character is affected
-            "Find your father.",            //Description
-            "You've arrive at the island, but you crashed. Go find you father in the wreckage.",  //Objective
+            "The innkeeper gave you a chore to repay your stay",            //Description
+            "Collect wood by chopping down a tree",  //Objective
             true,
             false);
     }

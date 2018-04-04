@@ -49,17 +49,4 @@ public class PickupInventory : Inventory {
         base.TransferAllItems(other);
         DeleteIfEmpty();
     }
-
-    // Deletes self if the inventory is empty
-    private void DeleteIfEmpty ()
-    {
-        foreach (Item i in inventory)
-        {
-            if (i.itemId != -1)
-            {
-                return;
-            }
-        }
-        GetComponent<StaticObject>().Die();
-    }
 }

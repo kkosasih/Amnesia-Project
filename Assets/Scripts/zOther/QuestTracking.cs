@@ -29,8 +29,8 @@ public class QuestTracking : MonoBehaviour
         fquestList = new List<QuestTypes>();
         character = new int[10, 2];
         
-        //mainList.Add(QuestDatabase.MainQuest1());
         mainList.Add(QuestDatabase.MainQuest2());
+        mainList.Add(QuestDatabase.MainQuest1());
         //questList.Add(QuestDatabase.MainQuest1());
         addingquests("GeneralQuest1");
 
@@ -46,7 +46,7 @@ public class QuestTracking : MonoBehaviour
         }
 
         //For getting the started quest menu
-        if(((questinc2 - 1) != questinc || (questinc == 0 && questinc2 == 0)) && (finuiup == false))
+        if(questinc < mainList.Count && ((questinc2 - 1) != questinc || (questinc == 0 && questinc2 == 0)) && (finuiup == false))
         {
             stfin.text = "Quest Start";
             FinUI2.alpha = 0;
@@ -72,11 +72,14 @@ public class QuestTracking : MonoBehaviour
         }
 
         //For Keeping track of the progress of the menu
-        mainList[questinc].updatedprog();
-        if (mainList[questinc].finished == true && finuiup == false)
+        if (questinc < mainList.Count)
         {
-            finuiup = true;
-            FinishQuest(questinc);
+            mainList[questinc].updatedprog();
+            if (mainList[questinc].finished == true && finuiup == false)
+            {
+                finuiup = true;
+                FinishQuest(questinc);
+            }
         }
 
         //Make sure there isn't any big delay for any of the processes...
@@ -126,7 +129,10 @@ public class QuestTracking : MonoBehaviour
 
     public void questobj(string target)
     {
-        mainList[questinc].obj(target);
+        if (questinc < mainList.Count)
+        {
+            mainList[questinc].obj(target);
+        }
         for (int z = 0; z < questList.Count; z++)
         {
             if (questList[z].finished == false)
