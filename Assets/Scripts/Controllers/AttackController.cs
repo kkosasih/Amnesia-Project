@@ -120,6 +120,23 @@ public class AttackController : MonoBehaviour {
         }
     }
 
+    // Template for a static burst attack (an attack affecting the area around the enemy)
+    public void StaticBurstAttack(Attack a, int tile, int length)
+    {
+        int baseTile = GameController.map.TileLeftStrict(GameController.map.TileAboveStrict(tile, length), length);
+        for (int j = 0; j <= length * 2; ++j)
+        {
+            for (int k = 0; k <= length * 2; ++k)
+            {
+                int tileToHit = GameController.map.TileRightStrict(GameController.map.TileBelowStrict(baseTile, j), k);
+                if (tileToHit >= 0)
+                {
+                    //StartCoroutine(GiveAttack(tileToHit));
+                }
+            }
+        }
+    }
+
     // Template for a point attack
     public void PointAttack(Attack a, int tile)
     {

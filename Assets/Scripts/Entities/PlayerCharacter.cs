@@ -159,7 +159,7 @@ public class PlayerCharacter : Character {
         ++movementPreventions;
         _animator.SetInteger("direction", (int)dir);
         yield return new WaitForSeconds(0.5f);
-        AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, currentTile, 5, 2, 5);
+        AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f, new StatusEffect(1, 1, 5)), dir, currentTile, 5, 2, 5);
         --movementPreventions;
 		ChangeStamina (stamina - staminaDepletionAttack);
     }
