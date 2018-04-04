@@ -29,8 +29,8 @@ public class QuestTracking : MonoBehaviour
         fquestList = new List<QuestTypes>();
         character = new int[10, 2];
         
-        //mainList.Add(QuestDatabase.MainQuest1());
         mainList.Add(QuestDatabase.MainQuest2());
+        mainList.Add(QuestDatabase.MainQuest1());
         //questList.Add(QuestDatabase.MainQuest1());
         addingquests("GeneralQuest1");
 
