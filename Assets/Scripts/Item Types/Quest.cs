@@ -12,7 +12,7 @@ public class Quest : Item {
         itemOutput = output;
         itemDesc = desc;
         itemStack = stack;
-        itemStackAmount = stack;
+        itemStackAmount = amount;
         itemValue = value;
         itemIcon = Resources.Load<Sprite>("Item Icons/" + name);
     }

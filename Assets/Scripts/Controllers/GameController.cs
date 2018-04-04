@@ -94,13 +94,13 @@ public class GameController : MonoBehaviour {
         FindMap();
         PlayerCharacter.instance.PlaceOnMap();
         // Place static characters on map
-        foreach (StaticObject c in GameObject.Find("Characters").transform.GetComponentsInChildren<StaticObject>())
+        foreach (StaticObject s in GameObject.Find("Characters").transform.GetComponentsInChildren<StaticObject>())
         {
-            c.PlaceOnMap();
+            s.PlaceOnMap();
         }
-        foreach (StaticObject c in GameObject.Find("MapObjects").transform.GetComponentsInChildren<StaticObject>())
+        foreach (StaticObject s in GameObject.Find("MapObjects").transform.GetComponentsInChildren<StaticObject>())
         {
-            c.PlaceOnMap();
+            s.PlaceOnMap();
         }
     }
 
