@@ -73,6 +73,19 @@ public class Tile : MonoBehaviour {
         }
         return result;
     }
+
+    // Applies the status effect of the first attack with a status effect
+    public StatusEffect Effect()
+    {
+        foreach (Attack a in attacks)
+        {
+            if (a.statusEffect != StatusEffect.empty)
+            {
+                return a.statusEffect;
+            }
+        }
+        return StatusEffect.empty;
+    }
 }
 
 // The tile types

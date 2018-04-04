@@ -35,9 +35,15 @@ public class Character : StaticObject {
             {
                 lastMove += Time.deltaTime;
             }
-            if (TileHurts() && !attacked)
+            if (TileHurts() && !attacked && GameController.map.tiles[currentTile].GetComponent<Tile>().Effect() == StatusEffect.empty)
             {
                 ChangeHealth(health - GameController.map.tiles[GameController.map.takenTiles[this]].GetComponent<Tile>().Damage(teamID));
+                attacked = true;
+            }
+            else if (TileHurts() && !attacked && GameController.map.tiles[currentTile].GetComponent<Tile>().Effect() != StatusEffect.empty)
+            {
+                ChangeHealth(health - GameController.map.tiles[currentTile].GetComponent<Tile>().Damage(teamID));
+                StartCoroutine(ApplyStatusEffect(GameController.map.tiles[currentTile].GetComponent<Tile>().Effect()));
                 attacked = true;
             }
             else if (!TileHurts())
@@ -226,6 +232,18 @@ public class Character : StaticObject {
         HandleTile();
         moving = false;
         PlayerCharacter.instance.interaction = GameController.map.FindInteractible();
+    }
+
+    // Applies the status effect
+    private IEnumerator ApplyStatusEffect(StatusEffect effect)
+    {
+        float currentTime = 0.0f;
+        while (currentTime <= effect.duration)
+        {
+            ChangeHealth(health - effect.damage);
+            yield return new WaitForSeconds(effect.repeatTime);
+            currentTime += effect.repeatTime;
+        }
     }
 
     // Performs all special actions that a tile would perform if moved to
