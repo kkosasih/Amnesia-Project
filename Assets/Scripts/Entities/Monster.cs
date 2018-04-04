@@ -31,7 +31,7 @@ public class Monster : Character {
     {
         ++movementPreventions;
         yield return new WaitForSeconds(1);
-        AttackController.instance.BurstAttack(new Attack(teamID, 1, 0.5f, new StatusEffect(5, 1, 5)), GameController.map.takenTiles[this], 2, 2);
+        AttackController.instance.BurstAttack(new Attack(teamID, 1, 0.5f), GameController.map.takenTiles[this], 2, 2);
         yield return new WaitForSeconds(0.5f);
         --movementPreventions;
     }
