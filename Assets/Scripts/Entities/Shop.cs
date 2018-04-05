@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shop : MonoBehaviour {
+    #region Attributes
     public int numOfItems;      // Number of items the shop has
     public List<Item> items;    // The items that the shop has
-    //private ItemDatabase database;
+                                //private ItemDatabase database;
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
         items = new List<Item>();
         for (int i = 0; i < numOfItems; ++i)
@@ -22,4 +25,5 @@ public class Shop : MonoBehaviour {
     {
 		
 	}
+    #endregion
 }

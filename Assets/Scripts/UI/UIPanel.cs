@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIPanel : MonoBehaviour {
+    #region Attributes
     public bool isOpen = false; // Whether the UI element should be visible
+    #endregion
 
+    #region Event Functions
     // Use this for initialization
     void Start ()
     {
@@ -25,10 +28,13 @@ public class UIPanel : MonoBehaviour {
             Helper.ChangeAllVisibility(gameObject, false);
         }
     }
+    #endregion
 
+    #region Methods
     // Close the panel (for buttons)
     public void Close ()
     {
         isOpen = false;
     }
+    #endregion
 }

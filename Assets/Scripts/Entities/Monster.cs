@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : Character {
+    #region Attributes
     //public PlayerCharacter player;  // The player script to track
     //public bool pickuptile = false;
     public GameObject canvas;
+    #endregion
+
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
+    {
+
+    }
 
     // Update is called once per frame
     protected override void Update ()
@@ -25,17 +34,9 @@ public class Monster : Character {
         }
         base.Update();
     }
+    #endregion
 
-    // Attack in a given direction dir
-    public override IEnumerator Attack (Direction dir)
-    {
-        ++movementPreventions;
-        yield return new WaitForSeconds(1);
-        AttackController.instance.BurstAttack(new Attack(teamID, 1, 0.5f), GameController.map.takenTiles[this], 2, 2);
-        yield return new WaitForSeconds(0.5f);
-        --movementPreventions;
-    }
-
+    #region Methods
     // Kill this character and drop an item
     public override void Die ()
     {
@@ -79,4 +80,17 @@ public class Monster : Character {
         }
         return null;
     }
+    #endregion
+
+    #region Coroutines
+    // Attack in a given direction dir
+    public override IEnumerator Attack(Direction dir)
+    {
+        ++movementPreventions;
+        yield return new WaitForSeconds(1);
+        AttackController.instance.BurstAttack(new Attack(teamID, 1, 0.5f), GameController.map.takenTiles[this], 2, 2);
+        yield return new WaitForSeconds(0.5f);
+        --movementPreventions;
+    }
+    #endregion
 }

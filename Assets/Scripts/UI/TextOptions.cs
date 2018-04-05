@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class TextOptions : MonoBehaviour {
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
 		
 	}
@@ -16,7 +17,9 @@ public class TextOptions : MonoBehaviour {
     {
 		
 	}
+    #endregion
 
+    #region Methods
     // Destroy current objects and create new ones
     public void CreateOptions (List<string> options)
     {
@@ -36,4 +39,5 @@ public class TextOptions : MonoBehaviour {
             g.GetComponent<ChoiceButton>().choice = (char)(i + 'A');
         }
     }
+    #endregion
 }

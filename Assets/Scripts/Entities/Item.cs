@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Item
 {
+    #region Attributes
     //Sidenote: When putting items on the floor to be pickupable (with x) just put on ItemLayer and make object name the one you want added
     public string itemName;             //The name
     public int itemId;                  //Callable id
@@ -14,6 +15,7 @@ public class Item
     public int itemStackAmount;         //Current stack amount of item
     public int itemValue;               //The monatery value of the item
     public Sprite itemIcon;          //How it looks
+    #endregion
 
     /*public enum ItemType
     {
@@ -27,6 +29,7 @@ public class Item
         Quest                           //Non-Discardable, Sellable, or Equipable items
     }*/
 
+    #region Constructors
     public Item()
     {
         itemId = -1;
@@ -58,4 +61,5 @@ public class Item
         itemValue = copy.itemValue;
         itemIcon = copy.itemIcon;
     }
+    #endregion
 }

@@ -5,13 +5,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Tile : MonoBehaviour {
+    #region Attributes
     public static bool debug = false;   // Whether the tiles show debug data
     private GameObject debugText;       // The text put for tiles during debug
     public TileType type;               // The type of the tile
     public TileType startType;          // The beginning type of tile (to revert to it later)
     public Vector2 position;            // The position of the tile in the world
     public List<Attack> attacks;        // The attack values that are stored in the tile
+    #endregion
 
+    #region Event Functions
     // Use this for initialization
     void Start ()
     {
@@ -51,7 +54,9 @@ public class Tile : MonoBehaviour {
             }
         }
     }
+    #endregion
 
+    #region Methods
     // Change position of the tile
     public void UpdatePosition (Vector2 positionP)
     {
@@ -86,6 +91,7 @@ public class Tile : MonoBehaviour {
         }
         return StatusEffect.empty;
     }
+    #endregion
 }
 
 // The tile types

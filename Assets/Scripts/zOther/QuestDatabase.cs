@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class QuestDatabase : MonoBehaviour
 {
-
+    #region Attributes
     static List<string> items;
     static List<string> objectives;
     static List<int> amount;
     static List<int> tamount;
-    
+    #endregion
 
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+
+    }
+    #endregion
+
+    #region Methods
     public static QuestTypes Fix(string name)
     {
         switch(name)
@@ -101,4 +116,5 @@ public class QuestDatabase : MonoBehaviour
             false,
             false);
     }
+    #endregion
 }

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Expansion : MonoBehaviour {
+    #region Attributes
     public bool isVertical;                 // Whether the expansion goes vertically
     public float speed;                     // Speed of expansion in units per second
     private SpriteRenderer _spriteRenderer; // The Sprite Renderer component attached
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
 	}
@@ -26,4 +29,5 @@ public class Expansion : MonoBehaviour {
             _spriteRenderer.size += new Vector2(Time.deltaTime * speed, 0);
         }
     }
+    #endregion
 }

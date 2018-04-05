@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Helper {
 
+    #region Methods
     // Returns a new list filled with an amount of items
     public static List<T> FillList<T>(int size, T item)
     {
@@ -37,6 +38,68 @@ public class Helper {
         }
     }
 
+    // Get the offset anchorMin and anchorMax of an object
+    public static List<Vector2> FixedAnchorMinMax(Transform t)
+    {
+        List<Transform> tree = GetAncestors(t);
+        Vector2 tempMin = new Vector2(0, 0);
+        Vector2 tempMax = new Vector2(1, 1);
+        foreach (Transform ti in tree)
+        {
+            RectTransform rt = ti.GetComponent<RectTransform>();
+            if (rt != null && !ti.CompareTag("Canvas"))
+            {
+                Vector2 tempMin2 = new Vector2((tempMax.x - tempMin.x) * rt.anchorMin.x + tempMin.x, (tempMax.y - tempMin.y) * rt.anchorMin.y + tempMin.y);
+                Vector2 tempMax2 = new Vector2((tempMax.x - tempMin.x) * rt.anchorMax.x + tempMin.x, (tempMax.y - tempMin.y) * rt.anchorMax.y + tempMin.y);
+                tempMin = tempMin2;
+                tempMax = tempMax2;
+            }
+        }
+        return new List<Vector2> { tempMin, tempMax };
+    }
+
+    // Return the ancestors of the object's transform in chronological order
+    public static List<Transform> GetAncestors(Transform t)
+    {
+        List<Transform> result = new List<Transform>();
+        for (Transform ti = t; ti != null; ti = ti.parent)
+        {
+            result.Add(ti);
+        }
+        result.Reverse();
+        return result;
+    }
+
+    // Reverses a list in chunks
+    public static List<T> ReverseInChunks<T>(List<T> list, int chunkSize)
+    {
+        List<T> result = new List<T>();
+        List<List<T>> chunkedResult = new List<List<T>>();
+        for (int i = 0; i < list.Count; i += chunkSize)
+        {
+            List<T> toAdd = new List<T>();
+            for (int j = i; j < i + chunkSize && j < list.Count; ++j)
+            {
+                toAdd.Add(list[j]);
+            }
+            chunkedResult.Add(toAdd);
+        }
+        chunkedResult.Reverse();
+        foreach (List<T> l in chunkedResult)
+        {
+            result.AddRange(l);
+        }
+        return result;
+    }
+
+    // Gives a random color
+    public static Color RandomColor(bool useAlpha)
+    {
+        return new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), useAlpha ? Random.Range(0f, 1f) : 1);
+    }
+    #endregion
+
+    #region Coroutines
     // Move an object to a position over a set time
     public static IEnumerator LerpMovement(GameObject obj, Vector3 newPos, float time)
     {
@@ -99,64 +162,5 @@ public class Helper {
         }
         i.color = newColor;
     }
-
-    // Get the offset anchorMin and anchorMax of an object
-    public static List<Vector2> FixedAnchorMinMax (Transform t)
-    {
-        List<Transform> tree = GetAncestors(t);
-        Vector2 tempMin = new Vector2(0, 0);
-        Vector2 tempMax = new Vector2(1, 1);
-        foreach (Transform ti in tree)
-        {
-            RectTransform rt = ti.GetComponent<RectTransform>();
-            if (rt != null && !ti.CompareTag("Canvas"))
-            {
-                Vector2 tempMin2 = new Vector2((tempMax.x - tempMin.x) * rt.anchorMin.x + tempMin.x, (tempMax.y - tempMin.y) * rt.anchorMin.y + tempMin.y);
-                Vector2 tempMax2 = new Vector2((tempMax.x - tempMin.x) * rt.anchorMax.x + tempMin.x, (tempMax.y - tempMin.y) * rt.anchorMax.y + tempMin.y);
-                tempMin = tempMin2;
-                tempMax = tempMax2;
-            }
-        }
-        return new List<Vector2> { tempMin, tempMax };
-    }
-
-    // Return the ancestors of the object's transform in chronological order
-    public static List<Transform> GetAncestors (Transform t)
-    {
-        List<Transform> result = new List<Transform>();
-        for (Transform ti = t; ti != null; ti = ti.parent)
-        {
-            result.Add(ti);
-        }
-        result.Reverse();
-        return result;
-    }
-
-    // Reverses a list in chunks
-    public static List<T> ReverseInChunks<T> (List<T> list, int chunkSize)
-    {
-        List<T> result = new List<T>();
-        List<List<T>> chunkedResult = new List<List<T>>();
-        for (int i = 0; i < list.Count; i += chunkSize)
-        {
-            List<T> toAdd = new List<T>();
-            for (int j = i; j < i + chunkSize && j < list.Count; ++j)
-            {
-                toAdd.Add(list[j]);
-            }
-            chunkedResult.Add(toAdd);
-        }
-        chunkedResult.Reverse();
-        foreach (List<T> l in chunkedResult)
-        {
-            result.AddRange(l);
-        }
-        return result;
-    }
-
-    // Gives a random color
-    public static Color RandomColor (bool useAlpha)
-    {
-        return new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), useAlpha ? Random.Range(0f, 1f) : 1);
-    }
+    #endregion
 }

@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemHolder : MonoBehaviour {
+    #region Attributes
     public static int invIndex; // The index that the holder has a "hold" of
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
         StartCoroutine(UpdateItem(-1));
 	}
@@ -22,7 +25,9 @@ public class ItemHolder : MonoBehaviour {
             StartCoroutine(UpdateItem(-1));
         }
     }
+    #endregion
 
+    #region Coroutines
     // Update the item being held, nullify after a frame
     public IEnumerator UpdateItem (int index)
     {
@@ -41,4 +46,5 @@ public class ItemHolder : MonoBehaviour {
             i.color = Color.clear;
         }
     }
+    #endregion
 }

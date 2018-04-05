@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class QuestTracking : MonoBehaviour
 {
+    #region Attributes
     public List<QuestTypes> availablequests;
     public List<QuestTypes> mainList;
     public List<QuestTypes> questList;
@@ -21,7 +22,9 @@ public class QuestTracking : MonoBehaviour
     public string questname;
     public int questinc = 0, questinc2 = 0;
     public float num = 0;
+    #endregion
 
+    #region Event Functions
     void Start()
     {
         mainList = new List<QuestTypes>();
@@ -97,7 +100,9 @@ public class QuestTracking : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Methods
     public void FinishQuest(int x)
     {
         FinUI2.alpha = 0;       
@@ -150,6 +155,13 @@ public class QuestTracking : MonoBehaviour
         questobj(speaker.text);
     }
 
+    public void addingquests(string qname)
+    {
+        questList.Add(QuestDatabase.Fix(qname));
+    }
+    #endregion
+
+    #region Coroutines
     public IEnumerator Fade(CanvasGroup ui)
     {
         while (true)
@@ -179,9 +191,5 @@ public class QuestTracking : MonoBehaviour
         FinUI.SetActive(false);
         finuiup = false;
     }
-
-    public void addingquests(string qname)
-    {
-        questList.Add(QuestDatabase.Fix(qname));
-    }
+    #endregion
 }

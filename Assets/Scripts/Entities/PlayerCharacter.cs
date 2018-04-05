@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCharacter : Character {
+    #region Attributes
     public static PlayerCharacter instance; // The instance script to reference
     public int stamina;                     // The current stamina of the player
     public int maxStamina;                  // The max stamina of the player
@@ -17,7 +18,9 @@ public class PlayerCharacter : Character {
     public string itemname;                 // Variable for getting specific item
     public LayerMask ItemLayer;             // Check if the object is an item
     private AudioSource footstepsAudio;     // The audio played when the player moves
+    #endregion
 
+    #region Event Functions
     protected override void Awake ()
     {
         // Set up other scripts
@@ -118,7 +121,18 @@ public class PlayerCharacter : Character {
             }
         }
     }
+    #endregion
 
+    #region Methods
+    // Changes stamina to the given value
+    public void ChangeStamina(int newStamina)
+    {
+        stamina = newStamina;
+        staminaSlider.value = (float)stamina / maxStamina * 100;
+    }
+    #endregion
+
+    #region Coroutines
     // Attack in a given direction dir
     public override IEnumerator Attack(Direction dir)
     {
@@ -129,12 +143,6 @@ public class PlayerCharacter : Character {
         --movementPreventions;
         ChangeStamina(stamina - staminaDepletionAttack);
     }
-
-    // Changes stamina to the given value
-    public void ChangeStamina (int newStamina)
-    {
-        stamina = newStamina;
-        staminaSlider.value = (float)stamina / maxStamina * 100;
-    }
+    #endregion
 }
 

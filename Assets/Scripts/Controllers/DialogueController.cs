@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour {
+    #region Attributes
     public static DialogueController instance;  // The instance to reference in other scripts
     public int movementPreventions = 0;         // The movement preventions on the game (in cutscene)
     public char branch = '*';                   // The current branch of dialogue the player has
@@ -11,9 +12,11 @@ public class DialogueController : MonoBehaviour {
     private string tree;                        // The name of the current set of branches
     private UIPanel dialoguePanel;              // The dialogue panel to reference
     private int convoIndex = 0;                 // The current part of the cutscene playing
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
         instance = this;
         conversation = new List<DialoguePart>();
@@ -34,7 +37,9 @@ public class DialogueController : MonoBehaviour {
             dialoguePanel.Close();
         }
     }
+    #endregion
 
+    #region Methods
     // Change the conversation with conversation data from a file
     public void ChangeConversation (string path)
     {
@@ -119,4 +124,5 @@ public class DialogueController : MonoBehaviour {
     {
         ChangeConversation("Test");
     }
+    #endregion
 }

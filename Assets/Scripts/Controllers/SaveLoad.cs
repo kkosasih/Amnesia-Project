@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SaveLoad {
+    #region Attributes
     public static GameObject player = GameObject.FindWithTag("Player");
     public static GameObject ccreation = GameObject.Find("Character Creation");
+    #endregion
 
+    #region Methods
     // Saves the needed game info
     public static void Save (int slot)
     {
@@ -67,4 +70,5 @@ public class SaveLoad {
             }
         }
     }
+    #endregion
 }

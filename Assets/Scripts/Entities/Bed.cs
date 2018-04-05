@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class Bed : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    #region Event Functions
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -14,8 +15,10 @@ public class Bed : MonoBehaviour {
 	void Update () {
 		
 	}
+    #endregion
 
-	public IEnumerator sleep ()
+    #region Coroutines
+    public IEnumerator sleep ()
 	{
 		GameObject player = GameObject.FindWithTag ("Player");
 		player.GetComponent<PlayerCharacter> ().movementPreventions = 1;
@@ -30,4 +33,5 @@ public class Bed : MonoBehaviour {
 		player.GetComponent<PlayerCharacter> ().movementPreventions = 0;
 
 	}
+    #endregion
 }

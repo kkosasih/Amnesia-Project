@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupItemScreen : MonoBehaviour {
+    #region Attributes
     public static PickupItemScreen instance;    // The instance to references
     private PickupInventory inventory;          // The inventory attached to the UI
+    #endregion
 
+    #region Event Functions
     void Awake ()
     {
         instance = this;
@@ -17,6 +20,20 @@ public class PickupItemScreen : MonoBehaviour {
         inventory = newInv;
     }
 
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    #endregion
+
+    #region Methods
     // Take the item in the given slot and close if empty
     public void TakeItem (int index)
     {
@@ -49,4 +66,5 @@ public class PickupItemScreen : MonoBehaviour {
         --PlayerCharacter.instance.movementPreventions;
         GetComponent<UIPanel>().isOpen = false;
     }
+    #endregion
 }

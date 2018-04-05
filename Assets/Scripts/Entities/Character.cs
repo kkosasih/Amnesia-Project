@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Character : StaticObject {
+    #region Attributes
     public int teamID;                      // The team that the character belongs to; no friendly fire
     public int movementPreventions = 0;     // 0 if not in a cutscene, a number otherwise
     public bool moving = false;             // Whether the character is moving
@@ -16,7 +17,9 @@ public class Character : StaticObject {
     protected bool attacked = false;        // Whether the character has been hit recently
     protected Coroutine movementRoutine;    // The animation coroutine to play/stop
     protected Animator _animator;           // The Animator component attached
+    #endregion
 
+    #region Event Functions
     protected virtual void Awake ()
     {
         healthSlider = Instantiate((GameObject)Resources.Load("GUI/CharHealthSlider"), GameObject.Find("DynamicCanvas").transform);
@@ -26,8 +29,14 @@ public class Character : StaticObject {
         _animator = GetComponent<Animator>();
     }
 
-	// Update is called once per frame
-	protected virtual void Update ()
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    protected virtual void Update ()
     {
         if (onMap)
         {
@@ -51,7 +60,9 @@ public class Character : StaticObject {
             Die();
         }
 	}
+    #endregion
 
+    #region Methods
     // Move the character to an adjacent tile with an animation
     public virtual void Move (Direction dir)
     {
@@ -102,6 +113,41 @@ public class Character : StaticObject {
         }
     }
 
+    // Kill this character
+    public override void Die()
+    {
+        Destroy(healthSlider);
+        base.Die();
+    }
+
+    // Change the health of the character to the new value
+    public void ChangeHealth(int newHealth)
+    {
+        if (newHealth < health)
+        {
+            StartCoroutine(LoseHealth(newHealth));
+        }
+        else if (newHealth > health)
+        {
+            StartCoroutine(GainHealth(newHealth));
+        }
+        health = newHealth;
+    }
+
+    // Performs all special actions that a tile would perform if moved to
+    protected virtual void HandleTile()
+    {
+
+    }
+
+    // Checks if the tile is harmful to the character
+    protected bool TileHurts()
+    {
+        return GameController.map.tiles[GameController.map.takenTiles[this]].GetComponent<Tile>().Damage(teamID) > 0;
+    }
+    #endregion
+
+    #region Coroutines
     // Move the character by multiple tiles automatically
     public IEnumerator AutoMove (List<Direction> path)
     {
@@ -171,27 +217,6 @@ public class Character : StaticObject {
         yield return null;
     }
 
-    // Kill this character
-    public override void Die ()
-    {
-        Destroy(healthSlider);
-        base.Die();
-    }
-
-    // Change the health of the character to the new value
-    public void ChangeHealth (int newHealth)
-    {
-        if (newHealth < health)
-        {
-            StartCoroutine(LoseHealth(newHealth));
-        }
-        else if (newHealth > health)
-        {
-            StartCoroutine(GainHealth(newHealth));
-        }
-        health = newHealth;
-    }
-
     // Has the health bar react to gaining health
     private IEnumerator GainHealth (int newHealth)
     {
@@ -240,18 +265,7 @@ public class Character : StaticObject {
             currentTime += effect.repeatTime;
         }
     }
-
-    // Performs all special actions that a tile would perform if moved to
-    protected virtual void HandleTile ()
-    {
-
-    }
-
-    // Checks if the tile is harmful to the character
-    protected bool TileHurts ()
-    {
-        return GameController.map.tiles[GameController.map.takenTiles[this]].GetComponent<Tile>().Damage(teamID) > 0;
-    }
+    #endregion
 }
 
 public enum Direction

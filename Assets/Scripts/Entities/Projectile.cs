@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
+    #region Attributes
     public Direction direction; // The direction that it travels in
     public float speed;         // How quickly it travels in units per second
     public float duration = 1;  // How long the projectile lasts before death
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
         // Rotate based on chosen direction
 		switch(direction)
@@ -39,4 +42,5 @@ public class Projectile : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+    #endregion
 }

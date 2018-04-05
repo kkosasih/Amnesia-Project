@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DrawInventory : MonoBehaviour {
-	public List<Item> inventory = new List<Item>();
+    #region Attributes
+    public List<Item> inventory = new List<Item>();
 	public List<Item> slots = new List<Item>();
 	//public GUISkin skin;
 	public GameObject Itemdata;
@@ -17,10 +18,11 @@ public class DrawInventory : MonoBehaviour {
 	//private bool showtooltip = false;
 	//private ItemDatabase database;
 	private bool draw = false;
+    #endregion
 
-
-	// Use this for initialization
-	void Start () {
+    #region Event Functions
+    // Use this for initialization
+    void Start () {
 		for (int i = 0; i < 21; i++) //remeber to increase based on database
 		{
 			slots.Add(new Item());
@@ -52,6 +54,5 @@ public class DrawInventory : MonoBehaviour {
 		screen.SetActive (draw);
 		inventorySlots.SetActive (draw);
 	}
-
-	
+    #endregion
 }

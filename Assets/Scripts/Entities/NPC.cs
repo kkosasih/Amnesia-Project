@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPC : Character {
+    #region Attributes
     public List<int> walkPath;                      // The list of tiles to walk between
     public List<string> path;                       // The list of conversations given
     private string currentPath;                     // The conversation to bring up when next talked to
     public Dictionary<string, string> nextConvos;   // Storage of conversation paths
     private int pathIndex;                          // The index of the path list
+    #endregion
 
+    #region Event Functions
     protected override void Awake ()
     {
         base.Awake();
@@ -40,11 +43,14 @@ public class NPC : Character {
             StartCoroutine(AutoMoveOneStep(walkPath[pathIndex]));
         }
     }
+    #endregion
 
+    #region Methods
     // Trigger a conversation and prepare the next
     public void Talk ()
     {
         DialogueController.instance.ChangeConversation("NPC/" + currentPath);
         currentPath = nextConvos[currentPath];
     }
+    #endregion
 }

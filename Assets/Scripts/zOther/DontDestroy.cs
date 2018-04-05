@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DontDestroy : MonoBehaviour {
 
+    #region Event Functions
     void Awake ()
     {
         // Make the gameobject attached not be destroyed between scenes
@@ -13,4 +14,18 @@ public class DontDestroy : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+    // Use this for initialization
+    void Start ()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+
+    }
+
+    #endregion
 }

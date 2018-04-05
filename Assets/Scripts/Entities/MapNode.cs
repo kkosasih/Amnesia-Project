@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MapNode {
+    #region Attributes
     public int start;                                       // The top-left point
     public int width;                                       // The amount of tiles stretched right
     public int height;                                      // The amount of tiles stretched down
     public Dictionary<MapNode, Direction> adjacentNodes;    // The nodes adjacent to this one
     private Map map;                                        // The map this node is a part of
+    #endregion
 
+    #region Constructors
     // A constructor for a node that is made from a map and a position on it
-    public MapNode (Map nMap, int nStart, List<int> badTiles)
+    public MapNode(Map nMap, int nStart, List<int> badTiles)
     {
         // Initialize vars
         map = nMap;
@@ -41,7 +44,9 @@ public class MapNode {
         }
         height = j - 1;
     }
+    #endregion
 
+    #region Methods
     // Returns an array of tile numbers that are covered by the node
     public List<int> TilesCovered ()
     {
@@ -253,4 +258,5 @@ public class MapNode {
     {
         return horizontal ? tile % map.width >= s % map.width && tile % map.width <= e % map.width : tile / map.width >= s / map.width && tile / map.width <= e / map.width;
     }
+    #endregion
 }

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StaticObject : MonoBehaviour {
+    #region Attributes
     public bool solid;                      // Whether the object can be gone through
     public bool onMap = false;              // Whether the character is placed on the map  
     public MapNode node;                    // The current node that the character is in
     //public int currentTile;                 // The tile number that the character is on
     public int startTile;                   // The tile to start on
+    #endregion
 
+    #region Event Functions
     // Use this for initialization
     void Start ()
     {
@@ -20,7 +23,9 @@ public class StaticObject : MonoBehaviour {
     {
 
     }
+    #endregion
 
+    #region Methods
     // Kill this character
     public virtual void Die ()
     {
@@ -96,4 +101,5 @@ public class StaticObject : MonoBehaviour {
             return Direction.Invalid;
         }
     }
+    #endregion
 }

@@ -3,9 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveChar : DialoguePart {
+    #region Attributes
     private Character charToMove;   // The character script to act upon
     private List<Direction> moveTo; // The list of movement inputs for the character to move in
+    #endregion
 
+    #region Event Functions
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    #endregion
+
+    #region Methods
     // Change the variables based on a string
     public override void ChangeSettings (string data)
     {
@@ -32,7 +49,9 @@ public class MoveChar : DialoguePart {
             }
         }
     }
+    #endregion
 
+    #region Coroutines
     // Wait for time1, path the character to the position, then wait for time2
     public override IEnumerator PerformPart()
     {
@@ -42,4 +61,5 @@ public class MoveChar : DialoguePart {
         yield return new WaitForSeconds(time2);
         isRunning = false;
     }
+    #endregion
 }

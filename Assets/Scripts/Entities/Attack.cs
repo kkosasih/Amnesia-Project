@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Attack {
+    #region Attributes
     public int id;          // The team that the attack comes from
     public int damage;      // The damage that the attack does
     public float duration;  // How long the attack lasts before fading
     public StatusEffect statusEffect; // The status effect that the attack contains
+    #endregion
 
+    #region Constructors
     // Constructor for each of the fields
     public Attack (int pId, int pDamage, float pDuration)
     {
@@ -33,4 +36,5 @@ public class Attack {
         duration = copy.duration;
         statusEffect = copy.statusEffect;
     }
+    #endregion
 }

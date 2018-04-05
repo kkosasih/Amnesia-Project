@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CollectQuest : QuestTypes
 {
+    #region Constructors
     public CollectQuest(string newqn, List<string> newListloot, List<string> newobjectives, List<int> ka, List<int> kta, int newcharacter, string newDescription, string newObjective, bool main, bool fin)
     {
         questname = newqn;
@@ -17,4 +18,5 @@ public class CollectQuest : QuestTypes
         mainquest = main;
         finished = fin;
     }
+    #endregion
 }

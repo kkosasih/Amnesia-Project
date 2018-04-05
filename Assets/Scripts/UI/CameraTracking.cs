@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraTracking : MonoBehaviour {
+    #region Attributes
     public Transform track; // The transform to track
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
 		
 	}
@@ -16,4 +19,5 @@ public class CameraTracking : MonoBehaviour {
     {
         transform.position = new Vector3(track.position.x, track.position.y, - 10);
     }
+    #endregion
 }

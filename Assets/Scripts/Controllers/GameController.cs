@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
+    #region Attributes
     public static GameObject player;    // The player object to track
     public static GameObject inventory; // The player inventory to track
     public static Map map;              // The game map to track
+    #endregion
 
+    #region Event Functions
     // Use this for initialization
     void Start ()
     {
@@ -22,9 +25,9 @@ public class GameController : MonoBehaviour {
             inv.AddItemByID(2);
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
@@ -72,13 +75,30 @@ public class GameController : MonoBehaviour {
             inventory.GetComponent<UIPanel>().isOpen = !inventory.GetComponent<UIPanel>().isOpen;
         }
     }
+    #endregion
 
+    #region Methods
     // Attach a map to the player to use
     public static void FindMap ()
     { 
         map = GameObject.FindWithTag("Map").GetComponent<Map>();
     }
 
+    // Save and load based on shift key
+    private static void ShiftSave(int slot)
+    {
+        if (Input.GetKey(KeyCode.Z))
+        {
+            SaveLoad.Save(slot);
+        }
+        else
+        {
+            SaveLoad.Load(slot);
+        }
+    }
+    #endregion
+
+    #region Coroutines
     // Load a scene and set up necessary parts
     public static IEnumerator SetUpScene (int index)
     {
@@ -103,17 +123,5 @@ public class GameController : MonoBehaviour {
             s.PlaceOnMap();
         }
     }
-
-    // Save and load based on shift key
-    private static void ShiftSave (int slot)
-    {
-        if (Input.GetKey(KeyCode.Z))
-        {
-            SaveLoad.Save(slot);
-        }
-        else
-        {
-            SaveLoad.Load(slot);
-        }
-    }
+    #endregion
 }

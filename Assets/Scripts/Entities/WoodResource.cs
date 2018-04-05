@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WoodResource : Resource {
 
+    #region Event Functions
     // Use this for initialization
     void Start ()
     {
@@ -18,4 +19,5 @@ public class WoodResource : Resource {
     {
 		
 	}
+    #endregion
 }

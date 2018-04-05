@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DayNightPanelChecker : MonoBehaviour {
+    #region Attributes
+    private GameObject DayNightPanel;
+    #endregion
 
-	private GameObject DayNightPanel;
-	// Use this for initialization
-	void Start () {
+    #region Event Functions
+    // Use this for initialization
+    void Start () {
 		DayNightPanel = GameObject.Find ("DayNightPanel");
 	}
 	
@@ -18,4 +21,5 @@ public class DayNightPanelChecker : MonoBehaviour {
 		else
 			DayNightPanel.SetActive (true);
 	}
+    #endregion
 }

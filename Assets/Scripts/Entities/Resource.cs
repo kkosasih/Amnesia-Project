@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Resource : StaticObject {
+    #region Attributes
     public Inventory inventory; // The inventory of the object
+    #endregion
 
+    #region Event Functions
     protected virtual void Awake ()
     {
         GetComponent<Interactible>().interact = GetRandomObject;
@@ -22,7 +25,9 @@ public class Resource : StaticObject {
     {
 
     }
+    #endregion
 
+    #region Methods
     // Get a random object from the inventory
     protected void GetRandomObject ()
     {
@@ -33,4 +38,5 @@ public class Resource : StaticObject {
         inventory.DeleteIfEmpty();
         inventory.MoveSlots();
     }
+    #endregion
 }

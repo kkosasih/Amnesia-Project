@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 
 public class Map : MonoBehaviour {
+    #region Attributes
     public static bool debug = false;                   // Whether to debug the maps or not
     public string path;                                 // The name of the map in resources
     public int width;                                   // The width of the map in tiles
@@ -12,7 +13,9 @@ public class Map : MonoBehaviour {
     public List<GameObject> tiles;                      // The list of tiles to reference
     public List<MapNode> nodes;                         // The list of nodes for pathfinding
     public Dictionary<StaticObject, int> takenTiles;    // The tiles that are occupied on the map
+    #endregion
 
+    #region Event Functions
     // Use this for initialization
     void Start ()
     {
@@ -111,7 +114,9 @@ public class Map : MonoBehaviour {
     {
 
     }
+    #endregion
 
+    #region Methods
     // Returns an interactible object if applicable
     public Interactible FindInteractible ()
     {
@@ -336,4 +341,5 @@ public class Map : MonoBehaviour {
             File.WriteAllBytes(Application.dataPath + "/Resources/Maps/Textures/" + path + "Nodes.png", nodePic.EncodeToPNG());
         }
     }
+    #endregion
 }

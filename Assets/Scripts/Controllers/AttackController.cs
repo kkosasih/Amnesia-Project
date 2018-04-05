@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackController : MonoBehaviour {
+    #region Attributes
     public static AttackController instance;    // The instance to reference in other scripts
+    #endregion
 
+    #region Event Functions
     // Use this for initialization
     void Start ()
     {
         instance = this;
     }
 
+    // Update is called once per frame
+    void Update ()
+    {
+
+    }
+    #endregion
+
+    #region Methods
     // Template for a straight-line attack
     public void StraightAttack (Attack a, Direction dir, int tile, int length, int width, float speed)
     {
@@ -142,12 +153,15 @@ public class AttackController : MonoBehaviour {
     {
         StartCoroutine(GiveAttack(tile, a, 0));
     }
+    #endregion
 
+    #region Coroutines
     // Give a delay on an attack
     private static IEnumerator GiveAttack (int tile, Attack a, float before)
     {
         yield return new WaitForSeconds(before);
         GameController.map.tiles[tile].GetComponent<Tile>().attacks.Add(a);
     }
+    #endregion
 }
 

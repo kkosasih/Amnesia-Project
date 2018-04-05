@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterLooks : MonoBehaviour {
+    #region Attributes
     public GameObject savemenu, ccmenu, creation;
     public Animator _hair, _head,_clothes, _pants, _Background;
     public int x = 0, y = 0, z = 0,h = 0, animanum = 0, arbitrarynum = 10;
     public bool saving = false;
+    #endregion
 
+    #region Event Functions
     void Start()
     {
         _hair.SetInteger("Movement", 0);
@@ -89,7 +92,9 @@ public class CharacterLooks : MonoBehaviour {
             }
         }
     }
+    #endregion
 
+    #region Methods
     public void head(int input)
     {
         if ((x + input >= 0) && (x + input < 3))
@@ -191,4 +196,5 @@ public class CharacterLooks : MonoBehaviour {
     {
         arbitrarynum = input;
     }
+    #endregion
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 
 public class TimeF : MonoBehaviour {
-
-	public int fullDay = 1800;
+    #region Attributes
+    public int fullDay = 1800;
     public int timeIncrement;
-	// Use this for initialization
-	void Start () {
+    #endregion
+
+    #region Event Functions
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -16,4 +19,5 @@ public class TimeF : MonoBehaviour {
 	void Update () {
 		
 	}
+    #endregion
 }

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MusicController : MonoBehaviour {
+    #region Attributes
     public AudioClip music;
     private AudioSource _audioSource;
+    #endregion
 
+    #region Event Functions#
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -19,4 +22,5 @@ public class MusicController : MonoBehaviour {
 	void Update () {
         
 	}
+    #endregion
 }

@@ -4,9 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Question : DialoguePart {
+    #region Attributes
     public char optionChosen = 'A';                     // The option that was selected from choices
     private List<string> options = new List<string>();  // The text of the given options
+    #endregion
 
+    #region Event Functions
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    #endregion
+
+    #region Methods
     // Change the variables based on a string
     public override void ChangeSettings (string data)
     {
@@ -23,7 +40,9 @@ public class Question : DialoguePart {
     {
         optionChosen = option;
     }
+    #endregion
 
+    #region Coroutines
     // Wait for time1, say the dialogue, then wait for time2 after the player clicks "next"
     public override IEnumerator PerformPart ()
     {
@@ -39,4 +58,5 @@ public class Question : DialoguePart {
         yield return new WaitForSeconds(time2);
         isRunning = false;
     }
+    #endregion
 }

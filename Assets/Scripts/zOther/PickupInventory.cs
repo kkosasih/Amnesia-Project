@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupInventory : Inventory {
+    #region Attributes
     public bool emptyAfterTransfer = false; // True only if the inventory is empty
+    #endregion
 
+    #region Event Functions
     void Awake ()
     {
         GetComponent<Interactible>().interact = OpenThis;
@@ -18,6 +21,14 @@ public class PickupInventory : Inventory {
         //inventory[1] = database.items[1];
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    #endregion
+
+    #region Methods
     // Open the pickup window using this inventory
     public void OpenThis ()
     {
@@ -49,4 +60,5 @@ public class PickupInventory : Inventory {
         base.TransferAllItems(other);
         DeleteIfEmpty();
     }
+    #endregion
 }

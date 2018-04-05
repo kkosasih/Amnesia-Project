@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TimeTracker : MonoBehaviour {
-
-	public int startHour = 6;
+    #region Attributes
+    public int startHour = 6;
 	public int startMinute = 0;
 	public List<byte> earlyMorning;
 	public List<byte> noon;
@@ -19,9 +19,11 @@ public class TimeTracker : MonoBehaviour {
 	private float counter = 0f;
 	private Text clock;
 	private Image DayNight;
+    #endregion
 
-	// Use this for initialization
-	void Start () 
+    #region Event Functions
+    // Use this for initialization
+    void Start () 
 	{
 		hour = startHour;
 		minute = startMinute;
@@ -89,8 +91,10 @@ public class TimeTracker : MonoBehaviour {
 			DayNight.color = new Color32 (lateNight [0], lateNight [1], lateNight [2], lateNight [3]);
 		}
 	}
+    #endregion
 
-	public int getHour()
+    #region Methods
+    public int getHour()
 	{
 		return hour;
 	}
@@ -99,4 +103,5 @@ public class TimeTracker : MonoBehaviour {
 	{
 		return minute;
 	}
+    #endregion
 }

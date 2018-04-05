@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
 {
+    #region Attributes
     public static List<Item> items = new List<Item>();
     public string tempname;
     public static int var1;
     public static int var2;
     public static int var3;
+    #endregion
 
+    #region Event Functions
     void Start()
     {
         //Got bored started making random items
@@ -24,6 +27,14 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Quest("Wood", 8, 0, "Lumber for building.", 5, 99, 1));
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    #endregion
+
+    #region Methods
     public static string randomdrop(string tempname)
     {
         var1 = Random.Range(1, 100);
@@ -81,4 +92,5 @@ public class ItemDatabase : MonoBehaviour
         }
         return tempname;
     }
+    #endregion
 }

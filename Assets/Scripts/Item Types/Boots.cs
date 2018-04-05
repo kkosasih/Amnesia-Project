@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Boots : Item
 {
+    #region Constructors
     public Boots(string name, int id, int output, string desc, int value, int stack, int amount)
     {
         itemName = name;
@@ -16,4 +17,5 @@ public class Boots : Item
         itemValue = value;
         itemIcon = Resources.Load<Sprite>("Item Icons/" + name);
     }
+    #endregion
 }

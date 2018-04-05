@@ -5,11 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class ItemPanel : MonoBehaviour {
+    #region Attributes
     public static ItemHolder holder;    // The holder assigned
     public int invIndex;                // The index assigned to the panel
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
         holder = GameObject.Find("ItemHolder").GetComponent<ItemHolder>();
 	}
@@ -37,7 +40,9 @@ public class ItemPanel : MonoBehaviour {
             GameObject.Find("Inventory").GetComponent<Inventory>().SwitchItems(ItemHolder.invIndex, invIndex);
         }
 	}
+    #endregion
 
+    #region Methods
     // Returns true if the mouse is over the panel
     private bool MouseIsTouching ()
     {
@@ -45,4 +50,5 @@ public class ItemPanel : MonoBehaviour {
         return GetComponent<Image>().enabled && Input.mousePosition.x >= Screen.width * bounds[0].x && Input.mousePosition.x < Screen.width * bounds[1].x
             && Input.mousePosition.y >= Screen.height * bounds[0].y && Input.mousePosition.y < Screen.height * bounds[1].y;
     }
+    #endregion
 }

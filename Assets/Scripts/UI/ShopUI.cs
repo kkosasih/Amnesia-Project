@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour {
+    #region Attributes
     public Shop currentShop = null; // The shop attached to the ui
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    #region Event Functions
+    // Use this for initialization
+    void Start ()
     {
 
     }
@@ -17,7 +20,9 @@ public class ShopUI : MonoBehaviour {
     {
 
 	}
+    #endregion
 
+    #region Methods
     // Set the items in the store
     public void SetShop (Shop shop)
     {
@@ -54,4 +59,5 @@ public class ShopUI : MonoBehaviour {
         --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
         GetComponent<UIPanel>().isOpen = false;
     }
+    #endregion
 }

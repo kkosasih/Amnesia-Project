@@ -4,21 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
+    #region Attributes
     public int size;                                            // The number of items in the inventory
     public int columns;                                         // The number of columns to use in the UI
     public float margin;                                        // The margin for anchors to use in the UI
     public List<Item> inventory = new List<Item>();             // The actual items
     public List<GameObject> slots = new List<GameObject>();     // The UI items to manipulate
-    //public GUISkin skin;
-    //public GameObject Itemdata;
-    //private bool showinventory = true;
-    //private bool showtooltip = false;
-    //protected static ItemDatabase database;
-    //private int slotsx = 7, slotsy = 4;
-    //private string tooltip;
+                                                                //public GUISkin skin;
+                                                                //public GameObject Itemdata;
+                                                                //private bool showinventory = true;
+                                                                //private bool showtooltip = false;
+                                                                //protected static ItemDatabase database;
+                                                                //private int slotsx = 7, slotsy = 4;
+                                                                //private string tooltip;
+    #endregion
 
     //NOTE Most Commented out stuff are UI based
 
+    #region Event Functions
     // Use this for initialization
     protected virtual void Start()
     {
@@ -40,7 +43,9 @@ public class Inventory : MonoBehaviour {
             showinventory = !showinventory;
         }*/
     }
+    #endregion
 
+    #region Methods
     /*void OnGUI()
     {
         tooltip = "";
@@ -333,4 +338,5 @@ public class Inventory : MonoBehaviour {
             }
         }
     }*/
+    #endregion
 }

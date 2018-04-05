@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class QuestTypes
 {
+    #region Attributes
     public string questname;
     public List<string> questListloot;
     public List<string> kncquest;
@@ -15,7 +16,9 @@ public class QuestTypes
     public string objective;
     public bool mainquest;  //Need to change name to something like startuicalled
     public bool finished;
+    #endregion
 
+    #region Methods
     public void updatedprog()
     {
         for (int i = 0; i < kncamount.Count; i++)
@@ -39,4 +42,5 @@ public class QuestTypes
             }
         }
     }
+    #endregion
 }
