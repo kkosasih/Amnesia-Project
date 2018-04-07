@@ -43,11 +43,11 @@ public class Statement : DialoguePart {
         isRunning = true;
         GameObject box = GameObject.Find("DialogueBox");
         yield return new WaitForSeconds(time1);
-        box.GetComponent<UIPanel>().isOpen = true;
+        box.GetComponent<UIPanel>().IsOpen = true;
         box.transform.Find("Portrait").gameObject.GetComponent<Image>().sprite = portrait;
         box.transform.Find("Speaker").gameObject.GetComponent<Text>().text = speaker;
         box.transform.Find("Speech").gameObject.GetComponent<Text>().text = speech;
-        while (box.GetComponent<UIPanel>().isOpen)
+        while (box.GetComponent<UIPanel>().IsOpen)
         {
             yield return new WaitForEndOfFrame();
         }

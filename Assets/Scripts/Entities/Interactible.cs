@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void Simple();
-
 public class Interactible : MonoBehaviour {
     #region Attributes
     public Simple interact; // Function to interact with

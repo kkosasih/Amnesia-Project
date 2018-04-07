@@ -49,15 +49,15 @@ public class ShopUI : MonoBehaviour {
     // Enter the shop
     public void EnterShop ()
     {
-        ++GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
-        GetComponent<UIPanel>().isOpen = true;
+        ++PlayerCharacter.instance.MovementPreventions;
+        GetComponent<UIPanel>().IsOpen = true;
     }
 
     // Exit the shop
     public void ExitShop ()
     {
-        --GameObject.FindWithTag("Player").GetComponent<PlayerCharacter>().movementPreventions;
-        GetComponent<UIPanel>().isOpen = false;
+        --PlayerCharacter.instance.MovementPreventions;
+        GetComponent<UIPanel>().IsOpen = false;
     }
     #endregion
 }

@@ -77,27 +77,27 @@ public class MapNode {
     public Direction Adjacency (MapNode other)
     {
         // If other's left or right boundaries are within this node's left or right boundaries
-        if (other.start % map.width <= BottomRight() % map.width && other.BottomRight() % map.width >= start % map.width)
+        if (other.start % map.Width <= BottomRight() % map.Width && other.BottomRight() % map.Width >= start % map.Width)
         {
             // Return if it is above or below
-            if (other.start / map.width == BottomRight() / map.width + 1)
+            if (other.start / map.Width == BottomRight() / map.Width + 1)
             {
                 return Direction.Down;
             }
-            else if (other.BottomRight() / map.width == start / map.width - 1)
+            else if (other.BottomRight() / map.Width == start / map.Width - 1)
             {
                 return Direction.Up;
             }
         }
         // If other's top or bottom boundaries are within this node's top or bottom boundaries
-        else if (other.start / map.width <= BottomRight() / map.width && other.BottomRight() / map.width >= start / map.width)
+        else if (other.start / map.Width <= BottomRight() / map.Width && other.BottomRight() / map.Width >= start / map.Width)
         {
             // Return if it is left or right
-            if (other.start % map.width == BottomRight() % map.width + 1)
+            if (other.start % map.Width == BottomRight() % map.Width + 1)
             {
                 return Direction.Right;
             }
-            else if (other.BottomRight() % map.width == start % map.width - 1)
+            else if (other.BottomRight() % map.Width == start % map.Width - 1)
             {
                 return Direction.Left;
             }
@@ -142,7 +142,7 @@ public class MapNode {
     // Finds the distance between the two starting nodes
     public int GetDistance (MapNode other)
     {
-        return Mathf.Abs(start % map.width - other.start % map.width) + Mathf.Abs(start / map.width - other.start / map.width);
+        return Mathf.Abs(start % map.Width - other.start % map.Width) + Mathf.Abs(start / map.Width - other.start / map.Width);
     }
 
     // Return a list of adjacent nodes organized by distance
@@ -157,7 +157,7 @@ public class MapNode {
         for (int i = 0; i < adjacentNodes.Keys.Count; ++i)
         {
             MapNode toAdd = new MapNode(map, 0, new List<int>());
-            int min = map.width * 2;
+            int min = map.Width * 2;
             foreach (MapNode mn in keyDistances.Keys)
             {
                 if (!result.Contains(mn) && keyDistances[mn] < min)
@@ -186,15 +186,15 @@ public class MapNode {
             {
                 // If other node is below
                 case Direction.Down:
-                    distance = other.start / map.width - startTile / map.width;
+                    distance = other.start / map.Width - startTile / map.Width;
                     // If you need to travel to line up with the node, do so
-                    if (startTile % map.width > other.BottomRight() % map.width)
+                    if (startTile % map.Width > other.BottomRight() % map.Width)
                     {
-                        return map.TileBelowStrict(map.TileLeftStrict(startTile, startTile % map.width - other.BottomRight() % map.width), distance - 1);
+                        return map.TileBelowStrict(map.TileLeftStrict(startTile, startTile % map.Width - other.BottomRight() % map.Width), distance - 1);
                     }
-                    else if (startTile % map.width < other.start % map.width)
+                    else if (startTile % map.Width < other.start % map.Width)
                     {
-                        return map.TileBelowStrict(map.TileRightStrict(startTile, other.start % map.width - startTile % map.width), distance - 1);
+                        return map.TileBelowStrict(map.TileRightStrict(startTile, other.start % map.Width - startTile % map.Width), distance - 1);
                     }
                     else
                     {
@@ -202,15 +202,15 @@ public class MapNode {
                     }
                 // If other node is right
                 case Direction.Right:
-                    distance = other.start % map.width - startTile % map.width;
+                    distance = other.start % map.Width - startTile % map.Width;
                     // If you need to travel to line up with the node, do so
-                    if (startTile / map.width > other.BottomRight() / map.width)
+                    if (startTile / map.Width > other.BottomRight() / map.Width)
                     {
-                        return map.TileRightStrict(map.TileAboveStrict(startTile, startTile / map.width - other.BottomRight() / map.width), distance - 1);
+                        return map.TileRightStrict(map.TileAboveStrict(startTile, startTile / map.Width - other.BottomRight() / map.Width), distance - 1);
                     }
-                    else if (startTile / map.width < other.start / map.width)
+                    else if (startTile / map.Width < other.start / map.Width)
                     {
-                        return map.TileRightStrict(map.TileBelowStrict(startTile, other.start / map.width - startTile / map.width), distance - 1);
+                        return map.TileRightStrict(map.TileBelowStrict(startTile, other.start / map.Width - startTile / map.Width), distance - 1);
                     }
                     else
                     {
@@ -218,15 +218,15 @@ public class MapNode {
                     }
                 // If other node is above
                 case Direction.Up:
-                    distance = startTile / map.width - other.BottomRight() / map.width;
+                    distance = startTile / map.Width - other.BottomRight() / map.Width;
                     // If you need to travel to line up with the node, do so
-                    if (startTile % map.width > other.BottomRight() % map.width)
+                    if (startTile % map.Width > other.BottomRight() % map.Width)
                     {
-                        return map.TileAboveStrict(map.TileLeftStrict(startTile, startTile % map.width - other.BottomRight() % map.width), distance - 1);
+                        return map.TileAboveStrict(map.TileLeftStrict(startTile, startTile % map.Width - other.BottomRight() % map.Width), distance - 1);
                     }
-                    else if (startTile % map.width < other.start % map.width)
+                    else if (startTile % map.Width < other.start % map.Width)
                     {
-                        return map.TileAboveStrict(map.TileRightStrict(startTile, other.start % map.width - startTile % map.width), distance - 1);
+                        return map.TileAboveStrict(map.TileRightStrict(startTile, other.start % map.Width - startTile % map.Width), distance - 1);
                     }
                     else
                     {
@@ -234,15 +234,15 @@ public class MapNode {
                     }
                 // If other node is left
                 case Direction.Left:
-                    distance = startTile % map.width - other.BottomRight() % map.width;
+                    distance = startTile % map.Width - other.BottomRight() % map.Width;
                     // If you need to travel to line up with the node, do so
-                    if (startTile / map.width > other.BottomRight() / map.width)
+                    if (startTile / map.Width > other.BottomRight() / map.Width)
                     {
-                        return map.TileLeftStrict(map.TileAboveStrict(startTile, startTile / map.width - other.BottomRight() / map.width), distance - 1);
+                        return map.TileLeftStrict(map.TileAboveStrict(startTile, startTile / map.Width - other.BottomRight() / map.Width), distance - 1);
                     }
-                    else if (startTile / map.width < other.start / map.width)
+                    else if (startTile / map.Width < other.start / map.Width)
                     {
-                        return map.TileLeftStrict(map.TileBelowStrict(startTile, other.start / map.width - startTile / map.width), distance - 1);
+                        return map.TileLeftStrict(map.TileBelowStrict(startTile, other.start / map.Width - startTile / map.Width), distance - 1);
                     }
                     else
                     {
@@ -256,7 +256,7 @@ public class MapNode {
     // Find out if a tile is between two others vertically or horizontally
     public bool TileIsBetween (int tile, int s, int e, bool horizontal)
     {
-        return horizontal ? tile % map.width >= s % map.width && tile % map.width <= e % map.width : tile / map.width >= s / map.width && tile / map.width <= e / map.width;
+        return horizontal ? tile % map.Width >= s % map.Width && tile % map.Width <= e % map.Width : tile / map.Width >= s / map.Width && tile / map.Width <= e / map.Width;
     }
     #endregion
 }

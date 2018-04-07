@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public delegate void Simple();
+public delegate bool Condition();
+
 public class Helper {
 
     #region Methods
@@ -152,7 +155,7 @@ public class Helper {
     }
 
     // Change the color of a sprite over a given time
-    public static IEnumerator ChangeColorInTime(SpriteRenderer i, Color newColor, float time)
+    public static IEnumerator ChangeColorInTime (SpriteRenderer i, Color newColor, float time)
     {
         Color oldColor = i.color;
         for (float timePassed = 0; timePassed < time; timePassed += Time.deltaTime)
@@ -161,6 +164,16 @@ public class Helper {
             yield return new WaitForEndOfFrame();
         }
         i.color = newColor;
+    }
+
+    // Attempt a simple operaiton each frame until a condition is met
+    public static IEnumerator RepeatAttempt (Simple job, Condition condition)
+    {
+        while (!condition())
+        {
+            job();
+            yield return null;
+        }
     }
     #endregion
 }

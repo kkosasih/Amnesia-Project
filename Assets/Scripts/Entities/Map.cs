@@ -6,13 +6,61 @@ using System.IO;
 
 public class Map : MonoBehaviour {
     #region Attributes
-    public static bool debug = false;                   // Whether to debug the maps or not
-    public string path;                                 // The name of the map in resources
-    public int width;                                   // The width of the map in tiles
-    public int height;                                  // The height of the map in tiles
-    public List<GameObject> tiles;                      // The list of tiles to reference
-    public List<MapNode> nodes;                         // The list of nodes for pathfinding
-    public Dictionary<StaticObject, int> takenTiles;    // The tiles that are occupied on the map
+    private static bool debug = false;                   // Whether to debug the maps or not
+    [SerializeField]
+    private string path;                                 // The name of the map in resources
+    private int width;                                   // The width of the map in tiles
+    private int height;                                  // The height of the map in tiles
+    private List<GameObject> tiles;                      // The list of tiles to reference
+    private List<MapNode> nodes;                         // The list of nodes for pathfinding
+    private Dictionary<StaticObject, int> takenTiles;    // The tiles that are occupied on the map
+    #endregion
+
+    #region Properties
+    // Returns width
+    public int Width
+    {
+        get
+        {
+            return width;
+        }
+    }
+
+    // Returns height
+    public int Height
+    {
+        get
+        {
+            return height;
+        }
+    }
+
+    // Returns tiles
+    public List<GameObject> Tiles
+    {
+        get
+        {
+            return tiles;
+        }
+    }
+
+    // Returns nodes
+    public List<MapNode> Nodes
+    {
+        get
+        {
+            return nodes;
+        }
+    }
+
+    // Returns takenTiles
+    public Dictionary<StaticObject, int> TakenTiles
+    {
+        get
+        {
+            return takenTiles;
+        }
+    }
     #endregion
 
     #region Event Functions
@@ -86,8 +134,7 @@ public class Map : MonoBehaviour {
                         e.tileFrom = int.Parse(args[1]);
                         e.moveTo = (Direction)int.Parse(args[2]);
                         t = tiles[entrances[entrancesI++]].GetComponent<Tile>();
-                        e.startTile = -(int)t.position.y * width + (int)t.position.x;
-                        e.PlaceOnMap(this);
+                        e.PlaceOnMap(this, -(int)t.position.y * width + (int)t.position.x);
                         break;
                     /*case 'S':
                         tiles[shops[shopsI++]].GetComponent<Shop>().numOfItems = int.Parse(entries[i].Split(':')[1]);
@@ -96,8 +143,7 @@ public class Map : MonoBehaviour {
                         Sign s = tiles[signs[signsI]].GetComponent<Sign>();
                         s.path = entries[i].Split(':')[1];
                         t = tiles[signs[signsI++]].GetComponent<Tile>();
-                        s.startTile = -(int)t.position.y * width + (int)t.position.x;
-                        s.PlaceOnMap(this);
+                        s.PlaceOnMap(this, -(int)t.position.y * width + (int)t.position.x);
                         break;
                     default:
                         Debug.Log("Invalid entry type");
@@ -117,33 +163,30 @@ public class Map : MonoBehaviour {
     #endregion
 
     #region Methods
-    // Returns an interactible object if applicable
-    public Interactible FindInteractible ()
-    {
-        foreach (StaticObject s in takenTiles.Keys)
-        {
-            Interactible result = s.gameObject.GetComponent<Interactible>();
-            if (result != null && s.TotalDistance(takenTiles[PlayerCharacter.instance]) <= result.range)
-            {
-                return result;
-            }
-        }
-        return null;
-    }
-
     // Returns whether there is a solid object at a point
     public bool TileIsTaken (int tile)
     {
-        StaticObject obj = null;
         foreach (StaticObject s in takenTiles.Keys)
         {
             if (takenTiles[s] == tile)
             {
-                obj = s;
-                break;
+                return s != null && s.Solid;
             }
         }
-        return obj != null && obj.solid;
+        return false;
+    }
+
+    // Returns the object at a point
+    public GameObject ObjectTakingTile (int tile)
+    {
+        foreach (StaticObject s in takenTiles.Keys)
+        {
+            if (takenTiles[s] == tile)
+            {
+                return s.gameObject;
+            }
+        }
+        return null;
     }
 
     // Return the distance between two tiles

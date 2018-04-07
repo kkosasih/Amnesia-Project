@@ -48,12 +48,10 @@ public class Entrance : StaticObject {
         transform.parent = null;
         DontDestroyOnLoad(gameObject);
         Image mask = GameObject.FindWithTag("UIMask").GetComponent<Image>();
-        PlayerCharacter.instance.onMap = false;
         PlayerCharacter.instance.startTile = tileFrom;
         entranceAudio.time = 0.5f;
         entranceAudio.Play();
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
-        GameController.map.takenTiles[PlayerCharacter.instance] = tileFrom;
         yield return StartCoroutine(GameController.SetUpScene(sceneTo));
         // Check if there's no cutscene playing upon entering
         if (!DialogueTracking.CheckConversation())
@@ -64,16 +62,16 @@ public class Entrance : StaticObject {
             switch (moveTo)
             {
                 case Direction.Up:
-                    tileTo = GameController.map.TileAbove(GameController.map.takenTiles[PlayerCharacter.instance]);
+                    tileTo = GameController.map.TileAbove(PlayerCharacter.instance.CurrentTile);
                     break;
                 case Direction.Down:
-                    tileTo = GameController.map.TileBelow(GameController.map.takenTiles[PlayerCharacter.instance]);
+                    tileTo = GameController.map.TileBelow(PlayerCharacter.instance.CurrentTile);
                     break;
                 case Direction.Left:
-                    tileTo = GameController.map.TileLeft(GameController.map.takenTiles[PlayerCharacter.instance]);
+                    tileTo = GameController.map.TileLeft(PlayerCharacter.instance.CurrentTile);
                     break;
                 case Direction.Right:
-                    tileTo = GameController.map.TileRight(GameController.map.takenTiles[PlayerCharacter.instance]);
+                    tileTo = GameController.map.TileRight(PlayerCharacter.instance.CurrentTile);
                     break;
             }
             PlayerCharacter.instance.Move(tileTo, moveTo);

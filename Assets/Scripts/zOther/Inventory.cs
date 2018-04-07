@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
     #region Attributes
-    public int size;                                            // The number of items in the inventory
-    public int columns;                                         // The number of columns to use in the UI
-    public float margin;                                        // The margin for anchors to use in the UI
-    public List<Item> inventory = new List<Item>();             // The actual items
-    public List<GameObject> slots = new List<GameObject>();     // The UI items to manipulate
+    [SerializeField]
+    protected int size;                                         // The number of items in the inventory
+    [SerializeField]
+    protected int columns;                                      // The number of columns to use in the UI
+    [SerializeField]
+    protected float margin;                                     // The margin for anchors to use in the UI
+    protected List<Item> items = new List<Item>();              // The actual items
+    protected List<GameObject> slots = new List<GameObject>();  // The UI items to manipulate
                                                                 //public GUISkin skin;
                                                                 //public GameObject Itemdata;
                                                                 //private bool showinventory = true;
@@ -17,6 +20,26 @@ public class Inventory : MonoBehaviour {
                                                                 //protected static ItemDatabase database;
                                                                 //private int slotsx = 7, slotsy = 4;
                                                                 //private string tooltip;
+    #endregion
+    
+    #region Properties
+    // Returns size
+    public int Size
+    {
+        get
+        {
+            return size;
+        }
+    }
+
+    // Returns items
+    public List<Item> Items
+    {
+        get
+        {
+            return items;
+        }
+    }
     #endregion
 
     //NOTE Most Commented out stuff are UI based
@@ -27,7 +50,7 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < size; i++) //remember to increase based on database
         {
-            inventory.Add(new Item());
+            items.Add(new Item());
             slots.Add(MakeSlot(i));
         }
         //Starting Items
@@ -65,14 +88,14 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < 17; i++)// Remeber to increase based on inventory size (NOTE_TO_SELF make a variable later) ******** -W
         {
-            if (inventory[i].itemName == null)
+            if (items[i].itemName == null)
             {
                 // Search database by name
                 for (int j = 0; j < ItemDatabase.items.Count; j++)// Remember to increase depending on size of database
                 {
                     if (name == ItemDatabase.items[j].itemName)
                     {
-                        inventory[i] = ItemDatabase.items[j];
+                        items[i] = ItemDatabase.items[j];
                         return;
                     }
                     /*else //Debug else statement
@@ -109,22 +132,22 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < size; ++i)
         {
             // Item stacks
-            if (inventory[i].itemId == toAdd.itemId)
+            if (items[i].itemId == toAdd.itemId)
             {
-                if (inventory[i].itemStack - inventory[i].itemStackAmount >= toAdd.itemStackAmount)
+                if (items[i].itemStack - items[i].itemStackAmount >= toAdd.itemStackAmount)
                 {
-                    inventory[i].itemStackAmount += toAdd.itemStackAmount;
+                    items[i].itemStackAmount += toAdd.itemStackAmount;
                     break;
                 }
                 else
                 {
-                    toAdd.itemStackAmount -= inventory[i].itemStackAmount - inventory[i].itemStack;
-                    inventory[i].itemStackAmount = inventory[i].itemStack;
+                    toAdd.itemStackAmount -= items[i].itemStackAmount - items[i].itemStack;
+                    items[i].itemStackAmount = items[i].itemStack;
                 }
             }
-            else if (inventory[i].itemId == -1)
+            else if (items[i].itemId == -1)
             {
-                inventory[i] = toAdd;
+                items[i] = toAdd;
                 break;
             }
         }
@@ -134,9 +157,9 @@ public class Inventory : MonoBehaviour {
     // Switch two items in the inventory
     public void SwitchItems (int index1, int index2)
     {
-        Item tempItem = new Item(inventory[index1]);
-        inventory[index1] = inventory[index2];
-        inventory[index2] = tempItem;
+        Item tempItem = new Item(items[index1]);
+        items[index1] = items[index2];
+        items[index2] = tempItem;
         UpdateImages();
     }
 
@@ -145,7 +168,7 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < size; ++i)
         {
-            inventory[i] = new Item();
+            items[i] = new Item();
         }
     }
 
@@ -165,10 +188,10 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < size; ++i)
         {
-            slots[i].transform.Find("ItemImage").GetComponent<Image>().sprite = inventory[i].itemIcon;
-            if (inventory[i].itemStack > 1)
+            slots[i].transform.Find("ItemImage").GetComponent<Image>().sprite = items[i].itemIcon;
+            if (items[i].itemStack > 1)
             {
-                slots[i].transform.Find("ItemAmount").GetComponent<Text>().text = inventory[i].itemStackAmount.ToString();
+                slots[i].transform.Find("ItemAmount").GetComponent<Text>().text = items[i].itemStackAmount.ToString();
             }
             else
             {
@@ -180,15 +203,15 @@ public class Inventory : MonoBehaviour {
     // Transfer an item to another inventory
     public virtual void TransferItem (Inventory other, int toTransfer)
     {
-        other.AddItemByItem(inventory[toTransfer]);
-        inventory[toTransfer] = new Item();
+        other.AddItemByItem(items[toTransfer]);
+        items[toTransfer] = new Item();
         UpdateImages();
     }
 
     // Transfer all items to another inventory
     public virtual void TransferAllItems (Inventory other)
     {
-        foreach (Item i in inventory)
+        foreach (Item i in items)
         {
             if (i.itemId >= 0)
             {
@@ -203,9 +226,9 @@ public class Inventory : MonoBehaviour {
     public int SlotCount ()
     {
         int result = 0;
-        for (int i = 0; i < inventory.Count; ++i)
+        for (int i = 0; i < items.Count; ++i)
         {
-            if (inventory[i] != new Item())
+            if (items[i] != new Item())
             {
                 ++result;
             }
@@ -216,18 +239,18 @@ public class Inventory : MonoBehaviour {
     // Move any items to fill in gaps
     public void MoveSlots ()
     {
-        for (int i = 0; i < inventory.Count; ++i)
+        for (int i = 0; i < items.Count; ++i)
         {
-            if (inventory[i] == new Item())
+            if (items[i] == new Item())
             {
-                for (int j = i + 1; j < inventory.Count; ++j)
+                for (int j = i + 1; j < items.Count; ++j)
                 {
-                    if (inventory[j] != new Item())
+                    if (items[j] != new Item())
                     {
                         SwitchItems(i, j);
                         break;
                     }
-                    if (j == inventory.Count - 1)
+                    if (j == items.Count - 1)
                     {
                         return;
                     }
@@ -239,7 +262,7 @@ public class Inventory : MonoBehaviour {
     // Checks if the inventory is empty
     public bool IsEmpty ()
     {
-        foreach (Item i in inventory)
+        foreach (Item i in items)
         {
             if (i.itemId >= 0)
             {
@@ -252,7 +275,7 @@ public class Inventory : MonoBehaviour {
     // Deletes self if the inventory is empty
     public void DeleteIfEmpty ()
     {
-        foreach (Item i in inventory)
+        foreach (Item i in items)
         {
             if (i.itemId != -1)
             {

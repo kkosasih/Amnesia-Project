@@ -6,10 +6,10 @@ public class ItemDatabase : MonoBehaviour
 {
     #region Attributes
     public static List<Item> items = new List<Item>();
-    public string tempname;
     public static int var1;
     public static int var2;
     public static int var3;
+    private string tempname;
     #endregion
 
     #region Event Functions

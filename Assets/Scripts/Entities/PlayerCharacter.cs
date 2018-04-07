@@ -7,24 +7,47 @@ public class PlayerCharacter : Character {
     #region Attributes
     public static PlayerCharacter instance; // The instance script to reference
     public int stamina;                     // The current stamina of the player
-    public int maxStamina;                  // The max stamina of the player
-	public int staminaDepletionAttack;      // How much stamina is depleted when player attacks
+    [SerializeField]
+    private int maxStamina;                 // The max stamina of the player
+    [SerializeField]
+	private int staminaDepletionAttack;     // How much stamina is depleted when player attacks
+    [SerializeField]
+    private GameObject interactionbutton;
+    [SerializeField]
+    private GameObject pickupui;
+    [SerializeField]
+    private GameObject Questtracking;
     private Slider staminaSlider;           // The slider object to reference for stamina
-    public Interactible interaction;        // The interaction available
-    public GameObject interactionbutton;
-    public GameObject pickupui;
-    public GameObject Questtracking;
-    public Inventory inventory;             // The inventory of the player
-    public string itemname;                 // Variable for getting specific item
-    public LayerMask ItemLayer;             // Check if the object is an item
+    private Interactible interaction;       // The interaction available
+    private Inventory inven;            // The inventory of the player
     private AudioSource footstepsAudio;     // The audio played when the player moves
+    #endregion
+
+    #region Properties
+    // Returns maxStamina
+    public int MaxStamina
+    {
+        get
+        {
+            return maxStamina;
+        }
+    }
+
+    // Returns inven
+    public Inventory Inven
+    {
+        get
+        {
+            return inven;
+        }
+    }
     #endregion
 
     #region Event Functions
     protected override void Awake ()
     {
         // Set up other scripts
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        inven = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
         footstepsAudio = GetComponent<AudioSource>();
@@ -42,7 +65,7 @@ public class PlayerCharacter : Character {
     {
         base.Update();
         // If not in a cutscene
-        if (onMap && DialogueController.instance.movementPreventions + movementPreventions == 0)
+        if (OnMap && DialogueController.instance.MovementPreventions + movementPreventions == 0)
         {
             // If not moving at the moment
             if (lastMove >= delay && !moving)
@@ -125,21 +148,35 @@ public class PlayerCharacter : Character {
 
     #region Methods
     // Changes stamina to the given value
-    public void ChangeStamina(int newStamina)
+    public void ChangeStamina (int newStamina)
     {
         stamina = newStamina;
         staminaSlider.value = (float)stamina / maxStamina * 100;
+    }
+
+    // Updates the interaciton status
+    public void UpdateInteraction ()
+    {
+        foreach (StaticObject s in GameController.map.TakenTiles.Keys)
+        {
+            Interactible result = s.gameObject.GetComponent<Interactible>();
+            if (result != null && s.TotalDistance(CurrentTile) <= result.range)
+            {
+                interaction = result;
+            }
+        }
+        interaction = null;
     }
     #endregion
 
     #region Coroutines
     // Attack in a given direction dir
-    public override IEnumerator Attack(Direction dir)
+    public override IEnumerator Attack (Direction dir)
     {
         ++movementPreventions;
         _animator.SetInteger("direction", (int)dir);
         yield return new WaitForSeconds(0.5f);
-        AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, GameController.map.takenTiles[this], 5, 2, 5);
+        AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, CurrentTile, 5, 2, 5);
         --movementPreventions;
         ChangeStamina(stamina - staminaDepletionAttack);
     }

@@ -5,18 +5,72 @@ using UnityEngine.UI;
 
 public class Character : StaticObject {
     #region Attributes
-    public int teamID;                      // The team that the character belongs to; no friendly fire
-    public int movementPreventions = 0;     // 0 if not in a cutscene, a number otherwise
-    public bool moving = false;             // Whether the character is moving
-    public float delay;                     // How long it takes to move between tiles
-    public float lastMove = 0.0f;           // Time since the last movement
-    public int lastTile = -1;               // The last tile the character was on
     public int health;                      // The health of the character
-    public int maxHealth;                   // The maximum health of the character
-    public GameObject healthSlider;         // The slider to reference for health
+    [SerializeField]
+    protected int teamID;                   // The team that the character belongs to; no friendly fire
+    [SerializeField]
+    protected float delay;                  // How long it takes to move between tiles
+    [SerializeField]
+    protected int maxHealth;                // The maximum health of the character
+    protected GameObject healthSlider;      // The slider to reference for health
+    protected int movementPreventions = 0;  // 0 if not in a cutscene, a number otherwise
+    protected bool moving = false;          // Whether the character is moving
+    protected float lastMove = 0.0f;        // Time since the last movement
+    //public int lastTile = -1;               // The last tile the character was on
     protected bool attacked = false;        // Whether the character has been hit recently
     protected Coroutine movementRoutine;    // The animation coroutine to play/stop
     protected Animator _animator;           // The Animator component attached
+    #endregion
+
+    #region Properties
+    // Returns health and sets health depending on death conditions
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health = value;
+            UpdateHealthBar();
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
+    }
+    
+    // Returns maxHealth
+    public int MaxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+    }
+
+    // Returns movementPreventions and clamps minimum to 0
+    public int MovementPreventions
+    {
+        get
+        {
+            return movementPreventions;
+        }
+        set
+        {
+            movementPreventions = Mathf.Max(0, value);
+        }
+    }
+
+    // Returns whether the tile that the character is standing on hurts
+    private bool TileHurts
+    {
+        get
+        {
+            return GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Damage(teamID) > 0 || GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Effect().damage > 0;
+        }
+    }
     #endregion
 
     #region Event Functions
@@ -30,7 +84,7 @@ public class Character : StaticObject {
     }
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
 
     }
@@ -38,19 +92,19 @@ public class Character : StaticObject {
     // Update is called once per frame
     protected virtual void Update ()
     {
-        if (onMap)
+        if (OnMap)
         {
             if (lastMove < delay)
             {
                 lastMove += Time.deltaTime;
             }
-            if (TileHurts() && !attacked)
+            if (TileHurts && !attacked)
             {
-                ChangeHealth(health - GameController.map.tiles[GameController.map.takenTiles[this]].GetComponent<Tile>().Damage(teamID));
-                StartCoroutine(ApplyStatusEffect(GameController.map.tiles[GameController.map.takenTiles[this]].GetComponent<Tile>().Effect()));
+                ChangeHealth(-GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Damage(teamID));
+                StartCoroutine(ApplyStatusEffect(GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Effect()));
                 attacked = true;
             }
-            else if (!TileHurts())
+            else if (!TileHurts)
             {
                 attacked = false;
             }
@@ -71,22 +125,21 @@ public class Character : StaticObject {
         switch (dir)
         {
             case Direction.Up:
-                moveTo = GameController.map.TileAboveStrict(GameController.map.takenTiles[this]);
+                moveTo = GameController.map.TileAboveStrict(CurrentTile);
                 break;
             case Direction.Down:
-                moveTo = GameController.map.TileBelowStrict(GameController.map.takenTiles[this]);
+                moveTo = GameController.map.TileBelowStrict(CurrentTile);
                 break;
             case Direction.Left:
-                moveTo = GameController.map.TileLeftStrict(GameController.map.takenTiles[this]);
+                moveTo = GameController.map.TileLeftStrict(CurrentTile);
                 break;
             case Direction.Right:
-                moveTo = GameController.map.TileRightStrict(GameController.map.takenTiles[this]);
+                moveTo = GameController.map.TileRightStrict(CurrentTile);
                 break;
         }
-        if (GameController.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.map.TileIsTaken(moveTo))
+        if (GameController.map.Tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.map.TileIsTaken(moveTo))
         {
             lastMove = 0.0f;
-            lastTile = GameController.map.takenTiles[this];
             StartCoroutine(ChangeTile(moveTo));
             if (movementRoutine != null)
             {
@@ -100,10 +153,9 @@ public class Character : StaticObject {
     public virtual void Move (int moveTo, Direction dir)
     {
         _animator.SetInteger("direction", (int)dir);
-        if (GameController.map.tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.map.TileIsTaken(moveTo))
+        if (GameController.map.Tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.map.TileIsTaken(moveTo))
         {
             lastMove = 0.0f;
-            lastTile = GameController.map.takenTiles[this];
             StartCoroutine(ChangeTile(moveTo));
             if (movementRoutine != null)
             {
@@ -121,29 +173,21 @@ public class Character : StaticObject {
     }
 
     // Change the health of the character to the new value
-    public void ChangeHealth(int newHealth)
+    public void SetHealth (int newHealth)
     {
-        if (newHealth < health)
-        {
-            StartCoroutine(LoseHealth(newHealth));
-        }
-        else if (newHealth > health)
-        {
-            StartCoroutine(GainHealth(newHealth));
-        }
-        health = newHealth;
+        
+    }
+
+    // Change the health of the character by a given value
+    public void ChangeHealth (int change)
+    {
+        SetHealth(health + change);
     }
 
     // Performs all special actions that a tile would perform if moved to
-    protected virtual void HandleTile()
+    protected virtual void HandleTile ()
     {
 
-    }
-
-    // Checks if the tile is harmful to the character
-    protected bool TileHurts()
-    {
-        return GameController.map.tiles[GameController.map.takenTiles[this]].GetComponent<Tile>().Damage(teamID) > 0;
     }
     #endregion
 
@@ -165,21 +209,21 @@ public class Character : StaticObject {
     // Move the character to a specific tile automatically
     public IEnumerator AutoMove (int destination)
     {
-        List<MapNode> path = GameController.map.FindPath(node, GameController.map.NodeTileIn(destination));
+        List<MapNode> path = GameController.map.FindPath(Node, GameController.map.NodeTileIn(destination));
         // Move to the correct node
         for (int i = 1; i < path.Count; ++i)
         { 
-            int step = node.GateToNode(path[i], GameController.map.takenTiles[this]);
-            while (GameController.map.takenTiles[this] != step)
+            int step = Node.GateToNode(path[i], CurrentTile);
+            while (CurrentTile != step)
             {
                 Move(DirectionToward(step));
                 yield return new WaitForSeconds(delay + 0.05f);
             }
-            Move(node.adjacentNodes[path[i]]);
+            Move(Node.adjacentNodes[path[i]]);
             yield return new WaitForSeconds(delay + 0.05f);
         }
         // Move to the correct tile within the node
-        while (GameController.map.takenTiles[this] != destination)
+        while (CurrentTile != destination)
         {
             Move(DirectionToward(destination));
             yield return new WaitForSeconds(delay + 0.05f);
@@ -189,18 +233,18 @@ public class Character : StaticObject {
     // Move the character to a destination by one step
     public IEnumerator AutoMoveOneStep (int destination)
     {
-        List<MapNode> path = GameController.map.FindPath(node, GameController.map.NodeTileIn(destination));
+        List<MapNode> path = GameController.map.FindPath(Node, GameController.map.NodeTileIn(destination));
         // Move toward correct node
         if (path.Count > 1)
         {
-            int gateNode = node.GateToNode(path[1], GameController.map.takenTiles[this]);
-            if (GameController.map.takenTiles[this] != gateNode)
+            int gateNode = Node.GateToNode(path[1], CurrentTile);
+            if (CurrentTile != gateNode)
             {
-                Move(DirectionToward(node.GateToNode(path[1], GameController.map.takenTiles[this])));
+                Move(DirectionToward(Node.GateToNode(path[1], CurrentTile)));
             }
             else
             {
-                Move(node.adjacentNodes[path[1]]);
+                Move(Node.adjacentNodes[path[1]]);
             }
         }
         // Or move to the tile directly
@@ -217,32 +261,33 @@ public class Character : StaticObject {
         yield return null;
     }
 
-    // Has the health bar react to gaining health
-    private IEnumerator GainHealth (int newHealth)
+    // Has the health bar react to changing health
+    private IEnumerator UpdateHealthBar ()
     {
-        healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<Image>().color = new Color(0, 1, 0);
-        healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
-        yield return new WaitForSeconds(1);
-        healthSlider.transform.GetChild(1).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
-    }
-
-    // Has the health bar react to losing health
-    private IEnumerator LoseHealth (int newHealth)
-    {
-        healthSlider.transform.GetChild(1).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
-        healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<Image>().color = new Color(0.5f, 0, 0);
-        yield return new WaitForSeconds(1);
-        healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = newHealth * 100f / maxHealth;
+        if (health * 100f / maxHealth > healthSlider.transform.GetChild(1).gameObject.GetComponent<Slider>().value)
+        {
+            healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<Image>().color = new Color(0, 1, 0);
+            healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = health * 100f / maxHealth;
+            yield return new WaitForSeconds(1);
+            healthSlider.transform.GetChild(1).gameObject.GetComponent<Slider>().value = health * 100f / maxHealth;
+        }
+        else
+        {
+            healthSlider.transform.GetChild(1).gameObject.GetComponent<Slider>().value = health * 100f / maxHealth;
+            healthSlider.transform.GetChild(0).Find("Fill Area").Find("Fill").gameObject.GetComponent<Image>().color = new Color(0.5f, 0, 0);
+            yield return new WaitForSeconds(1);
+            healthSlider.transform.GetChild(0).gameObject.GetComponent<Slider>().value = health * 100f / maxHealth;
+        }
     }
 
     // Performs all of the movement to another tile
     protected virtual IEnumerator ChangeTile (int moveTo)
     {
-        GameController.map.takenTiles[this] = moveTo;
-        node = GameController.map.NodeTileIn(GameController.map.takenTiles[this]);
+        PlayerCharacter.instance.UpdateInteraction();
+        CurrentTile = moveTo;
         moving = true;
         Vector3 oldPos = transform.position;
-        Vector3 newPos = GameController.map.tiles[moveTo].transform.position;
+        Vector3 newPos = GameController.map.Tiles[moveTo].transform.position;
         for (float timePassed = 0; timePassed < Mathf.Min(0.5f, delay); timePassed += Time.deltaTime)
         {
             transform.position = Vector3.Lerp(oldPos, newPos, timePassed / Mathf.Min(0.5f, delay));
@@ -251,16 +296,15 @@ public class Character : StaticObject {
         transform.position = newPos;
         HandleTile();
         moving = false;
-        PlayerCharacter.instance.interaction = GameController.map.FindInteractible();
     }
 
     // Applies the status effect
-    private IEnumerator ApplyStatusEffect(StatusEffect effect)
+    private IEnumerator ApplyStatusEffect (StatusEffect effect)
     {
         float currentTime = 0.0f;
         while (currentTime <= effect.duration)
         {
-            ChangeHealth(health - effect.damage);
+            ChangeHealth(-effect.damage);
             yield return new WaitForSeconds(effect.repeatTime);
             currentTime += effect.repeatTime;
         }

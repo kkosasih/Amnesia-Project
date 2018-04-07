@@ -20,18 +20,17 @@ public class Bed : MonoBehaviour {
     #region Coroutines
     public IEnumerator sleep ()
 	{
-		GameObject player = GameObject.FindWithTag ("Player");
-		player.GetComponent<PlayerCharacter> ().movementPreventions = 1;
+        ++DialogueController.instance.MovementPreventions;
 		Image mask = GameObject.FindWithTag ("UIMask").GetComponent<Image> ();
 
-		player.GetComponent<PlayerCharacter> ().ChangeStamina (player.GetComponent<PlayerCharacter> ().maxStamina);
-		player.GetComponent<PlayerCharacter> ().ChangeHealth (player.GetComponent<PlayerCharacter> ().maxHealth);
+        PlayerCharacter.instance.ChangeStamina (PlayerCharacter.instance.MaxStamina);
+        PlayerCharacter.instance.SetHealth(PlayerCharacter.instance.MaxHealth);
 
 		yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
 		yield return StartCoroutine (Helper.ChangeColorInTime (mask, new Color (0, 0, 0, 0), 0.5f));
 
-		player.GetComponent<PlayerCharacter> ().movementPreventions = 0;
+        --DialogueController.instance.MovementPreventions;
 
-	}
+    }
     #endregion
 }

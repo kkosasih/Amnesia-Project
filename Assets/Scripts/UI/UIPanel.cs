@@ -5,7 +5,22 @@ using UnityEngine.UI;
 
 public class UIPanel : MonoBehaviour {
     #region Attributes
-    public bool isOpen = false; // Whether the UI element should be visible
+    private bool isOpen = false; // Whether the UI element should be visible
+    #endregion
+
+    #region Properties
+    // Returns and sets isOpen
+    public bool IsOpen
+    {
+        get
+        {
+            return isOpen;
+        }
+        set
+        {
+            isOpen = value;
+        }
+    }
     #endregion
 
     #region Event Functions

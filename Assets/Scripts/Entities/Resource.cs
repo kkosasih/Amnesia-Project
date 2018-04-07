@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Resource : StaticObject {
     #region Attributes
-    public Inventory inventory; // The inventory of the object
+    protected Inventory inventory;  // The inventory of the object
     #endregion
 
     #region Event Functions
@@ -32,9 +32,9 @@ public class Resource : StaticObject {
     protected void GetRandomObject ()
     {
         int index = Random.Range(0, inventory.SlotCount());
-        GameObject.Find("Canvas").GetComponent<QuestTracking>().questobj(inventory.inventory[index].itemName);
-        inventory.TransferItem(PlayerCharacter.instance.inventory, index);
-        PlayerCharacter.instance.interaction = GameController.map.FindInteractible();
+        GameObject.Find("Canvas").GetComponent<QuestTracking>().questobj(inventory.Items[index].itemName);
+        inventory.TransferItem(PlayerCharacter.instance.Inven, index);
+        PlayerCharacter.instance.UpdateInteraction();
         inventory.DeleteIfEmpty();
         inventory.MoveSlots();
     }

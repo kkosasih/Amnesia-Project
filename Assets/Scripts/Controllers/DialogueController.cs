@@ -6,12 +6,49 @@ using UnityEngine.UI;
 public class DialogueController : MonoBehaviour {
     #region Attributes
     public static DialogueController instance;  // The instance to reference in other scripts
-    public int movementPreventions = 0;         // The movement preventions on the game (in cutscene)
-    public char branch = '*';                   // The current branch of dialogue the player has
-    public List<DialoguePart> conversation;     // The current cutscene to play
+    private int movementPreventions = 0;         // The movement preventions on the game (in cutscene)
+    private char branch = '*';                   // The current branch of dialogue the player has
+    private List<DialoguePart> conversation;     // The current cutscene to play
     private string tree;                        // The name of the current set of branches
     private UIPanel dialoguePanel;              // The dialogue panel to reference
     private int convoIndex = 0;                 // The current part of the cutscene playing
+    #endregion
+
+    #region Properties
+    // Returns and clamps movementPreventions to be min 0
+    public int MovementPreventions
+    {
+        get
+        {
+            return movementPreventions;
+        }
+        set
+        {
+            movementPreventions = Mathf.Max(0, value);
+        }
+    }
+
+    // Returns and sets branch
+    public char Branch
+    {
+        get
+        {
+            return branch;
+        }
+        set
+        {
+            branch = value;
+        }
+    }
+
+    // Returns conversation
+    public List<DialoguePart> Conversation
+    {
+        get
+        {
+            return conversation;
+        }
+    }
     #endregion
 
     #region Event Functions
@@ -32,7 +69,7 @@ public class DialogueController : MonoBehaviour {
         {
             AdvanceConversation();
         }
-        if (dialoguePanel.isOpen && Input.GetKeyDown(KeyCode.E))
+        if (dialoguePanel.IsOpen && Input.GetKeyDown(KeyCode.E))
         {
             dialoguePanel.Close();
         }

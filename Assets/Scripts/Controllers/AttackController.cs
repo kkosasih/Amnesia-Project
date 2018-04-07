@@ -50,7 +50,7 @@ public class AttackController : MonoBehaviour {
                 StartCoroutine(GiveAttack(tileToHit, a, i / speed));
                 if (i == 0)
                 {
-                    Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.tiles[tileToHit].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
+                    Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.Tiles[tileToHit].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
                     p.direction = dir;
                     p.speed = speed;
                     p.duration = (length - 1) / speed;
@@ -72,7 +72,7 @@ public class AttackController : MonoBehaviour {
                     StartCoroutine(GiveAttack(tileToHit, a, i / speed));
                     if (i == 0)
                     {
-                        Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.tiles[tileToHit].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
+                        Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.Tiles[tileToHit].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
                         p.direction = dir;
                         p.speed = speed;
                         p.duration = (length - 1) / speed;
@@ -91,7 +91,7 @@ public class AttackController : MonoBehaviour {
                     StartCoroutine(GiveAttack(tileToHit, a, i / speed));
                     if (i == 0)
                     {
-                        Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.tiles[tileToHit].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
+                        Projectile p = Instantiate(Resources.Load<GameObject>("Attacks/Arrow"), GameController.map.Tiles[tileToHit].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity).GetComponent<Projectile>();
                         p.direction = dir;
                         p.speed = speed;
                         p.duration = (length - 1) / speed;
@@ -117,7 +117,7 @@ public class AttackController : MonoBehaviour {
             }
         }
         // Make the walls
-        GameObject g = Instantiate(Resources.Load<GameObject>("Attacks/FireWalls"), GameController.map.tiles[tile].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity);
+        GameObject g = Instantiate(Resources.Load<GameObject>("Attacks/FireWalls"), GameController.map.Tiles[tile].transform.position - new Vector3(0, 0, 0.5f), Quaternion.identity);
         g.GetComponent<Projectile>().duration = length / speed;
         foreach (Projectile p in g.GetComponentsInChildren<Projectile>())
         {
@@ -160,7 +160,7 @@ public class AttackController : MonoBehaviour {
     private static IEnumerator GiveAttack (int tile, Attack a, float before)
     {
         yield return new WaitForSeconds(before);
-        GameController.map.tiles[tile].GetComponent<Tile>().attacks.Add(a);
+        GameController.map.Tiles[tile].GetComponent<Tile>().attacks.Add(a);
     }
     #endregion
 }

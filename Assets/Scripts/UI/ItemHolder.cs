@@ -37,7 +37,7 @@ public class ItemHolder : MonoBehaviour {
         Image i = GetComponent<Image>();
         if (index >= 0)
         {
-            i.sprite = GameObject.Find("Inventory").GetComponent<Inventory>().inventory[index].itemIcon;
+            i.sprite = GameObject.Find("Inventory").GetComponent<Inventory>().Items[index].itemIcon;
             i.color = Color.white;
         }
         else

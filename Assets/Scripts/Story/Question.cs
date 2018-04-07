@@ -49,9 +49,9 @@ public class Question : DialoguePart {
         isRunning = true;
         GameObject box = GameObject.Find("ChoiceBox");
         yield return new WaitForSeconds(time1);
-        box.GetComponent<UIPanel>().isOpen = true;
+        box.GetComponent<UIPanel>().IsOpen = true;
         box.GetComponent<TextOptions>().CreateOptions(options);
-        while (box.GetComponent<UIPanel>().isOpen)
+        while (box.GetComponent<UIPanel>().IsOpen)
         {
             yield return new WaitForEndOfFrame();
         }

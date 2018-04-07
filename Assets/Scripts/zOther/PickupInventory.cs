@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupInventory : Inventory {
-    #region Attributes
-    public bool emptyAfterTransfer = false; // True only if the inventory is empty
-    #endregion
-
     #region Event Functions
     void Awake ()
     {
@@ -42,7 +38,7 @@ public class PickupInventory : Inventory {
         size = newSize;
         for (int i = 0; i < newSize; i++) //remember to increase based on database
         {
-            inventory.Add(new Item());
+            items.Add(new Item());
             slots.Add(GameObject.Find("PickupInventory").transform.GetChild(i).gameObject);
         }
     }

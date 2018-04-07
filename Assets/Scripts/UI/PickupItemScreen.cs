@@ -55,16 +55,16 @@ public class PickupItemScreen : MonoBehaviour {
     // Open the inventory and stop player movement
     public void Open ()
     {
-        ++PlayerCharacter.instance.movementPreventions;
-        GetComponent<UIPanel>().isOpen = true;
+        ++PlayerCharacter.instance.MovementPreventions;
+        GetComponent<UIPanel>().IsOpen = true;
         inventory.UpdateImages();
     }
 
     // Close the inventory and continue player movement
     public void Close ()
     {
-        --PlayerCharacter.instance.movementPreventions;
-        GetComponent<UIPanel>().isOpen = false;
+        --PlayerCharacter.instance.MovementPreventions;
+        GetComponent<UIPanel>().IsOpen = false;
     }
     #endregion
 }

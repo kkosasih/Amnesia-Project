@@ -10,7 +10,7 @@ public class WoodResource : Resource {
     {
         for (int i = 0; i < 10; ++i)
         {
-            inventory.inventory[i] = new Item(ItemDatabase.items[8]);
+            inventory.Items[i] = new Item(ItemDatabase.items[8]);
         }
     }
 	

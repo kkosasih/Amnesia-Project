@@ -11,17 +11,23 @@ public class QuestTracking : MonoBehaviour
     public List<QuestTypes> questList;
     public List<QuestTypes> fquestList;
     public int[,] character;
-    public GameObject Inventory;
-    public GameObject Speaker;
-    public GameObject FinUI;
-    public CanvasGroup FinUI2;
-    public bool finuiup = false;
-    public Text Title;
-    public Text speaker;
-    public Text stfin;
-    public string questname;
-    public int questinc = 0, questinc2 = 0;
-    public float num = 0;
+    [SerializeField]
+    private GameObject Inventory;
+    [SerializeField]
+    private GameObject Speaker;
+    [SerializeField]
+    private GameObject FinUI;
+    [SerializeField]
+    private CanvasGroup FinUI2;
+    [SerializeField]
+    private Text Title;
+    [SerializeField]
+    private Text speaker;
+    [SerializeField]
+    private Text stfin;
+    private bool finuiup = false;
+    private string questname;
+    private int questinc = 0, questinc2 = 0;
     #endregion
 
     #region Event Functions

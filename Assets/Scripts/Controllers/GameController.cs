@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inventory.GetComponent<UIPanel>().isOpen = !inventory.GetComponent<UIPanel>().isOpen;
+            inventory.GetComponent<UIPanel>().IsOpen = !inventory.GetComponent<UIPanel>().IsOpen;
         }
     }
     #endregion
@@ -112,15 +112,15 @@ public class GameController : MonoBehaviour {
             }
         }
         FindMap();
-        PlayerCharacter.instance.PlaceOnMap();
+        PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.CurrentTile);
         // Place static characters on map
         foreach (StaticObject s in GameObject.Find("Characters").transform.GetComponentsInChildren<StaticObject>())
         {
-            s.PlaceOnMap();
+            s.PlaceOnMap(s.startTile);
         }
         foreach (StaticObject s in GameObject.Find("MapObjects").transform.GetComponentsInChildren<StaticObject>())
         {
-            s.PlaceOnMap();
+            s.PlaceOnMap(s.startTile);
         }
     }
     #endregion

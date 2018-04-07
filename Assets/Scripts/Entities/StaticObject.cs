@@ -4,11 +4,72 @@ using UnityEngine;
 
 public class StaticObject : MonoBehaviour {
     #region Attributes
-    public bool solid;                      // Whether the object can be gone through
-    public bool onMap = false;              // Whether the character is placed on the map  
-    public MapNode node;                    // The current node that the character is in
+    public int startTile;   // The tile to start on
+    [SerializeField]
+    protected bool solid;   // Whether the object can be gone through
+    //protected bool onMap = false;   // Whether the character is placed on the map  
+    //protected MapNode node;         // The current node that the character is in
     //public int currentTile;                 // The tile number that the character is on
-    public int startTile;                   // The tile to start on
+    #endregion
+
+    #region Properties
+    // Returns solid
+    public bool Solid
+    {
+        get
+        {
+            return solid;
+        }
+    }
+
+    // Returns the tile that the object is currently at
+    public int CurrentTile
+    {
+        get
+        {
+            if (!OnMap)
+            {
+                return -1;
+            }
+            else
+            {
+                return GameController.map.TakenTiles[this];
+            }
+        }
+        protected set
+        {
+            if (OnMap)
+            {
+                GameController.map.TakenTiles[this] = value;
+            }
+        }
+    }
+
+    // Returns whether the object is on the map
+    public bool OnMap
+    {
+        get
+        {
+            return GameController.map != null && GameController.map.TakenTiles != null && GameController.map.TakenTiles.ContainsKey(this) 
+                && Node != null && GameController.map.Nodes.Contains(Node);
+        }
+    }
+
+    // Returns the node the object is located in
+    public MapNode Node
+    {
+        get
+        {
+            if (OnMap)
+            {
+                return GameController.map.NodeTileIn(CurrentTile);
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
     #endregion
 
     #region Event Functions
@@ -29,44 +90,40 @@ public class StaticObject : MonoBehaviour {
     // Kill this character
     public virtual void Die ()
     {
-        GameController.map.takenTiles.Remove(this);
+        GameController.map.TakenTiles.Remove(this);
         Destroy(gameObject);
     }
 
-    // Find the tile on the map to go to
-    public void PlaceOnMap ()
+    // Place the object at the point on the map
+    public void PlaceOnMap (int tile)
     {
         if (GameController.map != null)
         {
-            GameController.map.takenTiles.Add(this, startTile);
-            transform.position = GameController.map.tiles[GameController.map.takenTiles[this]].transform.position;
-            node = GameController.map.NodeTileIn(GameController.map.takenTiles[this]);
-            onMap = true;
+            GameController.map.TakenTiles.Add(this, tile);
+            transform.position = GameController.map.Tiles[tile].transform.position;
         }
     }
 
-    // Find the tile on a given map to go to
-    public void PlaceOnMap (Map map)
+    // Place the object at the point on a given map
+    public void PlaceOnMap (Map map, int tile)
     {
         if (map != null)
         {
-            map.takenTiles.Add(this, startTile);
-            transform.position = map.tiles[map.takenTiles[this]].transform.position;
-            node = map.NodeTileIn(map.takenTiles[this]);
-            onMap = true;
+            map.TakenTiles.Add(this, tile);
+            transform.position = map.Tiles[tile].transform.position;
         }
     }
 
     // Get the horizontal distance from a tile; negative is tile to right, positive is tile to left
     protected int HoriDistance (int tile)
     {
-        return GameController.map.takenTiles[this] % GameController.map.width - tile % GameController.map.width;
+        return CurrentTile % GameController.map.Width - tile % GameController.map.Width;
     }
 
     // Get the vertical distance from a tile; negative is tile below, positive is tile above
     protected int VertDistance (int tile)
     {
-        return GameController.map.takenTiles[this] / GameController.map.width - tile / GameController.map.width;
+        return CurrentTile / GameController.map.Width - tile / GameController.map.Width;
     }
 
     // Get the combined distance from a tile; always returns positive

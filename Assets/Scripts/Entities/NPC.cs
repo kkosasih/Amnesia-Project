@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class NPC : Character {
     #region Attributes
-    public List<int> walkPath;                      // The list of tiles to walk between
-    public List<string> path;                       // The list of conversations given
-    private string currentPath;                     // The conversation to bring up when next talked to
-    public Dictionary<string, string> nextConvos;   // Storage of conversation paths
-    private int pathIndex;                          // The index of the path list
+    [SerializeField]
+    protected List<string> path;                        // The list of conversations given
+    protected List<int> walkPath;                       // The list of tiles to walk between
+    protected string currentPath;                       // The conversation to bring up when next talked to
+    protected Dictionary<string, string> nextConvos;    // Storage of conversation paths
+    protected int pathIndex;                            // The index of the path list
     #endregion
 
     #region Event Functions
@@ -34,9 +35,9 @@ public class NPC : Character {
     protected override void Update ()
     {
         base.Update();
-        if (DialogueController.instance.movementPreventions + movementPreventions == 0 && !moving)
+        if (DialogueController.instance.MovementPreventions + movementPreventions == 0 && !moving)
         {
-            if (GameController.map.takenTiles[this] == walkPath[pathIndex])
+            if (CurrentTile == walkPath[pathIndex])
             {
                 pathIndex = (pathIndex + 1) % walkPath.Count;
             }
