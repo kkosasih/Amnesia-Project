@@ -9,17 +9,20 @@ public class MusicController : MonoBehaviour {
     #endregion
 
     #region Event Functions#
-    private void Awake()
+    void Awake ()
     {
         _audioSource = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         
 	}
     #endregion

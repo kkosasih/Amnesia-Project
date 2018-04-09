@@ -9,10 +9,15 @@ public class ItemHolder : MonoBehaviour {
     #endregion
 
     #region Event Functions
+    void Awake ()
+    {
+        StartCoroutine(UpdateItem(-1));
+    }
+
     // Use this for initialization
     void Start ()
     {
-        StartCoroutine(UpdateItem(-1));
+        
 	}
 	
 	// Update is called once per frame

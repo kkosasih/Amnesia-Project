@@ -64,8 +64,7 @@ public class Map : MonoBehaviour {
     #endregion
 
     #region Event Functions
-    // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         // Find and read the mapping image
         Texture2D mapLayout = Resources.Load<Texture2D>("Maps/Textures/" + path);
@@ -78,39 +77,39 @@ public class Map : MonoBehaviour {
         takenTiles = new Dictionary<StaticObject, int>();
         // Set up special tiles
         List<int> entrances = new List<int>();
-        List<int> shops = new List<int>();
+        //List<int> shops = new List<int>();
         List<int> signs = new List<int>();
         // Match colors in the picture to tile type
         for (int i = 0; i < data.Count; ++i)
         {
-			if (data [i] == new Color (0, 1, 0))
-			{
-				tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Ground Tile"), transform));
-			}
-			else if (data [i] == new Color (1, 0, 0))
-			{
-				tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Wall Tile"), transform));
-				badNodeTiles.Add(i);
-			}
-			else if (data [i] == new Color (0, 0, 1))
-			{
+            if (data[i] == new Color(0, 1, 0))
+            {
+                tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Ground Tile"), transform));
+            }
+            else if (data[i] == new Color(1, 0, 0))
+            {
+                tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Wall Tile"), transform));
+                badNodeTiles.Add(i);
+            }
+            else if (data[i] == new Color(0, 0, 1))
+            {
                 tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Entrance Tile"), transform));
-				entrances.Add(i);
-			}
-			/*else if (data [i] == new Color (1, 1, 0))
+                entrances.Add(i);
+            }
+            /*else if (data [i] == new Color (1, 1, 0))
 			{
 				tiles.Add((GameObject)Instantiate (Resources.Load ("Tiles/Shop Tile"), transform));
 				shops.Add(i);
 			}*/
-			else if (data [i] == new Color (1, 0, 1))
-			{
+            else if (data[i] == new Color(1, 0, 1))
+            {
                 tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Sign Tile"), transform));
                 signs.Add(i);
-			}
-			else if (data [i] == new Color (0, 1, 1))
-			{
-				tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Bed Tile"), transform));
-			}
+            }
+            else if (data[i] == new Color(0, 1, 1))
+            {
+                tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Bed Tile"), transform));
+            }
             else
             {
                 Debug.Log("Tile at (" + (i % width).ToString() + ", " + (i / width).ToString() + ") is not valid. Color is " + data[i].ToString());
@@ -119,7 +118,7 @@ public class Map : MonoBehaviour {
         }
         SetUpNodes(badNodeTiles);
         // Add in the special tiles to the given locations
-        int entrancesI = 0, shopsI = 0, signsI = 0;
+        int entrancesI = 0, /*shopsI = 0,*/ signsI = 0;
         if (entries[0].Trim().Length != 0)
         {
             Tile t;
@@ -153,6 +152,12 @@ public class Map : MonoBehaviour {
         }
         // Place the map background sprite
         transform.Find("MapSprite").transform.position = new Vector3((float)width / 2 - 0.5f, (float)-height / 2 + 0.5f, 0);
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        
     }
 
     // Update is called once per frame

@@ -22,13 +22,17 @@ public class TimeTracker : MonoBehaviour {
     #endregion
 
     #region Event Functions
+    void Awake ()
+    {
+        hour = startHour;
+        minute = startMinute;
+        clock = GameObject.Find("Clock").GetComponent<Text>();
+        DayNight = GameObject.Find("DayNightPanel").GetComponent<Image>();
+    }
+
     // Use this for initialization
     void Start () 
 	{
-		hour = startHour;
-		minute = startMinute;
-		clock = GameObject.Find ("Clock").GetComponent<Text>();	
-		DayNight = GameObject.Find ("DayNightPanel").GetComponent<Image> ();
 
 	}
 	

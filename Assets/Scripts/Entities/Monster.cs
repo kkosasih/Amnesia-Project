@@ -40,8 +40,9 @@ public class Monster : Character {
     // Kill this character and drop an item
     public override void Die ()
     {
+        Debug.Log(CurrentTile);
         canvas.GetComponent<QuestTracking>().questobj(name);
-        GameObject drop = GameController.map.ObjectTakingTile(CurrentTile);
+        GameObject drop = GameController.instance.map.ObjectTakingTile(CurrentTile);
         // If the tile isn't already a pickup tile
         if (drop == null || drop.GetComponent<PickupInventory>() == null)
         {

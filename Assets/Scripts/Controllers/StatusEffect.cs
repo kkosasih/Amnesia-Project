@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StatusEffect {
     #region Attributes
-    public static StatusEffect empty = new StatusEffect(0, 0, 0); // Represents an empty status effect
+    public static StatusEffect empty = new StatusEffect(0, 100, 0); // Represents an empty status effect
 
     public float duration; // how long the status effect lasts
     public float repeatTime; // how much time passes between each damage tick

@@ -10,11 +10,16 @@ public class Projectile : MonoBehaviour {
     #endregion
 
     #region Event Functions
+    void Awake ()
+    {
+        
+    }
+
     // Use this for initialization
     void Start ()
     {
         // Rotate based on chosen direction
-		switch(direction)
+        switch (direction)
         {
             case Direction.Up:
                 transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -29,7 +34,7 @@ public class Projectile : MonoBehaviour {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 break;
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()

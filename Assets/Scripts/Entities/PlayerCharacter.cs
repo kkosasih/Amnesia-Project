@@ -46,6 +46,7 @@ public class PlayerCharacter : Character {
     #region Event Functions
     protected override void Awake ()
     {
+        instance = this;
         // Set up other scripts
         inven = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
@@ -57,7 +58,7 @@ public class PlayerCharacter : Character {
     // Use this for initialization
     void Start ()
     {
-        instance = this;
+        
     }
 
     // Update is called once per frame
@@ -157,12 +158,13 @@ public class PlayerCharacter : Character {
     // Updates the interaciton status
     public void UpdateInteraction ()
     {
-        foreach (StaticObject s in GameController.map.TakenTiles.Keys)
+        foreach (StaticObject s in GameController.instance.map.TakenTiles.Keys)
         {
             Interactible result = s.gameObject.GetComponent<Interactible>();
             if (result != null && s.TotalDistance(CurrentTile) <= result.range)
             {
                 interaction = result;
+                return;
             }
         }
         interaction = null;

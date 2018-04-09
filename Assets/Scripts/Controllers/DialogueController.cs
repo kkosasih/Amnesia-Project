@@ -52,13 +52,18 @@ public class DialogueController : MonoBehaviour {
     #endregion
 
     #region Event Functions
-    // Use this for initialization
-    void Start ()
+    private void Awake ()
     {
         instance = this;
         conversation = new List<DialoguePart>();
         dialoguePanel = GameObject.Find("DialogueBox").GetComponent<UIPanel>();
         //ChangeConversation("Opening");
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        
 	}
 	
 	// Update is called once per frame

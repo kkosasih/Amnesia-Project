@@ -33,7 +33,7 @@ public class Character : StaticObject {
         set
         {
             health = value;
-            UpdateHealthBar();
+            StartCoroutine(UpdateHealthBar());
             if (health <= 0)
             {
                 Die();
@@ -68,7 +68,7 @@ public class Character : StaticObject {
     {
         get
         {
-            return GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Damage(teamID) > 0 || GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Effect().damage > 0;
+            return GameController.instance.map.Tiles[CurrentTile].GetComponent<Tile>().Damage(teamID) > 0 || GameController.instance.map.Tiles[CurrentTile].GetComponent<Tile>().Effect().damage > 0;
         }
     }
     #endregion
@@ -100,18 +100,14 @@ public class Character : StaticObject {
             }
             if (TileHurts && !attacked)
             {
-                ChangeHealth(-GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Damage(teamID));
-                StartCoroutine(ApplyStatusEffect(GameController.map.Tiles[CurrentTile].GetComponent<Tile>().Effect()));
+                StartCoroutine(ApplyStatusEffect(GameController.instance.map.Tiles[CurrentTile].GetComponent<Tile>().Effect()));
+                ChangeHealth(-GameController.instance.map.Tiles[CurrentTile].GetComponent<Tile>().Damage(teamID));
                 attacked = true;
             }
             else if (!TileHurts)
             {
                 attacked = false;
             }
-        }
-        if (health <= 0)
-        {
-            Die();
         }
 	}
     #endregion
@@ -125,19 +121,19 @@ public class Character : StaticObject {
         switch (dir)
         {
             case Direction.Up:
-                moveTo = GameController.map.TileAboveStrict(CurrentTile);
+                moveTo = GameController.instance.map.TileAboveStrict(CurrentTile);
                 break;
             case Direction.Down:
-                moveTo = GameController.map.TileBelowStrict(CurrentTile);
+                moveTo = GameController.instance.map.TileBelowStrict(CurrentTile);
                 break;
             case Direction.Left:
-                moveTo = GameController.map.TileLeftStrict(CurrentTile);
+                moveTo = GameController.instance.map.TileLeftStrict(CurrentTile);
                 break;
             case Direction.Right:
-                moveTo = GameController.map.TileRightStrict(CurrentTile);
+                moveTo = GameController.instance.map.TileRightStrict(CurrentTile);
                 break;
         }
-        if (GameController.map.Tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.map.TileIsTaken(moveTo))
+        if (GameController.instance.map.Tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.instance.map.TileIsTaken(moveTo))
         {
             lastMove = 0.0f;
             StartCoroutine(ChangeTile(moveTo));
@@ -153,7 +149,7 @@ public class Character : StaticObject {
     public virtual void Move (int moveTo, Direction dir)
     {
         _animator.SetInteger("direction", (int)dir);
-        if (GameController.map.Tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.map.TileIsTaken(moveTo))
+        if (GameController.instance.map.Tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.instance.map.TileIsTaken(moveTo))
         {
             lastMove = 0.0f;
             StartCoroutine(ChangeTile(moveTo));
@@ -175,7 +171,7 @@ public class Character : StaticObject {
     // Change the health of the character to the new value
     public void SetHealth (int newHealth)
     {
-        
+        Health = newHealth;
     }
 
     // Change the health of the character by a given value
@@ -209,7 +205,7 @@ public class Character : StaticObject {
     // Move the character to a specific tile automatically
     public IEnumerator AutoMove (int destination)
     {
-        List<MapNode> path = GameController.map.FindPath(Node, GameController.map.NodeTileIn(destination));
+        List<MapNode> path = GameController.instance.map.FindPath(Node, GameController.instance.map.NodeTileIn(destination));
         // Move to the correct node
         for (int i = 1; i < path.Count; ++i)
         { 
@@ -233,7 +229,7 @@ public class Character : StaticObject {
     // Move the character to a destination by one step
     public IEnumerator AutoMoveOneStep (int destination)
     {
-        List<MapNode> path = GameController.map.FindPath(Node, GameController.map.NodeTileIn(destination));
+        List<MapNode> path = GameController.instance.map.FindPath(Node, GameController.instance.map.NodeTileIn(destination));
         // Move toward correct node
         if (path.Count > 1)
         {
@@ -283,11 +279,11 @@ public class Character : StaticObject {
     // Performs all of the movement to another tile
     protected virtual IEnumerator ChangeTile (int moveTo)
     {
-        PlayerCharacter.instance.UpdateInteraction();
         CurrentTile = moveTo;
+        PlayerCharacter.instance.UpdateInteraction();
         moving = true;
         Vector3 oldPos = transform.position;
-        Vector3 newPos = GameController.map.Tiles[moveTo].transform.position;
+        Vector3 newPos = GameController.instance.map.Tiles[moveTo].transform.position;
         for (float timePassed = 0; timePassed < Mathf.Min(0.5f, delay); timePassed += Time.deltaTime)
         {
             transform.position = Vector3.Lerp(oldPos, newPos, timePassed / Mathf.Min(0.5f, delay));

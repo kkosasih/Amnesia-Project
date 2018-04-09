@@ -15,8 +15,7 @@ public class Tile : MonoBehaviour {
     #endregion
 
     #region Event Functions
-    // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         // Initialize tile
         startType = type;
@@ -28,6 +27,12 @@ public class Tile : MonoBehaviour {
             debugText = Instantiate(Resources.Load<GameObject>("GUI/DebugText"), GameObject.Find("DynamicCanvas").transform);
             debugText.GetComponent<UITracking>().obj = gameObject;
         }
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        
     }
     
     // Update is called once per frame

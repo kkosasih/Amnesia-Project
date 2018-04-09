@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PickupInventory : Inventory {
     #region Event Functions
-    void Awake ()
+    protected override void Awake ()
     {
+        base.Awake();
         GetComponent<Interactible>().interact = OpenThis;
     }
 
@@ -18,7 +19,7 @@ public class PickupInventory : Inventory {
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
 
     }

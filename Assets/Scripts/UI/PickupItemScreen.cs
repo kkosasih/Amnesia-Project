@@ -14,26 +14,26 @@ public class PickupItemScreen : MonoBehaviour {
         instance = this;
     }
 
-    // Change the inventory that is shown
-    public void ChangeInventory(PickupInventory newInv)
-    {
-        inventory = newInv;
-    }
-
     // Use this for initialization
-    void Start()
+    void Start ()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
 
     }
     #endregion
 
     #region Methods
+    // Change the inventory that is shown
+    public void ChangeInventory(PickupInventory newInv)
+    {
+        inventory = newInv;
+    }
+
     // Take the item in the given slot and close if empty
     public void TakeItem (int index)
     {

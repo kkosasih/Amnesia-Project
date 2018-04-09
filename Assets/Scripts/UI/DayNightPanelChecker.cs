@@ -9,13 +9,20 @@ public class DayNightPanelChecker : MonoBehaviour {
     #endregion
 
     #region Event Functions
+    void Awake ()
+    {
+        DayNightPanel = GameObject.Find("DayNightPanel");
+    }
+
     // Use this for initialization
-    void Start () {
-		DayNightPanel = GameObject.Find ("DayNightPanel");
+    void Start ()
+    {
+		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		if (SceneManager.GetActiveScene ().name.Contains ("Interior"))
 			DayNightPanel.SetActive (false);
 		else

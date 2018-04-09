@@ -5,17 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
     #region Attributes
-    public static GameObject player;    // The player object to track
-    public static GameObject inventory; // The player inventory to track
-    public static Map map;              // The game map to track
+    public static GameController instance;  // The instance to reference
+    //public GameObject player;               // The player object to track
+    public Map map;                         // The game map to track
+    private ItemDatabase itemDatabase;      // The item database to store
+    private GameObject inventory;           // The player inventory to track
+    #endregion
+
+    #region Properties
+    // Returns the database
+    public ItemDatabase Database
+    {
+        get
+        {
+            return itemDatabase;
+        }
+    }
     #endregion
 
     #region Event Functions
-    // Use this for initialization
-    void Start ()
+    void Awake ()
     {
-        player = GameObject.FindWithTag("Player");
+        instance = this;
         inventory = GameObject.Find("Inventory");
+        itemDatabase = new ItemDatabase();
         StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
 
         Inventory inv = inventory.GetComponent<Inventory>();
@@ -24,6 +37,12 @@ public class GameController : MonoBehaviour {
         {
             inv.AddItemByID(2);
         }
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        
     }
 
     // Update is called once per frame
@@ -79,13 +98,13 @@ public class GameController : MonoBehaviour {
 
     #region Methods
     // Attach a map to the player to use
-    public static void FindMap ()
+    public void FindMap ()
     { 
         map = GameObject.FindWithTag("Map").GetComponent<Map>();
     }
 
     // Save and load based on shift key
-    private static void ShiftSave(int slot)
+    private void ShiftSave (int slot)
     {
         if (Input.GetKey(KeyCode.Z))
         {
@@ -100,7 +119,7 @@ public class GameController : MonoBehaviour {
 
     #region Coroutines
     // Load a scene and set up necessary parts
-    public static IEnumerator SetUpScene (int index)
+    public IEnumerator SetUpScene (int index)
     {
         if (SceneManager.GetActiveScene().buildIndex != index)
         {
@@ -112,15 +131,21 @@ public class GameController : MonoBehaviour {
             }
         }
         FindMap();
-        PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.CurrentTile);
+        PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.startTile);
         // Place static characters on map
-        foreach (StaticObject s in GameObject.Find("Characters").transform.GetComponentsInChildren<StaticObject>())
+        if (GameObject.Find("Characters") != null)
         {
-            s.PlaceOnMap(s.startTile);
+            foreach (StaticObject s in GameObject.Find("Characters").transform.GetComponentsInChildren<StaticObject>())
+            {
+                s.PlaceOnMap(s.startTile);
+            }
         }
-        foreach (StaticObject s in GameObject.Find("MapObjects").transform.GetComponentsInChildren<StaticObject>())
+        if (GameObject.Find("MapObjects") != null)
         {
-            s.PlaceOnMap(s.startTile);
+            foreach (StaticObject s in GameObject.Find("MapObjects").transform.GetComponentsInChildren<StaticObject>())
+            {
+                s.PlaceOnMap(s.startTile);
+            }
         }
     }
     #endregion

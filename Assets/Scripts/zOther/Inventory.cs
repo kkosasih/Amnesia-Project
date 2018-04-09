@@ -45,8 +45,7 @@ public class Inventory : MonoBehaviour {
     //NOTE Most Commented out stuff are UI based
 
     #region Event Functions
-    // Use this for initialization
-    protected virtual void Start()
+    protected virtual void Awake ()
     {
         for (int i = 0; i < size; i++) //remember to increase based on database
         {
@@ -54,8 +53,14 @@ public class Inventory : MonoBehaviour {
             slots.Add(MakeSlot(i));
         }
         //Starting Items
-        
+
         //inventory[1] = database.items[1];
+    }
+
+    // Use this for initialization
+    protected virtual void Start ()
+    {
+        
     }
 
     // Update is called once per frame
@@ -91,11 +96,11 @@ public class Inventory : MonoBehaviour {
             if (items[i].itemName == null)
             {
                 // Search database by name
-                for (int j = 0; j < ItemDatabase.items.Count; j++)// Remember to increase depending on size of database
+                for (int j = 0; j < GameController.instance.Database.items.Count; j++)// Remember to increase depending on size of database
                 {
-                    if (name == ItemDatabase.items[j].itemName)
+                    if (name == GameController.instance.Database.items[j].itemName)
                     {
-                        items[i] = ItemDatabase.items[j];
+                        items[i] = GameController.instance.Database.items[j];
                         return;
                     }
                     /*else //Debug else statement
@@ -117,13 +122,13 @@ public class Inventory : MonoBehaviour {
     // Add items from database by ID
     public void AddItemByID (int id)
     {
-        if (id >= ItemDatabase.items.Count)
+        if (id >= GameController.instance.Database.items.Count)
         {
             Debug.Log("The Id is not in the database");
             return;
         }
         // Add a new item (so the database doesn't change)
-        AddItemByItem(new Item(ItemDatabase.items[id]));
+        AddItemByItem(new Item(GameController.instance.Database.items[id]));
     }
 
     // Add items by raw items

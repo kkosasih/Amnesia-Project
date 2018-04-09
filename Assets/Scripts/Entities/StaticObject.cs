@@ -33,14 +33,14 @@ public class StaticObject : MonoBehaviour {
             }
             else
             {
-                return GameController.map.TakenTiles[this];
+                return GameController.instance.map.TakenTiles[this];
             }
         }
         protected set
         {
             if (OnMap)
             {
-                GameController.map.TakenTiles[this] = value;
+                GameController.instance.map.TakenTiles[this] = value;
             }
         }
     }
@@ -50,8 +50,7 @@ public class StaticObject : MonoBehaviour {
     {
         get
         {
-            return GameController.map != null && GameController.map.TakenTiles != null && GameController.map.TakenTiles.ContainsKey(this) 
-                && Node != null && GameController.map.Nodes.Contains(Node);
+            return GameController.instance.map != null && GameController.instance.map.TakenTiles != null && GameController.instance.map.TakenTiles.ContainsKey(this);
         }
     }
 
@@ -62,7 +61,7 @@ public class StaticObject : MonoBehaviour {
         {
             if (OnMap)
             {
-                return GameController.map.NodeTileIn(CurrentTile);
+                return GameController.instance.map.NodeTileIn(CurrentTile);
             }
             else
             {
@@ -90,17 +89,17 @@ public class StaticObject : MonoBehaviour {
     // Kill this character
     public virtual void Die ()
     {
-        GameController.map.TakenTiles.Remove(this);
+        GameController.instance.map.TakenTiles.Remove(this);
         Destroy(gameObject);
     }
 
     // Place the object at the point on the map
     public void PlaceOnMap (int tile)
     {
-        if (GameController.map != null)
+        if (GameController.instance.map != null)
         {
-            GameController.map.TakenTiles.Add(this, tile);
-            transform.position = GameController.map.Tiles[tile].transform.position;
+            GameController.instance.map.TakenTiles.Add(this, tile);
+            transform.position = GameController.instance.map.Tiles[tile].transform.position;
         }
     }
 
@@ -117,13 +116,13 @@ public class StaticObject : MonoBehaviour {
     // Get the horizontal distance from a tile; negative is tile to right, positive is tile to left
     protected int HoriDistance (int tile)
     {
-        return CurrentTile % GameController.map.Width - tile % GameController.map.Width;
+        return CurrentTile % GameController.instance.map.Width - tile % GameController.instance.map.Width;
     }
 
     // Get the vertical distance from a tile; negative is tile below, positive is tile above
     protected int VertDistance (int tile)
     {
-        return CurrentTile / GameController.map.Width - tile / GameController.map.Width;
+        return CurrentTile / GameController.instance.map.Width - tile / GameController.instance.map.Width;
     }
 
     // Get the combined distance from a tile; always returns positive

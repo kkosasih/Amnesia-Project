@@ -50,7 +50,7 @@ public class SaveLoad {
         if (PlayerCharacter.instance != null)
         {
             PlayerCharacter.instance.PlaceOnMap(PlayerPrefs.GetInt(slotNum + "PlayerTile"));
-            GameController.SetUpScene(PlayerPrefs.GetInt(slotNum + "SceneNum"));
+            GameController.instance.SetUpScene(PlayerPrefs.GetInt(slotNum + "SceneNum"));
             PlayerCharacter.instance.ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
             PlayerCharacter.instance.ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
             //GameObject.Find("Headp"). = PlayerPrefs.GetInt(slotNum + "Head");
@@ -64,7 +64,7 @@ public class SaveLoad {
                 int idToAdd = PlayerPrefs.GetInt(slotNum + "Inventory" + i.ToString());
                 if (idToAdd != -1)
                 {
-                    inven.Items[i] = ItemDatabase.items[idToAdd];
+                    inven.Items[i] = GameController.instance.Database.items[idToAdd];
                 }
             }
         }

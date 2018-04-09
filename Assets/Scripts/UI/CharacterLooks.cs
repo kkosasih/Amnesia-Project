@@ -12,7 +12,7 @@ public class CharacterLooks : MonoBehaviour {
     #endregion
 
     #region Event Functions
-    void Start()
+    void Awake ()
     {
         _hair.SetInteger("Movement", 0);
         _hair.SetInteger("Image", 0);
@@ -22,7 +22,12 @@ public class CharacterLooks : MonoBehaviour {
         _clothes.SetInteger("Image", 0);
         _pants.SetInteger("Movement", 0);
         _pants.SetInteger("Image", 0);
-        _Background.SetBool("Saving",saving);
+        _Background.SetBool("Saving", saving);
+    }
+
+    void Start ()
+    {
+        
     }
 
     public void Update()

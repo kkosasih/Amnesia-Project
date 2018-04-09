@@ -21,29 +21,36 @@ public class DrawInventory : MonoBehaviour {
     #endregion
 
     #region Event Functions
-    // Use this for initialization
-    void Start () {
-		for (int i = 0; i < 21; i++) //remeber to increase based on database
-		{
-			slots.Add(new Item());
-		}
-        
-		//Starting Items
-		for (int i = 0; i < ItemDatabase.items.Count; i++) {
-			inventory.Add (ItemDatabase.items [i]);
-		}
-		for (int i = 0; i < slots.Count; i++) {
-			//GameObject newSlot = (GameObject)Instantiate (slot);
-			//newSlot.transform.SetParent (inventorySlots.transform);
-			GameObject newSlot = (GameObject) Instantiate (Resources.Load ("Slot"), GameObject.Find("Screen").transform);
-			if (i < inventory.Count) {
-				newSlot.transform.GetChild (0).gameObject.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Item Icons/" + inventory [i].itemName);
-				newSlot.transform.GetChild (0).gameObject.GetComponent<RectTransform> ().offsetMin = newSlot.GetComponent<RectTransform> ().offsetMin;
-				newSlot.transform.GetChild (0).gameObject.GetComponent<RectTransform> ().offsetMax = newSlot.GetComponent<RectTransform> ().offsetMax;
-			}
-		}
+    void Awake ()
+    {
+        for (int i = 0; i < 21; i++) //remeber to increase based on database
+        {
+            slots.Add(new Item());
+        }
 
-	}
+        for (int i = 0; i < slots.Count; i++)
+        {
+            //GameObject newSlot = (GameObject)Instantiate (slot);
+            //newSlot.transform.SetParent (inventorySlots.transform);
+            GameObject newSlot = (GameObject)Instantiate(Resources.Load("Slot"), GameObject.Find("Screen").transform);
+            if (i < inventory.Count)
+            {
+                newSlot.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Item Icons/" + inventory[i].itemName);
+                newSlot.transform.GetChild(0).gameObject.GetComponent<RectTransform>().offsetMin = newSlot.GetComponent<RectTransform>().offsetMin;
+                newSlot.transform.GetChild(0).gameObject.GetComponent<RectTransform>().offsetMax = newSlot.GetComponent<RectTransform>().offsetMax;
+            }
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        //Starting Items
+        for (int i = 0; i < GameController.instance.Database.items.Count; i++)
+        {
+            inventory.Add(GameController.instance.Database.items[i]);
+        }
+    }
 
 	void Update ()
 	{

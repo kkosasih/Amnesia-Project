@@ -16,7 +16,7 @@ public class Shop : MonoBehaviour {
         items = new List<Item>();
         for (int i = 0; i < numOfItems; ++i)
         {
-            items.Add(ItemDatabase.items[Random.Range(0, ItemDatabase.items.Count)]);
+            items.Add(GameController.instance.Database.items[Random.Range(0, GameController.instance.Database.items.Count)]);
         }
 	}
 	

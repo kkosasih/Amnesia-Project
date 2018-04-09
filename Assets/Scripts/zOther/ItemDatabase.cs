@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDatabase : MonoBehaviour
+public class ItemDatabase
 {
     #region Attributes
-    public static List<Item> items = new List<Item>();
-    public static int var1;
-    public static int var2;
-    public static int var3;
+    public List<Item> items = new List<Item>();
+    public int var1;
+    public int var2;
+    public int var3;
     private string tempname;
     #endregion
 
-    #region Event Functions
-    void Start()
+    #region Constructors
+    // Default constructor
+    public ItemDatabase ()
     {
+        items = new List<Item>();
         //Got bored started making random items
         items.Add(new Tunic("vest", 0, 2, "A cloth vest made of cloth", 50, 1, 1));
         items.Add(new Equipable("Short Sword", 1, 4, "A teeny tiny sword named sword", 100, 1, 1));
@@ -26,16 +28,10 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Helmet("Stained Pot", 7, 255, "Label on side: \"Now made with stainless steel!!\"", 20, 1, 1));
         items.Add(new Quest("Wood", 8, 0, "Lumber for building.", 5, 99, 1));
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     #endregion
 
     #region Methods
-    public static string randomdrop(string tempname)
+    public string randomdrop(string tempname)
     {
         var1 = Random.Range(1, 100);
         var2 = Random.Range(1, 10);

@@ -10,10 +10,15 @@ public class Expansion : MonoBehaviour {
     #endregion
 
     #region Event Functions
+    void Awake ()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     // Use this for initialization
     void Start ()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        
 	}
 	
 	// Update is called once per frame

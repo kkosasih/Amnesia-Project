@@ -31,19 +31,25 @@ public class QuestTracking : MonoBehaviour
     #endregion
 
     #region Event Functions
-    void Start()
+    void Awake ()
     {
         mainList = new List<QuestTypes>();
         questList = new List<QuestTypes>();
         fquestList = new List<QuestTypes>();
         character = new int[10, 2];
-        
+
         mainList.Add(QuestDatabase.MainQuest2());
         mainList.Add(QuestDatabase.MainQuest1());
         //questList.Add(QuestDatabase.MainQuest1());
         addingquests("GeneralQuest1");
 
         FinUI2 = FinUI.GetComponent<CanvasGroup>();
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        
     }
 
     // Update is called once per frame
