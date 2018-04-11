@@ -63,8 +63,8 @@ public class DialogueController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        
-	}
+        Test();
+    }
 	
 	// Update is called once per frame
 	void Update ()

@@ -1,7 +1,10 @@
-Statement:0|0|John|Alert|Wait a minute, what was that?||
-Character:0|2|Player|U,D,L,R,R,L,D,U||
-Statement:0|0|John|Prepared|I can't seem to find it....||
-Statement:0|0|John|Prepared|Maybe if I look here....||
-Camera:0|0|5|0,4,0||
-Camera:0|1|0.5|0,-4,0||
-Statement:0|0|John|Neutral|I guess it was nothing.
+Mask:0|0|0|0,0,0,1||
+Camera:0|0|0|6,-62,-10||
+Mask:0|0|2|0,0,0,0||
+Character:0|1|Player|R,R,R,R,R,R||
+Statement:0|1|John|Happy|I can't believe that we finally made it to a town!||
+Statement:0|0.5|John|Alert|Wait, what is that over there?||
+Camera:0|1|2|26,-62,-10||
+Statement:0|0|John|Alert|Those look like monsters!||
+Camera:0|0|0|6,-62,-10||
+Statement:0|0|John|Prepared|I need to stop them before they hurt people!
