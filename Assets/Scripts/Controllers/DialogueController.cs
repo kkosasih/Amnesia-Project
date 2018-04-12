@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class DialogueController : MonoBehaviour {
     #region Attributes
     public static DialogueController instance;  // The instance to reference in other scripts
-    private int movementPreventions = 0;         // The movement preventions on the game (in cutscene)
-    private char branch = '*';                   // The current branch of dialogue the player has
-    private List<DialoguePart> conversation;     // The current cutscene to play
+    public static bool playCutscenes = false;   // Whether to play the cutscenes or not
+    private int movementPreventions = 0;        // The movement preventions on the game (in cutscene)
+    private char branch = '*';                  // The current branch of dialogue the player has
+    private List<DialoguePart> conversation;    // The current cutscene to play
     private string tree;                        // The name of the current set of branches
     private UIPanel dialoguePanel;              // The dialogue panel to reference
     private int convoIndex = 0;                 // The current part of the cutscene playing
@@ -63,7 +64,10 @@ public class DialogueController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        Test();
+        if (playCutscenes)
+        {
+            Test();
+        }
     }
 	
 	// Update is called once per frame

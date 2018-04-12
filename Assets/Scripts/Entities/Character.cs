@@ -12,6 +12,9 @@ public class Character : StaticObject {
     protected float delay;                  // How long it takes to move between tiles
     [SerializeField]
     protected int maxHealth;                // The maximum health of the character
+    [SerializeField]
+    protected Transform bodyParts;          // The body parts of the characters
+    protected List<Animator> animators;     // The animators for the body parts
     protected GameObject healthSlider;      // The slider to reference for health
     protected int movementPreventions = 0;  // 0 if not in a cutscene, a number otherwise
     protected bool moving = false;          // Whether the character is moving
@@ -19,7 +22,6 @@ public class Character : StaticObject {
     //public int lastTile = -1;               // The last tile the character was on
     protected bool attacked = false;        // Whether the character has been hit recently
     protected Coroutine movementRoutine;    // The animation coroutine to play/stop
-    protected Animator _animator;           // The Animator component attached
     #endregion
 
     #region Properties
@@ -71,6 +73,15 @@ public class Character : StaticObject {
             return GameController.instance.map.Tiles[CurrentTile].GetComponent<Tile>().Damage(teamID) > 0 || GameController.instance.map.Tiles[CurrentTile].GetComponent<Tile>().Effect().damage > 0;
         }
     }
+
+    // Returns the total preventions taking into account the static ones
+    public int Preventions
+    {
+        get
+        {
+            return movementPreventions + DialogueController.instance.MovementPreventions;
+        }
+    }
     #endregion
 
     #region Event Functions
@@ -80,7 +91,12 @@ public class Character : StaticObject {
         UITracking uit = healthSlider.GetComponent<UITracking>();
         uit.obj = gameObject;
         uit.offset = new Vector3(0, 40, 0);
-        _animator = GetComponent<Animator>();
+        animators = new List<Animator>(bodyParts.GetComponentsInChildren<Animator>());
+        Animator a = GetComponent<Animator>();
+        if (a != null)
+        {
+            animators.Add(a);
+        }
     }
 
     // Use this for initialization
@@ -116,7 +132,7 @@ public class Character : StaticObject {
     // Move the character to an adjacent tile with an animation
     public virtual void Move (Direction dir)
     {
-        _animator.SetInteger("direction", (int)dir);
+        SetAllIntegers("direction", (int)dir);
         int moveTo = -1;
         switch (dir)
         {
@@ -141,14 +157,14 @@ public class Character : StaticObject {
             {
                 StopCoroutine(movementRoutine);
             }
-            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moving", true, false, Mathf.Min(0.5f, delay)));
+            movementRoutine = StartCoroutine(Helper.PlayInTime(animators, "moving", true, false, Mathf.Min(0.5f, delay)));
         }
     }
 
     // Move the character to another tile with an animation
     public virtual void Move (int moveTo, Direction dir)
     {
-        _animator.SetInteger("direction", (int)dir);
+        SetAllIntegers("direction", (int)dir);
         if (GameController.instance.map.Tiles[moveTo].GetComponent<Tile>().type != TileType.Wall && !GameController.instance.map.TileIsTaken(moveTo))
         {
             lastMove = 0.0f;
@@ -157,12 +173,12 @@ public class Character : StaticObject {
             {
                 StopCoroutine(movementRoutine);
             }
-            movementRoutine = StartCoroutine(Helper.PlayInTime(GetComponent<Animator>(), "moving", true, false, Mathf.Min(0.5f, delay)));
+            movementRoutine = StartCoroutine(Helper.PlayInTime(animators, "moving", true, false, Mathf.Min(0.5f, delay)));
         }
     }
 
     // Kill this character
-    public override void Die()
+    public override void Die ()
     {
         Destroy(healthSlider);
         base.Die();
@@ -184,6 +200,33 @@ public class Character : StaticObject {
     protected virtual void HandleTile ()
     {
 
+    }
+
+    // Sets a boolean for all animators
+    protected void SetAllBools (string name, bool value)
+    {
+        foreach (Animator a in animators)
+        {
+            a.SetBool(name, value);
+        }
+    }
+
+    // Sets an integer for all animators
+    protected void SetAllIntegers (string name, int value)
+    {
+        foreach (Animator a in animators)
+        {
+            a.SetInteger(name, value);
+        }
+    }
+
+    // Sets a float for all animators
+    protected void SetAllFloats (string name, float value)
+    {
+        foreach (Animator a in animators)
+        {
+            a.SetFloat(name, value);
+        }
     }
     #endregion
 

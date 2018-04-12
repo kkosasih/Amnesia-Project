@@ -19,7 +19,7 @@ public class PlayerCharacter : Character {
     private GameObject Questtracking;
     private Slider staminaSlider;           // The slider object to reference for stamina
     private Interactible interaction;       // The interaction available
-    private Inventory inven;            // The inventory of the player
+    private Inventory inven;                // The inventory of the player
     private AudioSource footstepsAudio;     // The audio played when the player moves
     #endregion
 
@@ -52,7 +52,7 @@ public class PlayerCharacter : Character {
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
         footstepsAudio = GetComponent<AudioSource>();
-        _animator = GetComponent<Animator>();
+        animators = new List<Animator>(bodyParts.GetComponentsInChildren<Animator>());
     }
 
     // Use this for initialization
@@ -66,7 +66,7 @@ public class PlayerCharacter : Character {
     {
         base.Update();
         // If not in a cutscene
-        if (OnMap && DialogueController.instance.MovementPreventions + movementPreventions == 0)
+        if (OnMap && Preventions == 0)
         {
             // If not moving at the moment
             if (lastMove >= delay && !moving)
@@ -176,7 +176,7 @@ public class PlayerCharacter : Character {
     public override IEnumerator Attack (Direction dir)
     {
         ++movementPreventions;
-        _animator.SetInteger("direction", (int)dir);
+        SetAllIntegers("direction", (int)dir);
         yield return new WaitForSeconds(0.5f);
         AttackController.instance.StraightAttack(new Attack(teamID, 1, 0.2f), dir, CurrentTile, 5, 2, 5);
         --movementPreventions;

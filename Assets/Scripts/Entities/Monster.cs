@@ -7,6 +7,10 @@ public class Monster : Character {
     //public PlayerCharacter player;  // The player script to track
     //public bool pickuptile = false;
     protected GameObject canvas;
+    [SerializeField]
+    protected int range;            // The range before player detection
+    [SerializeField]
+    protected bool dead = false;    // Whether the monster is dead
     #endregion
 
     #region Event Functions
@@ -21,27 +25,48 @@ public class Monster : Character {
     {
         canvas = GameObject.Find("Canvas");
         // If not in a cutscene
-        if (DialogueController.instance.MovementPreventions + movementPreventions == 0 && OnMap)
+        if (Preventions == 0 && OnMap)
         {
-            if (Mathf.Max(Mathf.Abs(HoriDistance(PlayerCharacter.instance.CurrentTile)), Mathf.Abs(VertDistance(PlayerCharacter.instance.CurrentTile))) <= 2)
+            // Attack player if in ranges
+            if (Mathf.Abs(HoriDistance(PlayerCharacter.instance.CurrentTile)) <= 4 && VertDistance(PlayerCharacter.instance.CurrentTile) == 0 ||
+                Mathf.Abs(VertDistance(PlayerCharacter.instance.CurrentTile)) <= 4 && HoriDistance(PlayerCharacter.instance.CurrentTile) == 0)
             {
-                StartCoroutine(Attack(Direction.Up));
+                StartCoroutine(Attack(DirectionToward(PlayerCharacter.instance.CurrentTile)));
             }
             else if (lastMove >= delay && !moving)
             {
-                StartCoroutine(AutoMoveOneStep(PlayerCharacter.instance.CurrentTile));
+                // Move to player if detected
+                if (TotalDistance(PlayerCharacter.instance.CurrentTile) <= range)
+                {
+                    StartCoroutine(AutoMoveOneStep(PlayerCharacter.instance.CurrentTile));
+                }
+                // Move randomly if not detected
+                else
+                {
+                    Move((Direction)Random.Range(0, 4));
+                }
             }
+        }
+        // Die after animation
+        if (dead)
+        {
+            DropItem();
         }
         base.Update();
     }
     #endregion
 
     #region Methods
-    // Kill this character and drop an item
+    // Kill this character
     public override void Die ()
     {
-        Debug.Log(CurrentTile);
         canvas.GetComponent<QuestTracking>().questobj(name);
+        SetAllBools("dead", true);
+    }
+
+    // Delete the character and drop an item
+    protected void DropItem ()
+    {
         GameObject drop = GameController.instance.map.ObjectTakingTile(CurrentTile);
         // If the tile isn't already a pickup tile
         if (drop == null || drop.GetComponent<PickupInventory>() == null)
@@ -59,12 +84,14 @@ public class Monster : Character {
 
     #region Coroutines
     // Attack in a given direction dir
-    public override IEnumerator Attack(Direction dir)
+    public override IEnumerator Attack (Direction dir)
     {
         ++movementPreventions;
-        yield return new WaitForSeconds(1);
-        AttackController.instance.BurstAttack(new Attack(teamID, 1, 0.5f), CurrentTile, 2, 2);
+        SetAllIntegers("direction", (int)dir);
+        StartCoroutine(Helper.PlayInTime(animators, "attacking", true, false, 1.5f));
         yield return new WaitForSeconds(0.5f);
+        AttackController.instance.StraightAttack(new Attack(teamID, 5, 0.2f), dir, CurrentTile, 4, 1, 5f);
+        yield return new WaitForSeconds(1);
         --movementPreventions;
     }
     #endregion

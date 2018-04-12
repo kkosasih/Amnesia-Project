@@ -115,7 +115,7 @@ public class Helper {
         obj.transform.position = newPos;
     }
 
-    // Play an animation completely within a time frame for an int vale
+    // Play an animation completely within a time frame for an int value
     public static IEnumerator PlayInTime(Animator anim, string name, int firstValue, int secondValue, float time)
     {
         anim.SetInteger(name, firstValue);
@@ -124,7 +124,7 @@ public class Helper {
         anim.SetInteger(name, secondValue);
     }
 
-    // Play an animation completely within a time frame for a float vale
+    // Play an animation completely within a time frame for a float value
     public static IEnumerator PlayInTime(Animator anim, string name, float firstValue, float secondValue, float time)
     {
         anim.SetFloat(name, firstValue);
@@ -133,13 +133,58 @@ public class Helper {
         anim.SetFloat(name, secondValue);
     }
 
-    // Play an animation completely within a time frame for a bool vale
+    // Play animations completely within a time frame for a bool value
     public static IEnumerator PlayInTime(Animator anim, string name, bool firstValue, bool secondValue, float time)
     {
         anim.SetBool(name, firstValue);
         anim.speed = 1.0f / time;
         yield return new WaitForSeconds(time);
         anim.SetBool(name, secondValue);
+    }
+
+    // Play animations completely within a time frame for an int value
+    public static IEnumerator PlayInTime(List<Animator> anim, string name, int firstValue, int secondValue, float time)
+    {
+        foreach (Animator a in anim)
+        {
+            a.SetInteger(name, firstValue);
+            a.speed = 1.0f / time;
+        }
+        yield return new WaitForSeconds(time);
+        foreach (Animator a in anim)
+        {
+            a.SetInteger(name, secondValue);
+        }
+    }
+
+    // Play animations completely within a time frame for a float value
+    public static IEnumerator PlayInTime (List<Animator> anim, string name, float firstValue, float secondValue, float time)
+    {
+        foreach (Animator a in anim)
+        {
+            a.SetFloat(name, firstValue);
+            a.speed = 1.0f / time;
+        }
+        yield return new WaitForSeconds(time);
+        foreach (Animator a in anim)
+        {
+            a.SetFloat(name, secondValue);
+        }
+    }
+
+    // Play animations completely within a time frame for a bool value
+    public static IEnumerator PlayInTime (List<Animator> anim, string name, bool firstValue, bool secondValue, float time)
+    {
+        foreach (Animator a in anim)
+        {
+            a.SetBool(name, firstValue);
+            a.speed = 1.0f / time;
+        }
+        yield return new WaitForSeconds(time);
+        foreach (Animator a in anim)
+        {
+            a.SetBool(name, secondValue);
+        }
     }
 
     // Change the color of an image over a given time
