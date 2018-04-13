@@ -9,6 +9,8 @@ public class Map : MonoBehaviour {
     private static bool debug = false;                   // Whether to debug the maps or not
     [SerializeField]
     private string path;                                 // The name of the map in resources
+    [SerializeField]
+    private AudioClip music;                             // The music to play on the map
     private int width;                                   // The width of the map in tiles
     private int height;                                  // The height of the map in tiles
     private List<GameObject> tiles;                      // The list of tiles to reference
@@ -50,6 +52,15 @@ public class Map : MonoBehaviour {
         get
         {
             return nodes;
+        }
+    }
+
+    // Returns music
+    public AudioClip Music
+    {
+        get
+        {
+            return music;
         }
     }
 

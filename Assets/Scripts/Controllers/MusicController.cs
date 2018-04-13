@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour {
     #region Attributes
-    public AudioClip music;
-    private AudioSource _audioSource;
+    public static MusicController instance; // The instance to reference
+    private AudioSource _audioSource;       // The audio source component attached
     #endregion
 
-    #region Event Functions#
+    #region Event Functions
     void Awake ()
     {
+        instance = this;
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -25,5 +26,22 @@ public class MusicController : MonoBehaviour {
     {
         
 	}
+    #endregion
+
+    #region Coroutines
+    // Smoothly change the audio file
+    public IEnumerator ChangeMusic (AudioClip newClip)
+    {
+        float oldVolume = _audioSource.volume;
+        for (float f = 0f; f < 1f; f += Time.deltaTime)
+        {
+            _audioSource.volume = oldVolume * (1f - f);
+            yield return null;
+        }
+        _audioSource.Stop();
+        _audioSource.clip = newClip;
+        _audioSource.volume = oldVolume;
+        _audioSource.Play();
+    }
     #endregion
 }

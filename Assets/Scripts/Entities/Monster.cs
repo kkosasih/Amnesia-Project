@@ -15,7 +15,7 @@ public class Monster : Character {
 
     #region Event Functions
     // Use this for initialization
-    void Start ()
+    protected void Start ()
     {
 
     }
@@ -25,9 +25,9 @@ public class Monster : Character {
     {
         canvas = GameObject.Find("Canvas");
         // If not in a cutscene
-        if (Preventions == 0 && OnMap)
+        if (health > 0 && Preventions == 0 && OnMap)
         {
-            // Attack player if in ranges
+            // Attack player if in range
             if (Mathf.Abs(HoriDistance(PlayerCharacter.instance.CurrentTile)) <= 4 && VertDistance(PlayerCharacter.instance.CurrentTile) == 0 ||
                 Mathf.Abs(VertDistance(PlayerCharacter.instance.CurrentTile)) <= 4 && HoriDistance(PlayerCharacter.instance.CurrentTile) == 0)
             {
@@ -71,7 +71,7 @@ public class Monster : Character {
         // If the tile isn't already a pickup tile
         if (drop == null || drop.GetComponent<PickupInventory>() == null)
         {
-            drop = Instantiate(Resources.Load<GameObject>("ItemDrop"));
+            drop = Instantiate(Resources.Load<GameObject>("OtherPrefabs/ItemDrop"));
             StaticObject s = drop.GetComponent<StaticObject>();
             s.PlaceOnMap(CurrentTile);
             drop.GetComponent<PickupInventory>().SetSize(4);
@@ -88,10 +88,9 @@ public class Monster : Character {
     {
         ++movementPreventions;
         SetAllIntegers("direction", (int)dir);
-        StartCoroutine(Helper.PlayInTime(animators, "attacking", true, false, 1.5f));
-        yield return new WaitForSeconds(0.5f);
-        AttackController.instance.StraightAttack(new Attack(teamID, 5, 0.2f), dir, CurrentTile, 4, 1, 5f);
-        yield return new WaitForSeconds(1);
+        StartCoroutine(Helper.PlayInTime(animators, "attacking", true, false, 1f));
+        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
         --movementPreventions;
     }
     #endregion

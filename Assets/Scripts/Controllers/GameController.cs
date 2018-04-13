@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        
+        StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
     }
 
     // Update is called once per frame
@@ -131,6 +131,10 @@ public class GameController : MonoBehaviour {
             }
         }
         FindMap();
+        if (MusicController.instance != null)
+        {
+            StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
+        }
         PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.startTile);
         // Place static characters on map
         if (GameObject.Find("Characters") != null)
