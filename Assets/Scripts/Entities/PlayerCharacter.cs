@@ -17,10 +17,13 @@ public class PlayerCharacter : Character {
     private GameObject pickupui;
     [SerializeField]
     private GameObject Questtracking;
+    [SerializeField]
+    private List<AudioClip> footstepsAudio; // The audio played when the player moves
     private Slider staminaSlider;           // The slider object to reference for stamina
     private Interactible interaction;       // The interaction available
     private Inventory inven;                // The inventory of the player
-    private AudioSource footstepsAudio;     // The audio played when the player moves
+    private AudioSource _audioSource;       // The Audio Source component attached
+    
     #endregion
 
     #region Properties
@@ -51,7 +54,7 @@ public class PlayerCharacter : Character {
         inven = GameObject.Find("Inventory").GetComponent<Inventory>();
         healthSlider = GameObject.Find("HealthSlider");
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
-        footstepsAudio = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         animators = new List<Animator>(bodyParts.GetComponentsInChildren<Animator>());
     }
 
@@ -112,14 +115,15 @@ public class PlayerCharacter : Character {
                     StartCoroutine(Attack(Direction.Right));
                 }
             }
-            if (moving && !footstepsAudio.isPlaying)
+            if (moving && !_audioSource.isPlaying)
             {
-                footstepsAudio.time = 0.5f;
-                footstepsAudio.Play();
+
+                _audioSource.clip = footstepsAudio[Random.Range(0, footstepsAudio.Count)];
+                _audioSource.Play();
             }
-            else if (!moving && footstepsAudio.isPlaying)
+            else if (!moving && _audioSource.isPlaying)
             {
-                footstepsAudio.Stop();
+                _audioSource.Stop();
             }
 
             //Action button uses

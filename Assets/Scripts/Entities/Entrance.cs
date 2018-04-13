@@ -9,13 +9,15 @@ public class Entrance : StaticObject {
     public int sceneTo;                 // The scene index to load
     public int tileFrom;                // The tile to enter at
     public Direction moveTo;            // The direction to automatically move when entering
-    private AudioSource entranceAudio;  // The audio played when an entrance is used
+    [SerializeField]
+    private List<AudioClip> entranceAudio;  // The audio played when an entrance is used
+    private AudioSource _audioSource;       // The Audio Source component attached
     #endregion
 
     #region Event Functions
     void Awake ()
     {
-        entranceAudio = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         GetComponent<Interactible>().interact = StartTeleport;
     }
 
@@ -49,8 +51,8 @@ public class Entrance : StaticObject {
         DontDestroyOnLoad(gameObject);
         Image mask = GameObject.FindWithTag("UIMask").GetComponent<Image>();
         PlayerCharacter.instance.startTile = tileFrom;
-        entranceAudio.time = 0.5f;
-        entranceAudio.Play();
+        _audioSource.clip = entranceAudio[Random.Range(0, entranceAudio.Count)];
+        _audioSource.Play();
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
         yield return StartCoroutine(GameController.instance.SetUpScene(sceneTo));
         // Check if there's no cutscene playing upon entering
