@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DialogueTracking {
     #region Attributes
     public static bool innA = true; // Whether the first inn cutscene has played
+    public static bool shipwreckedA = true;
     #endregion
 
     #region Methods
@@ -16,6 +17,12 @@ public class DialogueTracking {
         {
             innA = false;
             DialogueController.instance.ChangeConversation("Inn");
+            return true;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 12 && shipwreckedA)
+        {
+            shipwreckedA = false;
+            DialogueController.instance.ChangeConversation("Shipwrecked/Shipwrecked");
             return true;
         }
         return false;

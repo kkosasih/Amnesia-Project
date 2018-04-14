@@ -168,7 +168,8 @@ public class DialogueController : MonoBehaviour {
     // Test dialogue
     public void Test ()
     {
-        ChangeConversation("Test");
+        //ChangeConversation("Test");
+        //ChangeConversation("Shipwrecked/Shipwrecked");
     }
     #endregion
 }
