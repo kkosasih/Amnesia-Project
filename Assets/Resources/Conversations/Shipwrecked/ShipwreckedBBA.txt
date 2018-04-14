@@ -1,5 +1,5 @@
 Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0||
+Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Neymour|Neutral|Well a long time ago there was a thing called a Pandora's Box . . . meh it's a long story and I'm getting a sunburn.|| 
 Statement:0|0|Neymour|Neutral|Why don't you two meet me back at my inn and get cleaned up? You both look terrible.||
 Statement:0|0|Best Friend|Confused|And where are you going to go?||

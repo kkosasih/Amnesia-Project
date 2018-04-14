@@ -1,5 +1,5 @@
 Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0||
+Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Best Friend|A little bruised but surprisingly okay. I just woke up a couple of seconds ago on the beach and saw that our boat is in shambles. And then I went looking for you and here you are||
 Character:0.5|0|Neymour|D,D,L,L|
 Statement:0|0|Neymour|Happy|Hey there! Did you two come from that stranded ship?||
