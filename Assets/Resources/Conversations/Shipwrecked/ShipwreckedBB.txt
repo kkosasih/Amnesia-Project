@@ -1,0 +1,18 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Statement:0|0|Neymour|Laughing|Nope! Hahaha! Well I'm sure you can find someone who can, but there is no getting off this island at all with that fog.|| 
+Statement:0|0|Neymour|Neutral|This island is protected by a barrier from a magical spell, if you wanted to know why I am not bluffing when I said you actually can't leave||
+Statement:0|0|Best Friend|Confused|What? Magical spell? This doesn't make any sense.||
+Statement:0|0|Neymour|Neutral|I know, it can be hard to believe.|| 
+Statement:0|0|Neymour|Neutral|Tell you what. I'll let the two of you stay on this island for free while until you two find paying jobs to live on your own.||
+Statement:0|0|Best Friend|Confused|What do you mean 'paying jobs' and 'living on our own'?||
+Statement:0|0|Neymour|Neutral|Well once you've landed on Pellinore Island you sure as heck can't get off.||
+Statement:0|0|Neymour|Neutral|I mean, haven't you noticed the thick fog? Chin up, friends, because you'll be here for the rest of your life! Hahahahahaha!||
+Statement:0|0|Best Friend|Confused|That doesn't make any sense!||
+Character:0|0|Best Friend|D,D,R,R,L,L||
+Statement:0|0|Best Friend|Serious|You're right . . . I can barely see what's beyond that fog. Has that always been there?||
+Statement:0|0|Neymour|Neutral|Yup kiddo. And nobody has ever made it off the island alive. Or so I know of.|| 
+Statement:0|0|Neymour|Neutral|All of us living here are permanent residents and have never left the island at all.|| 
+Statement:0|0|Neymour|Neutral|Frankly, you're the only people who ever crashed here. So I guess there's a way in, but not a way out.|| 
+Statement:0|0|Neymour|Neutral|The farthest you can go out is to that other island over there, but I wouldn't go to that island because on it is a forbidden temple.||
+Question:0|0|Forbidden Temple? Tell me more!|So now what?
