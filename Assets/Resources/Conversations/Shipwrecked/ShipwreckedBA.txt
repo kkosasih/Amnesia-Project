@@ -1,5 +1,5 @@
 Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0||
+Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Neymour|Neutral|Now now no need to get snippy here. Both of you can stay at my inn for free while until you two find paying jobs to live on your own. How about that?||
 Statement:0|0|Best Friend|Confused|What do you mean 'paying jobs' and 'living on our own'?||
 Statement:0|0|Neymour|Laughing|Well once you've landed on Pellinore Island you sure as heck can't get off.|| 
