@@ -147,6 +147,10 @@ public class PlayerCharacter : Character {
             {
                 interactionbutton.gameObject.SetActive(false);
             }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Debug.Log(CurrentTile);
+            }
         }
     }
     #endregion
