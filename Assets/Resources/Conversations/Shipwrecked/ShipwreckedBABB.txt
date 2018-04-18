@@ -1,4 +1,4 @@
 Camera:0|0|0|4,-5,-10||
 Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Best Friend|Neutral|Sure, go ahead then. I think I'll go to the inn first.|| 
-Statement:0|0|Best Friend|Neutral|Maybe you can look for Enrique and talk to him. See ya there!||
+Statement:0|0|Best Friend|Neutral|Maybe you can look for Enrique and talk to him. See ya there!

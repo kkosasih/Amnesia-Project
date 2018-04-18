@@ -1,4 +1,4 @@
 Camera:0|0|0|4,-5,-10||
 Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Best Friend|Neutral|Okay, you go ahead first.||
-Statement:0|0|Best Friend|Neutral|I'm going to stick around for a bit to salvage the wreck, and maybe look for the Enrique guy. See ya.||
+Statement:0|0|Best Friend|Neutral|I'm going to stick around for a bit to salvage the wreck, and maybe look for the Enrique guy. See ya.

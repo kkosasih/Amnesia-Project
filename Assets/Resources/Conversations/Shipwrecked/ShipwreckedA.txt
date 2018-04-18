@@ -2,7 +2,7 @@ Camera:0|0|0|4,-5,-10||
 Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Best Friend|Serious|Yeah, I guess that was a dumb question. I almost died too but just woke up a couple of seconds ago on the beach and saw that our boat is in shambles.|| 
 Statement:0|0|Best Friend|Serious|And then I went looking for you and here you are||
-Character:0.5|0|Neymour|D,D,L,L|
+Character:0.5|0|Neymour|D,D,L,L||
 Statement:0|0|Neymour|Happy|Hey there! Did you two come from that stranded ship?||
 Statement:0|0|Best Friend|Confused|Who are you?||
 Statement:0|0|Neymour|Happy|The name's Neymour! I own an inn on the island. Was going to the beach to visit my friend Enrique but I saw what's left of your boat on shore and decided to investigate.||
