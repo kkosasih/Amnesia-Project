@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
     public Map map;                         // The game map to track
     private ItemDatabase itemDatabase;      // The item database to store
     private GameObject inventory;           // The player inventory to track
+    private GameObject customization;       // The player customization to track
     #endregion
 
     #region Properties
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour {
     {
         instance = this;
         inventory = GameObject.Find("Inventory");
+        customization = GameObject.Find("Character Creation");
         itemDatabase = new ItemDatabase();
         StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
 
@@ -37,6 +39,7 @@ public class GameController : MonoBehaviour {
         {
             inv.AddItemByID(2);
         }
+        customization.SetActive(false);
     }
 
     // Use this for initialization
@@ -92,6 +95,11 @@ public class GameController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.I))
         {
             inventory.GetComponent<UIPanel>().IsOpen = !inventory.GetComponent<UIPanel>().IsOpen;
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            customization.SetActive(!customization.activeSelf);
         }
     }
     #endregion
