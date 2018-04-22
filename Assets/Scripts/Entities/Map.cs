@@ -406,14 +406,14 @@ public class Map : MonoBehaviour {
     public void SaveMonsterData (int slot)
     {
         string data = JsonUtility.ToJson(enemyData);
-        string dataPath = Application.dataPath + string.Format("Serialization/Slot {0}/{1}", slot, path);
-        File.WriteAllText(data, dataPath);
+        string dataPath = Application.dataPath + string.Format("/Serialization/Slot {0}/{1}.json", slot, path);
+        File.WriteAllText(dataPath, data);
     }
 
     // Loads monster data
     public void LoadMonsterData (int slot)
     {
-        string dataPath = Application.dataPath + string.Format("Serialization/Slot {0}/{1}", slot, path);
+        string dataPath = Application.dataPath + string.Format("Serialization/Slot {0}/{1}.json", slot, path);
         if (File.Exists(dataPath))
         {
             string data = File.ReadAllText(dataPath);

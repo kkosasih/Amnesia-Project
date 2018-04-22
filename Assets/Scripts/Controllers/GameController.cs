@@ -27,6 +27,10 @@ public class GameController : MonoBehaviour {
     #region Event Functions
     void Awake ()
     {
+        if (instance != null)
+        {
+            return;
+        }
         instance = this;
         inventory = GameObject.Find("Inventory");
         customization = GameObject.Find("Character Creation");

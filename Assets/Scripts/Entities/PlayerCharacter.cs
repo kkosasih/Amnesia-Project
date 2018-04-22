@@ -49,6 +49,10 @@ public class PlayerCharacter : Character {
     #region Event Functions
     protected override void Awake ()
     {
+        if (instance != null)
+        {
+            return;
+        }
         instance = this;
         // Set up other scripts
         inven = GameObject.Find("Inventory").GetComponent<Inventory>();
