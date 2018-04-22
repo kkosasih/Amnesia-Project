@@ -24,10 +24,21 @@ public class TextOptions : MonoBehaviour {
     public void CreateOptions (List<string> options)
     {
         // Destroy past objects
-        while (transform.childCount > 0)
-        {
-            Destroy(transform.GetChild(0).gameObject);
-        }
+        //while (transform.childCount > 0)
+        //{
+        //    Destroy(transform.GetChild(0).gameObject);
+        //}
+
+		int count = transform.childCount;
+	
+		if (count > 0)
+		{
+			for (int i = 0; i < count; ++i)
+			{
+				Destroy (transform.GetChild (0).gameObject);
+			}
+		}
+
         // Make options buttons on screen depending on number assigned
         for (int i = 0; i < options.Count; ++i)
         {
