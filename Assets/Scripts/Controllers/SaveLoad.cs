@@ -17,6 +17,7 @@ public class SaveLoad {
         if (PlayerCharacter.instance != null)
         {
             PlayerPrefs.SetInt(slotNum + "SceneNum", SceneManager.GetActiveScene().buildIndex);
+            GameController.instance.map.SaveMonsterData(slot);
             PlayerPrefs.SetInt(slotNum + "PlayerTile", PlayerCharacter.instance.CurrentTile);
             PlayerPrefs.SetInt(slotNum + "PlayerHealth", PlayerCharacter.instance.health);
             PlayerPrefs.SetInt(slotNum + "PlayerStamina", PlayerCharacter.instance.stamina);
@@ -24,6 +25,9 @@ public class SaveLoad {
             PlayerPrefs.SetInt(slotNum + "Cloth", ccreation.GetComponent<CharacterLooks>().Y);
             PlayerPrefs.SetInt(slotNum + "Shoe", ccreation.GetComponent<CharacterLooks>().Z);
             PlayerPrefs.SetInt(slotNum + "Face", ccreation.GetComponent<CharacterLooks>().H);
+            DialogueTracking.SaveTriggers(slot);
+            PlayerPrefs.SetInt(slotNum + "questinc", QuestTracking.instance.Questinc);
+            PlayerPrefs.SetInt(slotNum + "questinc2", QuestTracking.instance.Questinc2);
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             for (int i = 0; i < inven.Items.Count; ++i)
             {
@@ -49,14 +53,19 @@ public class SaveLoad {
         // Load player data
         if (PlayerCharacter.instance != null)
         {
-            PlayerCharacter.instance.PlaceOnMap(PlayerPrefs.GetInt(slotNum + "PlayerTile"));
+            PlayerCharacter.instance.startTile = PlayerPrefs.GetInt(slotNum + "PlayerTile");
             GameController.instance.SetUpScene(PlayerPrefs.GetInt(slotNum + "SceneNum"));
+            GameController.instance.map.LoadMonsterData(slot);
             PlayerCharacter.instance.ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
             PlayerCharacter.instance.ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
-            //GameObject.Find("Headp"). = PlayerPrefs.GetInt(slotNum + "Head");
-            //GameObject.Find("Clothp"). = PlayerPrefs.GetInt(slotNum + "Cloth");
-            //GameObject.Find("Shoep"). = PlayerPrefs.GetInt(slotNum + "Shoe");
-            //GameObject.Find(""). = PlayerPrefs.GetInt(slotNum + "Face");
+            int _x = PlayerPrefs.GetInt(slotNum + "Head");
+            int _y = PlayerPrefs.GetInt(slotNum + "Cloth");
+            int _z = PlayerPrefs.GetInt(slotNum + "Shoe");
+            int _h = PlayerPrefs.GetInt(slotNum + "Face");
+            CharacterLooks.instance.Set(_x, _y, _z, _h);
+            DialogueTracking.LoadTriggers(slot);
+            QuestTracking.instance.Questinc = PlayerPrefs.GetInt(slotNum + "questinc");
+            QuestTracking.instance.Questinc2 = PlayerPrefs.GetInt(slotNum + "questinc2");
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             inven.Clear();
             for (int i = 0; i < inven.Items.Count; ++i)

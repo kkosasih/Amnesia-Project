@@ -27,5 +27,21 @@ public class DialogueTracking {
         }
         return false;
     }
+
+    // Save the progress of each trigger
+    public static void SaveTriggers (int slot)
+    {
+        string slotNum = slot.ToString();
+        PlayerPrefs.SetInt(slotNum + "innA", innA ? 1 : 0);
+        PlayerPrefs.SetInt(slotNum + "isShipwreckedNotPlayed", isShipwreckedNotPlayed ? 1 : 0);
+    }
+
+    // Load the progress of each trigger
+    public static void LoadTriggers (int slot)
+    {
+        string slotNum = slot.ToString();
+        innA = PlayerPrefs.GetInt(slotNum + "innA") == 1 ? true : false;
+        isShipwreckedNotPlayed =  PlayerPrefs.GetInt(slotNum + "isShipwreckedNotPlayed") == 1 ? true : false;
+    }
     #endregion
 }

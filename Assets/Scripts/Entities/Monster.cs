@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Monster : Character {
     #region Attributes
     //public PlayerCharacter player;  // The player script to track

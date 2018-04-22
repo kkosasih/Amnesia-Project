@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CharacterLooks : MonoBehaviour {
     #region Attributes
+    public static CharacterLooks instance;
     //public Animator _hair, _head, _clothes, _pants;
     public Animator pHair, pHead, pClothes, pPants;
     public List<RuntimeAnimatorController> lHair, lHead, lClothes, lPants;
@@ -48,6 +49,7 @@ public class CharacterLooks : MonoBehaviour {
     #region Event Functions
     void Awake ()
     {
+        instance = this;
         Set();
         anima(0);
     }
@@ -74,6 +76,15 @@ public class CharacterLooks : MonoBehaviour {
         pPants.runtimeAnimatorController = lPants[z];
         //_hair.runtimeAnimatorController = lHair[h];
         pHair.runtimeAnimatorController = lHair[h];
+    }
+
+    public void Set (int _x, int _y, int _z, int _h)
+    {
+        x = _x;
+        y = _y;
+        z = _z;
+        h = _h;
+        Set();
     }
 
     public void head(int input)

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class QuestTracking : MonoBehaviour
 {
     #region Attributes
+    public static QuestTracking instance;
     public List<QuestTypes> availablequests;
     public List<QuestTypes> mainList;
     public List<QuestTypes> questList;
@@ -30,9 +31,39 @@ public class QuestTracking : MonoBehaviour
     private int questinc = 0, questinc2 = 0;
     #endregion
 
+    #region Properties
+    // Returns questinc
+    public int Questinc
+    {
+        get
+        {
+            return questinc;
+        }
+        set
+        {
+            questinc = value;
+        }
+    }
+
+    // Returns questinc2
+    public int Questinc2
+    {
+        get
+        {
+            return questinc2;
+        }
+        set
+        {
+            questinc2 = value;
+        }
+    }
+    #endregion
+
     #region Event Functions
     void Awake ()
     {
+        instance = this;
+
         mainList = new List<QuestTypes>();
         questList = new List<QuestTypes>();
         fquestList = new List<QuestTypes>();
