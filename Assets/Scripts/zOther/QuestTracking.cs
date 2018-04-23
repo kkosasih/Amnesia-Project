@@ -62,6 +62,10 @@ public class QuestTracking : MonoBehaviour
     #region Event Functions
     void Awake ()
     {
+        if (instance != null)
+        {
+            return;
+        }
         instance = this;
 
         mainList = new List<QuestTypes>();
@@ -201,6 +205,46 @@ public class QuestTracking : MonoBehaviour
     public void addingquests(string qname)
     {
         questList.Add(QuestDatabase.Fix(qname));
+    }
+
+    // Save quest data
+    public void SaveQuests (int slot)
+    {
+        string slotNum = slot.ToString();
+        PlayerPrefs.SetInt(slotNum + "questinc", Questinc);
+        PlayerPrefs.SetInt(slotNum + "questinc2", Questinc2);
+        foreach (QuestTypes q in mainList)
+        {
+            PlayerPrefs.SetInt(slotNum + q.questname, q.finished ? 1 : 0);
+        }
+        foreach (QuestTypes q in questList)
+        {
+            PlayerPrefs.SetInt(slotNum + q.questname, q.finished ? 1 : 0);
+        }
+        foreach (QuestTypes q in fquestList)
+        {
+            PlayerPrefs.SetInt(slotNum + q.questname, q.finished ? 1 : 0);
+        }
+    }
+
+    // Save quest data
+    public void LoadQuests (int slot)
+    {
+        string slotNum = slot.ToString();
+        Questinc = PlayerPrefs.GetInt(slotNum + "questinc");
+        Questinc2 = PlayerPrefs.GetInt(slotNum + "questinc2");
+        foreach (QuestTypes q in mainList)
+        {
+            q.finished = PlayerPrefs.GetInt(slotNum + q.questname) == 1 ? true : false;
+        }
+        foreach (QuestTypes q in questList)
+        {
+            q.finished = PlayerPrefs.GetInt(slotNum + q.questname) == 1 ? true : false;
+        }
+        foreach (QuestTypes q in fquestList)
+        {
+            q.finished = PlayerPrefs.GetInt(slotNum + q.questname) == 1 ? true : false;
+        }
     }
     #endregion
 

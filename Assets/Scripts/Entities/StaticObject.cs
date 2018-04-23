@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class StaticObject : MonoBehaviour {
     #region Attributes
     public int startTile;   // The tile to start on
@@ -98,7 +99,14 @@ public class StaticObject : MonoBehaviour {
     {
         if (GameController.instance.map != null)
         {
-            GameController.instance.map.TakenTiles.Add(this, tile);
+            if (!GameController.instance.map.TakenTiles.ContainsKey(this))
+            {
+                GameController.instance.map.TakenTiles.Add(this, tile);
+            }
+            else
+            {
+                CurrentTile = tile;
+            }
             transform.position = GameController.instance.map.Tiles[tile].transform.position;
         }
     }
@@ -108,7 +116,14 @@ public class StaticObject : MonoBehaviour {
     {
         if (map != null)
         {
-            map.TakenTiles.Add(this, tile);
+            if (!map.TakenTiles.ContainsKey(this))
+            {
+                map.TakenTiles.Add(this, tile);
+            }
+            else
+            {
+                CurrentTile = tile;
+            }
             transform.position = map.Tiles[tile].transform.position;
         }
     }

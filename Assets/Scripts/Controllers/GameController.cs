@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             ShiftSave(0);
         }
@@ -126,6 +126,12 @@ public class GameController : MonoBehaviour {
         {
             SaveLoad.Load(slot);
         }
+    }
+
+    // Start scene coroutine
+    public void SetUpSceneFunc (int index)
+    {
+        StartCoroutine(SetUpScene(index));
     }
     #endregion
 

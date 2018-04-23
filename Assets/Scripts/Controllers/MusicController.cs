@@ -11,6 +11,10 @@ public class MusicController : MonoBehaviour {
     #region Event Functions
     void Awake ()
     {
+        if (instance != null)
+        {
+            return;
+        }
         instance = this;
         _audioSource = GetComponent<AudioSource>();
     }

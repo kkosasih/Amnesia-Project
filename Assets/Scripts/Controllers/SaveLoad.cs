@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SaveLoad {
     #region Attributes
-    public static GameObject ccreation = GameObject.Find("Character Creation");
+
     #endregion
 
     #region Methods
@@ -17,17 +17,15 @@ public class SaveLoad {
         if (PlayerCharacter.instance != null)
         {
             PlayerPrefs.SetInt(slotNum + "SceneNum", SceneManager.GetActiveScene().buildIndex);
-            GameController.instance.map.SaveMonsterData(slot);
             PlayerPrefs.SetInt(slotNum + "PlayerTile", PlayerCharacter.instance.CurrentTile);
             PlayerPrefs.SetInt(slotNum + "PlayerHealth", PlayerCharacter.instance.health);
             PlayerPrefs.SetInt(slotNum + "PlayerStamina", PlayerCharacter.instance.stamina);
-            PlayerPrefs.SetInt(slotNum + "Head", ccreation.GetComponent<CharacterLooks>().X);
-            PlayerPrefs.SetInt(slotNum + "Cloth", ccreation.GetComponent<CharacterLooks>().Y);
-            PlayerPrefs.SetInt(slotNum + "Shoe", ccreation.GetComponent<CharacterLooks>().Z);
-            PlayerPrefs.SetInt(slotNum + "Face", ccreation.GetComponent<CharacterLooks>().H);
+            PlayerPrefs.SetInt(slotNum + "Head", CharacterLooks.instance.X);
+            PlayerPrefs.SetInt(slotNum + "Cloth", CharacterLooks.instance.Y);
+            PlayerPrefs.SetInt(slotNum + "Shoe", CharacterLooks.instance.Z);
+            PlayerPrefs.SetInt(slotNum + "Face", CharacterLooks.instance.H);
             DialogueTracking.SaveTriggers(slot);
-            PlayerPrefs.SetInt(slotNum + "questinc", QuestTracking.instance.Questinc);
-            PlayerPrefs.SetInt(slotNum + "questinc2", QuestTracking.instance.Questinc2);
+            QuestTracking.instance.SaveQuests(slot);
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             for (int i = 0; i < inven.Items.Count; ++i)
             {
@@ -54,8 +52,6 @@ public class SaveLoad {
         if (PlayerCharacter.instance != null)
         {
             PlayerCharacter.instance.startTile = PlayerPrefs.GetInt(slotNum + "PlayerTile");
-            GameController.instance.SetUpScene(PlayerPrefs.GetInt(slotNum + "SceneNum"));
-            GameController.instance.map.LoadMonsterData(slot);
             PlayerCharacter.instance.ChangeHealth(PlayerPrefs.GetInt(slotNum + "PlayerHealth"));
             PlayerCharacter.instance.ChangeStamina(PlayerPrefs.GetInt(slotNum + "PlayerStamina"));
             int _x = PlayerPrefs.GetInt(slotNum + "Head");
@@ -64,8 +60,7 @@ public class SaveLoad {
             int _h = PlayerPrefs.GetInt(slotNum + "Face");
             CharacterLooks.instance.Set(_x, _y, _z, _h);
             DialogueTracking.LoadTriggers(slot);
-            QuestTracking.instance.Questinc = PlayerPrefs.GetInt(slotNum + "questinc");
-            QuestTracking.instance.Questinc2 = PlayerPrefs.GetInt(slotNum + "questinc2");
+            QuestTracking.instance.LoadQuests(slot);
             Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
             inven.Clear();
             for (int i = 0; i < inven.Items.Count; ++i)
@@ -76,6 +71,7 @@ public class SaveLoad {
                     inven.Items[i] = GameController.instance.Database.items[idToAdd];
                 }
             }
+            GameController.instance.SetUpSceneFunc(PlayerPrefs.GetInt(slotNum + "SceneNum"));
         }
     }
     #endregion

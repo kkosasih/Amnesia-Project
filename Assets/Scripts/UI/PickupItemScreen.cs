@@ -11,6 +11,10 @@ public class PickupItemScreen : MonoBehaviour {
     #region Event Functions
     void Awake ()
     {
+        if (instance != null)
+        {
+            return;
+        }
         instance = this;
     }
 

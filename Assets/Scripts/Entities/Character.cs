@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 public class Character : StaticObject {
     #region Attributes
     public int health;                      // The health of the character

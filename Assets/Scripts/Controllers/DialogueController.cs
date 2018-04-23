@@ -55,6 +55,10 @@ public class DialogueController : MonoBehaviour {
     #region Event Functions
     private void Awake ()
     {
+        if (instance != null)
+        {
+            return;
+        }
         instance = this;
         conversation = new List<DialoguePart>();
         dialoguePanel = GameObject.Find("DialogueBox").GetComponent<UIPanel>();

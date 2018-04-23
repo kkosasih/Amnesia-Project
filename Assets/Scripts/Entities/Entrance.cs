@@ -38,7 +38,6 @@ public class Entrance : StaticObject {
     // Function to start the teleportation
     public void StartTeleport ()
     {
-        GameController.instance.map.SaveMonsterData(0);
         StartCoroutine(TeleportPlayer());
     }
     #endregion
@@ -56,7 +55,6 @@ public class Entrance : StaticObject {
         _audioSource.Play();
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
         yield return StartCoroutine(GameController.instance.SetUpScene(sceneTo));
-        GameController.instance.map.LoadMonsterData(0);
         // Check if there's no cutscene playing upon entering
         if (!DialogueTracking.CheckConversation())
         {

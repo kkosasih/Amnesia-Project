@@ -16,7 +16,6 @@ public class Map : MonoBehaviour {
     private List<GameObject> tiles;                     // The list of tiles to reference
     private List<MapNode> nodes;                        // The list of nodes for pathfinding
     private Dictionary<StaticObject, int> takenTiles;   // The tiles that are occupied on the map
-    private EnemyData enemyData;                        // The data on enemies
     #endregion
 
     #region Properties
@@ -399,33 +398,6 @@ public class Map : MonoBehaviour {
             nodePic.SetPixels(data.ToArray());
             nodePic.Apply();
             File.WriteAllBytes(Application.dataPath + "/Resources/Maps/Textures/" + path + "Nodes.png", nodePic.EncodeToPNG());
-        }
-    }
-
-    // Serializes and saves monster data
-    public void SaveMonsterData (int slot)
-    {
-        string data = JsonUtility.ToJson(enemyData);
-        string dataPath = Application.dataPath + string.Format("/Serialization/Slot {0}/{1}.json", slot, path);
-        File.WriteAllText(dataPath, data);
-    }
-
-    // Loads monster data
-    public void LoadMonsterData (int slot)
-    {
-        string dataPath = Application.dataPath + string.Format("Serialization/Slot {0}/{1}.json", slot, path);
-        if (File.Exists(dataPath))
-        {
-            string data = File.ReadAllText(dataPath);
-            enemyData = JsonUtility.FromJson<EnemyData>(data);
-        }
-        else
-        {
-            enemyData = new EnemyData();
-        }
-        foreach (Monster m in enemyData.monsters)
-        {
-            m.PlaceOnMap(this, m.CurrentTile);
         }
     }
     #endregion

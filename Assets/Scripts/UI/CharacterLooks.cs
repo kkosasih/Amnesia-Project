@@ -49,6 +49,10 @@ public class CharacterLooks : MonoBehaviour {
     #region Event Functions
     void Awake ()
     {
+        if (instance != null)
+        {
+            return;
+        }
         instance = this;
         Set();
         anima(0);
