@@ -95,7 +95,7 @@ public class StaticObject : MonoBehaviour {
     }
 
     // Place the object at the point on the map
-    public void PlaceOnMap (int tile)
+    public virtual void PlaceOnMap (int tile)
     {
         if (GameController.instance.map != null)
         {
@@ -112,7 +112,7 @@ public class StaticObject : MonoBehaviour {
     }
 
     // Place the object at the point on a given map
-    public void PlaceOnMap (Map map, int tile)
+    public virtual void PlaceOnMap (Map map, int tile)
     {
         if (map != null)
         {

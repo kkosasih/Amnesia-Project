@@ -35,7 +35,6 @@ public class GameController : MonoBehaviour {
         inventory = GameObject.Find("Inventory");
         customization = GameObject.Find("Character Creation");
         itemDatabase = new ItemDatabase();
-        StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
 
         Inventory inv = inventory.GetComponent<Inventory>();
         inv.AddItemByID(0);
@@ -49,6 +48,7 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
         StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
     }
 
@@ -154,20 +154,15 @@ public class GameController : MonoBehaviour {
             StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
         }
         PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.startTile);
-        // Place static characters on map
-        if (GameObject.Find("Characters") != null)
+        // Place characters on map
+        foreach (Character c in FindObjectsOfType<Character>())
         {
-            foreach (StaticObject s in GameObject.Find("Characters").transform.GetComponentsInChildren<StaticObject>())
-            {
-                s.PlaceOnMap(s.startTile);
-            }
+            c.PlaceOnMap(c.startTile);
         }
-        if (GameObject.Find("MapObjects") != null)
+        // Place map objects on map
+        foreach (MapObject m in FindObjectsOfType<MapObject>())
         {
-            foreach (StaticObject s in GameObject.Find("MapObjects").transform.GetComponentsInChildren<StaticObject>())
-            {
-                s.PlaceOnMap(s.startTile);
-            }
+            m.PlaceOnMap();
         }
     }
     #endregion

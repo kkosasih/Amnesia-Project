@@ -186,7 +186,10 @@ public class Map : MonoBehaviour {
         {
             if (takenTiles[s] == tile)
             {
-                return s != null && s.Solid;
+                if (s != null && s.Solid)
+                {
+                    return true;
+                }
             }
         }
         return false;

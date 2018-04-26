@@ -194,6 +194,16 @@ public class PlayerCharacter : Character {
         --movementPreventions;
         ChangeStamina(stamina - staminaDepletionAttack);
     }
+
+    // Performs all of the movement to another tile
+    protected override IEnumerator ChangeTile (int moveTo)
+    {
+        foreach (MapObject m in FindObjectsOfType<MapObject>())
+        {
+            m.UpdateLayering();
+        }
+        yield return StartCoroutine(base.ChangeTile(moveTo));
+    }
     #endregion
 }
 
