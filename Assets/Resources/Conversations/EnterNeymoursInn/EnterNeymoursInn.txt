@@ -1,0 +1,6 @@
+Camera: 0|0|0|4,-5,-10||
+Mask: 0|0|0.5|0,0,0,0||
+Character:0|0|Player|R,R,R,R||
+Character:0|0|Zaine|L,L,L,L||
+Statement:0|0|Zaine|Surprised|Hey! You must be one of the people who crashed! Everybody's talking about you now. Glad you were able to find this place because I'm sure Neymour sent you and your . . . friend?||
+Question:0|0|Yeah, I crashed with my friend. Did they get here?|I don't have friends . . .

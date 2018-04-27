@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Henry|Happy|Yeah sure thing! Take your time. Once you've come to a decision, come to my home tomorrow morning to let me know! I'll see ya later!|| 
+Character:0|0|Henry|L,L,L,L,L,L|

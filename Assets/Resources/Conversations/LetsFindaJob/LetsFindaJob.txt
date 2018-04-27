@@ -1,0 +1,6 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Character:0|0|Best Friend|R,R,R,R|
+Statement:0|0|Best Friend|Neutral|There you are! I thought you got lost because I couldn't find you. Guess you were in your room or something.||
+Statement:0|0|Best Friend|Neutral|I ended up taking my time looking around the ship, found Enrique much later, and decided to come here. Just spoke with Zaine about the rooms and it turns out I'm your neighbor!||
+Question:0|0|Yay! Room Buddies!|Unfortunately . . .

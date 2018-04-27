@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Happy|Sounds good! I did ask Neymour if he would hire both of us but he told me that he can only afford one. But he will spread the word to a couple of friends of his to hire you if they need someone.||
+Statement:0|0|Best Friend|Happy|So if you have problems finding a job, don't worry about it too much! We're in together. Let me know if you find something! Or if you don't! Then I'll help figure things out. Anyways, I'm going to go to my room and nap for a bit. Talk to you later!
