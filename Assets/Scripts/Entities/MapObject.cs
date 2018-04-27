@@ -6,7 +6,7 @@ public class MapObject : StaticObject {
     #region Attributes
     [SerializeField]
     private int offset;                     // The user-defined addition to sorting
-    private SpriteRenderer sprite;          // The sprite to layer
+    private SpriteRenderer[] sprites;       // The sprite to layer
     private MapObjectChild[] children;      // The map object children to use
     #endregion
 
@@ -18,8 +18,11 @@ public class MapObject : StaticObject {
     void Awake ()
     {
         children = GetComponentsInChildren<MapObjectChild>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        sprite.sortingOrder = -(int)transform.position.y + offset;
+        sprites = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.sortingOrder = -(int)transform.position.y + offset;
+        }
     }
 
     // Use this for initialization
@@ -122,11 +125,17 @@ public class MapObject : StaticObject {
     {
         if (CurrentTile <= PlayerCharacter.instance.CurrentTile)
         {
-            sprite.sortingLayerID = SortingLayer.NameToID("BelowPlayer");
+            foreach (SpriteRenderer sprite in sprites)
+            {
+                sprite.sortingLayerID = SortingLayer.NameToID("BelowPlayer");
+            }
         }
         else
         {
-            sprite.sortingLayerID = SortingLayer.NameToID("AbovePlayer");
+            foreach (SpriteRenderer sprite in sprites)
+            {
+                sprite.sortingLayerID = SortingLayer.NameToID("AbovePlayer");
+            }
         }
     }
     #endregion
