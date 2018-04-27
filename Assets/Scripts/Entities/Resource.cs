@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource : StaticObject {
+[RequireComponent(typeof(Inventory))]
+public class Resource : MonoBehaviour {
     #region Attributes
     protected Inventory inventory;  // The inventory of the object
     #endregion
@@ -10,7 +11,6 @@ public class Resource : StaticObject {
     #region Event Functions
     protected virtual void Awake ()
     {
-        GetComponent<Interactible>().interact = GetRandomObject;
         inventory = GetComponent<Inventory>();
     }
 
@@ -28,15 +28,6 @@ public class Resource : StaticObject {
     #endregion
 
     #region Methods
-    // Get a random object from the inventory
-    protected void GetRandomObject ()
-    {
-        int index = Random.Range(0, inventory.SlotCount());
-        GameObject.Find("Canvas").GetComponent<QuestTracking>().questobj(inventory.Items[index].itemName);
-        inventory.TransferItem(PlayerCharacter.instance.Inven, index);
-        PlayerCharacter.instance.UpdateInteraction();
-        inventory.DeleteIfEmpty();
-        inventory.MoveSlots();
-    }
+
     #endregion
 }

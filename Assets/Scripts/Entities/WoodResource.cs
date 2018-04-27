@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ResourceInventory))]
 public class WoodResource : Resource {
 
     #region Event Functions
