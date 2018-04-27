@@ -51,6 +51,7 @@ public class Entrance : StaticObject {
         DontDestroyOnLoad(gameObject);
         Image mask = GameObject.FindWithTag("UIMask").GetComponent<Image>();
         PlayerCharacter.instance.startTile = tileFrom;
+		PlayerCharacter.instance.MovementPreventions++;
         _audioSource.clip = entranceAudio[Random.Range(0, entranceAudio.Count)];
         _audioSource.Play();
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
@@ -79,6 +80,8 @@ public class Entrance : StaticObject {
             PlayerCharacter.instance.Move(tileTo, moveTo);
         }
         Destroy(gameObject);
+
+		PlayerCharacter.instance.MovementPreventions--;
     }
     #endregion
 }
