@@ -17,6 +17,10 @@ public class ResourceInventory : Inventory {
     #region Event Functions
     protected override void Awake ()
     {
+        for (int i = 0; i < size; i++) //remember to increase based on database
+        {
+            items.Add(new Item());
+        }
         //Starting Items
 
         //inventory[1] = database.items[1];
@@ -39,6 +43,11 @@ public class ResourceInventory : Inventory {
     #endregion
 
     #region Methods
-    
+    // Transfer an item to another inventory
+    public override void TransferItem (Inventory other, int toTransfer)
+    {
+        other.AddItemByItem(items[toTransfer]);
+        items[toTransfer] = new Item();
+    }
     #endregion
 }

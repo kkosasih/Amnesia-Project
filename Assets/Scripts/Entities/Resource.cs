@@ -5,13 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Inventory))]
 public class Resource : MonoBehaviour {
     #region Attributes
-    protected Inventory inventory;  // The inventory of the object
+    protected ResourceInventory inventory;  // The inventory of the object
     #endregion
 
     #region Event Functions
     protected virtual void Awake ()
     {
-        inventory = GetComponent<Inventory>();
+        inventory = GetComponent<ResourceInventory>();
     }
 
     // Use this for initialization
