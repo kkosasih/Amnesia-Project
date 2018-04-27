@@ -23,25 +23,25 @@ public class DialogueTracking {
             DialogueController.instance.ChangeConversation("Inn");
             return true;
         }
-		else if (SceneManager.GetActiveScene().buildIndex == 10 && isShipwreckedNotPlayed)
+		else if (SceneManager.GetActiveScene().buildIndex == 1 && isShipwreckedNotPlayed)
         {
             isShipwreckedNotPlayed = false;
             DialogueController.instance.ChangeConversation("Shipwrecked/Shipwrecked");
             return true;
         }
-		else if (SceneManager.GetActiveScene().buildIndex == 10 && bFFindsAJob)
+		else if (SceneManager.GetActiveScene().buildIndex == 1 && bFFindsAJob)
 		{
 			bFFindsAJob = false;
 			DialogueController.instance.ChangeConversation("BFFindsJob/BFFindsJob");
 			return true;
 		}
-		else if (SceneManager.GetActiveScene().buildIndex == 10 && enterNeymoursInn)
+		else if (SceneManager.GetActiveScene().buildIndex == 1 && enterNeymoursInn)
 		{
 			enterNeymoursInn = false;
 			DialogueController.instance.ChangeConversation("EnterNeymoursInn/EnterNeymoursInn");
 			return true;
 		}
-		else if (SceneManager.GetActiveScene().buildIndex == 10 && letsFindAJob)
+		else if (SceneManager.GetActiveScene().buildIndex == 1 && letsFindAJob)
 		{
 			letsFindAJob = false;
 			DialogueController.instance.ChangeConversation("LetsFindaJob/LetsFindaJob");
