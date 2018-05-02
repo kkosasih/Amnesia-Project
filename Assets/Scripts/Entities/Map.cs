@@ -140,7 +140,7 @@ public class Map : MonoBehaviour {
                     case 'E':
                         Entrance e = tiles[entrances[entrancesI]].GetComponent<Entrance>();
                         string[] args = entries[i].Split(':')[1].Split(',');
-                        e.sceneTo = int.Parse(args[0]);
+                        e.sceneTo = args[0];
                         e.tileFrom = int.Parse(args[1]);
                         e.moveTo = (Direction)int.Parse(args[2]);
                         t = tiles[entrances[entrancesI++]].GetComponent<Tile>();

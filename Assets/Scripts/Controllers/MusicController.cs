@@ -36,6 +36,10 @@ public class MusicController : MonoBehaviour {
     // Smoothly change the audio file
     public IEnumerator ChangeMusic (AudioClip newClip)
     {
+        if (_audioSource.clip == newClip)
+        {
+            yield break;
+        }
         float oldVolume = _audioSource.volume;
         for (float f = 0f; f < 1f; f += Time.deltaTime)
         {

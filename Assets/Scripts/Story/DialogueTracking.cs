@@ -17,13 +17,13 @@ public class DialogueTracking {
     // Check for and play a cutscene if needed, returns whether a cutscene played
     public static bool CheckConversation ()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 7 && innA)
+        if (SceneManager.GetActiveScene().name == "Interior7" && innA)
         {
             innA = false;
             DialogueController.instance.ChangeConversation("Inn");
             return true;
         }
-		else if (SceneManager.GetActiveScene().buildIndex == 1 && isShipwreckedNotPlayed)
+		else if (SceneManager.GetActiveScene().name == "Beach1" && isShipwreckedNotPlayed)
         {
             isShipwreckedNotPlayed = false;
             DialogueController.instance.ChangeConversation("Shipwrecked/Shipwrecked");
@@ -47,7 +47,7 @@ public class DialogueTracking {
 			DialogueController.instance.ChangeConversation("LetsFindaJob/LetsFindaJob");
 			return true;
 		}
-		else if (SceneManager.GetActiveScene().buildIndex == 12 && woodCutterJob)
+		else if (SceneManager.GetActiveScene().name == "Interior12" && woodCutterJob)
 		{
 			woodCutterJob = false;
 			DialogueController.instance.ChangeConversation("WoodcutterJob/WoodcutterJob");

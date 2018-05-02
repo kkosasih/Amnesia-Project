@@ -165,5 +165,35 @@ public class GameController : MonoBehaviour {
             m.PlaceOnMap();
         }
     }
+
+    // Load a scene and set up necessary parts
+    public IEnumerator SetUpScene (string name)
+    {
+        if (SceneManager.GetActiveScene().name != name)
+        {
+            // Wait for scene to fully load
+            AsyncOperation a = SceneManager.LoadSceneAsync(name);
+            while (!a.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        FindMap();
+        if (MusicController.instance != null)
+        {
+            StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
+        }
+        PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.startTile);
+        // Place characters on map
+        foreach (Character c in FindObjectsOfType<Character>())
+        {
+            c.PlaceOnMap(c.startTile);
+        }
+        // Place map objects on map
+        foreach (MapObject m in FindObjectsOfType<MapObject>())
+        {
+            m.PlaceOnMap();
+        }
+    }
     #endregion
 }

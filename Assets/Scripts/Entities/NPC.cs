@@ -6,7 +6,6 @@ public class NPC : Character {
     #region Attributes
     [SerializeField]
     protected List<string> path;                        // The list of conversations given
-    protected List<int> walkPath;                       // The list of tiles to walk between
     protected string currentPath;                       // The conversation to bring up when next talked to
     protected Dictionary<string, string> nextConvos;    // Storage of conversation paths
     protected int pathIndex;                            // The index of the path list
@@ -22,7 +21,11 @@ public class NPC : Character {
         {
             nextConvos.Add(path[i], path[Mathf.Min(i + 1, path.Count - 1)]);
         }
-        GetComponent<Interactible>().interact = Talk;
+        Interactible inter = GetComponent<Interactible>();
+        if (inter != null)
+        {
+            inter.interact = Talk;
+        }
     }
 
     // Use this for initialization
@@ -30,20 +33,6 @@ public class NPC : Character {
     {
 		
 	}
-
-    // Update is called once per frame
-    protected override void Update ()
-    {
-        base.Update();
-        if (DialogueController.instance.MovementPreventions + movementPreventions == 0 && !moving)
-        {
-            if (CurrentTile == walkPath[pathIndex])
-            {
-                pathIndex = (pathIndex + 1) % walkPath.Count;
-            }
-            StartCoroutine(AutoMoveOneStep(walkPath[pathIndex]));
-        }
-    }
     #endregion
 
     #region Methods

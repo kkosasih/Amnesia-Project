@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Entrance : StaticObject {
     #region Attributes
-    public int sceneTo;                 // The scene index to load
+    public string sceneTo;              // The scene to load
     public int tileFrom;                // The tile to enter at
     public Direction moveTo;            // The direction to automatically move when entering
     [SerializeField]
