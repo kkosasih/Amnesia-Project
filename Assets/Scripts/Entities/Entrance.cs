@@ -56,31 +56,10 @@ public class Entrance : StaticObject {
         _audioSource.Play();
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 1), 0.5f));
         yield return StartCoroutine(GameController.instance.SetUpScene(sceneTo));
-        // Check if there's no cutscene playing upon entering
-        if (!DialogueTracking.CheckConversation())
-        {
-            yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 0), 0.5f));
-            int tileTo = 0;
-            // Set up the tile to move to based on direction
-            switch (moveTo)
-            {
-                case Direction.Up:
-                    tileTo = GameController.instance.map.TileAbove(PlayerCharacter.instance.CurrentTile);
-                    break;
-                case Direction.Down:
-                    tileTo = GameController.instance.map.TileBelow(PlayerCharacter.instance.CurrentTile);
-                    break;
-                case Direction.Left:
-                    tileTo = GameController.instance.map.TileLeft(PlayerCharacter.instance.CurrentTile);
-                    break;
-                case Direction.Right:
-                    tileTo = GameController.instance.map.TileRight(PlayerCharacter.instance.CurrentTile);
-                    break;
-            }
-            PlayerCharacter.instance.Move(tileTo, moveTo);
-        }
+        yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 0), 0.5f));
+        int tileTo = GameController.instance.map.TileInDirection(moveTo, PlayerCharacter.instance.CurrentTile);
+        PlayerCharacter.instance.Move(tileTo, moveTo);
         Destroy(gameObject);
-
 		PlayerCharacter.instance.MovementPreventions--;
     }
     #endregion

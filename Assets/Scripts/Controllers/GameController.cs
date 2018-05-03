@@ -133,6 +133,12 @@ public class GameController : MonoBehaviour {
     {
         StartCoroutine(SetUpScene(index));
     }
+
+    // Start scene coroutine
+    public void SetUpSceneFunc (string name)
+    {
+        StartCoroutine(SetUpScene(name));
+    }
     #endregion
 
     #region Coroutines
@@ -164,6 +170,7 @@ public class GameController : MonoBehaviour {
         {
             m.PlaceOnMap();
         }
+        DialogueTracking.CheckConversation();
     }
 
     // Load a scene and set up necessary parts
@@ -194,6 +201,7 @@ public class GameController : MonoBehaviour {
         {
             m.PlaceOnMap();
         }
+        DialogueTracking.CheckConversation();
     }
     #endregion
 }

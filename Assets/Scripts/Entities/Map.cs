@@ -403,5 +403,23 @@ public class Map : MonoBehaviour {
             File.WriteAllBytes(Application.dataPath + "/Resources/Maps/Textures/" + path + "Nodes.png", nodePic.EncodeToPNG());
         }
     }
+
+    // Return a tile based on a direction and a start tile
+    public int TileInDirection (Direction dir, int start)
+    {
+        switch (dir)
+        {
+            case Direction.Up:
+                return GameController.instance.map.TileAbove(start);
+            case Direction.Down:
+                return GameController.instance.map.TileBelow(start);
+            case Direction.Left:
+                return GameController.instance.map.TileLeft(start);
+            case Direction.Right:
+                return GameController.instance.map.TileRight(start);
+            default:
+                return -1;
+        }
+    }
     #endregion
 }
