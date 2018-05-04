@@ -227,6 +227,20 @@ public class Inventory : MonoBehaviour {
         UpdateImages();
     }
 
+    // Return how many of this item are in the inventory
+    public int HasThisMany (string name)
+    {
+        int result = 0;
+        foreach (Item i in items)
+        {
+            if (i.itemName == name)
+            {
+                result += i.itemStackAmount;
+            }
+        }
+        return result;
+    }
+
     // Return the amount of slots not empty
     public int SlotCount ()
     {

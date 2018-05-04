@@ -7,10 +7,10 @@ public class QuestTracking : MonoBehaviour
 {
     #region Attributes
     public static QuestTracking instance;
-    public List<QuestTypes> availablequests;
-    public List<QuestTypes> mainList;
-    public List<QuestTypes> questList;
-    public List<QuestTypes> fquestList;
+    public List<Quest> availablequests;
+    public List<Quest> mainList;
+    public List<Quest> questList;
+    public List<Quest> fquestList;
     public int[,] character;
     [SerializeField]
     private GameObject Inventory;
@@ -68,15 +68,15 @@ public class QuestTracking : MonoBehaviour
         }
         instance = this;
 
-        mainList = new List<QuestTypes>();
-        questList = new List<QuestTypes>();
-        fquestList = new List<QuestTypes>();
+        mainList = new List<Quest>();
+        questList = new List<Quest>();
+        fquestList = new List<Quest>();
         character = new int[10, 2];
 
         mainList.Add(QuestDatabase.MainQuest2());
         mainList.Add(QuestDatabase.MainQuest1());
         //questList.Add(QuestDatabase.MainQuest1());
-        addingquests("GeneralQuest1");
+        //addingquests("GeneralQuest1");
 
         FinUI2 = FinUI.GetComponent<CanvasGroup>();
     }
@@ -213,15 +213,15 @@ public class QuestTracking : MonoBehaviour
         string slotNum = slot.ToString();
         PlayerPrefs.SetInt(slotNum + "questinc", Questinc);
         PlayerPrefs.SetInt(slotNum + "questinc2", Questinc2);
-        foreach (QuestTypes q in mainList)
+        foreach (Quest q in mainList)
         {
             PlayerPrefs.SetInt(slotNum + q.questname, q.finished ? 1 : 0);
         }
-        foreach (QuestTypes q in questList)
+        foreach (Quest q in questList)
         {
             PlayerPrefs.SetInt(slotNum + q.questname, q.finished ? 1 : 0);
         }
-        foreach (QuestTypes q in fquestList)
+        foreach (Quest q in fquestList)
         {
             PlayerPrefs.SetInt(slotNum + q.questname, q.finished ? 1 : 0);
         }
@@ -233,15 +233,15 @@ public class QuestTracking : MonoBehaviour
         string slotNum = slot.ToString();
         Questinc = PlayerPrefs.GetInt(slotNum + "questinc");
         Questinc2 = PlayerPrefs.GetInt(slotNum + "questinc2");
-        foreach (QuestTypes q in mainList)
+        foreach (Quest q in mainList)
         {
             q.finished = PlayerPrefs.GetInt(slotNum + q.questname) == 1 ? true : false;
         }
-        foreach (QuestTypes q in questList)
+        foreach (Quest q in questList)
         {
             q.finished = PlayerPrefs.GetInt(slotNum + q.questname) == 1 ? true : false;
         }
-        foreach (QuestTypes q in fquestList)
+        foreach (Quest q in fquestList)
         {
             q.finished = PlayerPrefs.GetInt(slotNum + q.questname) == 1 ? true : false;
         }

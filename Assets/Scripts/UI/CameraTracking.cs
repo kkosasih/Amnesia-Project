@@ -5,8 +5,6 @@ using UnityEngine;
 public class CameraTracking : MonoBehaviour {
     #region Attributes
     public Transform track; // The transform to track
-	private float mapHeight;
-	private float mapWidth;
 	private float camHeight;
 	private float camWidth;
     #endregion
@@ -18,20 +16,18 @@ public class CameraTracking : MonoBehaviour {
 		Camera cam = Camera.main;
 		camHeight = 2f * cam.orthographicSize;
 		camWidth = camHeight * cam.aspect;
-		mapHeight = GameObject.Find ("ZotIsland").GetComponent<Map> ().Height;
-		mapWidth = GameObject.Find ("ZotIsland").GetComponent<Map> ().Width;
 		transform.position = new Vector3(track.position.x, track.position.y, - 10);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		if (track.position.x - camWidth / 2f > 0f && track.position.x + camWidth / 2f < mapWidth - 1f)
+		if (track.position.x - camWidth / 2f > 0f && track.position.x + camWidth / 2f < GameController.instance.map.Width - 1f)
 		{
 			transform.position = new Vector3 (track.position.x, transform.position.y, -10);
 		}
 
-		if (track.position.y + camHeight / 2f < 0f && track.position.y - camHeight / 2f > -mapHeight + 1f)
+		if (track.position.y + camHeight / 2f < 0f && track.position.y - camHeight / 2f > -GameController.instance.map.Height + 1f)
 		{
 			transform.position = new Vector3 (transform.position.x, track.position.y, -10);
 		}
@@ -40,9 +36,9 @@ public class CameraTracking : MonoBehaviour {
     }
     #endregion
 
-	void updateMap(Map newMap)
+	/*void updateMap(Map newMap)
 	{
 		mapHeight = newMap.Height;
 		mapWidth = newMap.Width;
-	}
+	}*/
 }

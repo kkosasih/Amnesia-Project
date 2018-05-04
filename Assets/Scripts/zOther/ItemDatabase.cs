@@ -21,12 +21,12 @@ public class ItemDatabase
         items.Add(new Tunic("vest", 0, 2, "A cloth vest made of cloth", 50, 1, 1));
         items.Add(new Equipable("Short Sword", 1, 4, "A teeny tiny sword named sword", 100, 1, 1));
         items.Add(new Consumable("Apple", 2, 2, "Unusually red fruit \"It's red like your Health bar\"- Unknown Man #1", 5, 10, 1));
-        items.Add(new Quest("Garbage", 3, 999, "It's garbage \"One man's trash...\" - Older Unknown Man", 1, 999, 1));
+        items.Add(new QuestItem("Garbage", 3, 999, "It's garbage \"One man's trash...\" - Older Unknown Man", 1, 999, 1));
         items.Add(new Pouch("THE ULTIMATE BAG", 4, 24, "\"It a bag that unlocks all your inventory slots\" -Developer #4", 500, 1, 1));
         items.Add(new Boots("Neke Air Jordan's", 5, 1, "\"It's in the game\" - Spokesperson", 900, 1, 1));
         items.Add(new Gautlets("Oven Mitt", 6, 7, "It's one Lefty oven mitt \"Your gloveless hand feels cold\"", 50, 1, 1));
         items.Add(new Helmet("Stained Pot", 7, 255, "Label on side: \"Now made with stainless steel!!\"", 20, 1, 1));
-        items.Add(new Quest("Wood", 8, 0, "Lumber for building.", 5, 99, 1));
+        items.Add(new QuestItem("Wood", 8, 0, "Lumber for building.", 5, 99, 1));
     }
     #endregion
 

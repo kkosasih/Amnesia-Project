@@ -26,7 +26,7 @@ public class QuestDatabase : MonoBehaviour
     #endregion
 
     #region Methods
-    public static QuestTypes Fix(string name)
+    public static Quest Fix(string name)
     {
         switch(name)
         {
@@ -36,19 +36,18 @@ public class QuestDatabase : MonoBehaviour
         return MainQuest1();
     }
 
-    public static QuestTypes MainQuest1()
+    public static Quest MainQuest1()
     {
         items = new List<string>();         //List for Loot to be given
-        items.Add("vest");
 
-        objectives = new List<string>();    //List for who to talk to
+        objectives = new List<string>();    //List for what to collect
         objectives.Add("Wood");
 
         amount = new List<int>();           //Just to fill it in
         amount.Add(5);
 
         tamount = new List<int>();
-        tamount.Add(0);
+        tamount.Add(PlayerCharacter.instance.Inven.HasThisMany("Wood"));
 
         return new CollectQuest(
             "Collecting Lumber",
@@ -63,10 +62,9 @@ public class QuestDatabase : MonoBehaviour
             false);
     }
 
-    public static QuestTypes MainQuest2()
+    public static Quest MainQuest2()
     {
         items = new List<string>();         //List for Loot to be given
-        items.Add("vest");
 
         objectives = new List<string>();    //List for what creatures need to be killed
         objectives.Add("Monster");
@@ -90,7 +88,7 @@ public class QuestDatabase : MonoBehaviour
             false);                             
     }
 
-    public static QuestTypes GeneralQuest1()
+    public static Quest GeneralQuest1()
     {
         items = new List<string>();         //List for Loot to be given
         items.Add("vest");

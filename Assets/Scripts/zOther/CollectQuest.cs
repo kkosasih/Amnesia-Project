@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectQuest : QuestTypes
+public class CollectQuest : Quest
 {
     #region Constructors
     public CollectQuest(string newqn, List<string> newListloot, List<string> newobjectives, List<int> ka, List<int> kta, int newcharacter, string newDescription, string newObjective, bool main, bool fin)

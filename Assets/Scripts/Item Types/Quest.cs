@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Quest : Item {
+public class QuestItem : Item {
 
     #region Constructors
-    public Quest(string name, int id, int output, string desc, int value, int stack, int amount)
+    public QuestItem(string name, int id, int output, string desc, int value, int stack, int amount)
     {
         itemName = name;
         itemId = id;

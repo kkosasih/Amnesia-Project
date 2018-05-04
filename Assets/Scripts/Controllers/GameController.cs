@@ -49,7 +49,6 @@ public class GameController : MonoBehaviour {
     void Start ()
     {
         StartCoroutine(SetUpScene(SceneManager.GetActiveScene().buildIndex));
-        StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
     }
 
     // Update is called once per frame
@@ -111,8 +110,8 @@ public class GameController : MonoBehaviour {
     #region Methods
     // Attach a map to the player to use
     public void FindMap ()
-    { 
-        map = GameObject.FindWithTag("Map").GetComponent<Map>();
+    {
+        map = FindObjectOfType<Map>();
     }
 
     // Save and load based on shift key
@@ -155,22 +154,25 @@ public class GameController : MonoBehaviour {
             }
         }
         FindMap();
-        if (MusicController.instance != null)
+        if (map != null)
         {
-            StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
+            if (MusicController.instance != null)
+            {
+                StartCoroutine(MusicController.instance.ChangeMusic(map.Music));
+            }
+            PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.startTile);
+            // Place characters on map
+            foreach (Character c in FindObjectsOfType<Character>())
+            {
+                c.PlaceOnMap(c.startTile);
+            }
+            // Place map objects on map
+            foreach (MapObject m in FindObjectsOfType<MapObject>())
+            {
+                m.PlaceOnMap();
+            }
+            DialogueTracking.CheckConversation();
         }
-        PlayerCharacter.instance.PlaceOnMap(PlayerCharacter.instance.startTile);
-        // Place characters on map
-        foreach (Character c in FindObjectsOfType<Character>())
-        {
-            c.PlaceOnMap(c.startTile);
-        }
-        // Place map objects on map
-        foreach (MapObject m in FindObjectsOfType<MapObject>())
-        {
-            m.PlaceOnMap();
-        }
-        DialogueTracking.CheckConversation();
     }
 
     // Load a scene and set up necessary parts
