@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour {
     //public GameObject player;               // The player object to track
     public Map map;                         // The game map to track
     private ItemDatabase itemDatabase;      // The item database to store
-    private GameObject inventory;           // The player inventory to track
+    public GameObject inventory;           // The player inventory to track
     private GameObject customization;       // The player customization to track
     #endregion
 
@@ -32,17 +32,10 @@ public class GameController : MonoBehaviour {
             return;
         }
         instance = this;
-        inventory = GameObject.Find("Inventory");
         customization = GameObject.Find("Character Creation");
         itemDatabase = new ItemDatabase();
 
         Inventory inv = inventory.GetComponent<Inventory>();
-        inv.AddItemByID(0);
-        for (int i = 0; i < 5; ++i)
-        {
-            inv.AddItemByID(2);
-        }
-        customization.SetActive(false);
     }
 
     // Use this for initialization

@@ -47,7 +47,7 @@ public class QuestDatabase : MonoBehaviour
         amount.Add(5);
 
         tamount = new List<int>();
-        tamount.Add(PlayerCharacter.instance.Inven.HasThisMany("Wood"));
+        tamount.Add(0);
 
         return new CollectQuest(
             "Collecting Lumber",

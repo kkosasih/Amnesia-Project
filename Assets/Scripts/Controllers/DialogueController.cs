@@ -11,7 +11,7 @@ public class DialogueController : MonoBehaviour {
     private char branch = '*';                  // The current branch of dialogue the player has
     private List<DialoguePart> conversation;    // The current cutscene to play
     private string tree;                        // The name of the current set of branches
-    private UIPanel dialoguePanel;              // The dialogue panel to reference
+    public UIPanel dialoguePanel;              // The dialogue panel to reference
     private int convoIndex = 0;                 // The current part of the cutscene playing
     #endregion
 
@@ -61,7 +61,6 @@ public class DialogueController : MonoBehaviour {
         }
         instance = this;
         conversation = new List<DialoguePart>();
-        dialoguePanel = GameObject.Find("DialogueBox").GetComponent<UIPanel>();
         //ChangeConversation("Opening");
     }
 
@@ -127,7 +126,6 @@ public class DialogueController : MonoBehaviour {
         }
         conversation = newConvo;
         convoIndex = -1;
-        GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = false;
         // Stop all characters' movement
         
         tree = path;
