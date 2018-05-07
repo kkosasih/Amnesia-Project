@@ -73,8 +73,7 @@ public class QuestTracking : MonoBehaviour
         fquestList = new List<Quest>();
         character = new int[10, 2];
 
-        mainList.Add(QuestDatabase.MainQuest2());
-        mainList.Add(QuestDatabase.MainQuest1());
+        AddQuests();
         //questList.Add(QuestDatabase.MainQuest1());
         //addingquests("GeneralQuest1");
 
@@ -150,6 +149,12 @@ public class QuestTracking : MonoBehaviour
     #endregion
 
     #region Methods
+    public void AddQuests ()
+    {
+        mainList.Add(QuestDatabase.MainQuest1());
+        mainList.Add(QuestDatabase.MainQuest2());
+    }
+
     public void FinishQuest(int x)
     {
         FinUI2.alpha = 0;       
@@ -200,11 +205,6 @@ public class QuestTracking : MonoBehaviour
     {
         // Something checking who you wanted to turn in the quest to (put here)
         questobj(speaker.text);
-    }
-
-    public void addingquests(string qname)
-    {
-        questList.Add(QuestDatabase.Fix(qname));
     }
 
     // Save quest data

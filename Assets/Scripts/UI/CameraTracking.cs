@@ -14,7 +14,7 @@ public class CameraTracking : MonoBehaviour {
     void Start ()
     {
         Camera cam = GetComponent<Camera>();
-		camHeight = 2f * cam.orthographicSize;
+		camHeight = cam.orthographicSize;
 		camWidth = camHeight * cam.aspect;
 	}
 	
@@ -23,15 +23,10 @@ public class CameraTracking : MonoBehaviour {
     {
         if (GameController.instance.map != null)
         {
-            if (track.position.x - camWidth / 2f > 0f && track.position.x + camWidth / 2f < GameController.instance.map.Width - 1f)
-            {
-                transform.position = new Vector3(track.position.x, transform.position.y, -10);
-            }
-
-            if (track.position.y + camHeight / 2f < 0f && track.position.y - camHeight / 2f > -GameController.instance.map.Height + 1f)
-            {
-                transform.position = new Vector3(transform.position.x, track.position.y, -10);
-            }
+             transform.position = new Vector3(
+                 GameController.instance.map.Width > 2 * camWidth ? Mathf.Clamp(track.position.x, camWidth - 0.5f, GameController.instance.map.Width - camWidth - 0.5f) : GameController.instance.map.Width / 2f - 0.5f,
+                 GameController.instance.map.Height > 2 * camHeight ? Mathf.Clamp(track.position.y, -(GameController.instance.map.Height - camHeight - 0.5f), -(camHeight - 0.5f)) : -(GameController.instance.map.Height / 2f - 0.5f),
+                 -10);
         }
 		//transform.position = new Vector3(track.position.x, track.position.y, - 10);
     }

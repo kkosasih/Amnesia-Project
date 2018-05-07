@@ -1,0 +1,2 @@
+Statement:0|0|Innkeeper|Neutral|I'll let you pay off your stay if you slay the monsters in the forest.||
+Statement:0|0|Innkeeper|Neutral|Talk to the battlemaster at base camp. Just head West of here.
