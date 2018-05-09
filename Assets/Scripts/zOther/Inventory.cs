@@ -142,6 +142,8 @@ public class Inventory : MonoBehaviour {
                 if (items[i].itemStack - items[i].itemStackAmount >= toAdd.itemStackAmount)
                 {
                     items[i].itemStackAmount += toAdd.itemStackAmount;
+                    Debug.Log(items[i].itemStackAmount);
+                    Debug.Log(toAdd.itemStackAmount);
                     break;
                 }
                 else
