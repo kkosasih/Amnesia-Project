@@ -22,6 +22,15 @@ public class GameController : MonoBehaviour {
             return itemDatabase;
         }
     }
+
+    // Whether the game is part of a dungeon
+    public bool InDungeon
+    {
+        get
+        {
+            return FindObjectOfType<Dungeon>() != null;
+        }
+    }
     #endregion
 
     #region Event Functions
@@ -34,7 +43,7 @@ public class GameController : MonoBehaviour {
         instance = this;
         customization = GameObject.Find("Character Creation");
         itemDatabase = new ItemDatabase();
-
+            
         Inventory inv = inventory.GetComponent<Inventory>();
     }
 
@@ -104,7 +113,14 @@ public class GameController : MonoBehaviour {
     // Attach a map to the player to use
     public void FindMap ()
     {
-        map = FindObjectOfType<Map>();
+        if (InDungeon)
+        {
+            map = Dungeon.instance.rooms[Dungeon.instance.roomIndex];
+        }
+        else
+        {
+            map = FindObjectOfType<Map>();
+        }
     }
 
     // Save and load based on shift key

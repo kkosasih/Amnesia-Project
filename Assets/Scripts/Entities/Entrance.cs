@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class Entrance : StaticObject {
     #region Attributes
-    public string sceneTo;              // The scene to load
-    public int tileFrom;                // The tile to enter at
-    public Direction moveTo;            // The direction to automatically move when entering
+    public string sceneTo;                      // The scene to load
+    public int tileFrom;                        // The tile to enter at
+    public Direction moveTo;                    // The direction to automatically move when entering
     [SerializeField]
-    private List<AudioClip> entranceAudio;  // The audio played when an entrance is used
-    private AudioSource _audioSource;       // The Audio Source component attached
+    protected List<AudioClip> entranceAudio;    // The audio played when an entrance is used
+    protected AudioSource _audioSource;         // The Audio Source component attached
     #endregion
 
     #region Event Functions

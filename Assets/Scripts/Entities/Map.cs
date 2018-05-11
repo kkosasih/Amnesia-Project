@@ -8,14 +8,14 @@ public class Map : MonoBehaviour {
     #region Attributes
     private static bool debug = false;                  // Whether to debug the maps or not
     [SerializeField]
-    private string path;                                // The name of the map in resources
+    protected string path;                                // The name of the map in resources
     [SerializeField]
-    private AudioClip music;                            // The music to play on the map
-    private int width;                                  // The width of the map in tiles
-    private int height;                                 // The height of the map in tiles
-    private List<GameObject> tiles;                     // The list of tiles to reference
+    protected AudioClip music;                            // The music to play on the map
+    protected int width;                                  // The width of the map in tiles
+    protected int height;                                 // The height of the map in tiles
+    protected List<GameObject> tiles;                     // The list of tiles to reference
     private List<MapNode> nodes;                        // The list of nodes for pathfinding
-    private Dictionary<StaticObject, int> takenTiles;   // The tiles that are occupied on the map
+    protected Dictionary<StaticObject, int> takenTiles;   // The tiles that are occupied on the map
     #endregion
 
     #region Properties
@@ -75,7 +75,7 @@ public class Map : MonoBehaviour {
     #endregion
 
     #region Event Functions
-    void Awake ()
+    protected virtual void Awake ()
     {
         // Find and read the mapping image
         Texture2D mapLayout = Resources.Load<Texture2D>("Maps/Textures/" + path);
@@ -90,6 +90,7 @@ public class Map : MonoBehaviour {
         List<int> entrances = new List<int>();
         //List<int> shops = new List<int>();
         List<int> signs = new List<int>();
+        List<int> roomSwitches = new List<int>();
         // Match colors in the picture to tile type
         for (int i = 0; i < data.Count; ++i)
         {
@@ -120,6 +121,10 @@ public class Map : MonoBehaviour {
             else if (data[i] == new Color(0, 1, 1))
             {
                 tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Bed Tile"), transform));
+            }
+            else if (data[i] == new Color(1, 1, 1))
+            {
+                tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Switch Tile"), transform));
             }
             else
             {
