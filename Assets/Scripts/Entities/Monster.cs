@@ -12,6 +12,7 @@ public class Monster : Character {
     protected int range;            // The range before player detection
     [SerializeField]
     protected bool dead = false;    // Whether the monster is dead
+    protected DungeonRoom room;     // The room that the monster is in
     #endregion
 
     #region Event Functions
@@ -26,7 +27,7 @@ public class Monster : Character {
     {
         canvas = GameObject.Find("Canvas");
         // If not in a cutscene
-        if (health > 0 && Preventions == 0 && OnMap)
+        if (GameController.instance.map == room && health > 0 && Preventions == 0 && OnMap)
         {
             // Attack player if in range
             if (Mathf.Abs(HoriDistance(PlayerCharacter.instance.CurrentTile)) <= 4 && VertDistance(PlayerCharacter.instance.CurrentTile) == 0 ||
@@ -39,7 +40,7 @@ public class Monster : Character {
                 // Move to player if detected
                 if (TotalDistance(PlayerCharacter.instance.CurrentTile) <= range)
                 {
-                    StartCoroutine(AutoMoveOneStep(PlayerCharacter.instance.CurrentTile));
+                    Move(DirectionToward(PlayerCharacter.instance.CurrentTile));
                 }
                 // Move randomly if not detected
                 else
@@ -63,6 +64,27 @@ public class Monster : Character {
     {
         canvas.GetComponent<QuestTracking>().questobj(name);
         SetAllBools("dead", true);
+    }
+
+    // Place the object at the point on the map
+    public override void PlaceOnMap (int tile)
+    {
+        if (room == null)
+        {
+            room = transform.parent.GetComponentInParent<DungeonRoom>();
+        }
+        if (room != null)
+        {
+            if (!room.TakenTiles.ContainsKey(this))
+            {
+                room.TakenTiles.Add(this, tile);
+            }
+            else
+            {
+                CurrentTile = tile;
+            }
+            transform.position = room.Tiles[tile].transform.position;
+        }
     }
 
     // Delete the character and drop an item

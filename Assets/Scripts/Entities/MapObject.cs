@@ -53,7 +53,7 @@ public class MapObject : StaticObject {
     }
 
     // Place the object on the closest tile
-    public void PlaceOnMap ()
+    public virtual void PlaceOnMap ()
     {
         int tile = -(int)transform.position.y * GameController.instance.map.Width + (int)transform.position.x % GameController.instance.map.Width;
         if (GameController.instance.map != null)
