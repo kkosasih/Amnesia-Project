@@ -43,8 +43,6 @@ public class MapObjectChild : StaticObject {
         int slotCount = inventory.SlotCount();
         int index = Random.Range(0, slotCount);
         GameObject.Find("Canvas").GetComponent<QuestTracking>().questobj(inventory.Items[index].itemName);
-        //Debug.Log("Index:");
-        //Debug.Log(index);
         inventory.TransferItem(PlayerCharacter.instance.Inven, index);
         PlayerCharacter.instance.UpdateInteraction();
         inventory.DeleteIfEmpty();
