@@ -137,28 +137,12 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < size; ++i)
         {
-            //Debug.Log("i:");
-            //Debug.Log(i);
-            //if (i == 0)
-            //{
-            //    Debug.Log("ID:");
-            //    Debug.Log(items[i].itemId);
-            //    Debug.Log(toAdd.itemId);
-            //}
             // Item stacks
             if (items[i].itemId == toAdd.itemId)
             {
-                //Debug.Log("itemId:");
-                //Debug.Log(items[i].itemId);
                 if (items[i].itemStack - items[i].itemStackAmount >= toAdd.itemStackAmount)
                 {
                     items[i].itemStackAmount += toAdd.itemStackAmount;
-                    //Debug.Log("items[i].itemStack:");
-                    //Debug.Log(items[i].itemStack);
-                    //Debug.Log("items[i].itemStackAmount:");
-                    //Debug.Log(items[i].itemStackAmount);
-                    //Debug.Log("toAdd.itemStackAmount:");
-                    //Debug.Log(toAdd.itemStackAmount);
                     break;
                 }
                 else
