@@ -36,7 +36,7 @@ public class ChangeMask : DialoguePart {
     #endregion
 
     #region Coroutines
-    // Wait for time1, move the camera for time3 seconds, then wait for time2
+    // Wait for time1, change the mask for time3 seconds, then wait for time2
     public override IEnumerator PerformPart ()
     {
         isRunning = true;

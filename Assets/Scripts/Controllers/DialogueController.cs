@@ -139,7 +139,6 @@ public class DialogueController : MonoBehaviour {
         // Change the branch or end the cutscene if it's over
         if (++convoIndex >= conversation.Count)
         {
-            GameObject.FindWithTag("MainCamera").GetComponent<CameraTracking>().enabled = true;
             --movementPreventions;
             if (branch != '*')
             {

@@ -1,1 +1,1 @@
-Statement:0|0|Innkeeper|Angry|What are you waiting for? Go slay the monster!
+Statement:0|0|Neymour|Angry|What are you waiting for? Go to the base camp east!

@@ -58,7 +58,7 @@ public class QuestDatabase : MonoBehaviour
         items = new List<string>();         //List for Loot to be given
 
         objectives = new List<string>();    //List for what creatures need to be killed
-        objectives.Add("Innkeeper");
+        objectives.Add("Neymour");
 
         amount = new List<int>();       //List for how many of that creature to kill
         amount.Add(1);
@@ -67,13 +67,13 @@ public class QuestDatabase : MonoBehaviour
         tamount.Add(0);
 
         return new TalkQuest(
-            "Defend Yourself",
+            "A Job to do",
             items,                          //Loot
             objectives,                     //Monsters
             amount,                         //How many Monsters
             tamount,
             1,                              //Which Character is affected
-            "Talk to the innkeeper.", //Description
+            "Talk to Neymour at his inn.", //Description
             "",  //Objective
             true,                           
             false);                             

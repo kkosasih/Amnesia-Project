@@ -40,7 +40,7 @@ public class MoveCam : DialoguePart {
     {
         isRunning = true;
         yield return new WaitForSeconds(time1);
-        yield return StartCoroutine(Helper.LerpMovement(GameObject.FindWithTag("MainCamera"), moveTo, time3));
+        yield return new WaitForSeconds(time3);
         yield return new WaitForSeconds(time2);
         isRunning = false;
     }
