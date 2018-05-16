@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ResourceInventory : Inventory {
     #region Attributes
-
+    private int emptySlotCount;
     #endregion
     
     #region Properties
@@ -44,10 +44,24 @@ public class ResourceInventory : Inventory {
 
     #region Methods
     // Transfer an item to another inventory
+    //public override void TransferItem (Inventory other, int toTransfer)
+    //{
+    //    other.AddItemByItem(items[toTransfer]);
+    //    items[toTransfer] = new Item();
+    //}
+
     public override void TransferItem (Inventory other, int toTransfer)
     {
         other.AddItemByItem(items[toTransfer]);
-        items[toTransfer] = new Item();
+        emptySlotCount++;
+    }
+
+    public override void DeleteIfEmpty()
+    {
+        if (emptySlotCount == slotCount)
+        {
+            GetComponent<StaticObject>().Die();
+        }
     }
     #endregion
 }
