@@ -27,6 +27,32 @@ public class QuestDatabase : MonoBehaviour
 
     #region Methods
 
+    public static Quest MainQuest3()
+    {
+        items = new List<string>();         //List for Loot to be given
+
+        objectives = new List<string>();    //List for what to collect
+        objectives.Add("Sloth");
+
+        amount = new List<int>();           //Just to fill it in
+        amount.Add(1);
+
+        tamount = new List<int>();
+        tamount.Add(0);
+
+        return new KillQuest(
+            "The First Sin",
+            items,                          //Loot
+            objectives,                     //Monsters
+            amount,                         //How many Monsters
+            tamount,
+            0,                              //Which Character is affected
+            "Slay Sloth in the Misty Forest.",            //Description
+            "",  //Objective
+            true,
+            false);
+    }
+
     public static Quest MainQuest2()
     {
         items = new List<string>();         //List for Loot to be given

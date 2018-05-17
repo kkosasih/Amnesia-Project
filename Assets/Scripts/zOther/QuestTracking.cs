@@ -153,6 +153,7 @@ public class QuestTracking : MonoBehaviour
     {
         mainList.Add(QuestDatabase.MainQuest1());
         mainList.Add(QuestDatabase.MainQuest2());
+        mainList.Add(QuestDatabase.MainQuest3());
     }
 
     public void FinishQuest(int x)
