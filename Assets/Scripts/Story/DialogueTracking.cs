@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class DialogueTracking {
     #region Attributes
-    public static bool innA = true; // Whether the first inn cutscene has played
     public static bool isShipwreckedNotPlayed = true;
 	public static bool letsFindAJob = true;
 	public static bool bFFindsAJob = true;
@@ -17,37 +16,31 @@ public class DialogueTracking {
     // Check for and play a cutscene if needed, returns whether a cutscene played
     public static bool CheckConversation ()
     {
-        if (SceneManager.GetActiveScene().name == "Interior7" && innA)
-        {
-            innA = false;
-            DialogueController.instance.ChangeConversation("Inn");
-            return true;
-        }
-		else if (SceneManager.GetActiveScene().name == "Beach1" && isShipwreckedNotPlayed)
+		if (SceneManager.GetActiveScene().name == "Beach1" && isShipwreckedNotPlayed)
         {
             isShipwreckedNotPlayed = false;
             DialogueController.instance.ChangeConversation("Shipwrecked/Shipwrecked");
             return true;
         }
-		else if (SceneManager.GetActiveScene().buildIndex == 1 && bFFindsAJob)
+        else if (!isShipwreckedNotPlayed && SceneManager.GetActiveScene().name == "Interior5" && enterNeymoursInn)
+        {
+            enterNeymoursInn = false;
+            DialogueController.instance.ChangeConversation("EnterNeymoursInn/EnterNeymoursInn");
+            return true;
+        }
+        else if (!enterNeymoursInn && SceneManager.GetActiveScene().name == "Interior6" && letsFindAJob)
+        {
+            letsFindAJob = false;
+            DialogueController.instance.ChangeConversation("LetsFindaJob/LetsFindaJob");
+            return true;
+        }
+        else if (!letsFindAJob && SceneManager.GetActiveScene().name == "Interior6" && bFFindsAJob)
 		{
 			bFFindsAJob = false;
 			DialogueController.instance.ChangeConversation("BFFindsJob/BFFindsJob");
 			return true;
 		}
-		else if (SceneManager.GetActiveScene().buildIndex == 1 && enterNeymoursInn)
-		{
-			enterNeymoursInn = false;
-			DialogueController.instance.ChangeConversation("EnterNeymoursInn/EnterNeymoursInn");
-			return true;
-		}
-		else if (SceneManager.GetActiveScene().buildIndex == 1 && letsFindAJob)
-		{
-			letsFindAJob = false;
-			DialogueController.instance.ChangeConversation("LetsFindaJob/LetsFindaJob");
-			return true;
-		}
-		else if (SceneManager.GetActiveScene().name == "Interior12" && woodCutterJob)
+		else if (!bFFindsAJob && SceneManager.GetActiveScene().name == "Interior12" && woodCutterJob)
 		{
 			woodCutterJob = false;
 			DialogueController.instance.ChangeConversation("WoodcutterJob/WoodcutterJob");
@@ -61,7 +54,6 @@ public class DialogueTracking {
     public static void SaveTriggers (int slot)
     {
         string slotNum = slot.ToString();
-        PlayerPrefs.SetInt(slotNum + "innA", innA ? 1 : 0);
         PlayerPrefs.SetInt(slotNum + "isShipwreckedNotPlayed", isShipwreckedNotPlayed ? 1 : 0);
     }
 
@@ -69,7 +61,6 @@ public class DialogueTracking {
     public static void LoadTriggers (int slot)
     {
         string slotNum = slot.ToString();
-        innA = PlayerPrefs.GetInt(slotNum + "innA") == 1 ? true : false;
         isShipwreckedNotPlayed =  PlayerPrefs.GetInt(slotNum + "isShipwreckedNotPlayed") == 1 ? true : false;
     }
     #endregion

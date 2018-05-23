@@ -1,11 +1,8 @@
-Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Neymour|Neutral|Well I'm getting a sunburn. Why don't you two meet me back at my inn and get cleaned up? You both look terrible.||
 Statement:0|0|Best Friend|Confused|And where are you going to go?||
 Statement:0|0|Neymour|Happy|To see my friend Enrique! He's a sailor so maybe whenever you have time, stop by to talk to him about fixing your boat if you really want to leave.||
 Statement:0|0|Best Friend|Confused|Where is your inn, exactly?||
 Statement:0|0|Neymour|Neutral|Up in town, right on the outskirts. It's called Neymour's Inn. Make sure to remember I'm the owner of the inn. 
 Statement:0|0|Neymour|Neutral|Sometimes I feel like the title isn't obvious enough. Ta ta kiddos!||
-Character:0|0|Neymour|R,R,R,R,R||
 Statement:0|0|Best Friend|Neutral|Well, what do you think?||
 Question:0|0|Let's go!|I want to stick around to have a look first . . .

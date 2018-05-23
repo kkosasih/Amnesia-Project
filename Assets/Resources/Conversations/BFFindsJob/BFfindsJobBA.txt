@@ -1,3 +1,1 @@
-Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Best Friend|Neutral|Yeah, I know it sucks. But remember that we're in this together. Let me know if you end up finding something! Or if you don't! Then I'll help figure things out. Anyways, I'm going to go to my room and nap for a bit. Talk to you later!

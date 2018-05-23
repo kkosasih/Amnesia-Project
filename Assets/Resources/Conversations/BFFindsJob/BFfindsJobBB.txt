@@ -1,3 +1,1 @@
-Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Best Friend|Sad|Yeah, I'm really sorry about that. But Neymour sounded really sorry though. I'm sure you can find something! And if not, let me know because we're this together. Just let me know! If you don't, then I'll help figure things out. Anyways, I'm going to go to my room and nap for a bit. Talk to you later!

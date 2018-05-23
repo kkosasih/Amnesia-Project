@@ -1,4 +1,2 @@
-Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Best Friend|Sad|No, unfortunately not. I already asked him and he said he could only afford one assistant on top of Zaine. But Neymour said he'll ask around to see if anybody would hire you.||
 Question:0|0|That's alright, thanks for asking though.|That's lame . . .

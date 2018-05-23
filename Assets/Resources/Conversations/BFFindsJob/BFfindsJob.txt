@@ -1,5 +1,2 @@
-Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0,0||
-Character:0|0|Best Friend|L,L,L,L||
 Statement:0|0|Best Friend|Happy|I found you! I just wanted to let you know that I found myself a job helping Neymour out in the inn! What about you?||
 Question:0|0|Still working on it!|Does Neymour want a second assistant?

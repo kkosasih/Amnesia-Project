@@ -1,5 +1,2 @@
-Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Zaine|Serious|Oh . . . okay . . sorry that I asked. Anyways, Neymour thought you might want to stay in the inn so he had me prepare some rooms. You can take the first one on the left on the second floor.||
-Statement:0|0|Zaine|Happy|And the name's Zaine by the way! I'm pretty much the freelance, odd-jobs, errand boy who runs around to get things done for people. You might see me around a lot. Breakfast is served in the morning at the restaurant on the first floor, here, and feel free to help yourself to some drinks at the bar. Have a good day!||
-Character:0|0|Zaine|D,L,L,L| 
+Statement:0|0|Zaine|Happy|And the name's Zaine by the way! I'm pretty much the freelance, odd-jobs, errand boy who runs around to get things done for people. You might see me around a lot. Breakfast is served in the morning at the restaurant on the first floor, here, and feel free to help yourself to some drinks at the bar. Have a good day!

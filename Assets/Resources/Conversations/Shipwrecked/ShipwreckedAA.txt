@@ -1,11 +1,8 @@
-Camera:0|0|0|4,-5,-10||
-Mask:0|0|0.5|0,0,0,0||
 Statement:0|0|Neymour|Neutral|Now now no need to get snippy here. Both of you can stay at my inn for free while until you two find paying jobs to live on your own. How about that?||
 Statement:0|0|Best Friend|Confused|What do you mean 'paying jobs' and 'living on our own'?||
 Statement:0|0|Neymour|Laughing|Well once you've landed on Pellinore Island you sure as heck can't get off.|| 
 Statement:0|0|Neymour|Laughing|I mean, haven't you noticed the thick fog? Chin up, friends, because you'll be here for the rest of your life! Hahahahahaha!||
 Statement:0|0|Best Friend|Confused|That doesn't make any sense!||
-Character:0|0|Best Friend|D,D,R,R,L,L||
 Statement:0|0|Best Friend|Serious|You're right . . . I can barely see what's beyond that fog. Has that always been there?||
 Statement:0|0|Neymour|Neutral|Yup kiddo. And nobody has ever made it off the island alive. Or so I know of.|| 
 Statement:0|0|Neymour|Neutral|All of us living here are permanent residents and have never left the island at all.|| 
