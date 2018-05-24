@@ -1,7 +1,15 @@
 fileFormatVersion: 2
 guid: d6942d6be66dab84b8d86b608d6ca63b
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Possessed knight movement right_0
+    21300002: Possessed knight movement right_1
+    21300004: Possessed knight movement right_2
+    21300006: Possessed knight movement right_3
+    21300008: Possessed knight movement right_4
+    21300010: Possessed knight movement right_5
+    21300012: Possessed knight movement right_6
+    21300014: Possessed knight movement right_7
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -38,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -80,7 +88,167 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Possessed knight movement right_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 47
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2aa116fc18cd8045aace39a5e4bd36c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Possessed knight movement right_1
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 47
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 677119c5ad67cb540a2bc28cec547480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Possessed knight movement right_2
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 47
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 619237ef9274f19498ca89a179aa747f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Possessed knight movement right_3
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 47
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baf30cf5af998d64fbc7a37df97fb1b3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Possessed knight movement right_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1baa22b6a9580664f89735fb2e0e0484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Possessed knight movement right_5
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fee97bd8f1da66d4cbaa60af7e98f527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Possessed knight movement right_6
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 0
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbc195506984c354a9f3618610d5f3ca
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Possessed knight movement right_7
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 0
+        width: 44.5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12837a353e4b7384d9ef1a962c4f5e9a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
