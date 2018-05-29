@@ -1,0 +1,8 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Character:0|0|Player|R,R,R||		
+Statement:0|0|Best Friend|Surprised|Hey you're here! Look it's Henry! He's knocked out!||
+Character:0|0|Sherri|L,L,L,L||
+Statement:0|0|Sherri|Monster|Oh, another one?||
+Statement:0|0|Best Friend|Scared|Uhh Sherri . . . ? Is that you? Are you okay? You seem a bit off . . .||
+Statement:0|0|Sherri|Monster|I can make short work of you darling . . . Both of you . . .

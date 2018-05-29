@@ -1,0 +1,10 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|PandoraDemon|Neutral|Well you will because very soon, because of YOUR efforts, you are going to wish this teeny island goodbye||
+Statement:0|0|PandoraDemon|Neutral|I wasn't really jealous of you, I just had to manipulate some weak souls. I really planned||
+Statement:0|0|PandoraDemon|Neutral|for you to release all of my parts and make me whole.||
+Statement:0|0|PandoraDemon|Neutral| And all of me together . . . you get to wish this teeny island goodbye.||
+Statement:0|0|Zaine|Confused|Whoa . . . where am I? Why does my head hurt?||
+Statement:0|0|Zaine|Confused|You. . ? You're here. Oh goodness I remember everything.||
+Statement:0|0|Zaine|Confused|I'm so sorry. I let that emotion take over. I swear it almost felt like it wasn't me. Please, I'm just so sorry.||
+Question:0|0|Hey, it's ok. Just get some rest|Yeah you better be sorry.

@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Character:0|0|Best Friend|D,D||
+Statement:0|0|Best Friend|Neutral|Hey, so, thanks for helping out.||
+Question:0|0|No problem!|Please, you couldn't have survived without me!

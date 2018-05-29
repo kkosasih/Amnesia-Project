@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|Yes, I am. I happen to be personally involved. Anyways, I will leave you alone now,||
+Statement:0|0|Dark Entity|Neutral|because you have your work cut out for you . . .

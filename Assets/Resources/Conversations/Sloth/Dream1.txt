@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Statement:0|0|Dark Entity|Neutral|You're finally here. I've been waiting for you.||
+Statement:0|0|Dark Entity|Neutral|I know what you're going to say. This place is very familar and very strange at the same time.||
+Statement:0|0|Dark Entity|Neutral|And you're also probably wondering who I am. Are I the ghost of the demon you killed? Why am I so creepy?||
+Statement:0|0|Dark Entity|Neutral|People always thinks I'm creepy and that triggers me. Please apologize.||
+Question:0|0|I'm sorry . . ?|You really are creepy though.

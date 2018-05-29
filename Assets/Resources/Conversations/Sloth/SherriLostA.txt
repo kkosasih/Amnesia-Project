@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Statement:0|0|Henry|Serious|Alright. Just follow me!||
+Character:0|0|Henry|L,L,L

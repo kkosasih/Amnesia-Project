@@ -1,0 +1,8 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Statement:0|0|Neymour|Angry|Well they really are! It's because-! Bah! There is no point in conversating with someone who disagrees with me.||
+Statement:0|0|Best Friend|Scared|Whoa there! I'm sure my friend didn't mean it that way. We just meant that those words might be too extreme.||
+Statement:0|0|Neymour|Angry|Whatever. The real reason why I came to talk to you anyways is that someone by the name of Jacques came by to drop off a package for you. I left it in front of your front door. Enjoy . . .||
+Character:0|0|Neymour|L,L,D,D||
+Statement:0|0|Best Friend|Neutral|Neymour's strong opinions make me concerned.||
+Question:0|0|Same.|YOU make me concerned!

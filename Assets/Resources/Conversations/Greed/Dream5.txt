@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Narrator|Neutral|Here I am . . . back again . . .||
+Statement:0|0|Dark Entity|Neutral|You're getting closer and closer too.||
+Question:0|0|Closer and closer to what?|Are you going to leave me alone?

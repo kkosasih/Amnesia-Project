@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|Closer to destroying the Pandora's Box, and the demon that inhabits it on the forbidden island.||
+Question:0|0|What Pandora's Box?|I remember reading about that.

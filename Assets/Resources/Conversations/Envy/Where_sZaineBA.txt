@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Surprised|No way! Wait a minute . . . do you mean Zaine might be the last sin?||
+Statement:0|0|Best Friend|Surprised|And he tricked you? I can't believe it! What a butt!||
+Statement:0|0|Best Friend|Serious|Don't worry! I'm going to find him in a heartbeat! Let's work together||
+Statement:0|0|Best Friend|Serious|and ask around where he might be. Then meet back here in an hour.||
+Statement:0|0|Best Friend|Angry|I won't let him get away with this.

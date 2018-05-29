@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Surprised|No way! Wait a minute . . . I'm going to guess he attacked you when you went after Gabriel!||
+Statement:0|0|Best Friend|Serious|I can tell because you look a bit shaken up.||
+Statement:0|0|Best Friend|Serious|Don't worry! I'm going to find him in a heartbeat! Let's work together||
+Statement:0|0|Best Friend|Serious|and ask around where he might be. Then meet back here in an hour. You can probably take the time to rest a bit too.||
+Statement:0|0|Best Friend|Angry|I won't let him get away with this.

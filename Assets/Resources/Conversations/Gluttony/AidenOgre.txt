@@ -1,0 +1,9 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Character:0|0|Aiden|R,R,R,D,D,D,U,U,U,L,L,L||
+Statement:0|0|Aiden|Monster|Grrrrr . . .||
+Statement:0|0|Brian|Scared|Help us! My brother turned into an ogre and||
+Statement:0|0|Brian|Confused|I think, but I can't be sure . . . it's just an assumption . .||
+Statement:0|0|Brian|Confused|But I am almost ninety nine percent sure that he want's to eat us.||
+Statement:0|0|Aiden|Monster|Grraaarr!!||
+Statement:0|0|Brian|Scared|Yeah I'm pretty sure now . . ! Aaahhh!!

@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Serious|Sounds good. I'll see you at the entrance to the forest!||
+Character:0|0|Best Friend|L,L,L,U,L,D,L,L,L

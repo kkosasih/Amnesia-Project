@@ -1,0 +1,6 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Renee|Confused|Yeah . . I suppose I will. I guess I'll go prepare a room for him now then.||
+Statement:0|0|Best Friend|Neutral|Thanks, we appreciate it. Brian and Aiden should be here soon.||
+Statement:0|0|Renee|Serious|No need to thank me. Just doing my job!||
+Character:0|0|Renee|R,R,U,U

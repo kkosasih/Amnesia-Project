@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Cody|Sad|That's alright, I understand. It's a bit creepy but it's my job so I'm heading over here anyways.||
+Statement:0|0|Cody|Neutral|Spread the word that I might need help, yeah? I'll see you.||
+Character:0|0|Cody|R,R,R,R,R,R

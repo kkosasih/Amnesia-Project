@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|Good. Then you won't need an explanation from me right? 
+Question:0|0|No, I don't|Actually, a short one is nice.

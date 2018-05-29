@@ -1,0 +1,13 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Zaine|Monster|Oh I sure do wanna go. But let me tell you my story before I break your neck.||
+Statement:0|0|Zaine|Monster|Here I am, some little errand kid doing all the teeny stuff people ask me to do.||
+Statement:0|0|Zaine|Monster|Odd jobs and all. I got a goal that I wanted everyone to appreciate me for the little stuff I do.||
+Statement:0|0|Zaine|Monster|Then you come along, all stranger-like and not knowing what the heck is going on||
+Statement:0|0|Zaine|Monster|and now you're everybody's favorite. From one to zero. It's like, what could they do without you?||
+Statement:0|0|Zaine|Monster|But they can obviously do without me. Nobody needs their mail delivered, their errands ran, their inns maintained,||
+Statement:0|0|Zaine|Monster|nobody needs a little friend who is willing to listen to all of their problems, a person who will never disappoint them.||
+Statement:0|0|Zaine|Monster|Nobody. Just nobody. I'm actually Jacques, the long-dead treasure hunter who used to publish his books for the library.||
+Statement:0|0|Zaine|Monster|I'm the one sending you messages and things.||
+Statement:0|0|Zaine|Monster|I'm the one who tried to get you on this crazy monster hunt to see if you can get killed, but I guess my plan backfired.||
+Question:0|0|Gosh Zaine . . I'm sorry|You got problems, man.

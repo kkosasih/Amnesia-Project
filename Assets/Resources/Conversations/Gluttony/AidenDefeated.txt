@@ -1,0 +1,16 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Brian|Surprised|Wow! You actually did it! Defeated the monster!||
+Statement:0|0|Brian|Embarassed|Not that-ya know-I actually doubted you or anything . . . But you really did it! Wow!||
+Statement:0|0|Aiden|Monster|Defeated again . . . this won't be the last of me . . .||
+Statement:0|0|Best Friend|Happy|Well that was a good fight, I'm proud of us!||
+Statement:0|0|Aiden|Confused|Whaa . . ? Where am I . . ? Why do I feel so hungry . . . ?||
+Statement:0|0|Brian|Neutral|There, there, now, brother. I got you.||
+Statement:0|0|Aiden|Confused|I don't feel so good . . .||
+Statement:0|0|Brian|Happy|Thanks for saving us and the kids. I really appreciate it. I think we can take things from here.||
+Statement:0|0|Best Friend|Confused|You sure you don't need any help? That was pretty traumatic.||
+Statement:0|0|Brian|Happy|No, I think we'll be fine. But if you can notify Renee that we're going to bring Aiden to her, I'll appreciate it.||
+Statement:0|0|Best Friend|Neutral|Sure. You can count on us!||
+Statement:0|0|Brian|Neutral|We'll try to make it back as soon as possible . . .||
+Statement:0|0|Brian|Embarassed|I need to, uhh, change my pants . . .||
+Statement:0|0|Best Friend|Embarassed|I didn't really need to know that . . . but ok. We'll be seeing you later!

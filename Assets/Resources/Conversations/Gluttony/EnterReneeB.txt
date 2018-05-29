@@ -1,0 +1,8 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Neutral|So are you aware of people being posessed by spirits and turning into monsters?||
+Statement:0|0|Renee|Confused|Like what happened to Sherri and Josh? Yes, I've heard of it but I don't quite believe it.||
+Statement:0|0|Best Friend|Neutral|Well, it happened to Aiden, and he turned into an ogre and we defeated him. Now he's delirious.||
+Statement:0|0|Renee|Confused|Seriously? I don't want to say you're lying but that's hard to believe.||
+Statement:0|0|Best Friend|Angry|Well it's not like we had time to take pictures!||
+Question:0|0|When Aiden comes by, you'll see|Oh come on! You live on an island surrounded by a magic fog filled with magic monsters with a magical history and you don't believe us??

@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Statement:0|0|Dark Entity|Neutral|Apology accepted. You should know that just because I look all black doesn't mean I'm bad. In fact, I'm a friend. I'm here to help you.||
+Statement:0|0|Dark Entity|Neutral|I'm sure you're wondering, "Gee, Help me with what?"||
+Statement:0|0|Dark Entity|Neutral|Well, seven ghosts haunt this island, all derived from the seven terrible deaths of the last royal family during the uprising.|| 
+Statement:0|0|Dark Entity|Neutral|If you don't reconcile those ghosts and those deaths, it will all happen again with today's people, and worse.||
+Statement:0|0|Dark Entity|Neutral|I sense you have more questions but oh well, would ya look at the time, the sun is rising! Bye Felicia.

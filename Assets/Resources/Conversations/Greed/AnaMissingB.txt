@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Cody|Sad|Looking for Ana. She went missing. I'm trying to think of places where she has been or usually frequents. Recently it's been the family grave.||
+Statement:0|0|Cody|Surprised|Oh! I guess you weren't aware that Ana has a rich inheritance as a descendant from a noble family during the Meskia era.||
+Statement:0|0|Cody|Neutral|She likes to remind herself of that whenever she hits money trouble, and visits the family crypts to comfort herself.||
+Statement:0|0|Cody|Serious|Wait a minute . . . I think I might know where she is! Want to come with me? I could use some help.||
+Question:0|0|Creepy Crypts? No thank you.|I love me some ghost adventures!

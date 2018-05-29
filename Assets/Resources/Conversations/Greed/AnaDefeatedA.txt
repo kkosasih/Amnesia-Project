@@ -1,0 +1,10 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Cody|Surprised|And you defeated her? That's intense.||
+Statement:0|0|John|Surprised|All by yourself? It must not have been easy!||
+Statement:0|0|Jamie|Serious|I'm actually not surprised. I think you deserve more credibility than these guys want to give you.||
+Statement:0|0|Jamie|Serious|After all, it was reported to me that you also handled Josh, Sherri, Renee, and Aiden's cases too.||
+Statement:0|0|John|Surprised|Yeah. I suppose it's thanks to you that we're helping people. I just cant get around how victims of this are chosen!||
+Statement:0|0|Cody|Serious|Let's save the debriefing for later and help me get Ana back into her house. She needs a nurse.||
+Statement:0|0|Jamie|Serious|You're right. Let's do that and meanwhile John and I will also inspect the perimeter to make sure everything is clear.||
+Statement:0|0|Jamie|Neutral|Thanks for taking care of this for us. We can take it from here.

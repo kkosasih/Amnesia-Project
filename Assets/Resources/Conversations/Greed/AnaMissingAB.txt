@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Cody|Happy|Awesome! You'll probably need a few minutes to prepare so I'll meet you at the cypt whenever you're ready!||
+Character:0|0|Cody|R,R,R,R,R,R

@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Cody|Surprised|Hey! I didn't think I'd be seeing you here!||
+Question:0|0|It is not becoming of a man to be walking about alone at night.|What are you doing?
+
