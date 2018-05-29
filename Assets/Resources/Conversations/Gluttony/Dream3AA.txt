@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|Oh yes! Thanks for reminding me! He's from Prince Helwas. Princess Lavena's brother.||
+Statement:0|0|Dark Entity|Neutral|He successfully ran away from the rebels into the mountains like his sister, but died of starvation because he had no survival skills.||
+Statement:0|0|Dark Entity|Neutral|Sounds brutal, yeah? But the more ya know . . . Good night!!

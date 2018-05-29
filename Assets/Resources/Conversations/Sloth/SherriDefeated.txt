@@ -1,0 +1,17 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Statement:0|0|Henry|Surprised|Gah! I had such a weird dream! Oh it's you two! Oh no Sherri! Are you okay?||
+Statement:0|0|Sherri|Monster|This won't be the last time I see you . . .||
+Statement:0|0|Sherri|Sleepy|The castle . . . the princess . . . oh no . . . she was too exausted . . .||
+Statement:0|0|Henry|Serious|Hey, Sherri, wake up. It's okay. Daddy's here.||
+Statement:0|0|Sherri|Sleepy|Her lover . . . he . . . the demons . . .||
+Statement:0|0|Best Friend|Serious|She probably can't respond right now. Rest might be the best thing she needs.||
+Statement:0|0|Henry|Serious|You're right. I need to take her back. You two can go home now, I can handle things on my own.||
+Statement:0|0|Henry|Serious|Thanks for coming. I really appreciate it.||
+Statement:0|0|Best Friend|Serious|Are you sure? What if there are any monsters?||
+Statement:0|0|Henry|Serious|I can handle the monsters, just needed your help to help me find Sherri in the first place. Won't make the same mistake I did earlier again. I'll be fine.||
+Statement:0|0|Best Friend|Serious|Well, I guess we'll leave you to it then.||
+Statement:0|0|Henry|Serious|Wait.||
+Statement:0|0|Best Friend|Surprised|Yeah?||
+Statement:0|0|Henry|Serious|Thank you. You both did me a great service.||
+Question:0|0|No need to thank me, boss|No, thank YOU!

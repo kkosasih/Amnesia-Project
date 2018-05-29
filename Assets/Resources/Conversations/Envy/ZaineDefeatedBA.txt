@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Zaine|Sad|I promise I'll make it up to you. You don't even need to take me to Renee or anything. I can get up myself.||
+Statement:0|0|Zaine|Sad|I won't make things complicated for you anymore, I promise. I'll help you fight this monster.||
+Statement:0|0|Zaine|Sad|I will. I promise. Now go ahead and find your friend. I can make it out on my own. You got bigger things on your plate.||

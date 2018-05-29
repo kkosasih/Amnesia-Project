@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Serious|Hey! Finally you're here! John and Jamie just told me that Zaine went missing||
+Statement:0|0|Best Friend|Serious|and that they need help finding him.||
+Question:0|0|Oh he's "gone missing" eh?|Zaine is a butt

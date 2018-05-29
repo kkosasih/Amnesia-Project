@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Serious|It was a really faint roar wasn't it? And screams? Forget my plan!||
+Statement:0|0|Best Friend|Serious|Come on! We gotta go!||
+Character:0|0|Best Friend|R,R,R,R

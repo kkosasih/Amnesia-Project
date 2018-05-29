@@ -1,0 +1,6 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|Well, the Pandora's Box once contained a demon comprised of seven sins. It was opened by an unfortunate fellow||
+statement:0|0|Dark Entity|Neutral|and the opening of the box released the demon and all of the seven sins descended on ancient Pellinore and destroyed everything.||
+Statement:0|0|Dark Entity|Neutral|The sins and the demon are still active on this island even to this day. And to end it all, you must destory it at the source.||
+Question:0|0|Which sin is next?|Are you sure about that?

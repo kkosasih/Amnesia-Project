@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|Ok, well you just defeated Greed, who was Lord Oreton, one Lord close to the King||
+Statement:0|0|Dark Entity|Neutral|who was poisoned on the night of the peasants revolution by his nephew because his nephew||
+Statement:0|0|Dark Entity|Neutral|was next in line for the Lord's wealth since Lord Oreton had no children.||
+Statement:0|0|Dark Entity|Neutral|I'd rather not give away who the next sin would be, but you can use your deductive reasoning to figure it out.||
+Statement:0|0|Dark Entity|Neutral|I will leave you alone now, because you have your work cut out for you . . .

@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Cody|Angry|No I was very serious when I said that.||
+Statement:0|0|Jamie|Neutral|Don't worry Cody, I believe you. You're just being made fun of! That's all.||
+Statement:0|0|Cody|Neutral|Yeah you're right. I guess I'm just a little high-strung from everything happening.||
+Statement:0|0|John|Serious|So I'm guessing Ana was one of the monster victims? And you defeated her?||
+Question:0|0|That I did!|What? Are you underestimating me?

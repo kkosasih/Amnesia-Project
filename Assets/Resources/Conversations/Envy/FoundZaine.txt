@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Zaine|Monster|Wow, I didn't think you'd actually find me. I guess I underestimated you.||
+Statement:0|0|Zaine|Monster|Another reason why I hate you.||
+Question:0|0|Why do you hate me?|Come on! You wanna go?!

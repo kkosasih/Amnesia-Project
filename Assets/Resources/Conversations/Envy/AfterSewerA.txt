@@ -1,0 +1,9 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Zaine|Embarassed|Yeah, I was possessed by a sin, I didn't even know, and let it take over my emotions.||
+Statement:0|0|Zaine|Embarassed|But I was freed thanks to you, and now I know where I went wrong.||
+Statement:0|0|Best Friend|Confused|So the monster was defeated then?||
+Statement:0|0|Zaine|Neutral|Yes, but it's not over yet. The release of the final sin completed the demon's power||
+Statement:0|0|Zaine|Neutral|and now he is about to wreak havoc on the island. We have to do something about it.||
+Statement:0|0|Zaine|Neutral|But I have no idea where to go from here.||
+Question:0|0|I might know where to begin|Yeah that's a temple-scratcher.

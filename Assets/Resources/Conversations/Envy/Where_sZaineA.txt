@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Confused|Umm . . . yeah, don't know why that's so interesting.||
+Statement:0|0|Best Friend|Serious|Anyways, why don't we split up and start asking around where Zaine is, and then find each other right here in an hour?||
+Question:0|0|Sounds good|Let me tell you the truth about Zaine!

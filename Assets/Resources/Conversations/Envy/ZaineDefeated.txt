@@ -1,0 +1,6 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|PandoraDemon|Neutral|Well you done finished it all. Released all of my sins. Killed each of em' I'm sure||
+Statement:0|0|PandoraDemon|Neutral|but I bet you didn't realize that you were just making me stronger and stronger||
+Statement:0|0|PandoraDemon|Neutral|because they all come together, and they all make ME.|| 
+Question:0|0|So you're all the sins together?|I don't give a care

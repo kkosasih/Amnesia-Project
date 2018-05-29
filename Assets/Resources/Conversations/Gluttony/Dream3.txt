@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|Hi again. Sorry, just can't leave you alone. There's more I must tell you.||
+Question:0|0|Is this going to happen after I defeat a monster every time?|What more is there to know?

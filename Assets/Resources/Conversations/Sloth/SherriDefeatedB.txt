@@ -1,0 +1,5 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Henry|Confused|Thank me? Thank me for what?||
+Statement:0|0|Best Friend|Confused|Uhh I think we're just tired.||
+Statement:0|0|Henry|Happy|Oh that's okay. I understand. Be safe out there.

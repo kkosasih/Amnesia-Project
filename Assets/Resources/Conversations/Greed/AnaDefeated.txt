@@ -1,0 +1,10 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Character:0|0|Cody|R,R,R||
+Character:0|0|Jamie|R,R,R,||
+Character:0|0|John|R,R,R||
+Statement:0|0|Cody|Surprised|Ana! She's knocked out! Is she ok?||
+Statement:0|0|Jamie|Confused|So what actually happened here?||
+Statement:0|0|John|Confused|I was told that there might have been a monster here, am I right?||
+Question:0|0|Yup, it was Ana.|Nah Cody was just pulling your leg.
+

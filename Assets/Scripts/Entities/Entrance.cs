@@ -59,8 +59,8 @@ public class Entrance : StaticObject {
         yield return StartCoroutine(Helper.ChangeColorInTime(mask, new Color(0, 0, 0, 0), 0.5f));
         int tileTo = GameController.instance.map.TileInDirection(moveTo, PlayerCharacter.instance.CurrentTile);
         PlayerCharacter.instance.Move(tileTo, moveTo);
-        Destroy(gameObject);
 		PlayerCharacter.instance.MovementPreventions--;
+        Destroy(gameObject);
     }
     #endregion
 }

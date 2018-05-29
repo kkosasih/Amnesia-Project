@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Renee|Angry|I'm not saying I don't believe you but it's just so strange!||
+Statement:0|0|Renee|Serious|But yes, I suppose I'll go and prepare a patient room for Aiden since he must have suffered some sort of trauma.||
+Statement:0|0|Best Friend|Neutral|Thanks, we appreciate it. Brian and Aiden should be here soon.||
+Statement:0|0|Renee|Serious|No need to thank me. Just doing my job!||
+Character:0|0|Renee|R,R,U,U

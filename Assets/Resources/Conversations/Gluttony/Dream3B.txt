@@ -1,0 +1,6 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Dark Entity|Neutral|So if you haven't been made aware. Each of the seven sins derived from the demon not only feed off of the deceased royal family||
+Statement:0|0|Dark Entity|Neutral|but also posess one person who has that trait on this island. Today. And if you haven't read any of the books in the library about the island lore||
+Statement:0|0|Dark Entity|Neutral|I strongly suggest that you do so now. Anyways, I wanted to make this quick. The sun is coming up. Good morning!!|| 
+Question:0|0|Wait! Who was the spirit who posessed Aiden?|K bye!

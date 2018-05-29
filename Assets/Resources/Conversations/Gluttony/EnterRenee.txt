@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Character:0|0|Player|U,U||
+Statement:0|0|Renee|Surprised|Oh! And you're here too?||
+Statement:0|0|Best Friend|Neutral|I was wondering how long it would take for you to get here!||
+Statement:0|0|Renee|Serious|Are you both here for the same reason? You're all looking very serious.||
+Question:0|0|So . . . uhh . . . Aiden needs your help, like, really badly|I'll let my friend here explain it to you . . .

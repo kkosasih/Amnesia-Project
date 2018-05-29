@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Statement:0|0|Neymour|Surprised|Even you are beginning to see things the way they might be. I know I might be an old man but I swear those townfolk who don't believe in any of this being more than just fortune are ignorant fiends!||
+Question:0|0|Yeah! They really are!|I wouldn't call them "ignorant fiends" . . .

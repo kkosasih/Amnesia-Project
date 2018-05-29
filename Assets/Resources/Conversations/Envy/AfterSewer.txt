@@ -1,0 +1,7 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Character:0|0|Best Friend|L,L,L,L||
+Statement:0|0|Best Friend|Hey! There you are! And Zaine! Is everything ok?||
+Statement:0|0|Zaine|Embarassed|Wow, has everybody been looking for me?||
+Statement:0|0|Best Friend|Angry|Well of course! Do you know what you did??||
+Question:0|0|It's not his fault|It's totally his fault

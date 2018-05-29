@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Laughing|Hahaha! Nah! No way! We're just a great team! So, I'm going to stick around to clean my weapons and retie my shoes.||
+Statement:0|0|Best Friend|Neutral|I'll meet you at Renee's clinic soon! See you later!

@@ -1,0 +1,8 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Surprised|You do?! Oh! The forbidden island right?||
+Statement:0|0|Best Friend|Neutral|That makes sense because that's where all the magic came from in the first place!||
+Statement:0|0|Zaine|Neutral|You better go now. Just make sure to let John or Jamie know I'm coming out.||
+Statement:0|0|Best Friend|Serious|Thanks Zaine. So it looks like we got a big fight coming up.||
+Statement:0|0|Best Friend|Serious|I'm going to prepare for it, but I'll meet you at the docks and we can head out from there!||
+Statement:0|0|Best Friend|Serious|You don't need to do this on your own. 

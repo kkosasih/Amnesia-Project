@@ -1,0 +1,8 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0||
+Character:0|0|Neymour|U,U,R,R||
+Statement:0|0|Neymour|Neutral|You're back! Any news on Sherri?||
+Statement:0|0|Best Friend|Neutral|Yes, Sherri was posessed by a strange demon and fought with the Henry and me. But we defeated the demon and released her from it.||
+Statement:0|0|Best Friend|Neutral|For some reason, Sherri is still really shaken up, but she should be with Henry right now.||
+Statement:0|0|Neymour|Surprised|Wow that sounds so crazy! It's almost like those ancient myths about the Pandora's Box and mysterious island!||
+Question:0|0|Yeah, I am really beginning to believe it right now|Nah, I doubt it's connected with those superstitions.

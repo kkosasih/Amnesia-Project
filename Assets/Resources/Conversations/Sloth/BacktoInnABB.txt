@@ -1,0 +1,4 @@
+Camera:0|0|0|4,-5,-10||
+Mask:0|0|0.5|0,0,0,0||
+Statement:0|0|Best Friend|Confused|I-what? Nevermind, anyways, I'll leave you to it to open the package.||
+Statement:0|0|Best Friend|Neutral|Going to relax now. Let me know if you need anything.
