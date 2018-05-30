@@ -54,7 +54,7 @@ public class DialogueTracking {
             DialogueController.instance.ChangeConversation("LetsFindaJob/LetsFindaJob");
             return true;
         }
-        else if (!letsFindAJob && SceneManager.GetActiveScene().name == "Interior6" && bFFindsAJob)
+        else if (!letsFindAJob && SceneManager.GetActiveScene().name == "Interior6" && !letsFindAJob && bFFindsAJob)
 		{
 			bFFindsAJob = false;
 			DialogueController.instance.ChangeConversation("BFFindsJob/BFFindsJob");
