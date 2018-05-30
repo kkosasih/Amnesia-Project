@@ -26,6 +26,7 @@ public class DungeonRoom : Map {
         takenTiles = new Dictionary<StaticObject, int>();
         // Set up special tiles
         List<int> entrances = new List<int>();
+        List<int> dungeons = new List<int>();
         List<int> roomSwitches = new List<int>();
         // Match colors in the picture to tile type
         for (int i = 0; i < data.Count; ++i)
@@ -43,6 +44,11 @@ public class DungeonRoom : Map {
                 tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Entrance Tile"), transform));
                 entrances.Add(i);
             }
+            else if (data[i] == new Color(0, 1, 1))
+            {
+                tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Dungeon Entrance Tile")));
+                dungeons.Add(i);
+            }
             else if (data[i] == new Color(1, 1, 1))
             {
                 tiles.Add(Instantiate(Resources.Load<GameObject>("Tiles/Switch Tile"), transform));
@@ -55,7 +61,7 @@ public class DungeonRoom : Map {
             tiles[i].GetComponent<Tile>().UpdatePosition(new Vector2(i % width, -i / width));
         }
         // Add in the special tiles to the given locations
-        int entrancesI = 0, roomsI = 0;
+        int entrancesI = 0, roomsI = 0, dungeonsI = 0;
         if (entries[0].Trim().Length != 0)
         {
             Tile t;
@@ -81,6 +87,16 @@ public class DungeonRoom : Map {
                         r.moveTo = (Direction)int.Parse(args[2]);
                         t = tiles[roomSwitches[roomsI++]].GetComponent<Tile>();
                         r.PlaceOnMap(this, -(int)t.position.y * width + (int)t.position.x);
+                        break;
+                    case 'D':
+                        DungeonEntrance d = tiles[dungeons[dungeonsI]].GetComponent<DungeonEntrance>();
+                        args = entries[i].Split(':')[1].Split(',');
+                        d.sceneTo = args[0];
+                        d.tileFrom = int.Parse(args[1]);
+                        d.moveTo = (Direction)int.Parse(args[2]);
+                        d.roomTo = int.Parse(args[3]);
+                        t = tiles[dungeons[dungeonsI++]].GetComponent<Tile>();
+                        d.PlaceOnMap(this, -(int)t.position.y * width + (int)t.position.x);
                         break;
                     default:
                         Debug.Log("Invalid entry type");

@@ -44,7 +44,7 @@ public class Entrance : StaticObject {
 
     #region Coroutines
     // Teleport the player to the other side of the entrance
-    public IEnumerator TeleportPlayer ()
+    public virtual IEnumerator TeleportPlayer ()
     {
         // Set up object for its coroutine and start it
         transform.parent = null;
