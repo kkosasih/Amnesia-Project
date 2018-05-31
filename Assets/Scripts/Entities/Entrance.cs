@@ -15,7 +15,7 @@ public class Entrance : StaticObject {
     #endregion
 
     #region Event Functions
-    void Awake ()
+    protected virtual void Awake ()
     {
         _audioSource = GetComponent<AudioSource>();
         GetComponent<Interactible>().interact = StartTeleport;

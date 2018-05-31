@@ -15,14 +15,6 @@ public class DungeonEntrance : Entrance
 	
 	#region Events
     /// <summary>
-    /// Awake is called before Start
-    /// </summary>
-	private void Awake() 
-	{
-		
-	}
-
-    /// <summary>
     ///  Use this for initialization
     /// </summary>
     private void Start() 
