@@ -121,6 +121,7 @@ public class GameController : MonoBehaviour {
         {
             map = FindObjectOfType<Map>();
         }
+        CameraTracking.instance.UpdateMap();
     }
 
     // Save and load based on shift key
